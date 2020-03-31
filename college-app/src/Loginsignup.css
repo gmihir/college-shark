@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Font+Name');
+
+.Login, .Signup {
+  text-align: left;
+  height: 100vh;
+  font-family: 'Montserrat', cursive;
+  color: white;
+}
+
+.credentials {
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+}
+
+.email, .password {
+    border-radius: 20px;
+    width: 75vh;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 400;
+    text-indent: 10px;
+    text-align: left;
+    cursor: text;
+    border-color: white;
+    margin-top: 20vh;
+    
+}
+
+.login-button {
+    margin-top: 5vh;
+    width: 20vh;
+    border-radius: 20px;
+    height: 3vh;
+    margin-bottom: 50px;
+    background-color: white;
+    opacity: 90%;
+}
+
+.password {
+    margin-top: 10px;
+}
+
+.google-login-divide {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;   
+    width: 100%;
+    height: 10vh;
+}
+
+h2 {
+    width: 50px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+hr {
+    border: 0;
+    width: 20%;
+    color: blue;
+    background-color: white;
+    height: 3px;
+    margin-bottom: 45px;
+  }
+
+  .lineone {
+      margin-right: 7vh;
+  }
+
+  .linetwo { 
+      margin-left: 7vh;
+  }

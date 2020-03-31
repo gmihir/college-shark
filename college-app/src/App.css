@@ -1,9 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Font+Name');
+
 .App {
-  text-align: center;
+  text-align: left;
+  height: 100vh;
+  font-family: 'Montserrat', cursive;
+}
+
+.background {
+  background-image: url(./cambridge.jpeg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  opacity: 100%;
+}
+
+.App-logo-background {
+  width: 75%;
 }
 
 .App-logo {
-  height: 40vmin;
+  margin-top: 10px;
+  margin-left: 5px;
+  height: 60px;
   pointer-events: none;
 }
 
@@ -14,18 +33,77 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 20vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: left;
   font-size: calc(10px + 2vmin);
+}
+
+.features, .login, .signup{
+  font-size: 30px; 
+  margin-top: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.features {
+  padding-left: 30px;
+}
+
+.border-login {
+  margin-left: 150px;
+}
+
+.login {
+  word-spacing: 1px;
+  width: 11vh;
+  text-align: center;
+}
+
+.border-signup {
+  height: 60px;
+  border-radius: 25px;
+  margin-left: 0px;
+}
+.signup {
+  width: 15vh;
+  border-color: black;
+  text-align: center;
+}
+
+.slogan {
+  text-align: center;
+  font-size: 70px;
+  padding-bottom: 15px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.searchbar {
+  position: absolute;
+  padding-left: 25vh;
+}
+
+.bar{
+  border-radius: 20px;
+  width: 162vh;
+  height: 60px;
+  font-size: 25px;
+  font-weight: 400;
+  text-indent: 50px;
+  text-align: left;
+  cursor: text;
+}
+
+.advanced{
+  text-align: center;
+  padding-left: 150vh;
+  padding-top: 10px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
