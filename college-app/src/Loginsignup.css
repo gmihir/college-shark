@@ -20,24 +20,33 @@
     border-radius: 20px;
     width: calc(85vmin);
     height: calc(12vmin);
-    font-size: calc(15px + 2vmin);
+    font-size: calc(4vmin);
     font-weight: 400;
     text-indent: calc(3vmin);
     text-align: left;
     cursor: text;
     border-color: white;
-    margin-top: calc(20vmin);
+    margin-top: calc(25vmin);
+    border: none;
     
 }
 
 .login-button {
+    display: block;
     margin-top: calc(5vmin);
-    width: calc(20vmin);
+    width: calc(23vmin);
     border-radius: 20px;
-    height: calc(3vmin);
-    margin-bottom: calc(5vmin);
+    border: none;
+    text-align: center;
+    padding-top: calc(1vmin);
+    padding-bottom: calc(1vmin);
+    margin-bottom: calc(7vmin);
     background-color: white;
     opacity: 90%;
+}
+
+.login-button:hover {
+    background-color: rgb(177, 171, 171);
 }
 
 .password {

@@ -54,7 +54,7 @@
 }
 
 .border-login {
-  margin-left: calc(18vmin);
+  margin-left: calc(15vmin);
 }
 
 .login {
@@ -64,7 +64,7 @@
 
 .border-signup {
   border-radius: 25px;
-  margin-left: 0px;
+  margin-left: calc(1vmin);
 }
 .signup {
   width: calc(16vmin);
@@ -74,7 +74,8 @@
 
 .slogan {
   text-align: center;
-  font-size: calc(10px + 7vh);
+  padding-left: calc(4vmin);
+  font-size: calc(8.2vh);
   padding-bottom: calc(3vmin);
   color: white;
 }
