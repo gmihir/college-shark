@@ -1,0 +1,5 @@
+db-host: sql3.freesqldatabase.com
+db-name: sql3331540
+db-username: sql3331540
+db-password: EY6Khd9vPu
+db-port: 3306
