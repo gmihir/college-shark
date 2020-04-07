@@ -20,9 +20,9 @@
 }
 
 .App-logo {
-  margin-top: calc(5px + 1vmin);
-  margin-left: calc(5px - 1vmin);
-  height: calc(8vh + 1vmin);
+  margin-top: calc(0.5vmin);
+  margin-left: calc(0.5vmin);
+  height: calc(6.5vmin);
   pointer-events: none;
 }
 
@@ -33,18 +33,21 @@
 }
 
 .App-header {
-  height: calc(20vmin);
+  height: calc(8vmin);
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: left;
   font-size: calc(10px + 2vmin);
+  background-color: black;
+  margin-bottom: calc(12vmin);
+  opacity: 80%;
 }
 
 .features, .login, .signup{
-  font-size: calc(11px + 2vmin); 
-  margin-top: calc(1vmin);
+  font-size: calc(2.5vmin); 
+  margin-top: calc(1.8vmin);
   color: white;
   cursor: pointer;
 }
