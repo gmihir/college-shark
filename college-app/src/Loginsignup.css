@@ -33,7 +33,7 @@
     text-align: left;
     cursor: text;
     border-color: white;
-    margin-top: calc(25vmin);
+    margin-top: calc(55%);
     border: none;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .login-button-div {
-    margin-top: calc(5vmin);
+    margin-top: calc(4%);
     padding-bottom: calc(6vmin);
     padding-left: calc(1.7vmin);
 }
@@ -95,4 +95,8 @@ hr {
 
   .linetwo { 
       margin-left: calc(7vmin);
+  }
+
+  .google-button {
+      margin-top: calc(2%);
   }
