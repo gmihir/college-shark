@@ -86,6 +86,7 @@ h1 {
     justify-content: center;   
     width: 100%;
     height: calc(10vmin);
+    padding-left: calc(1.5vmin);
 }
 
 h2 {
