@@ -8,6 +8,8 @@ function Login() {
         <div className="Login">
             <div className="background">
                 <div className="credentials">
+                    <h1>This is a slogan</h1>
+                    
                     <div className="email-password">
                         <input className="email" type="text" placeholder="Email" />
                         <input className="password" type="text" placeholder="Password" />
@@ -22,7 +24,7 @@ function Login() {
                         <h2>Or</h2>
                         <hr className="linetwo"/> 
                     </div>
-                    <GoogleButton onClick={() => { console.log('Google button clicked') }} />
+                    <GoogleButton className="google-button" onClick={() => { console.log('Google button clicked') }} />
                 </div>
             </div>
         </div>
