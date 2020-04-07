@@ -16,6 +16,21 @@
     justify-content: center;
 }
 
+.slogan {
+    margin-top: calc(0vmin);
+    padding-top: calc(7%);
+    height: calc(8vmin);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    font-size: calc(6vmin);
+}
+
 .email-password {
     display: flex;
     flex-direction: column;
@@ -33,12 +48,12 @@
     text-align: left;
     cursor: text;
     border-color: white;
-    margin-top: calc(55%);
+    margin-top: calc(5%);
     border: none;
 }
 
 .password {
-    margin-top: calc(1vmin);
+    margin-top: calc(2%);
 }
 
 .login-button-div {

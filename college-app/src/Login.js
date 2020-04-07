@@ -7,9 +7,10 @@ function Login() {
     return (
         <div className="Login">
             <div className="background">
+                <div className="slogan">
+                    <h1>This is a slogan that Varun wants!</h1>
+                </div>
                 <div className="credentials">
-                    <h1>This is a slogan</h1>
-                    
                     <div className="email-password">
                         <input className="email" type="text" placeholder="Email" />
                         <input className="password" type="text" placeholder="Password" />
