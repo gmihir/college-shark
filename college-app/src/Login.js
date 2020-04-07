@@ -8,9 +8,15 @@ function Login() {
         <div className="Login">
             <div className="background">
                 <div className="credentials">
-                    <input className="email" type="text" placeholder="Email" />
-                    <input className="password" type="text" placeholder="Password" />
-                    <button className="login-button">Log in</button>
+                    <div className="email-password">
+                        <input className="email" type="text" placeholder="Email" />
+                        <input className="password" type="text" placeholder="Password" />
+                    </div>
+                    
+                    <div className="submit-button">
+                        <button className="login-button">Log in</button>
+                    </div>
+
                     <div className="google-login-divide">
                         <hr className="lineone" /> 
                         <h2>Or</h2>
