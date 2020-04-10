@@ -24,6 +24,8 @@ function Nav() {
                     <h2 className="dashboard">Dashboard</h2>
                 </Link>
             </div>
+            
+            <div className="space"></div>
 
             <div className="border-login">
                 <Link style={{ textDecoration: 'none' }} to="/login">
