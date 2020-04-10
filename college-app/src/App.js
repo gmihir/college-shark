@@ -7,11 +7,13 @@ import Features from './Features';
 import Login from './Login';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
+import Nav from './Nav';
 
 function App() {
   return (
     <Router>
       <div className="App">
+      <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/feature" component={Features} />
@@ -26,37 +28,6 @@ function App() {
 
 const Home = () => (
   <div className="background">
-    <div className="App-header">
-      <div className="App-logo-background">
-        <Link style={{ textDecoration: 'none'}} to="/">
-          <img src={logo} className="App-logo" alt="logo" />
-        </Link>
-      </div>
-      
-      <div className="border-features">
-        <Link style={{ textDecoration: 'none' }} to="/feature">
-          <h2 className="features">Features</h2>
-        </Link>
-      </div>
-
-      <div className="border-dashboard">
-        <Link style={{ textDecoration: 'none' }} to="/dashboard">
-          <h2 className="dashboard">Dashboard</h2>
-        </Link>
-      </div>
-
-      <div className="border-login">
-      <Link style={{ textDecoration: 'none' }} to="/login">
-        <h2 className="login">Login </h2>
-      </Link>
-      </div>
-
-      <div className="border-signup">
-        <Link style={{ textDecoration: 'none' }} to="/signup">
-          <h2 className="signup">Sign up</h2>
-        </Link>
-      </div>
-    </div>
 
     <div className="slogan">
       All your needs, organized. One Place.

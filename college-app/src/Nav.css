@@ -1,0 +1,42 @@
+.features, .login, .signup, .dashboard{
+    font-size: calc(2.5vmin); 
+    margin-top: calc(1.8vmin);
+    color: white;
+    cursor: pointer;
+  }
+  
+  .border-features {
+    margin-left: calc(0vmin);
+  }
+  
+  .features {
+    text-align: left;
+    width: calc(13vmin);
+  }
+  
+  .border-dashboard {
+    margin-left: calc(2vmin);
+  }
+  
+  .dashboard {
+    text-align: left;
+    width: calc(130vmin);
+  }
+  
+  .border-login {
+    margin-left: calc(15vmin);
+  }
+  
+  .login {
+    width: calc(10vmin);
+    text-align: center;
+  }
+  
+  .border-signup {
+    margin-left: calc(1vmin);
+  }
+  .signup {
+    width: calc(16vmin);
+    border-color: black;
+    text-align: center;
+  }

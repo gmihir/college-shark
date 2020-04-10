@@ -2,7 +2,7 @@
 
 .App {
   text-align: left;
-  height: 100vmin;
+  height: calc(100vmin);
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -11,7 +11,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
+  height: calc(100%);
   opacity: 100%;
 }
 
@@ -23,7 +23,8 @@
   margin-top: calc(0.5vmin);
   margin-left: calc(0.5vmin);
   height: calc(6.5vmin);
-  pointer-events: none;
+  cursor: pointer;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -39,53 +40,9 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: left;
-  font-size: calc(10px + 2vmin);
   background-color: black;
-  margin-bottom: calc(8vmin);
+  margin-bottom: calc(0vmin);
   opacity: 80%;
-}
-
-.features, .login, .signup, .dashboard{
-  font-size: calc(2.5vmin); 
-  margin-top: calc(1.8vmin);
-  color: white;
-  cursor: pointer;
-}
-
-.border-features {
-  margin-left: calc(5vmin);
-}
-
-.features {
-  text-align: left;
-  width: calc(13vmin);
-}
-
-.border-dashboard {
-  margin-left: calc(2vmin);
-}
-
-.dashboard {
-  text-align: left;
-  width: calc(130vmin);
-}
-
-.border-login {
-  margin-left: calc(15vmin);
-}
-
-.login {
-  width: calc(10vmin);
-  text-align: center;
-}
-
-.border-signup {
-  margin-left: calc(1vmin);
-}
-.signup {
-  width: calc(16vmin);
-  border-color: black;
-  text-align: center;
 }
 
 .slogan {
