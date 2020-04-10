@@ -16,7 +16,7 @@
 }
 
 .App-logo-background {
-  width: 75%;
+  width: calc(5%);
 }
 
 .App-logo {
@@ -41,19 +41,33 @@
   justify-content: left;
   font-size: calc(10px + 2vmin);
   background-color: black;
-  margin-bottom: calc(12vmin);
+  margin-bottom: calc(8vmin);
   opacity: 80%;
 }
 
-.features, .login, .signup{
+.features, .login, .signup, .dashboard{
   font-size: calc(2.5vmin); 
   margin-top: calc(1.8vmin);
   color: white;
   cursor: pointer;
 }
 
+.border-features {
+  margin-left: calc(5vmin);
+}
+
 .features {
-  padding-left: calc(10px + 2vmin);
+  text-align: left;
+  width: calc(13vmin);
+}
+
+.border-dashboard {
+  margin-left: calc(2vmin);
+}
+
+.dashboard {
+  text-align: left;
+  width: calc(130vmin);
 }
 
 .border-login {
@@ -66,7 +80,6 @@
 }
 
 .border-signup {
-  border-radius: 25px;
   margin-left: calc(1vmin);
 }
 .signup {

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Features from './Features';
 import Login from './Login';
 import Signup from './Signup';
+import Dashboard from './Dashboard';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/feature" component={Features} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
         </Switch>
@@ -26,11 +28,22 @@ const Home = () => (
   <div className="background">
     <div className="App-header">
       <div className="App-logo-background">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Link style={{ textDecoration: 'none'}} to="/">
+          <img src={logo} className="App-logo" alt="logo" />
+        </Link>
       </div>
-      <Link style={{ textDecoration: 'none' }} to="/feature">
-        <h2 className="features">Features</h2>
-      </Link>
+      
+      <div className="border-features">
+        <Link style={{ textDecoration: 'none' }} to="/feature">
+          <h2 className="features">Features</h2>
+        </Link>
+      </div>
+
+      <div className="border-dashboard">
+        <Link style={{ textDecoration: 'none' }} to="/dashboard">
+          <h2 className="dashboard">Dashboard</h2>
+        </Link>
+      </div>
 
       <div className="border-login">
       <Link style={{ textDecoration: 'none' }} to="/login">

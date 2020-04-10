@@ -1,9 +1,8 @@
 import React from 'react';
 import './Loginsignup.css';
 import './App.css';
-import GoogleButton from 'react-google-button';
 
-function Login() {
+function Dashboard() {
     return (
         <div className="Login">
             <div className="background">
@@ -25,11 +24,10 @@ function Login() {
                         <h2>Or</h2>
                         <hr className="linetwo"/> 
                     </div>
-                    <GoogleButton className="google-button" onClick={() => { console.log('Google button clicked') }} />
                 </div>
             </div>
         </div>
     );
 }
 
-export default Login;
+export default Dashboard;
