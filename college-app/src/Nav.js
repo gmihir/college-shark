@@ -5,39 +5,31 @@ import { Link } from 'react-router-dom';
 
 function Nav() {
     return (
-        <div className="App-header">
-            <div className="App-logo-background">
+        <nav>
+            <ul className="navbar">
                 <Link style={{ textDecoration: 'none' }} to="/">
-                    <img src={logo} className="App-logo" alt="logo" />
+                    <li>
+                        <img src={logo} className="App-logo" alt="logo" />
+                    </li>
                 </Link>
-            </div>
 
-            <div className="border-features">
                 <Link style={{ textDecoration: 'none' }} to="/feature">
-                    <h2 className="features">Features</h2>
+                    <li className="features-link">Features</li>
                 </Link>
-            </div>
 
-            <div className="border-dashboard">
                 <Link style={{ textDecoration: 'none' }} to="/dashboard">
-                    <h2 className="dashboard">Dashboard</h2>
-                </Link>
-            </div>
-            
-            <div className="space"></div>
+                    <li className="dashboard-link">Dashboard</li>
+                </Link>  
 
-            <div className="border-login">
                 <Link style={{ textDecoration: 'none' }} to="/login">
-                    <h2 className="login">Login </h2>
-                </Link>
-            </div>
+                    <li className="login-link">Login</li>
+                </Link>  
 
-            <div className="border-signup">
                 <Link style={{ textDecoration: 'none' }} to="/signup">
-                    <h2 className="signup">Sign up</h2>
-                </Link>
-            </div>
-        </div>
+                    <li className="signup-link">Sign up</li>
+                </Link>        
+            </ul>
+        </nav>
     );
 }
 

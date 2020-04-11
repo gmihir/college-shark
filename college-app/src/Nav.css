@@ -1,10 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Font+Name');
+
+nav {
+  display: flex;
+  height: calc(9%);
+  background-color: black;
+  opacity: 80%;
+}
+
+.navbar {
+  width: calc(100%);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  list-style: none;  
+  font: 'Montserrat', cursive;
+}
+
+li {
+  color: white;
+  font-size: calc(2.5vmin);
+}
+
+.features-link {
+  margin-left: calc(2vmin);
+}
+
+.dashboard-link {
+  margin-left: calc(5vmin);
+}
+
+.login-link {
+  margin-left: calc(65vw);
+}
+
+.signup-link {
+  margin-left: calc(3vw);
+}
+
 .App-logo-background {
-  width: calc(5%);
+  width: calc(4%);
+  justify-content: start;
+  align-items: center;
+  border: 1px solid white;
 }
 
 .App-logo {
   margin-top: calc(0.5vmin);
-  margin-left: calc(0.5vmin);
+  margin-left: calc(0vmin);
   height: calc(6.5vmin);
   cursor: pointer;
 }
@@ -14,73 +56,3 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
-.App-header {
-  height: calc(8vmin);
-  width: calc(100%);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: left;
-  background-color: black;
-  margin-bottom: calc(0vmin);
-  opacity: 70%;
-}
-
-.features, .login, .signup, .dashboard{
-    font-size: calc(2.5vmin); 
-    margin-top: calc(2vmin);
-    color: white;
-    cursor: pointer;
-  }
-  
-  .border-features {
-    margin-left: calc(0vmin);
-    padding-left: calc(1vmin);
-    cursor: pointer;
-  }
-  
-  .features {
-    text-align: left;
-    width: calc(13vmin);
-    margin-left: calc(1vmin);
-    padding-left: calc(1vmin);
-  }
-  
-  .border-dashboard {
-    margin-left: calc(2vmin);
-  }
-  
-  .dashboard {
-    text-align: left;
-    width: calc(5vmin);
-  }
-
-  .space {
-    width: calc(64%);
-  }
-
-  .login, .signup {
-    margin-right: calc(2vmin);
-  }
-  
-  .border-login {
-    margin-left: calc(15vmin);
-  }
-  
-  .login {
-    width: calc(10vmin);
-    text-align: center;
-  }
-  
-  .border-signup {
-    margin-left: calc(1vmin);
-    width: calc(15vmin);
-    padding-right: calc(1vmin);
-  }
-
-  .signup {
-    border-color: black;
-    width: calc(12vmin);
-    margin-right: calc(0%);
-  }
