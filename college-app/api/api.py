@@ -1,3 +1,4 @@
+
 import time
 from flask import Flask
 import mysql.connector
@@ -6,25 +7,31 @@ import mysql.connector
 
 app = Flask(__name__)
 
-#just testing the connection between mysql database and python -- works so far locally but not in repo
-def query_test():
-    mydb = mysql.connector.connect(
-        host="sql3.freesqldatabase.com",
-        user="sql3331540",
-        passwd="EY6Khd9vPu",
-        database="sql3331540"
-    )
+db_sql = mysql.connector.connect(
+    host="sql3.freesqldatabase.com",
+    user="sql3331540",
+    passwd="EY6Khd9vPu",
+    database="sql3331540"
+    ) 
 
-    mycursor = mydb.cursor()
+#method to query the SQL database with standard SQL syntax
+#returns a list 
+def get_query(query):
 
-    mycursor.execute("SELECT * FROM college_test WHERE Recorder = 'Mihir';")
+
+    mycursor = db_sql.cursor()
+
+    mycursor.execute(query)
     myresult = mycursor.fetchall()
 
-    for x in myresult:
-        print(x)
-        
-query_test()
+    return myresult
+
+
+lst = get_query("SELECT * FROM college_test WHERE Recorder = 'Ashwin';")
+for x in lst:
+    print(x)
+
+
 @app.route('/time')
 def get_current_time():
     return {'time': time.time()}
-
