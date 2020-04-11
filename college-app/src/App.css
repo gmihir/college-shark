@@ -2,6 +2,7 @@
 
 .App {
   text-align: left;
+  width: calc(100%);
   height: calc(100vmin);
   font-family: 'Montserrat', sans-serif;
   background-image: url(./cambridge.jpeg);
@@ -17,9 +18,16 @@
 .slogan {
   text-align: center;
   padding-left: calc(4vmin);
-  font-size: calc(8.2vh);
   padding-bottom: calc(3vmin);
+  justify-content: center;
+  align-items: center;
   color: white;
+  margin-right: calc(1vmin);
+  margin-left: calc(1vmin);
+}
+
+.slogan-text {
+  font-size: calc(4.3vw);  
 }
 
 .searchbar {
@@ -31,10 +39,10 @@
   margin-left: calc(19vmin);
   border-radius: 20px;
   width: calc(100% - 35vmin);
-  height: calc(40px + 2vmin);
-  font-size: calc(7px + 2vmin);
+  height: calc(6.5vmin);
+  font-size: calc(2.5vmin);
   font-weight: 400;
-  text-indent: calc(20px + 2vmin);
+  text-indent: calc(3vmin);
   text-align: left;
   cursor: text;
 }

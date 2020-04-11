@@ -1,8 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
 import './Nav.css';
-import { BrowserRouter as Router, Switch, Route, Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Nav() {
     return (

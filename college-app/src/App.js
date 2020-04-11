@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Features from './Features';
 import Login from './Login';
@@ -30,7 +29,7 @@ const Home = () => (
   <div className="background">
 
     <div className="slogan">
-      All your needs, organized. One Place.
+      <h1 className="slogan-text">All your needs, organized. One Place.</h1>
     </div>
 
     <div className="searchbar">

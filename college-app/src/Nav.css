@@ -29,13 +29,15 @@
 
 .features, .login, .signup, .dashboard{
     font-size: calc(2.5vmin); 
-    margin-top: calc(1.8vmin);
+    margin-top: calc(2vmin);
     color: white;
     cursor: pointer;
   }
   
   .border-features {
     margin-left: calc(0vmin);
+    padding-left: calc(1vmin);
+    cursor: pointer;
   }
   
   .features {
