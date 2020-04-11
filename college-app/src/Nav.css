@@ -4,16 +4,19 @@ nav {
   display: flex;
   height: calc(8.5%);
   background-color: black;
-  opacity: 80%;
+  opacity: 75%;
 }
 
 .navbar {
   width: calc(100%);
+  padding-left: calc(0vmin);
+  margin-right: calc(1vmin);
   display: flex;
   justify-content: left;
   align-items: center;
   list-style: none;  
-  font-family: 'Lato', ;
+  font-family: 'Lato';
+  cursor: default;
 }
 
 li {
@@ -29,8 +32,8 @@ li {
   margin-left: calc(5vmin);
 }
 
-.login-link {
-  margin-left: calc(66.5vw);
+.space-between-tabs {
+  margin-left: calc(70vw);
 }
 
 .signup-link {

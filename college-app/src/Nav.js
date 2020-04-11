@@ -19,7 +19,9 @@ function Nav() {
 
                 <Link style={{ textDecoration: 'none' }} to="/dashboard">
                     <li className="dashboard-link">Dashboard</li>
-                </Link>  
+                </Link>
+
+                <div className="space-between-tabs"></div>
 
                 <Link style={{ textDecoration: 'none' }} to="/login">
                     <li className="login-link">Login</li>
