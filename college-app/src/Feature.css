@@ -2,6 +2,10 @@
 
 .Features {
     text-align: left;
-    height: 100vh;
     font-family: 'Montserrat', cursive;
+}
+
+.background-feature {
+    background-color: rgb(25, 119, 173);
+    height: calc(100vmin);
 }

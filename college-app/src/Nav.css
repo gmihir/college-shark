@@ -2,7 +2,7 @@
 
 nav {
   display: flex;
-  height: calc(9%);
+  height: calc(8.5%);
   background-color: black;
   opacity: 80%;
 }
@@ -13,7 +13,7 @@ nav {
   justify-content: left;
   align-items: center;
   list-style: none;  
-  font: 'Montserrat', cursive;
+  font-family: 'Montserrat', cursive;
 }
 
 li {
@@ -30,18 +30,17 @@ li {
 }
 
 .login-link {
-  margin-left: calc(65vw);
+  margin-left: calc(66.5vw);
 }
 
 .signup-link {
-  margin-left: calc(3vw);
+  margin-left: calc(2vw);
 }
 
 .App-logo-background {
   width: calc(4%);
   justify-content: start;
   align-items: center;
-  border: 1px solid white;
 }
 
 .App-logo {
@@ -54,5 +53,14 @@ li {
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

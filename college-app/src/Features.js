@@ -1,13 +1,14 @@
 import React from 'react';
 import './Feature.css';
-import './App.css';
+
+import Nav from './Nav';
 
 function Features() {
     return (
-        <div className="Features">
-            <div className="background"></div>
+        <div className="background-feature">
+            <Nav />    
         </div>
     );
-  }
+}
 
-  export default Features;
+export default Features;

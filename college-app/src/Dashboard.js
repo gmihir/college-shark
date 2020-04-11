@@ -1,11 +1,13 @@
 import React from 'react';
-import './Loginsignup.css';
-import './App.css';
+import './Dashboard.css';
+
+import Nav from './Nav';
 
 function Dashboard() {
     return (
-        <div className="Login">
-            <div className="background">
+        <div className="body-dash">
+            <div className="background-dash">
+                <Nav />
                 <div className="slogan">
                     <h1>This is a slogan that Varun wants!</h1>
                 </div>
@@ -14,15 +16,9 @@ function Dashboard() {
                         <input className="email" type="text" placeholder="Email" />
                         <input className="password" type="text" placeholder="Password" />
                     </div>
-                    
+
                     <div className="login-button-div">
                         <button className="login-button">Log in</button>
-                    </div>
-
-                    <div className="google-login-divide">
-                        <hr className="lineone" /> 
-                        <h2>Or</h2>
-                        <hr className="linetwo"/> 
                     </div>
                 </div>
             </div>
