@@ -22,8 +22,8 @@ def query_test():
 
     for x in myresult:
         print(x)
-
-
+        
+query_test()
 @app.route('/time')
 def get_current_time():
     return {'time': time.time()}
