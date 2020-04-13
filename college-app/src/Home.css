@@ -8,17 +8,57 @@
 
 .Background-home-page {
   opacity: 100%;
-  background-image: url(./cambridge.jpeg);
+  background-color: rgb(49, 45, 45);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: calc(100vmin);
 }
 
-.slogan {
+.searchbar {
+  width: 100%;
   text-align: center;
+}
+
+.bar{
+  margin-top: calc(4vw);
+  border-radius: calc(20px);
+  width: calc(70vmin);
+  height: calc(5.5vmin);
+  font-size: calc(2.5vmin);
+  font-weight: 400;
+  text-indent: calc(3vmin);
+  text-align: left;
+  cursor: text;
+}
+
+.advanced-box {
+  width: calc(100%);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.advanced{
+  text-align: center;
+  margin-left: calc(130vmin);
+  font-size: calc(1.5vmin);
+  padding-top: calc(1vmin);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.slogan-image {
+  width: calc(100%);
+  display: inline-block;
+
+}
+
+.slogan, .description-website {
+  border: 1px solid white;
+  width: calc(40%);
   padding-left: calc(4vmin);
-  padding-bottom: calc(3vmin);
   justify-content: center;
   align-items: center;
   color: white;
@@ -27,33 +67,16 @@
 }
 
 .slogan-text {
-  font-size: calc(4.3vw);
+  text-align: left;
+  font-size: calc(4.3vmin);
   cursor: default;  
 }
 
-.searchbar {
-  width: 100%;
-  align-items: center;
-}
-
-.bar{
-  margin-left: calc(19vmin);
-  border-radius: 20px;
-  width: calc(100% - 35vmin);
-  height: calc(6.5vmin);
-  font-size: calc(2.5vmin);
-  font-weight: 400;
-  text-indent: calc(3vmin);
+.description-website {
   text-align: left;
-  cursor: text;
 }
 
-.advanced{
-  text-align: center;
-  width: calc(15vmin);
-  margin-left: calc(100% - 30vmin);
-  padding-top: calc(1vmin);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
+p {
+  font-size: calc(2.3vmin);
+  cursor: default;  
 }
