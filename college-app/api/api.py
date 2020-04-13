@@ -16,6 +16,7 @@ db_sql = mysql.connector.connect(
 
 #method to query the SQL database with standard SQL syntax
 #returns a list 
+#colleges is the table where accurate information is stored
 def get_query(query):
 
 
@@ -27,7 +28,7 @@ def get_query(query):
     return myresult
 
 
-lst = get_query("SELECT * FROM college_test WHERE Recorder = 'Ashwin';")
+lst = get_query("SELECT * FROM colleges WHERE Recorder = 'Kai';")
 for x in lst:
     print(x)
 
