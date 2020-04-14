@@ -3,16 +3,21 @@
 .App {
   text-align: left;
   width: calc(100%);
-  font-family: 'Lato';
+  font-family: 'Montserrat';
 }
 
 .Background-home-page {
   opacity: 100%;
-  background-color: rgb(49, 45, 45);
+  background-color: rgb(44, 42, 42);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: calc(100vmin);
+}
+
+.logo-header {
+  color: white;
+  margin-bottom: calc(2vmin);
 }
 
 .searchbar {
@@ -20,16 +25,40 @@
   text-align: center;
 }
 
+.search-bar {
+  height: calc(6vmin);
+  justify-content: center;
+  align-items: center;
+  display: flex; 
+}
+
 .bar{
-  margin-top: calc(4vw);
-  border-radius: calc(20px);
-  width: calc(70vmin);
-  height: calc(5.5vmin);
-  font-size: calc(2.5vmin);
+  width: calc(60vmin);
+  font-size: calc(1.8vmin);
   font-weight: 400;
   text-indent: calc(3vmin);
   text-align: left;
   cursor: text;
+  padding: calc(1.3vmin);
+  border: none;
+  float: left;
+  background: rgb(94, 92, 92);
+}
+
+.search-button {
+  float: left;
+  width: calc(5%);
+  padding: calc(1.3vmin);
+  background: rgb(94, 92, 92);
+  color: white;
+  font-size: calc(1.8vmin);
+  border: none;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background: rgb(60, 60, 60);
 }
 
 .advanced-box {
@@ -37,13 +66,14 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+  display: flex;
 }
 
 .advanced{
   text-align: center;
-  margin-left: calc(130vmin);
+  margin-left: calc(63vmin);
   font-size: calc(1.5vmin);
-  padding-top: calc(1vmin);
+  padding-top: calc(0vmin);
   color: white;
   font-weight: 700;
   cursor: pointer;
@@ -51,13 +81,14 @@
 
 .slogan-image {
   width: calc(100%);
-  display: inline-block;
+  display: flex;
+}
 
+.description-slogan {
+  width: calc(35%);
 }
 
 .slogan, .description-website {
-  border: 1px solid white;
-  width: calc(40%);
   padding-left: calc(4vmin);
   justify-content: center;
   align-items: center;
@@ -70,13 +101,15 @@
   text-align: left;
   font-size: calc(4.3vmin);
   cursor: default;  
+  margin-bottom: calc(0vmin);
 }
 
-.description-website {
+.description {
+  font-size: calc(2.3vmin);
+  cursor: default;  
   text-align: left;
 }
 
-p {
-  font-size: calc(2.3vmin);
-  cursor: default;  
+.vector-image {
+  margin-left: calc(50vmin);
 }
