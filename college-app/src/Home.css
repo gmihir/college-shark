@@ -85,7 +85,8 @@
 }
 
 .description-slogan {
-  width: calc(35%);
+  width: calc(30%);
+  padding-left: calc(25vmin);
 }
 
 .slogan, .description-website {
@@ -93,8 +94,8 @@
   justify-content: center;
   align-items: center;
   color: white;
-  margin-right: calc(1vmin);
-  margin-left: calc(1vmin);
+  padding-right: calc(1vmin);
+  padding-left: calc(1vmin);
 }
 
 .slogan-text {
@@ -111,5 +112,5 @@
 }
 
 .vector-image {
-  margin-left: calc(50vmin);
+  padding-left: calc(30vmin);
 }

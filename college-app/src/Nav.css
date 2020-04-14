@@ -9,8 +9,8 @@ nav {
 
 .navbar {
   width: calc(100%);
-  padding-left: calc(0vmin);
-  margin-right: calc(1vmin);
+  padding-left: calc(0%);
+  padding-right: calc(1%);
   display: flex;
   justify-content: left;
   align-items: center;
@@ -25,19 +25,19 @@ li {
 }
 
 .features-link {
-  margin-left: calc(2vmin);
+  padding-left: calc(2vmin);
 }
 
 .dashboard-link {
-  margin-left: calc(5vmin);
+  padding-left: calc(5vmin);
 }
 
 .space-between-tabs {
-  margin-left: calc(70vw);
+  padding-left: calc(70vw);
 }
 
 .signup-link {
-  margin-left: calc(2vw);
+  padding-left: calc(2vw);
 }
 
 .App-logo-background {
@@ -47,8 +47,8 @@ li {
 }
 
 .App-logo {
-  margin-top: calc(0.5vmin);
-  margin-left: calc(0vmin);
+  padding-top: calc(0.5vmin);
+  padding-left: calc(0vmin);
   height: calc(6.5vmin);
   cursor: pointer;
 }
