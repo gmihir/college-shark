@@ -3,6 +3,7 @@
 .App {
   text-align: left;
   width: calc(100%);
+  height: calc(100%);
   font-family: 'Montserrat';
 }
 
@@ -43,6 +44,7 @@
   border: none;
   float: left;
   background: rgb(94, 92, 92);
+  color: white;
 }
 
 .search-button {
@@ -58,7 +60,7 @@
 }
 
 .search-button:hover {
-  background: rgb(60, 60, 60);
+  background: rgb(160, 157, 157);
 }
 
 .advanced-box {

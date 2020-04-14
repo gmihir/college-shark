@@ -25,19 +25,25 @@ li {
 }
 
 .features-link {
-  padding-left: calc(2vmin);
+  margin-left: calc(2vmin);
 }
 
 .dashboard-link {
-  padding-left: calc(5vmin);
+  margin-left: calc(5vmin);
 }
 
 .space-between-tabs {
-  padding-left: calc(70vw);
+  margin-left: calc(70vw);
+}
+
+.login-link {
+  padding-left: calc(1vmin);
 }
 
 .signup-link {
-  padding-left: calc(2vw);
+  margin-left: calc(2vw);
+  width: calc(100%);
+  text-align: center;
 }
 
 .App-logo-background {
