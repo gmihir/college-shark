@@ -7,10 +7,15 @@ app = Flask(__name__)
 
 db_sql = mysql.connector.connect(
     host="sql3.freesqldatabase.com",
-    user="sql3331540",
-    passwd="EY6Khd9vPu",
-    database="sql3331540"
+    user="sql3334027",
+    passwd="3VGxcUIijX",
+    database="sql3334027"
 )
+
+#TO QUERY, CALL get_colleges()
+# pass in: list of strings, anything with numbers or dates indicate with +/- (always inclusive)
+# date format needs to be DD.MM.YYYY
+#returns list of JSON objects with college information
 
 
 # GLOBAL LISTS
@@ -40,7 +45,7 @@ def get_query(query):
 # pass in: list of strings, anything with numbers or dates indicate with +/- (always inclusive)
 # date format needs to be DD.MM.YYYY
 def get_colleges(query_lst):
-    query = "SELECT * FROM colleges"
+    query = "SELECT * FROM colleges_final"
 
     if len(query_lst) == 0:
         return query
@@ -62,14 +67,30 @@ def get_colleges(query_lst):
         if i != len(query_lst) - 2:
             query += " AND"
 
+    print(query)
     results = get_query(query)
-    retVal = []
+    toBeSorted = []
 
     # convert to json
     for element in results:
-        retVal.append(get_json(element))
+        toBeSorted.append(College(element))
 
-    return retVal
+    sortedArr = mergeSort(toBeSorted)
+
+    json = []
+
+    for college in sortedArr:
+        json.append(college.get_json)
+
+    return json
+
+
+def sortBy(jsonArr, param):
+    collegeArr = []
+    for c in jsonArr:
+        collegeArr.append(College(c))
+
+    return mergeSort(collegeArr, param)
 
 
 def get_epoch(date_time):
@@ -85,11 +106,62 @@ def get_json(query_result):
         json_obj[headers[i]] = query_result[i]
     return json.dumps(json_obj)
 
+#QUERY TESTING
+lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
 
-# lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
-#
-# for i in lst:
-#     print(i)
+for i in lst:
+   print(i)
+
+class College(object):
+    def __init__(self, query_result):
+        self.info = query_result
+
+    def get_json(self):
+        json_obj = {}
+        for i in range(len(self.info)):
+            json_obj[headers[i]] = self.info[i]
+        return json.dumps(json_obj)
+
+    def order(self, college_obj, param):
+        index = headers.index(param)
+        return self.info[index] > college_obj.info[index]
+
+
+def mergeSort(arr, param="national_ranking"): 
+    if len(arr) >1: 
+        mid = len(arr)//2 #Finding the mid of the array 
+        L = arr[:mid] # Dividing the array elements  
+        R = arr[mid:] # into 2 halves 
+  
+        mergeSort(L) # Sorting the first half 
+        mergeSort(R) # Sorting the second half 
+  
+        i = j = k = 0
+          
+        # Copy data to temp arrays L[] and R[] 
+        while i < len(L) and j < len(R): 
+            if L[i].order(R[j]): 
+                arr[k] = L[i] 
+                i+=1
+            else: 
+                arr[k] = R[j] 
+                j+=1
+            k+=1
+          
+        # Checking if any element was left 
+        while i < len(L): 
+            arr[k] = L[i] 
+            i+=1
+            k+=1
+          
+        while j < len(R): 
+            arr[k] = R[j] 
+            j+=1
+            k+=1
+  
+
+    
+
 
 
 @app.route('/time')
