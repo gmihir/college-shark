@@ -12,6 +12,11 @@ db_sql = mysql.connector.connect(
     passwd="3VGxcUIijX",
     database="sql3334027"
 )
+#for varun
+# SQL_HOST = sql3.freesqldatabase.com"
+# SQL_USER= sql3334027
+# SQL_PASSWD = 3VGxcUIijX
+# SQL_DB = sql3334027
 
 # method to query the SQL database with standard SQL syntax
 # returns a list
