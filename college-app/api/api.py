@@ -2,6 +2,7 @@ import time
 import json
 from flask import Flask
 import mysql.connector
+from sql_helpers import *
 
 app = Flask(__name__)
 
@@ -12,24 +13,6 @@ db_sql = mysql.connector.connect(
     database="sql3334027"
 )
 
-#TO QUERY, CALL get_colleges()
-# pass in: list of strings, anything with numbers or dates indicate with +/- (always inclusive)
-# date format needs to be DD.MM.YYYY
-#returns list of JSON objects with college information
-
-
-# GLOBAL LISTS
-numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition', 'fee', 'ed_date', 'ea_date', 'rd_date',
-               'scholarship_date']
-dates = ['ed_date, ea_date', 'rd_date', 'scholarship_date']
-headers = ["college_name", "recorder", "resume", "official_transcripts", "mid_year_report", "letters_of_rec",
-           "letters_people",
-           "sat/act", "sat_essay", "act_essay", "self_report_act", "subject_tests", "self_report_subject",
-           "general_essay", "supplemental_essay", "acceptance_rate", "national_ranking", "population",
-           "tuition", "ed_date", "ea_date", "rd_date", "scholarship_date", "interview", "fee", "application"
-           ]
-
-
 # method to query the SQL database with standard SQL syntax
 # returns a list
 # colleges is the table where accurate information is stored
@@ -39,13 +22,15 @@ def get_query(query):
     mycursor.execute(query)
     myresult = mycursor.fetchall()
 
-    return myresult
+    return myresult     
 
 
+#TO QUERY, CALL get_colleges()
 # pass in: list of strings, anything with numbers or dates indicate with +/- (always inclusive)
 # date format needs to be DD.MM.YYYY
+#returns list of JSON objects with college information
 def get_colleges(query_lst):
-    query = "SELECT * FROM colleges_final"
+    query = "SELECT * FROM colleges_updated"
 
     if len(query_lst) == 0:
         return query
@@ -71,98 +56,55 @@ def get_colleges(query_lst):
     results = get_query(query)
     toBeSorted = []
 
-    # convert to json
+    # convert to college object
     for element in results:
-        toBeSorted.append(College(element))
+        c = College(element)
+        toBeSorted.append(c)
 
-    sortedArr = mergeSort(toBeSorted)
 
+    mergeSort(toBeSorted)
     json = []
 
-    for college in sortedArr:
-        json.append(college.get_json)
+    for college in toBeSorted:
+        json.append(college.get_json())
 
     return json
 
-
-def sortBy(jsonArr, param):
-    collegeArr = []
-    for c in jsonArr:
-        collegeArr.append(College(c))
-
-    return mergeSort(collegeArr, param)
-
-
-def get_epoch(date_time):
-    date_time += ' 00:00:00'
-    pattern = "%d.%m.%Y %H:%M:%S"
-    epoch = int(time.mktime(time.strptime(date_time, pattern)))
-    return epoch
+#json_lst is a list of JSON objects with headers
+#param is desired parameter to sort by
+#is_descending is true if descending order required
+#will return sorted list of json colleges
+def get_order(json_lst, param, is_descending):
+    json_out = []
+    colleges = []
 
 
-def get_json(query_result):
-    json_obj = {}
-    for i in range(len(query_result)):
-        json_obj[headers[i]] = query_result[i]
-    return json.dumps(json_obj)
+    for element in json_lst:
+        element = json.loads(element)
+        element = [ v for v in dict.values(element) ]
+        c = College(element)
+        colleges.append(c)
 
+
+    mergeSort(colleges, param)
+
+    for college in colleges:
+        json_out.append(college.get_json())
+
+    if not is_descending:
+        json_out.reverse()
+    
+    return json_out
+
+
+
+    
 #QUERY TESTING
 lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
+lst = get_order(lst, "tuition_oos", True)
 
 for i in lst:
    print(i)
-
-class College(object):
-    def __init__(self, query_result):
-        self.info = query_result
-
-    def get_json(self):
-        json_obj = {}
-        for i in range(len(self.info)):
-            json_obj[headers[i]] = self.info[i]
-        return json.dumps(json_obj)
-
-    def order(self, college_obj, param):
-        index = headers.index(param)
-        return self.info[index] > college_obj.info[index]
-
-
-def mergeSort(arr, param="national_ranking"): 
-    if len(arr) >1: 
-        mid = len(arr)//2 #Finding the mid of the array 
-        L = arr[:mid] # Dividing the array elements  
-        R = arr[mid:] # into 2 halves 
-  
-        mergeSort(L) # Sorting the first half 
-        mergeSort(R) # Sorting the second half 
-  
-        i = j = k = 0
-          
-        # Copy data to temp arrays L[] and R[] 
-        while i < len(L) and j < len(R): 
-            if L[i].order(R[j]): 
-                arr[k] = L[i] 
-                i+=1
-            else: 
-                arr[k] = R[j] 
-                j+=1
-            k+=1
-          
-        # Checking if any element was left 
-        while i < len(L): 
-            arr[k] = L[i] 
-            i+=1
-            k+=1
-          
-        while j < len(R): 
-            arr[k] = R[j] 
-            j+=1
-            k+=1
-  
-
-    
-
-
 
 @app.route('/time')
 def get_current_time():
