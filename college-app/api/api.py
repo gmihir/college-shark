@@ -1,5 +1,6 @@
 import time
 import json
+import os
 from flask import Flask
 import mysql.connector
 from sql_helpers import *
@@ -7,10 +8,10 @@ from sql_helpers import *
 app = Flask(__name__)
 
 db_sql = mysql.connector.connect(
-    host=SQL_HOST,
-    user=SQL_USER,
-    passwd=SQL_PASSWD,
-    database=SQL_DB
+    host=os.environ.get("SQL_HOST"),
+    user=os.environ.get("SQL_USER"),
+    passwd=os.environ.get("SQL_PASSWD"),
+    database=os.environ.get("SQL_DB")
 )
 #for varun
 # SQL_HOST = sql3.freesqldatabase.com"
@@ -105,11 +106,11 @@ def get_order(json_lst, param, is_descending):
 
     
 # #QUERY TESTING
-# lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
-# lst = get_order(lst, "tuition_oos", True)
-#
-# for i in lst:
-#    print(i)
+lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
+lst = get_order(lst, "tuition_oos", True)
+
+for i in lst:
+   print(i)
 
 @app.route('/time')
 def get_current_time():
