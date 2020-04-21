@@ -1,2 +1,2 @@
-FLASK_APP=api.py
-FLASK_ENV="webapp"
+export FLASK_APP=api.py
+cdFLASK_ENV=development
