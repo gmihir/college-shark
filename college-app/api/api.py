@@ -111,6 +111,6 @@ lst = get_order(lst, "tuition_oos", True)
 for i in lst:
    print(i)
 
-@app.route('/time', methods=["FETCH"])
+@app.route('/time')
 def get_current_time():
     return {'time': time.time()}
