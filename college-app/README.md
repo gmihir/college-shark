@@ -4,8 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Open two terminals
 
-To begin, `npm install` to make sure you're not missing any node modules. Now this terminal will run the front end. Run 
-`yarn start`. This will open the app on a new tab on your default browser to localhost:3000. 
+To begin, `npm install` to make sure you're not missing any node modules. Next, do `source .bash-source`. This will make sure the enviornment variables are set. 
+
+Now this terminal will run the front end. Run `yarn start`. This will open the app on a new tab on your default browser to localhost:3000. 
 
 The second terminal will run the back end:
 `yarn start-api`
