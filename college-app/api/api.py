@@ -7,16 +7,16 @@ from sql_helpers import *
 app = Flask(__name__)
 
 db_sql = mysql.connector.connect(
-    host="sql3.freesqldatabase.com",
-    user="sql3334027",
-    passwd="3VGxcUIijX",
-    database="sql3334027"
+    host=SQL_HOST,
+    user=SQL_USER,
+    passwd=SQL_PASSWD,
+    database=SQL_DB
 )
 #for varun
 # SQL_HOST = sql3.freesqldatabase.com"
-# SQL_USER= sql3334027
-# SQL_PASSWD = 3VGxcUIijX
-# SQL_DB = sql3334027
+# export SQL_USER= sql3334027
+# export SQL_PASSWD = 3VGxcUIijX
+# export SQL_DB = sql3334027
 
 # method to query the SQL database with standard SQL syntax
 # returns a list

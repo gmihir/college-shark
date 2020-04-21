@@ -1,0 +1,4 @@
+export SQL_HOST=sql3.freesqldatabase.com
+export SQL_USER=sql3334027
+export SQL_PASSWD=3VGxcUIijX
+export SQL_DB=sql3334027
