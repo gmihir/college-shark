@@ -1,8 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## How to run the program currently locally
+## How to run the app locally
 
-Open two terminals, first do yarn start, then do yarn start-api
+Open two terminals
+
+To begin, `npm install` to make sure you're not missing any node modules. Now this terminal will run the front end. Run 
+`yarn start`. This will open the app on a new tab on your default browser to localhost:3000. 
+
+The second terminal will run the back end:
+`yarn start-api`
+
+note that this will first pip install mysql.connector to connect to the Read Only DB of colleges
+to run a test query using start-api, go to api/api.py and uncomment the "QUERY TESTING" code. It should be two functions and a simple for loop
 
 ## Available Scripts
 
