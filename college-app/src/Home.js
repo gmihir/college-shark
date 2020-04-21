@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/Home.css';
 
 import Nav from './Nav';
 import Image from './Student_picture.png';
 
 function Home() {
+  
     return (
         <div className="Background-home-page">
             <Nav />
