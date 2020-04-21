@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './css/Home.css';
 
 import Nav from './Nav';
 import Image from './Student_picture.png';
 
 function Home() {
-    const [currentTime, setCurrentTime] = useState(0);
-
-    useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-    }, []);
-    
     return (
         <div className="Background-home-page">
             <Nav />
-            <p>The current time is {currentTime}.</p>
             <span>
                 <h1 className="logo-header">All your needs, organized. One Place.</h1>
             </span>
