@@ -113,4 +113,4 @@ for i in lst:
 
 @app.route('/time', methods=["FETCH"])
 def get_current_time():
-    return "HELLO"
+    return {'time': time.time()}
