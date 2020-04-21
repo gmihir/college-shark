@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.css';
+import './css/Home.css';
 
 import Nav from './Nav';
 import Image from './Student_picture.png';
@@ -33,7 +33,7 @@ function Home() {
                     </div>
                 </div>
                 <div className="vector-image">
-                    <img src={Image} height="500"></img>
+                    <img src={Image} height="500" alt="College student"></img>
                 </div>
             </div>
         </div>

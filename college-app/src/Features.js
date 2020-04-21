@@ -1,5 +1,5 @@
 import React from 'react';
-import './Feature.css';
+import './css/Feature.css';
 
 import Nav from './Nav';
 

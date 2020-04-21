@@ -1,8 +1,12 @@
 import React from 'react';
-import './Loginsignup.css';
+import './css/Loginsignup.css';
 import GoogleButton from 'react-google-button';
 
 function Login() {
+    const googleLogin = () => {
+        console.log('Google button Clicked!');
+    }
+    
     return (
         <div className="Login">
             <div className="background">
@@ -24,7 +28,7 @@ function Login() {
                         <h2>Or</h2>
                         <hr className="linetwo"/> 
                     </div>
-                    <GoogleButton className="google-button" onClick={() => { console.log('Google button clicked') }} />
+                    <GoogleButton className="google-button" onClick={googleLogin} />
                 </div>
             </div>
         </div>
