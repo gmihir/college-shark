@@ -104,12 +104,12 @@ def get_order(json_lst, param, is_descending):
 
 
     
-#QUERY TESTING
-lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
-lst = get_order(lst, "tuition_oos", True)
-
-for i in lst:
-   print(i)
+# #QUERY TESTING
+# lst = get_colleges(["national_ranking", "+15", "national_ranking", "-30"])
+# lst = get_order(lst, "tuition_oos", True)
+#
+# for i in lst:
+#    print(i)
 
 @app.route('/time')
 def get_current_time():
