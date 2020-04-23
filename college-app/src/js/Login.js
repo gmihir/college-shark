@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Loginsignup.css';
+import '../css/Loginsignup.css';
 import GoogleButton from 'react-google-button';
 
 function Login() {

@@ -2,11 +2,11 @@ import React from 'react';
 import './css/Home.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Features from './Features';
-import Login from './Login';
-import Signup from './Signup';
-import Dashboard from './Dashboard';
-import Home from './Home';
+import Features from './js/Features';
+import Login from './js/Login';
+import Signup from './js/Signup';
+import Dashboard from './js/Dashboard';
+import Home from './js/Home';
 
 function App() {
   return (

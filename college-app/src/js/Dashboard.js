@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Dashboard.css';
+import '../css/Dashboard.css';
 
 import Nav from './Nav';
 

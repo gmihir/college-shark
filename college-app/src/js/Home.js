@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './css/Home.css';
+import '../css/Home.css';
 
 import Nav from './Nav';
 import Image from './Student_picture.png';
