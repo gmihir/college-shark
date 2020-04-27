@@ -1,0 +1,48 @@
+.node-layout {
+    display: flex;
+    flex-direction: row;
+    width: calc(99.9%);
+    height: calc(8vmin);
+    border-radius: calc(4vmin);
+    border: calc(0.1vmin) solid black;
+    margin-bottom: calc(1vmin);
+    color: white;
+    background-color: rgb(59, 57, 57);
+}
+
+.node-layout:hover {
+    background-color: rgb(139, 133, 133);
+}
+
+span {
+    width: calc(25%);
+}
+
+.button {
+    width: calc(8%);
+    text-align: center;
+}
+
+.college-name, .tuition, .ranking, .deadlines, .location {
+    font-family: 'Lato';
+    width: calc(100%);
+    font-size: calc(3vmin);
+    text-align: center;
+}
+
+.remove-button {
+    width: calc(100%);
+    height: calc(100%);
+    padding: calc(1.3vmin);
+    font-size: calc(1.8vmin);
+    border-radius: 0px calc(4vmin) calc(4vmin) 0px;
+    border: none;
+    color: white;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+    background-color: Transparent;
+}
+
+.remove-button:hover {
+    background-color: rgba(163, 47, 47, 0.747);
+}

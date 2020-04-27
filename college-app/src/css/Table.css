@@ -1,23 +1,15 @@
-    #students {
+  #students {
     text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: "Montserrat";
     border-collapse: collapse;
     width: 100%;
   }
   
-  #students td, #students th {
-    border: 1px solid #ddd;
-    padding: 8px;
+   #students th {
+    border: none;
+    padding: calc(1vmin);
     color: black;
   }
-  
-  #students tr {
-      background-color: #f2f2f2;
-    }
-  
-  #students tr:hover {
-      background-color: rgb(100, 100, 100);
-    }
   
   #students th {
     padding-top: 12px;
