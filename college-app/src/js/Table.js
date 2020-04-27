@@ -25,24 +25,28 @@ class Table extends Component {
    }
 
    renderTableHeader() {
-      // let header = Object.keys(this.state.students[0])
-      // return header.map((key, index) => {
-      //    if (key === 'college_name') {
-      //       key = 'college';
-      //    }
-      //    return <th key={index}>{key.toUpperCase()}</th>
-      // });
+      let header = Object.keys(this.state.students[0])
+      return header.map((key, index) => {
+         if (key === 'college_name') {
+            key = 'college';
+         }
+
+         return ( 
+            <div className="header">
+               <h1>{key.toUpperCase()}</h1>
+            </div>
+         )
+      });
    }
 
-   render() { //Whenever our class runs, render method will be called automatically, it may have already defined in the constructor behind the scene.
+   render() { 
       return (
          <div>
-            <table id='students'>
+            <div className="table-header">
                {this.renderTableHeader()}
-               <tbody>
-                  {this.renderTableData()}
-               </tbody>
-            </table>
+               <span className="button-divide"></span>
+            </div>
+            {this.renderTableData()}
          </div>
       )
    }

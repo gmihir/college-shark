@@ -6,12 +6,12 @@
     border-radius: calc(4vmin);
     border: calc(0.1vmin) solid black;
     margin-bottom: calc(1vmin);
-    color: white;
-    background-color: rgb(59, 57, 57);
+    color: black;
+    background-color: rgb(173, 171, 171);
 }
 
 .node-layout:hover {
-    background-color: rgb(139, 133, 133);
+    background-color: rgb(101, 104, 102);
 }
 
 span {
@@ -26,7 +26,7 @@ span {
 .college-name, .tuition, .ranking, .deadlines, .location {
     font-family: 'Lato';
     width: calc(100%);
-    font-size: calc(3vmin);
+    font-size: calc(2.5vmin);
     text-align: center;
 }
 
@@ -37,7 +37,7 @@ span {
     font-size: calc(1.8vmin);
     border-radius: 0px calc(4vmin) calc(4vmin) 0px;
     border: none;
-    color: white;
+    color: rgb(173, 171, 171);
     border-left: none; /* Prevent double borders */
     cursor: pointer;
     background-color: Transparent;
