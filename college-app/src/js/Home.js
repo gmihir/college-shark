@@ -28,10 +28,10 @@ function Home() {
                     <span className="slogan">
                         <h1 className="slogan-text">College, Simplified</h1>
                     </span>
-                    <div className="description-website">
+                    <span className="description-website">
                         <p className="description">Time to simplify college searching. Welcome to College Organizer, a place where
                         you can find, compare, and determine your dream college.</p>
-                    </div>
+                    </span>
                 </div>
                 <div className="vector-image">
                     <img src={Image} height="500" alt="College student"></img>
