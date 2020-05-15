@@ -9,7 +9,8 @@
 
 .Background-home-page {
   opacity: 100%;
-  background-color: rgb(75, 72, 72);
+  background-color: rgb(70, 70, 70);
+  /*original 75 72 72*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -2,7 +2,7 @@
 
 nav {
   display: flex;
-  height: calc(8.5%);
+  height: calc(8.5vh);
   background-color: black;
   opacity: 75%;
 }
@@ -33,8 +33,13 @@ li {
   margin-left: calc(5vmin);
 }
 
+.profile-link {
+  margin-left: calc(35vw);
+}
+
 .space-between-tabs {
-  margin-left: calc(70vw);
+  margin-left: calc(35vw);
+  /*previously 70vw*/
 }
 
 .login-link {

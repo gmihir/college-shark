@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Font+Name');
+@import url('https://fonts.googleapis.com/css?family=Economica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap');
+
+.background1{
+    opacity: 100%;
+    background-color: rgb(70, 70, 70);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100vmin);  
+}
+
+.name{
+    position: absolute;
+    top: calc(8vh);
+    text-align: center;
+    font-family: 'Economica', sans-serif;
+    font-size: calc(10vh);
+    color: rgb(190, 190, 190);
+}
+
+.basic-info-box{
+    margin-top: calc(3vh);
+    margin-left: calc(10vh);
+    width: calc(20vw);
+    height: calc(54vh);
+    border-radius: 25px;
+    background-color: rgb(40, 40, 40);    
+    border-color: rgb(215, 215, 215);
+    border-width: 4px;
+    border-style: double;
+}
+
+.fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+
+.fill img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
+.basic-text{
+    color: rgb(230, 230, 230);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: calc(2vh);
+    margin: calc(1vh);
+}
+
+.image-box{
+    margin-top: calc(3vh);
+    margin-left: calc(10vh);
+    width: calc(20vw);
+    height: calc(28vh);
+    border-radius: 25px;
+    background-color: rgb(40, 40, 40);    
+    border-color: rgb(215, 215, 215);
+    border-width: 4px;
+    border-style: double;
+}
+.buttons{
+    position: absolute;
+    top: calc(30vh);
+    right: calc(10vh);
+}
+
+.apply-buttons{
+    margin-top: calc(3vh);
+    width: calc(20vw);
+    height: calc(10vh);
+    border-radius: 20px;
+    background-color: rgb(230, 230, 230);
+    border-width: 4px;
+    border-style: double;
+    border-color: rgb(170, 20, 20);
+}
+
+.button-text{
+    color: rgb(25, 25, 25);
+    font-family: 'Teko', sans-serif;
+    font-size: 150%;
+    vertical-align: middle;
+    line-height: calc(10vh);
+    margin: calc(1vh);
+    text-align: center;
+}
+
+.advanced-info-box{
+    position: absolute;
+    top: calc(30vh);
+    margin-left: calc(20vw + 16vh);
+    width: calc(60vw - 32vh);
+    height: calc(66.5vh);
+    border-radius: 25px;
+    background-color: rgb(40, 40, 40);
+    border-color: rgb(215, 215, 215);
+    border-width: 4px;
+    border-style: double;    
+}
+
+.advanced-text{
+    color: rgb(230, 230, 230);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: calc(2vh);
+    margin: calc(1vh);
+}
