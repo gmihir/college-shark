@@ -2,9 +2,11 @@
 
 .Login, .Signup {
   text-align: left;
-  height: 100vh;
+  height: calc(100vmin);
+  width: calc(100%);
   font-family: 'Montserrat', sans-serif;
   color: white;
+  background-color: rgb(48, 45, 45);
 }
 
 .credentials {
@@ -14,15 +16,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.slogan {
-    margin-top: calc(0vmin);
-    padding-top: calc(7%);
-    height: calc(8vmin);
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    padding-top: calc(20vmin);
 }
 
 h1 {
@@ -59,7 +53,6 @@ h1 {
 .login-button-div {
     margin-top: calc(4%);
     padding-bottom: calc(6vmin);
-    padding-left: calc(1.7vmin);
 }
 
 .login-button {
@@ -86,7 +79,6 @@ h1 {
     justify-content: center;   
     width: 100%;
     height: calc(10vmin);
-    padding-left: calc(1.5vmin);
 }
 
 h2 {

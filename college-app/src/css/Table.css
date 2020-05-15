@@ -1,29 +1,26 @@
-    #students {
+  .table-header {
     text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: "Montserrat";
     border-collapse: collapse;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(20, 20, 20);
+    margin-bottom: calc(1.5vmin);
+    color: rgb(206, 198, 198);
   }
-  
-  #students td, #students th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    color: black;
-  }
-  
-  #students tr {
-      background-color: #f2f2f2;
-    }
-  
-  #students tr:hover {
-      background-color: rgb(100, 100, 100);
-    }
-  
-  #students th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    opacity: 100%;
-    background-color: green;
-    color: white;
-  }
+
+h1 {
+  font-family: 'Lato';
+  width: calc(100%);
+  font-size: calc(3vmin);
+  text-align: center;
+}
+
+.header {
+  width: calc(25%);
+}
+
+.button-divide {
+  width: calc(8%);
+}

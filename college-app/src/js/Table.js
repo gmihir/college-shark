@@ -1,50 +1,53 @@
-import React, { Component } from 'react'
-import '../css/Table.css'
+import React, { Component } from 'react';
+import '../css/Table.css';
+import Node from './Node';
 
 class Table extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       this.state = { //state is by default an object
          students: [
-            { college_name: "Berkeley", tuition: '5,000', deadlines: "11/30/20", ranking: '100' },
-            { college_name: "UC San Diego", tuition: '15,000', deadlines: "11/30/20", ranking: '1' },
-            { college_name: "UC Miramar", tuition: '10,000', deadlines: "11/30/20", ranking: '10' },
-            { college_name: "Purdue", tuition: '50,000', deadlines: "11/30/20", ranking: '1000' }
+            { college_name: "Berkeley", tuition: '5,000', deadlines: "11/30/20", ranking: '100', location: 'New York' },
+            { college_name: "UC San Diego", tuition: '15,000', deadlines: "11/30/20", ranking: '1', location: 'California' },
+            { college_name: "UC Miramar", tuition: '10,000', deadlines: "11/30/20", ranking: '10', location: 'California' },
+            { college_name: "Purdue", tuition: '50,000', deadlines: "11/30/20", ranking: '1000', location: 'Illinois' }
          ]
       }
    }
 
    renderTableData() {
       return this.state.students.map((student, index) => {
-         const { college_name, tuition, deadlines, ranking } = student //destructuring
+         const { college_name, tuition, deadlines, ranking, location } = student //destructuring
          return (
-            <tr key={college_name}>
-               <td>{college_name}</td>
-               <td>{tuition}</td>
-               <td>{deadlines}</td>
-               <td>{ranking}</td>
-            </tr>
+            <Node collegeName={college_name} tuitionCost={tuition} deadline={deadlines} rankings={ranking} location={location} />
          )
       });
-    }
+   }
 
-    renderTableHeader() {
-        let header = Object.keys(this.state.students[0])
-        return header.map((key, index) => {
-           return <th key={index}>{key.toUpperCase()}</th>
-        });
-     }
+   renderTableHeader() {
+      let header = Object.keys(this.state.students[0])
+      return header.map((key, index) => {
+         if (key === 'college_name') {
+            key = 'college';
+         }
 
-   render() { //Whenever our class runs, render method will be called automatically, it may have already defined in the constructor behind the scene.
+         return ( 
+            <div className="header">
+               <h1>{key.toUpperCase()}</h1>
+            </div>
+         )
+      });
+   }
+
+   render() { 
       return (
-        <div>
-                <table id='students'>
-                    <tbody>
-                        <tr>{this.renderTableHeader()}</tr>
-                        {this.renderTableData()}
-                    </tbody>
-                </table>
-        </div>
+         <div>
+            <div className="table-header">
+               {this.renderTableHeader()}
+               <span className="button-divide"></span>
+            </div>
+            {this.renderTableData()}
+         </div>
       )
    }
 }

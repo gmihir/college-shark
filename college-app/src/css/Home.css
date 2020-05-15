@@ -20,6 +20,8 @@
 .logo-header {
   color: white;
   margin-bottom: calc(2vmin);
+  font-size: calc(5vmin);
+  cursor: default;
 }
 
 .searchbar {
@@ -74,7 +76,7 @@
 
 .advanced{
   text-align: center;
-  margin-left: calc(63vmin);
+  margin-left: calc(65vmin);
   font-size: calc(1.5vmin);
   padding-top: calc(0vmin);
   color: white;
@@ -89,7 +91,7 @@
 
 .description-slogan {
   width: calc(30%);
-  padding-left: calc(25vmin);
+  padding-left: calc(23vmin);
 }
 
 .slogan, .description-website {
@@ -103,7 +105,7 @@
 
 .slogan-text {
   text-align: left;
-  font-size: calc(4.3vmin);
+  font-size: calc(4.7vmin);
   cursor: default;  
   margin-bottom: calc(0vmin);
 }
@@ -115,5 +117,5 @@
 }
 
 .vector-image {
-  padding-left: calc(30vmin);
+  padding-left: calc(35vmin);
 }
