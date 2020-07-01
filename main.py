@@ -36,6 +36,8 @@ db_info = 'DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + da
 #print(db_info)
 
 
+if __name__ == '__main__':
+    app.run(debug=False)
 
 # method to query the SQL database with standard SQL syntax
 # returns a list
@@ -251,7 +253,9 @@ def get_college_names():
 
 
 #TUITION TESTING
-#lst = get_colleges(["tuition_oos", "+10000","tuition_oos","-20000"])
+# lst = get_colleges(["tuition_oos", "+10000","tuition_oos","-20000"])
+# for i in lst:
+#     print(i)
 
 # GET NAMES TESTING
 # names = get_college_names()
