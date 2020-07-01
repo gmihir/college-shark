@@ -3,7 +3,6 @@ nav {
   display: flex;
   height: calc(8.5vh);
   background-color: black;
-  opacity: 75%;
 }
 
 .navbar {
