@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
 import '../css/Essays.css';
-import { Popover, OverlayTrigger, Button, Spinner } from 'react-bootstrap';
+import { OverlayTrigger, Spinner } from 'react-bootstrap';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -298,7 +298,7 @@ class Essays extends Component {
             <div className="empty-div">
                 <div className="redirect-div">
                     <br />
-                    <h3 className="explore-redirect">You currently have no colleges selected, check out the Explore tab to add some!</h3>
+                    <h3 className="explore-redirect">You currently have no colleges selected, check out the Explore tab to add some</h3>
                 </div>
             </div>
 
@@ -320,7 +320,7 @@ class Essays extends Component {
     }
 
     renderGeneralHeader = () => {
-        if (this.calculateNumEssays() != 0) {
+        if (this.calculateNumEssays() !== 0) {
             return (
                     <div className="subtitle">
                         <h2>General Essays</h2>

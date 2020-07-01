@@ -1,6 +1,3 @@
-import React from 'react';
-import Select from 'react-select';
-
 const States = [
     { value: 'AL', label: 'AL' },
     { value: 'AK', label: 'AK' },

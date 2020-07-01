@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import '../css/Individual.css';
-import UCSDImage from './UCSDLogo.png';
 import { Spinner } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
-import Geisel from './UCSDCampus.jpg';
 import Heart from '../components/content/Heart';
 import { IoIosUndo } from "react-icons/io";
 import NavBar from '../components/content/Navbar';
@@ -219,12 +217,12 @@ class Individual extends Component {
         if (this.state.searchBar === false) {
             return (
                 <div className="individual-container">
-                    <img className="Geisel" src={this.state.college_json["college_campus"]} />
+                    <img className="Geisel" src={this.state.college_json["college_campus"]} alt="College Campus" />
                     <div className="tint">
                     </div>
                     <div className="white-circle">
                     </div>
-                    <img className="college-logo" src={this.state.college_json["college_logo"]} />
+                    <img className="college-logo" src={this.state.college_json["college_logo"]} alt="College Logo" />
                     {this.essayFormat(this.state.college_json["supplemental_essays"])}
                     {this.applyFormat(this.state.college_json["app_site"])}
                     <div className="grid-layout">

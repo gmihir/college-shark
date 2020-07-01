@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/core/styles';
-import UsersToolbar from '../UsersToolbar/UsersToolbar';
 import {
   Card,
   CardActions,
   CardContent,
-  Avatar,
   Checkbox,
   Table,
   TableBody,
@@ -17,7 +15,6 @@ import {
   TableHead,
   TableRow,
   Typography,
-  TablePagination
 } from '@material-ui/core';
 import Heart from '../../content/Heart';
 

@@ -3,7 +3,7 @@ import {Redirect} from 'react-router';
 import { Container, Nav, Button, Row, Col, Form, Modal} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
-import { faSearch, faGlobeAmericas, faLayerGroup, faScroll } from "@fortawesome/free-solid-svg-icons";
+import { faGlobeAmericas, faLayerGroup, faScroll } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Home() {

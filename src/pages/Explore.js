@@ -1,14 +1,12 @@
 import React from "react";
 import '../css/Explore.css';
-import { Popover, OverlayTrigger, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { OverlayTrigger, Spinner } from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
-import Image3 from './UCSD_3.jpg';
 import Tile from '../components/Tile';
 import { States, Type, App, Sortby, LOR, TuitionState } from '../components/State';
 import { Tuition, Rankings, AcceptanceRate, AppFee, Population, AppType, LetterRec, SchoolType, StateList, TuitionStateList } from '../components/Popovers';
 import Select from 'react-select';
-import { faInfoCircleCircle, faInfoCircle, faSadTear, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faSadTear, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Explore extends React.Component {
@@ -276,7 +274,6 @@ class Explore extends React.Component {
                     <ul className="ListColleges">
                         {this.state.College.map(college => {
                             let val = JSON.parse(college);
-                            let collegeName = val["college_name"];
                             return (
                                 <li>
                                     <Tile Alias={val["alias"]} Tuition={this.numFormat(val["tuition_normal"])} TuitionOOS={this.numFormat(val["tuition_oos"])}

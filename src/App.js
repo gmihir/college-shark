@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Explore from './pages/Explore';
@@ -7,7 +7,6 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Features from './pages/Features';
 import Individual from './pages/Individual';
 import Essays from './pages/Essays';
  
@@ -38,7 +37,7 @@ class App extends React.Component {
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
             />
           <Switch>
             <Route path="/loginhome/explore" component={RequireAuth(Explore)} />

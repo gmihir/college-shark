@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Navbar, Nav, NavDropdown, Modal, Button } from "react-bootstrap";
+import React from "react";
+import { Navbar, Nav, NavDropdown, Modal} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import '../../App.css';
 import SearchBar from './SearchBar';
-import { IoMdContact } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser
@@ -100,7 +99,7 @@ class NavBar extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title>Email Sent!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Follow the instructions sent to your email and then don't tell the bossman the password</Modal.Body>
+        <Modal.Body>Follow the instructions sent to your email and once completed, your password will be updated.</Modal.Body>
         <Modal.Footer>
         </Modal.Footer>
       </Modal>

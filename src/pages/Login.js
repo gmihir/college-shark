@@ -11,21 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import { Modal, Form } from 'react-bootstrap';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +49,6 @@ export default function SignInSide() {
   const [error, setError] = useState({error: false});
   const [username, setUsername] = useState({ username: '' });
   const [password, setPassword] = useState({ password: '' });
-  const [display, setDisplay] = useState({ display: '' });
   const [show, setShow] = useState({ Show: false});
   const [email, setEmail] = useState({ Email: ''});
   const [header, setHeader] = useState({ Header: 'Password Reset Request'});

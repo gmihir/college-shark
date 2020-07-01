@@ -2,15 +2,10 @@ import '../css/Dashboard.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Navigationbar from '../components/content/Navigationbar';
 import { Spinner } from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
-import Image3 from './UCSD_3.jpg';
 
 import { UsersToolbar, UsersTable } from '../components/dashboardComponents';
-import mockData from './data';
-import Heart from '../components/content/Heart';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -139,7 +134,7 @@ class Dashboard extends React.Component {
       } else if (this.state.users.length === 0) {
         return (
           <div style={{width: '100%', textAlign: 'center', marginTop: 'calc(15%)', color: 'rgb(0, 0, 0, 0.534)', fontFamily: 'Roboto, sans-serif'}}>
-            <h1>You appear to have nothing on your dashboard, click Explore to start adding colleges!</h1>
+            <h3>You appear to have nothing on your dashboard, click Explore to start adding colleges.</h3>
           </div>
         )
       }
