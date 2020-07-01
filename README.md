@@ -19,11 +19,11 @@ Then, install all the following dependencies USING YARN:
   7. yarn add react-select
   8. npm install react-bootstrap
 
-Then, run the command:
+Then, run the command in one terminal:
 
-  yarn build
+  yarn start
   
-Once the build completes, follow these steps to run the backend:
+Once the build completes, follow these steps to run the backend (in another terminal):
 
   1. If you are on mac, run the following commands: 
   
