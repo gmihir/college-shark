@@ -36,5 +36,5 @@
       ]
     },
     "proxy": "http://localhost:5000",
-    "homepage": "http://application-hub.herokuapp.com/src"
+    "homepage": "http://application-hub.herokuapp.com/"
   }
