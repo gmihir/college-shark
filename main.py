@@ -277,11 +277,11 @@ def test_func():
 @app.route("/profile")
 @app.route("/loginhome/essays", methods = ['POST', 'GET'])
 def my_index():
-    return flask.send_static_file("index.html")
+    return app.send_static_file("index.html")
 
 @app.route('/loginhome/page/<collegeName>')
 def my_indexes(collegeName):
-    return flask.send_static_file("index.html")
+    return app.send_static_file("index.html")
 
 @app.route("/filter", methods = ['POST'])
 def test_filter():
