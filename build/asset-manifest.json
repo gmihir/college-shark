@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.846739cd.chunk.css",
+    "main.js": "/static/js/main.fd21aa8d.chunk.js",
+    "main.js.map": "/static/js/main.fd21aa8d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.5a0076cc.js",
+    "runtime-main.js.map": "/static/js/runtime-main.5a0076cc.js.map",
+    "static/js/2.45f4be41.chunk.js": "/static/js/2.45f4be41.chunk.js",
+    "static/js/2.45f4be41.chunk.js.map": "/static/js/2.45f4be41.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ee43c2b02ea2332bd528fe77715a059b.js": "/precache-manifest.ee43c2b02ea2332bd528fe77715a059b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.846739cd.chunk.css.map": "/static/css/main.846739cd.chunk.css.map",
+    "static/js/2.45f4be41.chunk.js.LICENSE.txt": "/static/js/2.45f4be41.chunk.js.LICENSE.txt",
+    "static/media/Student_picture.png": "/static/media/Student_picture.a3ab7090.png",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg",
+    "static/media/stephen_the_goat.jpg": "/static/media/stephen_the_goat.e0323fc4.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5a0076cc.js",
+    "static/js/2.45f4be41.chunk.js",
+    "static/css/main.846739cd.chunk.css",
+    "static/js/main.fd21aa8d.chunk.js"
+  ]
+}
