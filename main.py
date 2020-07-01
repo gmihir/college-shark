@@ -5,7 +5,7 @@ from flask import Flask
 from flask_cors import CORS, cross_origin
 
 
-app = Flask(__name__, static_folder='./build/static', static_url_path='/')
+app = Flask(__name__, static_folder='./build', static_url_path='/')
 CORS(app)
 
 if __name__ == '__main__':
@@ -18,4 +18,4 @@ if __name__ == '__main__':
 @app.route('/signup')
 @app.route('/')
 def index():
-    return app.send_static_file('./build/index.html')
+    return app.send_static_file('index.html')
