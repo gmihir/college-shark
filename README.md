@@ -2,17 +2,66 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## How to run the app locally
 
-Open two terminals
+Ensure you are in the application-hub directory.
 
-To begin, `npm install` to make sure you're not missing any node modules. Next, do `source .bash-source`. This will make sure the enviornment variables are set. 
+First, run the command: 
 
-Now this terminal will run the front end. Run `yarn start`. This will open the app on a new tab on your default browser to localhost:3000. 
+  npm install
+  
+Then, install all the following dependencies USING YARN: 
 
-The second terminal will run the back end:
-`yarn start-api`
+  1. yarn add react-router-dom
+  2. yarn add @material-ui/core
+  3. yarn add @material-ui/icons
+  4. yarn add react-bootstrap
+  5. yarn add @fortawesome/react-fontawesome
+  6. yarn add @material-ui/styles
+  7. yarn add react-select
+  8. npm install react-bootstrap
 
-note that this will first pip install mysql.connector to connect to the Read Only DB of colleges
-to run a test query using start-api, go to api/api.py and uncomment the "QUERY TESTING" code. It should be two functions and a simple for loop
+Then, run the command:
+
+  yarn build
+  
+Once the build completes, follow these steps to run the backend:
+
+  1. If you are on mac, run the following commands: 
+  
+    python3 -m venv venv
+    source venv/bin/activate
+  
+  If you are on windows, run these commands:
+  
+    python -m venv venv (or py -m venv venv)
+    venv\Scripts\activate
+    
+  2. In the (venv) in the powershell, now run this command if you are on mac:
+  
+    pip install flask python-dotenv pyrebase pypyodbc flask_cors
+    
+  Then run the bash-source:
+  
+    source .bash-source 
+    
+            or
+            
+    . .\bashsource.ps1
+    
+  3. Run this last command: 
+  
+    flask run
+    
+  Now the server should load on http://127.0.0.1:5000/ and load the server. If there is any error on the install
+  To leave the venv in terminal, simply type 'deactivate' (without the quotes)
+  
+  IMPORTANT NOTES
+  
+  1. Bug with changing the window.location.href in Login.js and Signup.js. The success will reroute to the actual website url, and not 
+  stay within localhost... for now just click the back arrow and it will take you to the localhost /loginhome/dashboard url parameter
+  
+  2. If the home page renders in a weird look, refresh the page and see if it fixes it
+ 
+    
 
 ## Available Scripts
 
