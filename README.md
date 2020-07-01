@@ -51,15 +51,12 @@ Once the build completes, follow these steps to run the backend (in another term
   
     flask run
     
-  Now the server should load on http://127.0.0.1:5000/ and load the server. If there is any error on the install
+  Now the server should load and localhost:3000 will work with the backend. If there is any error on the install
   To leave the venv in terminal, simply type 'deactivate' (without the quotes)
   
   IMPORTANT NOTES
   
-  1. Bug with changing the window.location.href in Login.js and Signup.js. The success will reroute to the actual website url, and not 
-  stay within localhost... for now just click the back arrow and it will take you to the localhost /loginhome/dashboard url parameter
-  
-  2. If the home page renders in a weird look, refresh the page and see if it fixes it
+  1. If the home page renders in a weird look, refresh the page and see if it fixes it
  
     
 
