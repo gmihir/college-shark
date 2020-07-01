@@ -35,7 +35,7 @@ Once the build completes, follow these steps to run the backend (in another term
     python -m venv venv (or py -m venv venv)
     venv\Scripts\activate
     
-  2. In the (venv) in the powershell, now run this command if you are on mac:
+  2. In the (venv) in the powershell, now run this command:
   
     pip install flask python-dotenv pyrebase pypyodbc flask_cors
     
