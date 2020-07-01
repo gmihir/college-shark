@@ -13,9 +13,9 @@
       "react-scripts": "3.4.1"
     },
     "scripts": {
-      "start": "react-scripts start",
+      "start": "yarn start",
       "start-api": "cd api && pip install mysql.connector && flask run --no-debugger",
-      "build": "react-scripts build",
+      "build": "yarn build",
       "test": "react-scripts test",
       "test-api": "cd api && flask test",
       "eject": "react-scripts eject"
