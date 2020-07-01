@@ -5,7 +5,7 @@ from flask import Flask
 from flask_cors import CORS, cross_origin
 
 
-app = Flask(__name__, static_folder='./build', template_folder = "./static", static_url_path='/')
+app = Flask(__name__, static_folder='./build', template_folder = "./templates", static_url_path='/')
 CORS(app)
 
 if __name__ == '__main__':
