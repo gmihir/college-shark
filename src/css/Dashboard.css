@@ -1,8 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400&display=swap');
+
 .dashboard{
-    background-color: rgb(75, 72, 72);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: calc(100vmin);
-    color: white;
+    color: black;
+    width: 100%;
+    flex-direction: column;
   }

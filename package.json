@@ -1,40 +1,43 @@
 {
-    "name": "college-app",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-      "@testing-library/jest-dom": "^4.2.4",
-      "@testing-library/react": "^9.3.2",
-      "@testing-library/user-event": "^7.1.2",
-      "react": "^16.13.1",
-      "react-dom": "^16.13.1",
-      "react-google-button": "^0.7.1",
-      "react-router-dom": "^5.1.2",
-      "react-scripts": "3.4.1"
-    },
-    "scripts": {
-      "start": "react-scripts start",
-      "start-api": "cd api && pip install mysql.connector && flask run --no-debugger",
-      "build": "react-scripts build",
-      "test": "react-scripts test",
-      "test-api": "cd api && flask test",
-      "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-      "extends": "react-app"
-    },
-    "browserslist": {
-      "production": [
-        ">0.2%",
-        "not dead",
-        "not op_mini all"
-      ],
-      "development": [
-        "last 1 chrome version",
-        "last 1 firefox version",
-        "last 1 safari version"
-      ]
-    },
-    "proxy": "http://localhost:5000",
-    "homepage": "http://application-hub.herokuapp.com/"
-  }
+  "name": "college-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@material-ui/core": "^4.11.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.1",
+    "react-google-button": "^0.7.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "start-api": "cd api && pip install mysql.connector && flask run --no-debugger",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test-api": "cd api && flask test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:5000",
+  "homepage": "http://application-hub.herokuapp.com/"
+}

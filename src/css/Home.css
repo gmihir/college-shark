@@ -1,119 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@500&family=Archivo:wght@500&family=Lato&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
 
-.App {
-  text-align: left;
-  width: calc(100%);
-  height: calc(100%);
-}
 
 .Background-home-page {
-  opacity: 0.9;
-  background-color: rgb(70, 70, 70);
-  /*original 75 72 72*/
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: calc(100vmin);
-}
-
-.logo-header {
-  color: white;
-  margin-bottom: calc(2vmin);
-  font-size: calc(5vmin);
-  cursor: default;
-}
-
-.searchbar {
   width: 100%;
-  text-align: center;
+  overflow: hidden;
 }
 
-.search-bar {
-  height: calc(6vmin);
-  justify-content: center;
-  align-items: center;
-  display: flex; 
+.image-background {
+  background-image: url('../pages/wp2017235.jpg');
+	background-position:center;
+	background-repeat:no-repeat;
+  background-size:cover;
+  height: calc(45rem);
+  font-family: 'Oswald', sans-serif;
 }
 
-.bar{
-  width: calc(60vmin);
-  font-size: calc(1.8vmin);
-  font-weight: 400;
-  text-indent: calc(3vmin);
-  text-align: left;
-  cursor: text;
-  padding: calc(1.3vmin);
-  border: none;
-  float: left;
-  background: rgb(94, 92, 92);
-  color: white;
+.nav {
+  background-color: rgba(0, 0, 0, 0.452) !important;  
 }
 
-.search-button {
-  float: left;
-  width: calc(5%);
-  padding: calc(1.3vmin);
-  background: rgb(94, 92, 92);
-  color: white;
-  font-size: calc(1.8vmin);
-  border: none;
-  border-left: none; /* Prevent double borders */
-  cursor: pointer;
+.nav .nav-link {
+  color: white !important;
+  padding-top: calc(0.7rem) !important;
+  padding-bottom: calc(0.7rem) !important;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.search-button:hover {
-  background: rgb(40, 160, 66);
+.nav .nav-link:hover {
+  color: rgb(0, 0, 0) !important;
 }
 
-.advanced-box {
-  width: calc(100%);
+.features-container {
+  width: 75%;
   text-align: center;
   justify-content: center;
-  align-items: center;
   display: flex;
+  margin-top: calc(2rem);
+  margin: auto;
 }
 
-.advanced{
-  text-align: center;
-  margin-left: calc(65vmin);
-  font-size: calc(1.5vmin);
-  padding-top: calc(0vmin);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
+.features {
+  height: calc(35rem);
+  width: 100%;
 }
 
-.slogan-image {
-  width: calc(100%);
+.features .row {
+  margin-top: calc(5.5rem) !important;
+}
+
+.features .header-h1 {
+  margin-top: calc(4rem) !important;
+  font-size: calc(3rem) !important;
+  font-weight: bold;
+  font-family: 'Verdana', sans-serif;
+}
+
+.row {
+  font-size: calc(3rem) !important;
+}
+
+.header-div {
   display: flex;
+  flex-direction: row;
+  margin-bottom: calc(-2rem);
 }
 
-.description-slogan {
-  width: calc(30%);
-  padding-left: calc(23vmin);
+.header-feature {
+  margin-top: calc(2rem);
+  font-size: calc(2rem);
+  width: calc(33.333333%);
+  /* font-family: 'Montserrat', sans-serif; */
+  font-family: 'Oswald', sans-serif;
 }
 
-.slogan, .description-website {
-  padding-left: calc(4vmin);
+.icon-border {
+  display: flex;
   justify-content: center;
-  align-items: center;
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 0.3s;
+}
+
+.icon-border div {
+  background-color: rgb(11, 147, 192);
+  width: auto;
+  border-radius: calc(60%);
+  display: flex;
+  justify-content: center;
+  padding: calc(1rem);
+  box-shadow: calc(3px) calc(3px) calc(10px) grey; 
+}
+
+.description-hover p {
+  font-size: calc(1.3rem);
+  margin-top: calc(3rem);
+  font-family: 'Karla', serif;
+}
+
+.image-background .container {
+  margin-top: calc(6rem) !important;
+  background-color: rgba(0, 0, 0, 0.158) !important;
+  color: white !important;
+}
+
+.btn {
+  margin-top: calc(2.5rem) !important;
+  margin-bottom: calc(2rem) !important;
+  background-color: rgb(11, 147, 192) !important;
+  border: none !important;
+  color: black !important;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+.contact-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.contact {
+  margin-top: calc(1.5rem);
+  background-image: url('../pages/rooftopping-san-francisco-bay-area.jpg');
+  background-position:center;
+	background-repeat:no-repeat;
+  background-size:cover;
+  height: calc(30rem);
+  width: calc(98%);
+  text-align: center;
+  box-shadow: calc(3px) calc(3px) calc(10px) grey; 
+}
+
+.contact h1{ 
+  font-size: calc(3rem);
+  margin-top: calc(2rem);
   color: white;
-  padding-right: calc(1vmin);
-  padding-left: calc(1vmin);
+  font-family: 'Oswald', sans-serif;
+
 }
 
-.slogan-text {
-  text-align: left;
-  font-size: calc(4.7vmin);
-  cursor: default;  
-  margin-bottom: calc(0vmin);
-}
-
-.description {
-  font-size: calc(2.3vmin);
-  cursor: default;  
-  text-align: left;
-}
-
-.vector-image {
-  padding-left: calc(35vmin);
-}

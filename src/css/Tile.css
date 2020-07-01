@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500&family=Lato:ital@1&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
+
+.tile-layout {
+    display: flex;
+    flex-direction: column;
+    width: calc(96%);
+    height: auto;
+    border-radius: calc(1vmin);
+    margin-bottom: calc(1vmin);
+    color: black;
+    background-color: rgb(243, 243, 243);
+    box-shadow: calc(3px) calc(3px) calc(10px) grey; 
+    transition: 0.3s;
+}
+
+.tile-layout:hover {
+    transition: 0.3s;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.center-header {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.header-tile {
+    width: calc(100%);
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    text-align: center;
+}
+
+.college-name {
+    text-align: center;
+    width: calc(80%); 
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.college-name h1{
+    font-size: calc(2vw);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.college-icon {
+    margin-top: calc(2rem);
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.specifications {
+    text-align: center;
+    width: 100%;
+    margin-left: calc(0rem);
+    margin-top: calc(1.5rem);
+}
+
+.specifications h3 {
+    font-size: calc(1.1vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+}
+
+.tuition-display {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: calc(0rem);
+}
+
+.information-div{
+    width: 100%;
+    text-align: center;
+}
+
+.favorite-icon{
+    width: calc(9.5%);
+    justify-content: right;
+    position: absolute;
+    top: calc(0.65vh);
+    margin-left: calc(3.25vw);
+    height: 0;
+    -webkit-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    transform: scale(0.6);
+    z-index: 1;
+}
+
+@media screen and (max-width: 767px) {
+    .tile-layout {
+        width: calc(97%);
+        box-shadow: calc(0px) calc(0px) calc(0px) grey; 
+        margin-left: calc(-0.5rem);
+        background-color: rgb(224, 224, 224);
+        margin-top: calc(0.5rem);
+        height: auto;
+    }
+
+    .tile-layout:hover {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        overflow: hidden;
+    }
+
+    .specifications h3 {
+        font-size: calc(2.6vw);
+        font-family: 'Karla', serif;
+        font-weight: 900;
+    }
+
+    .college-name {
+        width: calc(75%);
+    }
+
+    .college-name h1{
+        font-size: calc(4vw);
+        font-family: 'Alegreya Sans', sans-serif;
+        font-weight: bold;
+    }
+
+    .college-icon {
+        margin-top: calc(0.5vh);
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .favorite-icon {
+        width: calc(9.5%);
+        justify-content: right;
+        position: absolute;
+        right: calc(3.5vw);
+        top: calc(0.5vh);
+        height: 0;
+        -webkit-transform: scale(0.5);
+        -ms-transform: scale(0.5);
+        transform: scale(0.5);
+        z-index: 1;
+    }
+}
+
+

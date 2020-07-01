@@ -1,10 +1,13 @@
+/*@import url('https://fonts.googleapis.com/css?family=Font+Name');*/
 
 .Features {
     text-align: left;
     font-family: 'Montserrat', cursive;
+    width: 100%;
 }
 
 .background-feature {
     background-color: rgb(227, 231, 233);
     height: calc(100vmin);
+    width: 100%;
 }

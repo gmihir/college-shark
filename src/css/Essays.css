@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap");
+
+.titleheader{
+    width: calc(100%);
+    display: flex;
+    flex-direction: row;
+}
+
+.title{
+    padding-left: calc(1vw);
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.popup{
+    text-align: left;
+    padding-left: calc(1vw);
+}
+
+.btn {
+    margin-top: calc(3.3vh) !important;
+}
+
+
+.header-div{
+    padding-left: calc(4vw);
+    padding-top: calc(2vh);
+    padding-bottom: calc(4vh);
+}
+
+h3.header-text{
+    font-family: 'Roboto','sans-serif';
+    font-weight: 400;
+}
+
+.required{
+    text-align: left;
+    padding-top: calc(1vh);
+    padding-left: calc(1vw);
+    font-family: 'Roboto', sans-serif;
+    font-weight:lighter;
+}
+
+h3.required-text{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+}
+
+.subtitle{
+    padding-left: calc(3vw);
+    padding-top: calc(1vh);
+    font-family: 'Roboto', sans-serif;
+}
+
+.essaytext{
+    padding-left: calc(6vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    padding-right: calc(20vw);
+}
+
+.supplementaltext{
+    padding-top: calc(0.225vh);
+    padding-left: calc(6vw);
+    padding-right: calc(20vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+}
+
+.icon-background {
+    background-color: #313b4c;
+    margin-top: calc(3.8vh);
+    width: calc(1.5vw);
+    height: calc(3vh);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: calc(50%);
+}
+
+/* STYLING THE TEXT FOR WHEN THE USE HAS NO COLLEGES ADDED */
+
+.empty-div {
+    width: calc(100%);
+    display: flex;
+    justify-content: center;
+    height: calc(80vh);
+    font-family: 'Roboto', sans-serif;
+    color:black;
+}
+
+.redirect-div {
+    margin-top: calc(15%);
+    color: black;
+}
+
+.explore-redirect {
+    font-family: 'Roboto', sans-serif;
+    z-index: 10;
+    color: rgba(0, 0, 0, 0.534);
+}

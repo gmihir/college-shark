@@ -1,0 +1,72 @@
+.heart:hover,
+  .heart:hover:before,
+  .heart:hover:after {
+    background-color: rgb(250, 125, 255);
+    transition-duration: .3s;
+    cursor: pointer;
+  }
+
+  .heart {
+    top: calc(-4vh);
+    position: relative;
+    background-color: #313b4c;
+    height: calc(3.5vh);
+    transform: rotate(-45deg);
+    width: calc(3.5vh);
+  }
+  
+  .heart:before,
+  .heart:after {
+    content: "";
+    background-color: #313b4c;
+    border-radius: 50%;
+    height: calc(3.5vh);
+    position: absolute;
+    width: calc(3.5vh);
+  }
+  
+  .heart:before {
+    top: calc(-1.75vh);
+    left: 0;
+  }
+  
+  .heart:after {
+    left: calc(1.75vh);
+    top: 0;
+  }
+  .redheart:hover,
+  .redheart:hover:before,
+  .redheart:hover:after {
+    background-color: #bd4646;
+    transition-duration: .3s;
+    cursor: pointer;
+  }
+
+  .redheart {
+    top: calc(-4vh);
+    position: relative;
+    background-color: #bd4646;
+    height: calc(3.5vh);
+    transform: rotate(-45deg);
+    width: calc(3.5vh);
+  }
+  
+  .redheart:before,
+  .redheart:after {
+    content: "";
+    background-color: #bd4646;
+    border-radius: 50%;
+    height: calc(3.5vh);
+    position: absolute;
+    width: calc(3.5vh);
+  }
+  
+  .redheart:before {
+    top: calc(-1.75vh);
+    left: 0;
+  }
+  
+  .redheart:after {
+    left: calc(1.75vh);
+    top: 0;
+  }

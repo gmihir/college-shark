@@ -1,0 +1,531 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap");
+
+.UCSDImage {
+    width: calc(25vmin);
+    height: calc(25vmin);
+    /**margin-top: calc(2.5vh);*/
+    margin-left: calc(2.5vw);
+    /**margin-bottom: calc(2.5vh);*/
+}
+
+
+.background {
+    background-color: #e6e6e6;
+    overflow: scroll;
+}
+
+.UCSD {
+    text-align: center;
+    position: absolute;
+    top: calc(5vh);
+    /*left: calc(40vw);*/
+    color: white;
+}
+
+.UCSDBox {
+    background-color: white;
+    width: calc(80vw);
+    height: calc(15vh);
+    align-content: center;
+    position: absolute;
+    left: calc(20vw);
+    opacity: 0.6;
+}
+
+.tint {
+    background-color: black;
+    width: calc(85vw);
+    position: absolute;
+    left: calc(15vw);
+    margin-left: -15px;
+    height: calc(36.5rem);
+    opacity: 0.3;
+    overflow: hidden;
+}
+
+.Geisel {
+    width: calc(85vw);
+    position: absolute;
+    left: calc(15vw);
+    margin-left: calc(-15px);
+    height: calc(36.5rem);
+    margin-top: calc(0rem);
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.crest-layout {
+    background-color: white;
+    width: calc(40vmin);
+    border-bottom-right-radius: 10px;
+    box-shadow: 5px 0 5px -2px #888;
+    border-bottom-style: solid;
+    border-bottom-color:  #003366;
+    border-bottom-width: 7.5px;
+}
+
+.grid-layout {
+    background-color: white;
+    /**position: absolute;*/
+    position: absolute;
+    /*margin-top: 8px;*/
+    margin-top: calc(1.25rem);
+}
+
+.general-layout {
+    background-color: white;
+    width: calc(20.5rem);
+    box-shadow: 5px 0 5px -2px #888;
+    padding-top: calc(5vmin);
+    /**
+    border-top-style: solid;
+    border-top-color: #FFD700;
+    border-top-width: 5px;
+    */
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    z-index: 15;
+}
+
+.general-text {
+    margin-top: calc(2.5vh);
+    text-align: center;
+    font-size: calc(1.5rem);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+.description-text {
+    width: calc(65vw);
+    /*height: calc(9.5rem);*/
+    /*position: absolute;*/
+    /*position: relative;*/
+    text-align: center;
+    /*left: calc(12.5vw);*/
+    font-size: calc(1.15vw);
+    color: white;
+    /*top: calc(27.5rem);*/
+    /*bottom: calc(36.5rem);*/
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    opacity: 1;
+    margin-bottom: calc(1rem);
+    margin-top: calc(1rem);
+    margin-left: 18.5%;
+}
+
+.description-box {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    /*position: absolute; */
+    position: absolute;
+    /*left: calc(15vw);
+    margin-left: -15px;*/
+    /*height: calc(10.5rem);*/
+    height: auto;
+    /*opacity: 0.6;*/
+    /*top: calc(26rem);*/
+    bottom: calc(0px);
+    overflow: hidden;
+}
+
+.description-container {
+    width: calc(85vw);
+    position: relative;
+    left: calc(15vw);
+    margin-left: calc(-15px);
+    height: calc(36.5rem);
+    margin-top: calc(0rem);
+}
+
+.essay-text {
+    position: absolute;
+    text-align: left;
+    left: calc(19.25rem);
+    top: calc(41rem);
+    font-size: calc(1.25vw);
+    width: calc(55.5vw);
+    text-overflow: ellipsis;
+    /*overflow: scroll;*/
+    white-space: pre-line;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    word-wrap: break-word;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+}
+
+.essay-header {
+    position: absolute;
+    text-align: left;
+    font-size: calc(1.6vw);   
+    top: calc(-2.5rem);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+.essay-require {
+    font-size: calc(1.6vw);   
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+.info-pane{
+    text-align: left;
+    font-size: calc(1.25vw);
+}
+
+.application-type {
+    position: absolute;
+    text-align: left;
+    top: calc(41rem);
+    left: calc(81vw);
+    font-size: calc(1.25vw);
+    width: calc(16.5vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+}
+
+.application-header {
+    position: absolute;
+    text-align: left;
+    font-size: calc(1.6vw);
+    top: calc(-2.5rem);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+.application-link {
+    text-decoration: underline;
+    color: black;
+}
+
+.application-link:hover {
+    color: #0066ff;
+}
+
+.deadline-layout {
+    background-color: white;
+    width: calc(20.5rem);
+    box-shadow: 5px 0 5px -2px #888;
+    padding-top: calc(5vmin);
+    /**
+    border-top-style: solid;
+    border-top-color: #FFD700;
+    border-top-width: 5px;
+    */
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    z-index: 11;
+
+}
+
+.deadline-header {
+    margin-top: calc(2.5vh);
+    text-align: center;
+    font-size: calc(1.5rem);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+.sat-layout {
+    background-color: white;
+    width: calc(20.5rem);
+    box-shadow: 5px 0 5px -2px #888;
+    padding-top: calc(5vmin);
+    /**
+    border-top-style: solid;
+    border-top-color: #FFD700;
+    border-top-width: 5px;
+    */
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    z-index: 12;
+
+}
+
+.sat-header {
+    margin-top: calc(2.5vh);
+    text-align: center;
+    font-size: calc(1.5rem);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+.college-logo {
+    width: calc(8vw);
+    height: calc(8vw);
+    position: absolute;
+    left: calc(21.5rem);
+    top: calc(1.1vw);
+    margin-top: calc(0rem);
+}
+
+.image-box {
+    width: calc(75vw);
+    left: calc(25vw);
+    margin-left: -15px;
+    height: calc(33.5rem); 
+    text-align: center;
+    position: absolute;
+    top: calc(3rem);
+    color: white;
+    margin-top: calc(0rem);
+}
+
+.image-box h1 {
+    font-size: calc(2.75vw);
+    font-family: 'Roboto', sans-serif;
+}
+
+.white-circle {
+    width: calc(8vw);
+    height: calc(8vw);
+    border-radius: calc(8vw/2);
+    position: absolute;
+    left: calc(21.5rem);
+    top: calc(1.1vw);
+    background-color: white;
+    opacity: 0.7;
+    box-shadow: 0 0 5px -2px #888;
+    margin-top: calc(0rem);
+}
+
+.logo-1 {
+    width: calc(28vw);
+    height: calc(28vw);
+}
+
+.individual-heart {
+    width: calc(9.5%);
+    position: absolute;
+    margin-top: calc(1.2vh);
+    margin-left: calc(-20vw);
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+    top: calc(0.45vw);
+}
+
+.individual-container {
+    position: absolute;
+    margin-top: calc(0rem);
+    height: auto;
+}
+
+.return {
+    margin-top: calc(1.5vmin);
+    background-color: #313b4c;
+    border-radius: 7.5px;
+    color: white;
+    padding: 8px 11px;
+    font-size: calc(1rem);
+    transition-duration: 0.5s;
+    text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+}
+
+.return:hover {
+    background-color: #5a626f;
+}
+
+@media only screen and (max-width: 1130px) {
+    .grid-layout {
+        background-color: white;
+        /**position: absolute;*/
+        position: absolute;
+        /*margin-top: 8px;*/
+        margin-top: calc(1.25rem);
+    }
+    
+    .general-layout {
+        background-color: white;
+        width: calc(27vmax);
+        box-shadow: 5px 0 5px -2px #888;
+        padding-top: calc(5vmin);
+        /**
+        border-top-style: solid;
+        border-top-color: #FFD700;
+        border-top-width: 5px;
+        */
+        text-align: center;
+
+        font-size: calc(1.4vmax);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    z-index: 10;
+    }
+    
+    .general-text {
+        margin-top: calc(2.5vh);
+        text-align: center;
+        font-size: calc(1.8vmax);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    }
+
+    .deadline-layout {
+        background-color: white;
+        width: calc(27vmax);
+        box-shadow: 5px 0 5px -2px #888;
+        padding-top: calc(5vmin);
+        /**
+        border-top-style: solid;
+        border-top-color: #FFD700;
+        border-top-width: 5px;
+        */
+        text-align: center;
+        font-size: calc(1.4vmax);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    z-index: 11;
+    }
+    
+    .deadline-header {
+        margin-top: calc(2.5vh);
+        text-align: center;
+        font-size: calc(1.8vmax);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    }
+    
+    .sat-layout {
+        background-color: white;
+        width: calc(27vmax);
+        box-shadow: 5px 0 5px -2px #888;
+        padding-top: calc(5vmin);
+        /**
+        border-top-style: solid;
+        border-top-color: #FFD700;
+        border-top-width: 5px;
+        */
+        text-align: center;
+        font-size: calc(1.4vmax);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    z-index: 12;
+    }
+    
+    .sat-header {
+        margin-top: calc(2.5vh);
+        text-align: center;
+        font-size: calc(1.8vmax);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    }
+
+    .return {
+        margin-top: calc(1.5vmin);
+        background-color: #313b4c;
+        border-radius: 7.5px;
+        color: white;
+        padding: 8px 11px;
+        font-size: calc(1.067vmax);
+        transition-duration: 0.5s;
+        text-decoration: none;
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    }
+
+    .essay-text {
+        position: absolute;
+        text-align: left;
+        left: calc(25.5vmax);
+        top: calc(41rem);
+        font-size: calc(1.4vmax);
+        width: calc(55.5vw);
+        text-overflow: ellipsis;
+        /*overflow: scroll;*/
+        white-space: pre-line;
+        border-left: 1em solid transparent;
+        border-right: 1em solid transparent;
+        word-wrap: break-word;
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    }
+
+    .college-logo {
+        width: calc(8vw);
+        height: calc(8vw);
+        position: absolute;
+        left: calc(28vmax);
+        top: calc(1.6vmax);
+        margin-top: calc(0rem);
+    }
+    
+    .white-circle {
+        width: calc(8vw);
+        height: calc(8vw);
+        border-radius: calc(8vw/2);
+        position: absolute;
+        left: calc(28vmax);
+        top: calc(1.6vmax);
+        background-color: white;
+        opacity: 0.7;
+        box-shadow: 0 0 5px -2px #888;
+        margin-top: calc(0rem);
+    }
+
+    .description-text {
+        width: calc(65vw);
+        /*height: calc(9.5rem);*/
+        /*position: absolute;*/
+        /*position: relative;*/
+        text-align: center;
+        /*left: calc(12.5vw);*/
+        font-size: calc(1.4vmax);
+        color: white;
+        /*top: calc(27.5rem);*/
+        /*bottom: calc(36.5rem);*/
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    opacity: 1;
+    /*bottom: calc(1.5rem);*/
+    margin-bottom: calc(1rem);
+    margin-top: calc(1rem);
+    margin-left: 18.5%;
+    }
+    
+    .description-box {
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        /*position: absolute; */
+        position: absolute;
+        /*left: calc(15vw);
+        margin-left: -15px;
+        /*height: calc(10.5rem);*/
+        height: auto;
+        /*opacity: 0.6;*/
+        /*top: calc(26rem);*/
+        overflow: hidden;
+        bottom: calc(0px);
+    }
+    
+    .individual-heart {
+        width: calc(9.5%);
+        position: absolute;
+        margin-left: -3.75vw;
+        -webkit-transform: scale(0.55);
+        -ms-transform: scale(0.55);
+        transform: scale(0.55);
+        top: calc(0.4vw);
+        z-index: 15;
+    }
+
+    .application-type {
+        position: absolute;
+        text-align: left;
+        top: calc(41rem);
+        left: calc(78vw);
+        font-size: calc(1.4vw);
+        width: calc(16.5vw);
+        font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    }
+}

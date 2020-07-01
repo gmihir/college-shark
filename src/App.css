@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=Yanone+Kaffeesatz&display=swap');
+
+.logout {
+    font-family: 'Oswald', sans-serif;
+    font-size: calc(3.15vh);
+    font-weight: 700;
+}
+
+.ml-auto:hover {
+    color: #313b4c;
+}
+
+.nav-link.active {
+    color: white !important;
+}
+
+.navbar,
+.navbar-default {
+    background-image: linear-gradient(to bottom, #313b4c 0,#313b4c 100%) !important; /* override background image gradient w/ flat color */
+}
+
+.profile-icon {
+    width: 10%;
+}
+
+.navbar-search { 
+    position: absolute;
+    top: calc(2vh); 
+    left: calc(32vw); 
+    width: calc(60vw); 
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-search {
+        width: calc(80vw);
+        left: calc(20vw);
+    }
+}

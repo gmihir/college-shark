@@ -1,8 +1,10 @@
+/*@import url('https://fonts.googleapis.com/css?family=Font+Name');*/
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap');
 
 nav {
   display: flex;
   height: calc(8.5vh);
-  background-color: black;
+  background-image: linear-gradient(rgba(2,0,36,1) 0%, transparent);
 }
 
 .navbar {
@@ -14,39 +16,13 @@ nav {
   justify-content: left;
   align-items: center;
   list-style: none;  
+  font-family: 'Lato';
   cursor: default;
 }
 
 li {
   color: white;
   font-size: calc(2.5vmin);
-}
-
-.features-link {
-  margin-left: calc(2vmin);
-}
-
-.dashboard-link {
-  margin-left: calc(5vmin);
-}
-
-.profile-link {
-  margin-left: calc(35vw);
-}
-
-.space-between-tabs {
-  margin-left: calc(35vw);
-  /*previously 70vw*/
-}
-
-.login-link {
-  padding-left: calc(1vmin);
-}
-
-.signup-link {
-  margin-left: calc(1.5vw);
-  width: calc(100%);
-  text-align: center;
 }
 
 .App-logo-background {
@@ -60,6 +36,12 @@ li {
   padding-left: calc(0vmin);
   height: calc(6.5vmin);
   cursor: pointer;
+}
+
+.profile {
+  -webkit-transform: scale(0.6);
+  -ms-transform: scale(0.6);
+  transform: scale(2);
 }
 
 @media (prefers-reduced-motion: no-preference) {

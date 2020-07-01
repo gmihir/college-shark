@@ -1,0 +1,44 @@
+.navigation-div {
+    float: left;
+    background-color: #313b4c;
+    width: 13%;
+    height: calc(100vh);
+    overflow: hidden;
+    margin-bottom: 0xp;
+}
+
+.sidebar-header {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-top: calc(2vmin);
+    color: rgb(228, 220, 220);
+    padding: 1em;
+}
+
+.profile {
+    width: 40%;
+    height: 40%;
+}
+
+.navigation-div .nav-item {
+    background-color: white;
+}
+
+.navigation-div .nav .nav-link {
+    color: rgb(31, 172, 197) !important;
+}
+
+.navigation-div .nav .nav-item:hover {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.navigation-div .nav .nav-link.active {
+    background-color: rgb(255, 255, 255) !important;
+    color: black !important;
+}
+
+
+
+
+

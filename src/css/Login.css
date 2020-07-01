@@ -1,0 +1,83 @@
+.Login {
+    height: calc(90vmin);
+    width: calc(90%);
+    font-family: 'Montserrat', sans-serif;
+    background-color: '#white';
+  }
+  
+  .credentials {
+    height: calc(30vmin);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: calc(20vmin);
+  }
+  
+  .header {
+      position: relative;
+      font-size: calc(7vmin);
+      color: white;
+      text-align: center;
+      top: calc(10vh);
+      font-family: 'Oswald', sans-serif;
+      margin-bottom: calc(10vh);
+  }
+  
+  h1 {
+      margin: 0;
+      text-align: center;
+      width: 100%;
+      font-size: calc(6vmin);
+  }
+  
+  .email-password {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;   
+  }
+  
+  .email, .password {
+      position: relative;
+      margin-bottom: calc(0vh);
+      width: calc(55vmin);
+      height: calc(7vmin);
+      font-size: calc(2.5vmin);
+      text-indent: calc(3vmin);
+      text-align: left;
+      cursor: text;
+      border-color: transparent;
+      border-bottom-color: rgb(210, 210, 210);
+      border-width: calc(.3vmin);
+      background-color: transparent;
+      margin-top: calc(5%);
+      border-bottom-style: solid;
+  }
+  
+  .password {
+      margin-top: calc(2%);
+  }
+  
+  .login-button-div {
+      margin-top: calc(3vh);
+      padding-bottom: calc(6vmin);
+  }
+  
+  .login-button {
+      display: block;
+      width: calc(23vmin);
+      border-radius: 20px;
+      border: none;
+      text-align: center;
+      padding-top: calc(1vmin);
+      padding-bottom: calc(1vmin);
+      background-color: white;
+      opacity: 90%;
+      font-size: calc(2vmin);
+  }
+  
+  .login-button:hover {
+      background-color: rgb(177, 171, 171);
+  }

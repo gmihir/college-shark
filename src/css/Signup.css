@@ -1,0 +1,10 @@
+/*@import url('https://fonts.googleapis.com/css?family=Font+Name');*/
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+
+.Signup {
+  height: calc(100vmin);
+  width: calc(100%);
+  font-family: 'Montserrat', sans-serif;
+  background-color: rgb(15, 15, 75);
+}
+
