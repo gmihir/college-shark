@@ -18,4 +18,4 @@ if __name__ == '__main__':
 @app.route('/signup')
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return app.render_template('index.html')
