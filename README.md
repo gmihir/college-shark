@@ -25,6 +25,8 @@ Then, run the command in one terminal:
   
 Once the build completes, follow these steps to run the backend (in another terminal):
 
+  Make sure you are inside the root directory of the project as well (application-hub)
+
   1. If you are on mac, run the following commands: 
   
     python3 -m venv venv
@@ -33,11 +35,15 @@ Once the build completes, follow these steps to run the backend (in another term
   If you are on windows, run these commands:
   
     python -m venv venv (or py -m venv venv)
-    venv\Scripts\activate
+    .\venv\Scripts\activate
+    
+  if on git bash (Windows issue), run this command:
+  
+    source ./venv/Scripts/activate
     
   2. In the (venv) in the powershell, now run this command:
   
-    pip install flask python-dotenv pyrebase pypyodbc flask_cors
+    pip install flask python-dotenv pyrebase pypyodbc flask_cors (pyrebase4 if on windows)
     
   Then run the bash-source:
   
@@ -50,6 +56,10 @@ Once the build completes, follow these steps to run the backend (in another term
   3. Run this last command: 
   
     flask run
+    
+  if that command does not work, run this command (Windows issue most likely):
+  
+    python -m flask run
     
   Now the server should load and localhost:3000 will work with the backend. If there is any error on the install
   To leave the venv in terminal, simply type 'deactivate' (without the quotes)
