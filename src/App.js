@@ -10,8 +10,8 @@ import Signup from './pages/Signup';
 import Features from './pages/Features';
 import Individual from './pages/Individual';
 import Essays from './pages/Essays';
-import 'bootstrap/dist/css/bootstrap.min.css';
  
+
 const RequireAuth = (Component) => {
   return class Application extends Component {
     componentWillMount() {
