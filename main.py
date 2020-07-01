@@ -16,11 +16,10 @@ import re
 import json
 import pypyodbc
 
-app = flask.Flask(__name__, static_folder='./build', template_folder = "./templates", static_url_path='/')
+app = flask.Flask(__name__, static_folder='./build', template_folder = "./build", static_url_path='/')
 CORS(app)
 
-def index():
-    return app.send_static_file('index.html')
+
 
 app.secret_key = os.urandom(24)  # do we need this? read it somewhere, could possibly be helpful
 
@@ -278,11 +277,11 @@ def test_func():
 @app.route("/profile")
 @app.route("/loginhome/essays", methods = ['POST', 'GET'])
 def my_index():
-    return flask.render_template("index.html", token="Hello Flask and React")
+    return flask.send_static_file("index.html")
 
 @app.route('/loginhome/page/<collegeName>')
 def my_indexes(collegeName):
-    return flask.render_template("index.html", token="Hello Flask and React")
+    return flask.send_static_file("index.html")
 
 @app.route("/filter", methods = ['POST'])
 def test_filter():
