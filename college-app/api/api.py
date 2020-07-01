@@ -5,7 +5,7 @@ from flask import Flask
 import mysql.connector
 from sql_helpers import *
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 db_sql = mysql.connector.connect(
     host=os.environ.get("SQL_HOST"),
@@ -112,6 +112,6 @@ lst = get_order(lst, "tuition_oos", True)
 for i in lst:
    print(i)
 
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
