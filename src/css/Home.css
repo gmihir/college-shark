@@ -6,6 +6,7 @@
 }
 
 .Background-home-page {
+  opacity: 0.9;
   background-color: rgb(70, 70, 70);
   /*original 75 72 72*/
   background-position: center;
