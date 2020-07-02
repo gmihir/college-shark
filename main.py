@@ -432,8 +432,8 @@ def loginAfterCreation(email, password):
             # session['usr'] = user_id
             session['usr'] = user_id
             session['currentUser'] = email
-            print(session['currentUser'])
-            print(session['currentUser'][:-6])
+            print("Current User" + session['currentUser'])
+            print("Current User Truncated" + session['currentUser'][:-6])
         except:
             return json.dumps({"True": 1})
     return json.dumps({"True": 2})
@@ -472,8 +472,8 @@ def loginWithEmailPassword():
             # session['usr'] = user_id
             session['usr'] = user_id
             session['currentUser'] = email
-            print(session['currentUser'])
-            print(session['currentUser'][:-6])
+            print("Current User" + session['currentUser'])
+            print("Current User" + session['currentUser'][:-6])
         except:
             return json.dumps({"True": 1})
     return json.dumps({"True": 2})
