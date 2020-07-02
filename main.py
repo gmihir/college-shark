@@ -20,7 +20,6 @@ app = flask.Flask(__name__, static_folder='./build', template_folder = "./build"
 CORS(app)
 
 
-
 app.secret_key = os.urandom(24)  # do we need this? read it somewhere, could possibly be helpful
 
 server = os.environ.get("SERVER_ADDRESS")
