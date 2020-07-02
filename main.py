@@ -304,7 +304,7 @@ def essays():
     db.child("users").get().val()
     #print(db.get().val())
     #listColleges()
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     #print(colleges)
 
     name_list = []
@@ -355,7 +355,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 auth = firebase.auth()
-dictio = {}
+session = {}
 
 
 # parameters are Strings for email and password
@@ -371,9 +371,9 @@ def createUserWithEmailPassword():
     password = post_request['Password']
     try:
         auth.create_user_with_email_and_password(email, password)
-        dictio['initialUser'] = email
-        db.child("users").child(dictio['initialUser'][:-6]).update({"college": "none"})
-        db.child("users").child(dictio['initialUser'][:-6]).update({"username": email})
+        session['initialUser'] = email
+        db.child("users").child(session['initialUser'][:-6]).update({"college": "none"})
+        db.child("users").child(session['initialUser'][:-6]).update({"username": email})
     except:
         return json.dumps({"True": 1})
     loginAfterCreation(email, password)
@@ -392,11 +392,11 @@ def createUserWithEmailPasswordTest(email, password):
         print("i made it here! 1")
         auth.create_user_with_email_and_password(email, password)
         print("i made it here! 2")
-        dictio['initialUser'] = email
+        session['initialUser'] = email
         print("i made it here! 3")
-        db.child("users").child(dictio['initialUser'][:-6]).update({"college": "none"})
+        db.child("users").child(session['initialUser'][:-6]).update({"college": "none"})
         print("i made it here! 4")
-        db.child("users").child(dictio['initialUser'][:-6]).update({"username": email})
+        db.child("users").child(session['initialUser'][:-6]).update({"username": email})
     except:
         return json.dumps({"True": 1})
     return loginAfterCreation(email, password)
@@ -422,7 +422,7 @@ def loginAfterCreation(email, password):
     email = filterEmail(email)
     try:
         #print(session['usr']) #if this doesn't error out, that means the user is logged in already
-        print(dictio['usr'])
+        print(session['usr'])
         print("here")
     except KeyError:
         try:
@@ -430,10 +430,10 @@ def loginAfterCreation(email, password):
             user = auth.refresh(user['refreshToken'])
             user_id = user['idToken']
             # session['usr'] = user_id
-            dictio['usr'] = user_id
-            dictio['currentUser'] = email
-            print(dictio['currentUser'])
-            print(dictio['currentUser'][:-6])
+            session['usr'] = user_id
+            session['currentUser'] = email
+            print(session['currentUser'])
+            print(session['currentUser'][:-6])
         except:
             return json.dumps({"True": 1})
     return json.dumps({"True": 2})
@@ -462,7 +462,7 @@ def loginWithEmailPassword():
     #successfulLogin = False
     try:
         #print(session['usr']) #if this doesn't error out, that means the user is logged in already
-        print(dictio['usr'])
+        print(session['usr'])
         print("here")
     except KeyError:
         try:
@@ -470,10 +470,10 @@ def loginWithEmailPassword():
             user = auth.refresh(user['refreshToken'])
             user_id = user['idToken']
             # session['usr'] = user_id
-            dictio['usr'] = user_id
-            dictio['currentUser'] = email
-            print(dictio['currentUser'])
-            print(dictio['currentUser'][:-6])
+            session['usr'] = user_id
+            session['currentUser'] = email
+            print(session['currentUser'])
+            print(session['currentUser'][:-6])
         except:
             return json.dumps({"True": 1})
     return json.dumps({"True": 2})
@@ -490,17 +490,17 @@ def loginWithEmailPasswordTest(email, password):
     email = filterEmail(email)
     try:
         # print(session['usr']) #if this doesn't error out, that means the user is logged in already
-        print(dictio['usr'])
+        print(session['usr'])
     except KeyError:
         try:
             user = auth.sign_in_with_email_and_password(email, password)
             user = auth.refresh(user['refreshToken'])
             user_id = user['idToken']
             # session['usr'] = user_id
-            dictio['usr'] = user_id
-            dictio['currentUser'] = email
-            print( "Current user: " + dictio['currentUser'])
-            #print(dictio['currentUser'][:-6])
+            session['usr'] = user_id
+            session['currentUser'] = email
+            print( "Current user: " + session['currentUser'])
+            #print(session['currentUser'][:-6])
         except:
             return False
     
@@ -510,8 +510,8 @@ def loginWithEmailPasswordTest(email, password):
 @app.route("/logout", methods = ['POST'])
 def logout():
     # session.pop['usr']
-    dictio.pop('usr')
-    dictio['currentUser'] = 'none'
+    session.pop('usr')
+    session['currentUser'] = 'none'
 
 
 # returns boolean if user is logged in
@@ -519,7 +519,7 @@ def isLoggedIn():
     isLoggedIn = True
     try:
         #print(session['usr'])
-        print(dictio['usr'])
+        print(session['usr'])
     except:
         isLoggedIn = False
     return isLoggedIn
@@ -532,9 +532,9 @@ def addCollege():
     # Assign value from the request
     collegeName = post_request['CollegeName']
     
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     colleges[collegeName] = collegeName
-    db.child("users").child(dictio['currentUser'][:-6]).update(colleges)
+    db.child("users").child(session['currentUser'][:-6]).update(colleges)
     return dashboard()
 
 def addCollegeTest(collegeName):
@@ -544,9 +544,9 @@ def addCollegeTest(collegeName):
     # Assign value from the request
     # collegeName = post_request['CollegeName']
     
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     colleges[collegeName] = collegeName
-    db.child("users").child(dictio['currentUser'][:-6]).update(colleges)
+    db.child("users").child(session['currentUser'][:-6]).update(colleges)
 
 
 @app.route("/removecollege", methods = ['POST'])
@@ -557,9 +557,9 @@ def removeCollege():
     # Assign value from the request
     collegeName = post_request['CollegeName']
     
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     colleges[collegeName] = "none"
-    db.child("users").child(dictio['currentUser'][:-6]).update(colleges)
+    db.child("users").child(session['currentUser'][:-6]).update(colleges)
     return dashboard()
 
 @app.route("/removecolleges", methods = ['POST'])
@@ -569,9 +569,9 @@ def removeColleges():
     # Assign value from the request
     collegeNames = post_request['CollegeName']
     for collegeName in collegeNames:
-        colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
         colleges[collegeName] = "none"
-        db.child("users").child(dictio['currentUser'][:-6]).update(colleges)
+        db.child("users").child(session['currentUser'][:-6]).update(colleges)
     return json.dumps({"True": 2})
 
 def removeCollegeTest(collegeName):
@@ -581,12 +581,12 @@ def removeCollegeTest(collegeName):
     # Assign value from the request
     #collegeName = post_request['CollegeName']
     
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     colleges[collegeName] = "none"
-    db.child("users").child(dictio['currentUser'][:-6]).update(colleges)
+    db.child("users").child(session['currentUser'][:-6]).update(colleges)
 
 def listColleges():
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     print(colleges)
     name_list = []
     for name in colleges.values():
@@ -612,7 +612,7 @@ def listColleges():
 def getEmail():
     print(isLoggedIn())
     if (isLoggedIn()):
-        info = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+        info = db.child("users").child(session['currentUser'][:-6]).get().val()
         return info["username"]
 
 @app.route("/passwordreset", methods = ['POST'])
@@ -645,11 +645,11 @@ def resetPasswordLogin():
 #       createUserWithEmailPasswordTest("animal.wu@gmail.com", "1234567")
 # #     createUserWithEmailPasswordTest("jim2@gmail.com", "123456")
 #       loginWithEmailPasswordTest("animal.wu@gmail.com", "1234567")
-#     print(dictio['currentUser'])
+#     print(session['currentUser'])
 #     # db.child("users").child(short)
-#     # print(db.child("users").child(dictio['currentUser'][:-6]).get().val())
-#     # db.child("users").child(dictio['currentUser'][:-6]).update({"college": "ucsd"})
-#     # colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+#     # print(db.child("users").child(session['currentUser'][:-6]).get().val())
+#     # db.child("users").child(session['currentUser'][:-6]).update({"college": "ucsd"})
+#     # colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
 #     # colleges['ucsb'] = 'ucsb'
 #     # addCollege('USC')
 #     # addCollege('University of Southern California')
@@ -662,11 +662,11 @@ def resetPasswordLogin():
 
 #     # print(colleges)
 #     logout()
-#     if ('usr' in dictio):
+#     if ('usr' in session):
 #         print("something went wrong here")
 #     else:
 #         print("good job!")
-#     print(dictio['currentUser'])
+#     print(session['currentUser'])
 
 
 @app.route("/dashboard", methods = ['POST'])
@@ -674,7 +674,7 @@ def dashboard():
     db.child("users").get().val()
     #print(db.get().val())
     #listColleges()
-    colleges = db.child("users").child(dictio['currentUser'][:-6]).get().val()
+    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     #print(colleges)
     
     name_list = []
