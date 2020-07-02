@@ -106,7 +106,7 @@ export default function SignInSide() {
                         setDisplay({ display: data["True"] });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        window.location.href = "http://stage-application-hub.herokuapp.com/loginhome/dashboard";
                       }
                     });
                   }
@@ -157,7 +157,7 @@ export default function SignInSide() {
                         setDisplay({ display: data["True"] });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        window.location.href = "http://stage-application-hub.herokuapp.com/loginhome/dashboard";
                       }
                     });
                   }
@@ -207,7 +207,7 @@ export default function SignInSide() {
                         setDisplay({ display: data["True"] });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        window.location.href = "http://stage-application-hub.herokuapp.com/loginhome/dashboard";
                       }
                     });
                   }
@@ -252,7 +252,7 @@ export default function SignInSide() {
                       setUsernameError(true);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      window.location.href = "http://localhost:3000/loginhome/dashboard";
+                      window.location.href = "http://stage-application-hub.herokuapp.com/loginhome/dashboard";
                     }
                   });
 
