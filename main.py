@@ -355,7 +355,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 auth = firebase.auth()
-session = {}
+#session = {}
 
 
 # parameters are Strings for email and password
