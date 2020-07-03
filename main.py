@@ -74,9 +74,8 @@ if __name__ == '__main__':
 # colleges is the table where accurate information is stored
 def get_query(query):
 
-
     cursor = cnxn.cursor()
-    
+
     cursor.execute(query)
     myresult = cursor.fetchall()
     cursor.close()
@@ -95,11 +94,10 @@ def query_screen(query_lst):
     return True
 
 def get_colleges_for_dashboard(query_lst,headers_dashboard):
+    print("HERE")
     if len(query_lst) is 0:
         return []
 
-    if not query_screen(query_lst):
-        return []
 
     cols = ','.join(headers_dashboard)
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
@@ -123,7 +121,12 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
     print(query)
 
-    results = get_query(query)
+
+    if query_screen(query_lst):
+        results = get_query(query)
+    else:
+        results = []
+
     toBeSorted = []
 
 
@@ -229,9 +232,6 @@ def get_colleges_for_explore(query_lst,headers_explore):
 def get_colleges_for_essays(query_lst,headers_essay):
     if len(query_lst) is 0:
         return []
-
-    if not query_screen(query_lst):
-        return []
  
     cols = ','.join(headers_essay)
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
@@ -254,7 +254,10 @@ def get_colleges_for_essays(query_lst,headers_essay):
 
     query += ";"
     print(query)
-    results = get_query(query)
+    if query_screen(query_lst):
+        results = get_query(query)
+    else:
+        results = []
     toBeSorted = []
 
     # convert to college object
@@ -270,23 +273,56 @@ def get_colleges_for_essays(query_lst,headers_essay):
 
     return json
 
-def get_colleges_for_individual(college_name,headers_individual):
-    cols = ','.join(headers_individual)
-    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME") + " WHERE college_name = \'" + college_name + "\'"
-    results = get_query(query)
+def get_colleges_for_individual(query_lst,headers_individual):
+    if len(query_lst) is 0:
+        return []
+
+
+    cols = ','.join(headers_dashboard)
+    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
+    if len(query_lst) > 0:
+        query += " WHERE college_name IN ("
+        for i in range(0, len(query_lst), 2):
+            if query_lst[i+1].find("'") is not -1:
+                query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]
+            if query_lst[i] == "college_name":
+                query += "\'" + query_lst[i + 1] + "\'"
+                if i+3 >= len(query_lst):
+                    query += ")"
+                else:
+                    query += ","
+            else:
+                return "Incorrect Usage -- Not all parameters are college names"
+    elif len(query_lst) <= 0:
+            return "Incorrect Usage"
+
+    query += ";"
+
+    print(query)
+
+
+    if query_screen(query_lst):
+        results = get_query(query)
+    else:
+        results = []
+
     toBeSorted = []
+
+
 
     # convert to college object
     for element in results:
         c = College(element)
         toBeSorted.append(c)
 
+    mergeSort_alphabetical(toBeSorted,headers_individual)
     json = []
 
     for college in toBeSorted:
         json.append(college.get_json(headers_individual))
-
+        
     return json
+
 
 def get_colleges_for_searchbar(headers_searchbar):
     cols = ','.join(headers_searchbar)
@@ -552,7 +588,7 @@ def individual():
     name = post_request['name']
 
     #formats incoming request to proper format for calling function
-    college_json = get_colleges_for_individual(name,headers_individual)
+    college_json = get_colleges_for_dashboard(["college_name",name],headers_individual)
     return jsonify(college_json)
 
 
@@ -883,6 +919,7 @@ def resetPasswordLogin():
 
 @app.route("/dashboard", methods = ['POST'])
 def dashboard():
+    print("START OF DASHBOARD METHOD")
     try:
         db.child("users").get().val()
         #print(db.get().val())
@@ -894,7 +931,7 @@ def dashboard():
         # Assign value from the request
         colleges = post_request['currentUser']
     
-    #print(colleges)
+    print(colleges)
     name_list = []
     for name in colleges.values():
         if name != "none":
