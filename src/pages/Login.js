@@ -162,7 +162,6 @@ export default function SignInSide() {
                       setError(newError);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      // eslint-disable-next-line react-hooks/rules-of-hooks
                       history.push("/loginhome/dashboard");
                     }
                   })
