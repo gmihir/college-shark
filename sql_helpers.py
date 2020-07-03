@@ -17,14 +17,14 @@ class College:
     def __init__(self, query_result):
         self.info = query_result
 
-    def get_json(self):
+    def get_json(self,columns=headers):
         json_obj = {}
         for i in range(len(self.info)):
-            json_obj[headers[i]] = self.info[i]
+            json_obj[columns[i]] = self.info[i]
         return json.dumps(json_obj)
 
-    def order(self, college_obj, param):
-        index = headers.index(param)
+    def order(self, college_obj, param, columns=headers):
+        index = columns.index(param)
         return self.info[index] < college_obj.info[index]
 
 
@@ -43,27 +43,59 @@ def get_epoch(date_time):
     return epoch
 
 
-def get_json(query_result):
+def get_json(query_result, columns=headers):
     json_obj = {}
     for i in range(len(query_result)):
-        json_obj[headers[i]] = query_result[i]
+        json_obj[columns[i]] = query_result[i]
     return json.dumps(json_obj)
 
 
-def mergeSort(arr, param="national_ranking"):
+def mergeSort(arr, param="national_ranking",columns=headers):
     if len(arr) > 1:
         mid = len(arr) // 2  # Finding the mid of the array
         L = arr[:mid]  # Dividing the array elements
         R = arr[mid:]  # into 2 halves
 
-        mergeSort(L, param)  # Sorting the first half
-        mergeSort(R, param)  # Sorting the second half
+        mergeSort(L, param, columns)  # Sorting the first half
+        mergeSort(R, param, columns)  # Sorting the second half
 
         i = j = k = 0
 
         # Copy data to temp arrays L[] and R[] 
         while i < len(L) and j < len(R):
-            if L[i].order(R[j], param):
+            if L[i].order(R[j], param,columns):
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        # Checking if any element was left 
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+def mergeSort_alphabetical(arr, columns=headers):
+    if len(arr) > 1:
+        mid = len(arr) // 2  # Finding the mid of the array
+        L = arr[:mid]  # Dividing the array elements
+        R = arr[mid:]  # into 2 halves
+
+        mergeSort_alphabetical(L,columns)  # Sorting the first half
+        mergeSort_alphabetical(R,columns)  # Sorting the second half
+
+        i = j = k = 0
+
+        # Copy data to temp arrays L[] and R[] 
+        while i < len(L) and j < len(R):
+            if L[i].order(R[j],"college_name",columns):
                 arr[k] = L[i]
                 i += 1
             else:

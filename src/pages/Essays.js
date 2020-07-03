@@ -174,10 +174,13 @@ class Essays extends Component {
 
     componentDidMount() {
         fetch("/essays", {
-            method: "GET",
+            method: "POST",
             header: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify({
+              currentUser: sessionStorage.getItem("userData")
+            })
         }).then(response => {
             console.log(response);
             return response.json()
@@ -199,10 +202,13 @@ class Essays extends Component {
 
     updateColleges(){
         fetch("/essays", {
-            method: "GET",
+            method: "POST",
             header: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify({
+              currentUser: sessionStorage.getItem("userData")
+            })
         }).then(response => {
             console.log(response);
             return response.json()
