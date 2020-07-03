@@ -35,14 +35,12 @@ class NavBar extends React.Component {
 
   componentDidMount() {
     const email = sessionStorage.getItem("userData");
-    fetch("/filter", {
+    fetch("/searchbar", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        Array: [],
-        Filter: "national_ranking",
         IsDescending: true
       })
     }).then(response => {

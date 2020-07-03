@@ -6,8 +6,6 @@ from flask import request
 from sql_helpers import *
 from collections import Counter
 from flask import jsonify, redirect, url_for
-#import pyodbc
-#from firebase import * #Causing errors when testing, Ashwin fix it
 from flask_cors import CORS, cross_origin
 import smtplib, ssl
 from email.mime.multipart import MIMEMultipart
@@ -15,6 +13,38 @@ from email.mime.text import MIMEText
 import re
 import json
 import pypyodbc
+
+numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition_normal', "tuition_oos", 'app_fee',
+           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date','letter_of_rec_required','letter_of_rec_total']
+
+dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date']
+
+#all headers in the database
+headers = ["college_name","alias","abbreviation","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
+            "people_for_letters","sat","sat_essay","act_essay","self_report","subject_tests","essays","supplemental_essays","acceptance_rate",
+            "population","national_ranking","tuition_normal","tuition_oos","early_decision","early_action","regular_decision","scholarship_date",
+            "interview","app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","college_description","college_campus"]
+
+#headers required for JSON output for dashboard page
+headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decision","regular_decision","state"] 
+
+#headers required for JSON output for explore page
+headers_explore = ["college_name","alias","letter_of_rec_required",
+            "acceptance_rate",
+            "population","national_ranking","tuition_normal","tuition_oos",
+            "app_fee","app_site","common_app","coalition_app","college_logo","school_type","state"]
+
+#headers required for essays page
+headers_essay = ["college_name","supplemental_essays","app_site","common_app","coalition_app"]
+
+#headers required for individual page
+headers_individual = ["college_name","transcripts","mid_year","letter_of_rec_required",
+            "sat","self_report","subject_tests","supplemental_essays","acceptance_rate",
+            "population","national_ranking","tuition_normal","tuition_oos","early_decision","early_action","regular_decision","scholarship_date",
+            "app_fee","app_site","college_logo","school_type","state","college_description","college_campus"]
+
+#headers required for search bar
+headers_searchbar = ["college_name","alias","abbreviation","college_logo"]
 
 app = flask.Flask(__name__, static_folder='./build', template_folder = "./build", static_url_path='/')
 CORS(app)
@@ -64,6 +94,214 @@ def query_screen(query_lst):
         else:
             return False
     return True
+
+def get_colleges_for_dashboard(query_lst,headers_dashboard):
+    if len(query_lst) is 0:
+        return []
+
+    if not query_screen(query_lst):
+        return []
+
+    cols = ','.join(headers_dashboard)
+    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
+    if len(query_lst) > 0:
+        query += " WHERE college_name IN ("
+        for i in range(0, len(query_lst), 2):
+            if query_lst[i+1].find("'") is not -1:
+                query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]
+            if query_lst[i] == "college_name":
+                query += "\'" + query_lst[i + 1] + "\'"
+                if i+3 >= len(query_lst):
+                    query += ")"
+                else:
+                    query += ","
+            else:
+                return "Incorrect Usage -- Not all parameters are college names"
+    elif len(query_lst) <= 0:
+            return "Incorrect Usage"
+
+    query += ";"
+    print(query)
+    results = get_query(query)
+    toBeSorted = []
+
+    # convert to college object
+    for element in results:
+        c = College(element)
+        toBeSorted.append(c)
+
+    mergeSort_alphabetical(toBeSorted,headers_dashboard)
+    json = []
+
+    for college in toBeSorted:
+        json.append(college.get_json(headers_dashboard))
+
+    return json
+
+
+def get_colleges_for_explore(query_lst,headers_explore):
+    cols = ','.join(headers_explore)
+    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
+    first_state = True
+    tuition_absolute = False
+    tuition_count = Counter(query_lst)
+    last_tuition = False
+    first_tuition = True
+    if tuition_count["tuition_oos"] + tuition_count["tuition_normal"] is 4:
+        tuition_absolute = True
+    if len(query_lst) > 0:
+        query += " WHERE"
+        for i in range(0, len(query_lst), 2): 
+            if query_lst[i+1].find("'") is not -1:
+                query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]    
+            if query_lst[i] in dates:
+                epoch = get_epoch(query_lst[i + 1][1:])
+                query_lst[i + 1] = query_lst[i + 1][0] + str(epoch)
+            if query_lst[i] in numbers:
+                if tuition_absolute and not last_tuition and "tuition" in query_lst[i]:
+                    query += "("
+                    if i-2 >= 0 and "tuition" not in query_lst[i-2]:
+                        query += "("
+                elif "tuition" in query_lst[i]:
+                    last_tuition = True
+                if query_lst[i + 1][0] == "+":
+                    query += " " + str(query_lst[i]) + " >= " + str(query_lst[i + 1][1:])
+                else:
+                    query += " " + str(query_lst[i]) + " <= " + str(query_lst[i + 1][1:])
+                if tuition_absolute and last_tuition and "tuition" in query_lst[i]:
+                    query += ")"
+                    if "tuition" in query_lst[i] and (i+2 > len(query_lst)-1 or "tuition" not in query_lst[i+2]):
+                        query += ")"
+                    if i+2 < len(query_lst) and "tuition" in query_lst[i+2]:
+                        last_tuition = False
+                elif "tuition" in query_lst[i]:
+                    last_tuition = True
+            else:
+                if query_lst[i] == "state":
+                    if first_state == True:
+                        query += " (" 
+                        first_state = False
+                    query += str(query_lst[i]) + "=\'" + str(query_lst[i+1]) + "\'" 
+                    if i < len(query_lst)-2 and query_lst[i+2] == "state":
+                        query += " OR "
+                        i += 2
+                        continue
+                    else:
+                        query += ")"
+                else:
+                    query += " " + str(query_lst[i]) + "=\'" + str(query_lst[i+1]) + "\'"
+            if i+2 < len(query_lst) and "tuition" in query_lst[i] and "tuition" in query_lst[i+2] and tuition_absolute and not last_tuition:
+                query += " OR "
+                continue
+
+            if i != len(query_lst) - 2:
+                    query += " AND"
+
+
+
+    query += ";"
+    print(query)
+    if query_screen(query_lst):
+        results = get_query(query)
+    else:
+        results = []
+    toBeSorted = []
+
+    # convert to college object
+    for element in results:
+        c = College(element)
+        toBeSorted.append(c)
+
+    mergeSort(toBeSorted,"national_ranking",headers_explore)
+    json = []
+
+    for college in toBeSorted:
+        json.append(college.get_json(headers_explore))
+
+    return json
+
+
+def get_colleges_for_essays(query_lst,headers_essay):
+    if len(query_lst) is 0:
+        return []
+
+    if not query_screen(query_lst):
+        return []
+ 
+    cols = ','.join(headers_essay)
+    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
+
+    if len(query_lst) > 0:
+        query += " WHERE college_name IN ("
+        for i in range(0, len(query_lst), 2):
+            if query_lst[i+1].find("'") is not -1:
+                query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]
+            if query_lst[i] == "college_name":
+                query += "\'" + query_lst[i + 1] + "\'"
+                if i+3 >= len(query_lst):
+                    query += ")"
+                else:
+                    query += ","
+            else:
+                return "Incorrect Usage -- Not all parameters are college names"
+    elif len(query_lst) <= 0:
+            return "Incorrect Usage"
+
+    query += ";"
+    print(query)
+    results = get_query(query)
+    toBeSorted = []
+
+    # convert to college object
+    for element in results:
+        c = College(element)
+        toBeSorted.append(c)
+
+    mergeSort_alphabetical(toBeSorted,headers_essay)
+    json = []
+
+    for college in toBeSorted:
+        json.append(college.get_json(headers_essay))
+
+    return json
+
+def get_colleges_for_individual(college_name,headers_individual):
+    cols = ','.join(headers_individual)
+    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME") + " WHERE college_name = \'" + college_name + "\'"
+    results = get_query(query)
+    toBeSorted = []
+
+    # convert to college object
+    for element in results:
+        c = College(element)
+        toBeSorted.append(c)
+
+    json = []
+
+    for college in toBeSorted:
+        json.append(college.get_json(headers_individual))
+
+    return json
+
+def get_colleges_for_searchbar(headers_searchbar):
+    cols = ','.join(headers_searchbar)
+    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
+    results = get_query(query)
+    toBeSorted = []
+
+    # convert to college object
+    for element in results:
+        c = College(element)
+        toBeSorted.append(c)
+
+    json = []
+
+    for college in toBeSorted:
+        json.append(college.get_json(headers_searchbar))
+
+    return json
+
+
 
 
 # TO QUERY, CALL get_colleges()
@@ -155,7 +393,7 @@ def get_colleges(query_lst):
 # param is desired parameter to sort by
 # is_descending is true if descending order required
 # will return sorted list of json colleges
-def get_order(json_lst, param, is_descending):
+def get_order(json_lst, param, is_descending, columns=headers):
     json_out = []
     colleges = []
 
@@ -165,15 +403,16 @@ def get_order(json_lst, param, is_descending):
         c = College(element)
         colleges.append(c)
 
-    mergeSort(colleges, param)
+    mergeSort(colleges, param, columns)
 
     for college in colleges:
-        json_out.append(college.get_json())
+        json_out.append(college.get_json(columns))
 
     if is_descending:
         json_out.reverse()
 
     return json_out
+
 
 
 # helper function for ordering of get_college_names()
@@ -183,45 +422,7 @@ def get_ranking_order(college_lst):
         return 1000
     return int(college_lst[3])
 
-def get_colleges_for_dashboard(query_lst):
-    if len(query_lst) is 0:
-        return []
 
-    if not query_screen(query_lst):
-        return []
-    query = "SELECT * FROM " + os.environ.get("TABLE_NAME")
-
-    if len(query_lst) > 0:
-        query += " WHERE"
-        for i in range(0, len(query_lst), 2):
-            if query_lst[i+1].find("'") is not -1:
-                query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]
-            if query_lst[i] == "college_name":
-                query += " " + query_lst[i] + "=\'" + query_lst[i + 1] + "\'"
-            else:
-                return "Incorrect Usage -- Not all parameters are college names"
-            if i != len(query_lst) - 2:
-                    query += " OR"
-    elif len(query_lst) <= 0:
-            return "Incorrect Usage"
-
-    query += ";"
-    print(query)
-    results = get_query(query)
-    toBeSorted = []
-
-    # convert to college object
-    for element in results:
-        c = College(element)
-        toBeSorted.append(c)
-
-    mergeSort(toBeSorted)
-    json = []
-
-    for college in toBeSorted:
-        json.append(college.get_json())
-
-    return json
 
 
 # function for kai to get names of all colleges
@@ -294,10 +495,23 @@ def test_filter():
     filter_by = post_request['Filter']
     is_descending = post_request['IsDescending']
 
-    colleges_array = get_colleges(array)
+    colleges_array = get_colleges_for_explore(array, headers_explore)
     # print(colleges_array)
 
-    return jsonify(get_order(colleges_array, filter_by, is_descending))
+    return jsonify(get_order(colleges_array, filter_by, is_descending, headers_explore))
+
+@app.route("/searchbar",methods=['POST'])
+def searchbar():
+    post_request = request.get_json(force=True)
+
+    #Assign value from the request
+    is_descending = post_request['IsDescending']
+
+    colleges_array = get_colleges_for_searchbar(headers_searchbar)
+    # print(colleges_array)
+
+    return jsonify(get_order(colleges_array, "college_name", is_descending, headers_searchbar))
+
 
 @app.route("/essays", methods = ['GET'])
 def essays():
@@ -316,8 +530,7 @@ def essays():
         query_lst.append("college_name")
         query_lst.append(i)
     #print(query_lst)
-    json_return = get_colleges_for_dashboard(query_lst)
-    print("essays here")
+    json_return = get_colleges_for_essays(query_lst,headers_essay)
     print(json_return)
     return json.dumps(json_return)
 
@@ -330,9 +543,7 @@ def individual():
     name = post_request['name']
 
     #formats incoming request to proper format for calling function
-    lst_to_call = ['college_name',name]
-    print(lst_to_call)
-    college_json = get_colleges(lst_to_call)
+    college_json = get_colleges_for_individual(name,headers_individual)
     return jsonify(college_json)
 
 
@@ -686,7 +897,7 @@ def dashboard():
         query_lst.append("college_name")
         query_lst.append(i)
     print(query_lst)
-    json_return = get_colleges_for_dashboard(query_lst)
+    json_return = get_colleges_for_dashboard(query_lst, headers_dashboard)
     print(json_return)
     return json.dumps(json_return)
 
