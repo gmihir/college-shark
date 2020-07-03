@@ -466,21 +466,16 @@ def loginWithEmailPassword():
     #password = "123456"
     #successfulLogin = False
     try:
-        #print(session['usr']) #if this doesn't error out, that means the user is logged in already
-        print(session['usr'])
-        print("here")
-    except KeyError:
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            user = auth.refresh(user['refreshToken'])
-            user_id = user['idToken']
-            # session['usr'] = user_id
-            session['usr'] = user_id
-            session['currentUser'] = email
-            print("Current User" + session['currentUser'])
-            print("Current User" + session['currentUser'][:-6])
-        except:
-            return json.dumps({"True": 1})
+        user = auth.sign_in_with_email_and_password(email, password)
+        user = auth.refresh(user['refreshToken'])
+        user_id = user['idToken']
+        # session['usr'] = user_id
+        session['usr'] = user_id
+        session['currentUser'] = email
+        print("Current User" + session['currentUser'])
+        print("Current User" + session['currentUser'][:-6])
+    except:
+        return json.dumps({"True": 1})
     return json.dumps({"True": 2})
 
 def loginWithEmailPasswordTest(email, password):
