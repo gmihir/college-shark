@@ -476,7 +476,7 @@ def test_func():
 @app.route("/loginhome/signup")
 @app.route("/loginhome/dashboard")
 @app.route("/profile")
-@app.route("/loginhome/essays", methods = ['POST', 'GET'])
+@app.route("/loginhome/essays")
 def my_index():
     return app.send_static_file("index.html")
 
@@ -513,14 +513,19 @@ def searchbar():
     return jsonify(get_order(colleges_array, "college_name", is_descending, headers_searchbar))
 
 
-@app.route("/essays", methods = ['GET'])
+@app.route("/essays", methods = ['POST'])
 def essays():
-    db.child("users").get().val()
-    #print(db.get().val())
-    #listColleges()
-    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    #print(colleges)
+    try:
+        db.child("users").get().val()
+        #print(db.get().val())
+        #listColleges()
+        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+    except:
+        post_request = request.get_json(force=True)
 
+        # Assign value from the request
+        colleges = post_request['currentUser']
+    
     name_list = []
     for name in colleges.values():
         if name != "none":
@@ -632,21 +637,16 @@ def loginAfterCreation(email, password):
     #post_request = request.get_json(force=True)
     email = filterEmail(email)
     try:
-        #print(session['usr']) #if this doesn't error out, that means the user is logged in already
-        print(session['usr'])
-        print("here")
-    except KeyError:
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            user = auth.refresh(user['refreshToken'])
-            user_id = user['idToken']
-            # session['usr'] = user_id
-            session['usr'] = user_id
-            session['currentUser'] = email
-            print("Current User" + session['currentUser'])
-            print("Current User Truncated" + session['currentUser'][:-6])
-        except:
-            return json.dumps({"True": 1})
+        user = auth.sign_in_with_email_and_password(email, password)
+        user = auth.refresh(user['refreshToken'])
+        user_id = user['idToken']
+        # session['usr'] = user_id
+        session['usr'] = user_id
+        session['currentUser'] = email
+        print("Current User" + session['currentUser'])
+        print("Current User Truncated" + session['currentUser'][:-6])
+    except:
+        return json.dumps({"True": 1})
     return json.dumps({"True": 2})
 
 
@@ -672,21 +672,16 @@ def loginWithEmailPassword():
     #password = "123456"
     #successfulLogin = False
     try:
-        #print(session['usr']) #if this doesn't error out, that means the user is logged in already
-        print(session['usr'])
-        print("here")
-    except KeyError:
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            user = auth.refresh(user['refreshToken'])
-            user_id = user['idToken']
-            # session['usr'] = user_id
-            session['usr'] = user_id
-            session['currentUser'] = email
-            print("Current User" + session['currentUser'])
-            print("Current User" + session['currentUser'][:-6])
-        except:
-            return json.dumps({"True": 1})
+        user = auth.sign_in_with_email_and_password(email, password)
+        user = auth.refresh(user['refreshToken'])
+        user_id = user['idToken']
+        # session['usr'] = user_id
+        session['usr'] = user_id
+        session['currentUser'] = email
+        print("Current User" + session['currentUser'])
+        print("Current User" + session['currentUser'][:-6])
+    except:
+        return json.dumps({"True": 1})
     return json.dumps({"True": 2})
 
 def loginWithEmailPasswordTest(email, password):
@@ -721,8 +716,9 @@ def loginWithEmailPasswordTest(email, password):
 @app.route("/logout", methods = ['POST'])
 def logout():
     # session.pop['usr']
-    session.pop('usr')
-    session['currentUser'] = 'none'
+    session.pop('usr', None)
+    session.pop('currentUser', None)
+    return json.dumps({"True": 2})
 
 
 # returns boolean if user is logged in
@@ -882,12 +878,18 @@ def resetPasswordLogin():
 
 @app.route("/dashboard", methods = ['POST'])
 def dashboard():
-    db.child("users").get().val()
-    #print(db.get().val())
-    #listColleges()
-    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    #print(colleges)
+    try:
+        db.child("users").get().val()
+        #print(db.get().val())
+        #listColleges()
+        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+    except:
+        post_request = request.get_json(force=True)
+
+        # Assign value from the request
+        colleges = post_request['currentUser']
     
+    #print(colleges)
     name_list = []
     for name in colleges.values():
         if name != "none":

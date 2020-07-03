@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,9 +9,11 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import CloseIcon from '@material-ui/icons/Close';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { Spinner } from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,19 +43,41 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
+  }
 }));
 
 export default function SignInSide() {
+  const history = useHistory();
   const classes = useStyles();
   const [usernameError, setUsernameError] = useState({ usernameError: false });
   const [username, setUsername] = useState({ username: '' });
   const [password, setPassword] = useState({ password: '' });
   const [cpassword, setcPassword] = useState({ cpassword: '' });
-  const [display, setDisplay] = useState({ display: '' });
+  const [spinner, setSpinner] = useState(
+    { 
+      Spinner: false,
+      Check: false
+    });
   
   if(sessionStorage.getItem("userData")){
       return(<Redirect to='/loginhome/dashboard' />)
+  }
+
+  const textDisplay = () => {
+    if(spinner.Check) {
+      return (
+        <div>
+          <CloseIcon />
+          Sign up Failed
+        </div>
+      )
+    } else if(spinner.Spinner) {
+      return (
+        <Spinner animation="border" variant="light"/>  
+      )
+    } else {
+      return "Sign up";
+    }
   }
 
   return (
@@ -77,16 +102,20 @@ export default function SignInSide() {
               label="Email Address"
               name="email"
               onChange={e => {
+                setSpinner({ Spinner: false, Check: false });
                 const newUsername = { username: e.target.value };
                 setUsername(newUsername);
                 console.log(newUsername.username);
               }}
               onKeyPress={e => {
                 if (e.key === 'Enter') {
+                  setSpinner({ Spinner: true, Check: false });
                   if (cpassword.cpassword !== password.password) {
-                    setDisplay({ display: 1});
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
-                    setDisplay({ display: 1});
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -101,12 +130,14 @@ export default function SignInSide() {
                     }).then(response => {
                       return response.json();
                     }).then(data => {
+                      setSpinner({ Spinner: false, Check: true });
                       console.log(data);
                       if (data["True"] === 1) {
-                        setDisplay({ display: data["True"] });
+                        setUsernameError(true);
+                        setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        history.push("/loginhome/dashboard");
                       }
                     });
                   }
@@ -134,10 +165,13 @@ export default function SignInSide() {
               }}
               onKeyPress={e => {
                 if (e.key === 'Enter') {
+                  setSpinner({ Spinner: true, Check: false });
                   if (cpassword.cpassword !== password.password) {
-                    setDisplay({ display: 1});
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
-                    setDisplay({ display: 1});
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -152,12 +186,14 @@ export default function SignInSide() {
                     }).then(response => {
                       return response.json();
                     }).then(data => {
+                      setSpinner({ Spinner: false, Check: true });
                       console.log(data);
                       if (data["True"] === 1) {
-                        setDisplay({ display: data["True"] });
+                        setUsernameError(true);
+                        setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        history.push("/loginhome/dashboard");
                       }
                     });
                   }
@@ -178,16 +214,20 @@ export default function SignInSide() {
               id="password"
               autoComplete="current-password"
               onChange={e => {
+                setSpinner({ Spinner: false, Check: false });
                 const newPassword = { cpassword: e.target.value };
                 setcPassword(newPassword);
                 console.log(newPassword.cpassword);
               }}
               onKeyPress={e => {
+                setSpinner({ Spinner: true, Check: false });
                 if (e.key === 'Enter') {
                   if (cpassword.cpassword !== password.password) {
-                    setDisplay({ display: 1});
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
-                    setDisplay({ display: 1});
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -202,12 +242,14 @@ export default function SignInSide() {
                     }).then(response => {
                       return response.json();
                     }).then(data => {
+                      setSpinner({ Spinner: false, Check: true });
                       console.log(data);
                       if (data["True"] === 1) {
-                        setDisplay({ display: data["True"] });
+                        setUsernameError(true);
+                        setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        history.push("/loginhome/dashboard");
                       }
                     });
                   }
@@ -227,12 +269,16 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              size='large'
               onClick={e => {
+                setSpinner({Spinner: true, Check: false});
                 //e.preventDefault();
                 if (cpassword.cpassword !== password.password) {
-
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });   
                 } else if (password.password.length < 6) {
-
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });
                 } else {
                   fetch("/signup", {
                     method: "POST",
@@ -248,11 +294,13 @@ export default function SignInSide() {
                     return response.json();
                   }).then(data => {
                     console.log(data);
+                    setSpinner({ Spinner: false, Check: true });
                     if (data["True"] === 1) {
                       setUsernameError(true);
+                      setSpinner({ Spinner: false, Check: true });
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      window.location.href = "http://localhost:3000/loginhome/dashboard";
+                      history.push("/loginhome/dashboard");
                     }
                   });
 
@@ -260,7 +308,7 @@ export default function SignInSide() {
               }
               }
             >
-              Sign Up
+              {textDisplay()}
             </Button>
             <Grid container>
               <Grid item xs>
@@ -275,7 +323,6 @@ export default function SignInSide() {
               </Grid>
             </Grid>
             <Box mt={5}>
-              {display.display === 1 && <p>Sign Up Failed</p>}
             </Box>
           </form>
         </div>
