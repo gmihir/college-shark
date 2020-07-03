@@ -174,7 +174,7 @@ class Essays extends Component {
 
     componentDidMount() {
         fetch("/essays", {
-            method: "GET",
+            method: "POST",
             header: {
                 'Content-Type': 'application/json'
             },
@@ -202,7 +202,7 @@ class Essays extends Component {
 
     updateColleges(){
         fetch("/essays", {
-            method: "GET",
+            method: "POST",
             header: {
                 'Content-Type': 'application/json'
             },
