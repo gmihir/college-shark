@@ -275,7 +275,7 @@ def test_func():
 @app.route("/loginhome/signup")
 @app.route("/loginhome/dashboard")
 @app.route("/profile")
-@app.route("/loginhome/essays", methods = ['POST', 'GET'])
+@app.route("/loginhome/essays")
 def my_index():
     return app.send_static_file("index.html")
 
