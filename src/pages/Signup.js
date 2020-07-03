@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const history = useHistory();
   const classes = useStyles();
   const [usernameError, setUsernameError] = useState({ usernameError: false });
   const [username, setUsername] = useState({ username: '' });
@@ -106,7 +108,7 @@ export default function SignInSide() {
                         setDisplay({ display: data["True"] });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        history.push("/loginhome/dashboard");
                       }
                     });
                   }
@@ -157,7 +159,7 @@ export default function SignInSide() {
                         setDisplay({ display: data["True"] });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        history.push("/loginhome/dashboard");
                       }
                     });
                   }
@@ -207,7 +209,7 @@ export default function SignInSide() {
                         setDisplay({ display: data["True"] });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        window.location.href = "http://localhost:3000/loginhome/dashboard";
+                        history.push("/loginhome/dashboard");
                       }
                     });
                   }
@@ -252,7 +254,7 @@ export default function SignInSide() {
                       setUsernameError(true);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      window.location.href = "http://localhost:3000/loginhome/dashboard";
+                      history.push("/loginhome/dashboard");
                     }
                   });
 

@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Modal, Form } from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const history = useHistory();
   const classes = useStyles();
   const [error, setError] = useState({error: false});
   const [username, setUsername] = useState({ username: '' });
@@ -161,7 +162,7 @@ export default function SignInSide() {
                       setError(newError);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      window.location.href = "http//localhost:3000/loginhome/dashboard";
+                      history.push("/loginhome/dashboard");
                     }
                   })
                 }
@@ -204,7 +205,7 @@ export default function SignInSide() {
                       console.log(show.Show);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      window.location.href = "http://localhost:3000/loginhome/dashboard";
+                      history.push("/loginhome/dashboard");
                     }
                   })
                 }
@@ -248,7 +249,7 @@ export default function SignInSide() {
                     setError(newError);
                   } else {
                     sessionStorage.setItem("userData", username.username);
-                    window.location.href = "http://localhost:3000/loginhome/dashboard";
+                    history.push("/loginhome/dashboard");
                   }
                 })
               }}
