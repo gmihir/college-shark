@@ -517,6 +517,7 @@ def logout():
     # session.pop['usr']
     session['usr'] = 'none'
     session['currentUser'] = 'none'
+    return json.dumps({"True": 2})
 
 
 # returns boolean if user is logged in

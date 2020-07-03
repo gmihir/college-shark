@@ -155,6 +155,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    console.log(sessionStorage.getItem("userData"));
     return (
       <div>
         <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />
