@@ -515,8 +515,8 @@ def loginWithEmailPasswordTest(email, password):
 @app.route("/logout", methods = ['POST'])
 def logout():
     # session.pop['usr']
-    session['usr'] = 'none'
-    session['currentUser'] = 'none'
+    session.pop['usr']
+    session.pop['currentUser']
     return json.dumps({"True": 2})
 
 
