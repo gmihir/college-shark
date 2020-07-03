@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && pip install mysql.connector && flask run --no-debugger",
-    "build": "react-scripts build",
+    "build": "set HTTPS=true&&react-scripts build",
     "test": "react-scripts test",
     "test-api": "cd api && flask test",
     "eject": "react-scripts eject"
