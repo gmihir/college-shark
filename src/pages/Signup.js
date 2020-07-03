@@ -193,11 +193,7 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-<<<<<<< HEAD
-                        window.location.href = "https://application-hub.herokuapp.com/loginhome/dashboard";
-=======
                         history.push("/loginhome/dashboard");
->>>>>>> master
                       }
                     });
                   }
@@ -253,11 +249,7 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-<<<<<<< HEAD
-                        window.location.href = "https://application-hub.herokuapp.com/loginhome/dashboard";
-=======
                         history.push("/loginhome/dashboard");
->>>>>>> master
                       }
                     });
                   }
@@ -308,11 +300,7 @@ export default function SignInSide() {
                       setSpinner({ Spinner: false, Check: true });
                     } else {
                       sessionStorage.setItem("userData", username.username);
-<<<<<<< HEAD
-                      window.location.href = "https://application-hub.herokuapp.com/loginhome/dashboard";
-=======
                       history.push("/loginhome/dashboard");
->>>>>>> master
                     }
                   });
 

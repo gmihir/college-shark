@@ -162,11 +162,7 @@ export default function SignInSide() {
                       setError(newError);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-<<<<<<< HEAD
-                      window.location.href = "https://application-hub.herokuapp.com/loginhome/dashboard";
-=======
                       history.push("/loginhome/dashboard");
->>>>>>> master
                     }
                   })
                 }
@@ -209,11 +205,7 @@ export default function SignInSide() {
                       console.log(show.Show);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-<<<<<<< HEAD
-                      window.location.href = "https://application-hub.herokuapp.com/loginhome/dashboard";
-=======
                       history.push("/loginhome/dashboard");
->>>>>>> master
                     }
                   })
                 }
