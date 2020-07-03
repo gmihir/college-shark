@@ -64,6 +64,7 @@ export default function SignInSide() {
   }
 
   function resetSubmit() {
+    
     fetch("/reset", {
       method: "POST",
       headers: {
@@ -156,7 +157,6 @@ export default function SignInSide() {
                   }).then(response => {
                     return response.json();
                   }).then(data => {
-                    console.log(data);
                     if (data["True"] === 1) {
                       const newError = {error: true};
                       setError(newError);
@@ -198,11 +198,9 @@ export default function SignInSide() {
                   }).then(response => {
                     return response.json();
                   }).then(data => {
-                    console.log(data);
                     if (data["True"] === 1) {
                       const newError = {error: true};
                       setError(newError);
-                      console.log(show.Show);
                     } else {
                       sessionStorage.setItem("userData", username.username);
                       history.push("/loginhome/dashboard");

@@ -82,6 +82,7 @@ class Dashboard extends React.Component {
   }
 
   pullColleges() {
+
     fetch("/dashboard", {
       method: "POST",
       headers: {
@@ -95,13 +96,12 @@ class Dashboard extends React.Component {
     }).then(data => {
       let collegeList = [];
       let boolean = true;
-      console.log(data);
       data.map(college => {
         var collegeName = JSON.parse(college);
         collegeList.push(collegeName);
       })
-      console.log(collegeList);
       sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
+
       if (this.state.rerender) {
       } else {
         this.setState({ 
@@ -155,7 +155,6 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(sessionStorage.getItem("userData"));
     return (
       <div>
         <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />
