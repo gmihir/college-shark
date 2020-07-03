@@ -301,12 +301,17 @@ def test_filter():
 
 @app.route("/essays", methods = ['GET'])
 def essays():
-    db.child("users").get().val()
-    #print(db.get().val())
-    #listColleges()
-    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    #print(colleges)
+    try:
+        db.child("users").get().val()
+        #print(db.get().val())
+        #listColleges()
+        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+    except:
+        post_request = request.get_json(force=True)
 
+        # Assign value from the request
+        colleges = post_request['currentUser']
+    
     name_list = []
     for name in colleges.values():
         if name != "none":
@@ -671,12 +676,18 @@ def resetPasswordLogin():
 
 @app.route("/dashboard", methods = ['POST'])
 def dashboard():
-    db.child("users").get().val()
-    #print(db.get().val())
-    #listColleges()
-    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    #print(colleges)
+    try:
+        db.child("users").get().val()
+        #print(db.get().val())
+        #listColleges()
+        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+    except:
+        post_request = request.get_json(force=True)
+
+        # Assign value from the request
+        colleges = post_request['currentUser']
     
+    #print(colleges)
     name_list = []
     for name in colleges.values():
         if name != "none":

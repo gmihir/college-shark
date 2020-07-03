@@ -178,6 +178,9 @@ class Essays extends Component {
             header: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify({
+              currentUser: sessionStorage.getItem("userData")
+            })
         }).then(response => {
             console.log(response);
             return response.json()
@@ -203,6 +206,9 @@ class Essays extends Component {
             header: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify({
+              currentUser: sessionStorage.getItem("userData")
+            })
         }).then(response => {
             console.log(response);
             return response.json()

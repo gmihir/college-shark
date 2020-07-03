@@ -87,6 +87,9 @@ class Dashboard extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify({
+        currentUser: sessionStorage.getItem("userData")
+      })
     }).then(response => {
       return response.json()
     }).then(data => {
