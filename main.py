@@ -295,11 +295,11 @@ def test_filter():
     is_descending = post_request['IsDescending']
 
     colleges_array = get_colleges(array)
-    # print(colleges_array)
+    # print(colleges_array) 
 
     return jsonify(get_order(colleges_array, filter_by, is_descending))
 
-@app.route("/essays", methods = ['GET'])
+@app.route("/essays", methods = ['POST'])
 def essays():
     try:
         db.child("users").get().val()
