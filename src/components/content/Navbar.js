@@ -115,7 +115,7 @@ class NavBar extends React.Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Navbar.Brand>
               <Link style={{textDecoration: 'none', color: 'white'}} eventKey="1" to="/loginhome/dashboard">
-                  College Shark
+                  Application Hub
                 </Link>
             </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={this.props.active}>
