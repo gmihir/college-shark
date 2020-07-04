@@ -296,7 +296,7 @@ class Explore extends React.Component {
                 <div className="results-div">
                     <div className="icon-results"><FontAwesomeIcon icon={faSadTear} /></div>
                     <h1 className="no-results">No results found...</h1>
-                    {true && <div className="error-message"><h1>Error: Make sure inputs are valid numbers</h1></div>}
+                    {true && <div className="error-message"><h1>Error: Please check your inputs and try again.</h1></div>}
                 </div>
             )
         }
