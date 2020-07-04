@@ -58,8 +58,8 @@ const Type = [
 
 const App = [
     {value: 'Any', label: 'Any'},
-    {value: 'commonapp', label: 'Common app'},
-    {value: 'coalitionapp', label: 'Coalition app'}
+    {value: 'commonapp', label: 'Common Application'},
+    {value: 'coalitionapp', label: 'Coalition Application'}
 ]
 
 const Sortby = [
@@ -67,7 +67,7 @@ const Sortby = [
     {value: "tuition_normal", label: 'In State Tuition'},
     {value: "tuition_oos", label: 'Out of State Tuition'},
     {value: "acceptance_rate", label: 'Acceptance Rate'},
-    {value: "app_fee", label: 'App Fee'},
+    {value: "app_fee", label: 'Application Fee'},
     {value: "population", label: 'Population'}
 ]
 

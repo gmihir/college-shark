@@ -82,6 +82,7 @@ class Dashboard extends React.Component {
   }
 
   pullColleges() {
+
     fetch("/dashboard", {
       method: "POST",
       headers: {
@@ -95,13 +96,12 @@ class Dashboard extends React.Component {
     }).then(data => {
       let collegeList = [];
       let boolean = true;
-      console.log(data);
       data.map(college => {
         var collegeName = JSON.parse(college);
         collegeList.push(collegeName);
       })
-      console.log(collegeList);
       sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
+
       if (this.state.rerender) {
       } else {
         this.setState({ 
@@ -137,7 +137,7 @@ class Dashboard extends React.Component {
       } else if (this.state.users.length === 0) {
         return (
           <div style={{width: '100%', textAlign: 'center', marginTop: 'calc(15%)', color: 'rgb(0, 0, 0, 0.534)', fontFamily: 'Roboto, sans-serif'}}>
-            <h3>You appear to have nothing on your dashboard, click Explore to start adding colleges.</h3>
+            <h3>You haven't selected any colleges, click Explore to start adding some!</h3>
           </div>
         )
       }
@@ -155,7 +155,6 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(sessionStorage.getItem("userData"));
     return (
       <div>
         <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />

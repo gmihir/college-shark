@@ -5,7 +5,7 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Tuition Range</Popover.Title>
       <Popover.Content>
-        Filter results based on tuition that suit you. 
+        Filter results based on a tuition range.
         <br/>
         <br/>
         Example: 10000 for lower bound, 20000 for upper bound will return all colleges that are between $10,000 and $20,000 for tuition.
@@ -17,7 +17,7 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Ranking Range</Popover.Title>
       <Popover.Content>
-        Filter results based on rankings that suit you. 
+        Filter results based on national rankings.
         <br/>
         <br/>
         Example: 1 for lower bound, 10 for upper bound will return all colleges between 1 - 10 in national ranking.
@@ -32,7 +32,7 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Application Fee Range</Popover.Title>
       <Popover.Content>
-        Filter results based on Application Fees that suit you. 
+        Filter results based on application fees.
           <br/>
           <br/>
         Example: 20 for lower bound, 50 for upper bound will return all colleges between $20 - $50 in national ranking.
@@ -74,7 +74,7 @@ const Tuition = (
         Select an option from the dropdown to filter by the application type.
           <br/>
           <br/>
-        Example: selecting "Common app" will return all universities that take applications through the Common App. Selecting 'Any' will return all colleges.
+        Example: Selecting "Common Application" will return all universities that take applications through the Common Application. Selecting 'Any' will return all colleges.
       </Popover.Content>
     </Popover>
   );
@@ -83,10 +83,10 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">School Type</Popover.Title>
       <Popover.Content>
-        Select an option from the dropdown to filter by school type, which is either private or public
+        Select an option from the dropdown to filter by school type, which is either private or public.
           <br/>
           <br/>
-        Example: selecting "Private" will return all private universities. Selecting 'Any' will return all colleges.
+        Example: Selecting "Private" will return all private universities. Selecting 'Any' will return all colleges.
       </Popover.Content>
     </Popover>
   );
@@ -95,10 +95,10 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Letter of Recommendations</Popover.Title>
       <Popover.Content>
-        Filter results based on the number of letter of recommendations needed.
+        Filter results based on the maximum number of letters of recommendations needed.
           <br/>
           <br/>
-        Example: Selecting "2" will return all universities that require 2 letters of recommendations. Selecting 'Any' will return all colleges.
+        Example: Selecting "2" will return all universities that require 2 or less letters of recommendations. Selecting 'Any' will return all colleges.
       </Popover.Content>
     </Popover>
   );
@@ -107,7 +107,7 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">States</Popover.Title>
       <Popover.Content>
-        Filter results based on state(s) that suit your needs.
+        Filter results based on the state a college is in.
           <br/>
           <br/>
         Example: Selecting "CA", "NY", "AL" will return all universities that are in California, New York, and Alabama. Selecting no options will return all colleges.
@@ -119,13 +119,13 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Tuition Type</Popover.Title>
       <Popover.Content>
-        Filter results based on what tuition you want
+        Filter results based on their In State and Out of State tuitions.
           <br/>
           <br/>
-        Example: Select 'In state or Out of State' filters the results in which the college has either tuition state within the range.
+        Example: Select 'In State or Out of State' filters the results in which the college has either tuition state within the range.
           <br/>
           <br/>
-        Selecting 'In State' will filter the tuition range by only the College's In state tuition.
+        Selecting 'In State' will filter the tuition range by only the college's in state tuition.
           <br/>
           <br/>
         The default value will be 'In state or Out of State' if no tuition type is selected
