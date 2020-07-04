@@ -137,7 +137,7 @@ class Dashboard extends React.Component {
       } else if (this.state.users.length === 0) {
         return (
           <div style={{width: '100%', textAlign: 'center', marginTop: 'calc(15%)', color: 'rgb(0, 0, 0, 0.534)', fontFamily: 'Roboto, sans-serif'}}>
-            <h3>You appear to have nothing on your dashboard, click Explore to start adding colleges.</h3>
+            <h3>You haven't selected any colleges, click Explore to start adding some!</h3>
           </div>
         )
       }

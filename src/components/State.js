@@ -58,8 +58,8 @@ const Type = [
 
 const App = [
     {value: 'Any', label: 'Any'},
-    {value: 'commonapp', label: 'Common app'},
-    {value: 'coalitionapp', label: 'Coalition app'}
+    {value: 'commonapp', label: 'Common Application'},
+    {value: 'coalitionapp', label: 'Coalition Application'}
 ]
 
 const Sortby = [

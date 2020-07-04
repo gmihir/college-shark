@@ -304,7 +304,7 @@ class Essays extends Component {
             <div className="empty-div">
                 <div className="redirect-div">
                     <br />
-                    <h3 className="explore-redirect">You currently have no colleges selected, check out the Explore tab to add some</h3>
+                    <h3 className="explore-redirect">You haven't selected any colleges, click Explore to start adding some!</h3>
                 </div>
             </div>
 
