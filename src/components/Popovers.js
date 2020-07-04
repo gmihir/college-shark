@@ -32,7 +32,7 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Application Fee Range</Popover.Title>
       <Popover.Content>
-        Filter results based on Application Fees that suit you. 
+        Filter results based on application fees that suit you. 
           <br/>
           <br/>
         Example: 20 for lower bound, 50 for upper bound will return all colleges between $20 - $50 in national ranking.
