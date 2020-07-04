@@ -41,7 +41,7 @@
     left: calc(15vw);
     margin-left: -15px;
     height: calc(36.5rem);
-    opacity: 0.3;
+    opacity: 0.45;
     overflow: hidden;
 }
 
@@ -114,7 +114,7 @@
     opacity: 1;
     margin-bottom: calc(1rem);
     margin-top: calc(1rem);
-    margin-left: 18.5%;
+    margin-left: 16.5%;
 }
 
 .description-box {
@@ -304,12 +304,11 @@
 .individual-heart {
     width: calc(9.5%);
     position: absolute;
-    margin-top: calc(1.2vh);
-    margin-left: calc(-20vw);
+    margin-left: -21vw;
     -webkit-transform: scale(0.7);
     -ms-transform: scale(0.7);
     transform: scale(0.7);
-    top: calc(0.45vw);
+    top: calc(0.55vw);
 }
 
 .individual-container {
@@ -346,7 +345,7 @@
     
     .general-layout {
         background-color: white;
-        width: calc(27vmax);
+        width: calc(27vw);
         box-shadow: 5px 0 5px -2px #888;
         padding-top: calc(5vmin);
         /**
@@ -372,7 +371,7 @@
 
     .deadline-layout {
         background-color: white;
-        width: calc(27vmax);
+        width: calc(27vw);
         box-shadow: 5px 0 5px -2px #888;
         padding-top: calc(5vmin);
         /**
@@ -397,7 +396,7 @@
     
     .sat-layout {
         background-color: white;
-        width: calc(27vmax);
+        width: calc(27vw);
         box-shadow: 5px 0 5px -2px #888;
         padding-top: calc(5vmin);
         /**
@@ -436,9 +435,9 @@
     .essay-text {
         position: absolute;
         text-align: left;
-        left: calc(25.5vmax);
+        left: calc(25.5vw);
         top: calc(41rem);
-        font-size: calc(1.4vmax);
+        font-size: calc(1.4vw);
         width: calc(55.5vw);
         text-overflow: ellipsis;
         /*overflow: scroll;*/
@@ -454,8 +453,8 @@
         width: calc(8vw);
         height: calc(8vw);
         position: absolute;
-        left: calc(28vmax);
-        top: calc(1.6vmax);
+        left: calc(28vw);
+        top: calc(2.6vw);
         margin-top: calc(0rem);
     }
     
@@ -464,8 +463,8 @@
         height: calc(8vw);
         border-radius: calc(8vw/2);
         position: absolute;
-        left: calc(28vmax);
-        top: calc(1.6vmax);
+        left: calc(28vw);
+        top: calc(2.6vw);
         background-color: white;
         opacity: 0.7;
         box-shadow: 0 0 5px -2px #888;
@@ -510,7 +509,7 @@
     .individual-heart {
         width: calc(9.5%);
         position: absolute;
-        margin-left: -3.75vw;
+        margin-left: -17vw;
         -webkit-transform: scale(0.55);
         -ms-transform: scale(0.55);
         transform: scale(0.55);
