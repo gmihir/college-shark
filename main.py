@@ -564,7 +564,7 @@ def essays():
         post_request = request.get_json(force=True)
 
         # Assign value from the request
-        colleges = post_request['currentUser']
+        colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
     
     name_list = []
     for name in colleges.values():
@@ -928,7 +928,7 @@ def dashboard():
         post_request = request.get_json(force=True)
 
         # Assign value from the request
-        colleges = post_request['currentUser']
+        colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
     
     print(colleges)
     name_list = []
