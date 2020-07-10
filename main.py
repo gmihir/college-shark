@@ -13,6 +13,7 @@ from email.mime.text import MIMEText
 import re
 import json
 import pypyodbc
+import time
 
 numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition_normal', "tuition_oos", 'app_fee',
            'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date','letter_of_rec_required','letter_of_rec_total']
@@ -64,7 +65,27 @@ con = 'Yes'
 db_info = 'DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + username + ';PWD=' + password + ';MARS_Connection=' + con
 #print(db_info)
 
-cnxn = pypyodbc.connect(db_info)
+retry = True
+count = 0
+
+
+while retry and count < 8:
+    try:
+        #checking for transient errors in azure connection
+        cnxn = pypyodbc.connect(db_info)
+        test_cursor = cnxn.cursor()
+        test_cursor.execute("SELECT " + headers[0] + " FROM " + os.environ.get("TABLE_NAME"))
+        #successful execution of test query, no need to keep trying
+        retry = False
+        break
+    except:
+        #retry only up to 8 times
+        count += 1
+        cnxn.close()
+        cnxn = pypyodbc.connect(db_info)
+        #retry every 2 seconds up to 8 attempts
+        time.sleep(2)
+        
 
 if __name__ == '__main__':
     app.run(debug=False)
