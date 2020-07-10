@@ -716,7 +716,7 @@ class Explore extends React.Component {
         if (this.state.LOR.value !== 'Any' && this.state.LOR.length !== 0) {
             console.log("here");
             array.push("letter_of_rec_required");
-            array.push("-" + this.state.LOR.value);
+            array.push(this.state.LOR.value);
             console.log(array);
         }
 

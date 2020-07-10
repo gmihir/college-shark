@@ -16,7 +16,7 @@ import pypyodbc
 import time
 
 numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition_normal', "tuition_oos", 'app_fee',
-           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date','letter_of_rec_required','letter_of_rec_total']
+           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date']
 
 dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date']
 
@@ -106,9 +106,9 @@ def get_query(query):
 
 def query_screen(query_lst):
     for i in query_lst:
-        if "St John''s University-New York" in i:
+        if "St John''s University-New York" in str(i):
             continue
-        elif re.match("^[A-Za-z0-9_+\-,. ]*$", i):
+        elif re.match("^[A-Za-z0-9_+\-,. ]*$", str(i)):
             continue
         else:
             return False
@@ -181,7 +181,8 @@ def get_colleges_for_explore(query_lst,headers_explore):
     if len(query_lst) > 0:
         query += " WHERE"
         for i in range(0, len(query_lst), 2): 
-            if query_lst[i+1].find("'") is not -1:
+            print(query_lst[i+1])
+            if str(query_lst[i+1]).find("'") is not -1:
                 query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]    
             if query_lst[i] in dates:
                 epoch = get_epoch(query_lst[i + 1][1:])

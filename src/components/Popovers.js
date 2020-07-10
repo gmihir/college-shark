@@ -95,10 +95,10 @@ const Tuition = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Letter of Recommendations</Popover.Title>
       <Popover.Content>
-        Filter results based on the maximum number of letters of recommendations needed.
+        Filter results based on the number of letters of recommendations needed.
           <br/>
           <br/>
-        Example: Selecting "2" will return all universities that require 2 or less letters of recommendations. Selecting 'Any' will return all colleges.
+        Example: Selecting "2" will return all universities that require two letters of recommendation. Selecting 'Any' will return all colleges.
       </Popover.Content>
     </Popover>
   );
