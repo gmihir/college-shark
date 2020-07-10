@@ -3,8 +3,9 @@ import '../css/Explore.css';
 import { OverlayTrigger, Spinner } from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 import Tile from '../components/Tile';
-import { States, Type, App, Sortby, LOR, TuitionState } from '../components/State';
-import { Tuition, Rankings, AcceptanceRate, AppFee, Population, AppType, LetterRec, SchoolType, StateList, TuitionStateList } from '../components/Popovers';
+import { States, Type, App, Sortby, LOR, TuitionState, OrderBy } from '../components/State';
+import { Tuition, Rankings, AcceptanceRate, AppFee, Population, AppType, LetterRec,
+     SchoolType, StateList, TuitionStateList } from '../components/Popovers';
 import Select from 'react-select';
 import { faInfoCircle, faSadTear, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +21,7 @@ class Explore extends React.Component {
             App: [],
             LOR: [],
             Filter: Sortby[0],
-            Checkbox: false,
+            IsDescending: OrderBy[0],
             AppFeeLower: null,
             AppFeeUpper: null,
             AcceptanceLower: null,
@@ -31,13 +32,13 @@ class Explore extends React.Component {
             TuitionUpper: null,
             RankingLower: null,
             RankingUpper: null,
-            Ordering: "Low to High",
             TuitionState: [],
             StateFilter: [],
             CheckedState: false,
             Loading: true,
             Open: false,
-            Error: false
+            Error: false,
+            ToggleClear: false
         };
         this.setSearch = this.setSearch.bind(this);
         this.searchBarInUse = this.searchBarInUse.bind(this);
@@ -47,8 +48,8 @@ class Explore extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         //Handle the filter by dropdown 
         this.handleFilter = this.handleFilter.bind(this);
-        //Handles the text inside the button
-        this.changeAscent = this.changeAscent.bind(this);
+        //Handle the OrderBy filter dropdown
+        this.handleOrderBy = this.handleOrderBy.bind(this)
         //Handles the State array
         this.handleState = this.handleState.bind(this);
         //Clears the filters on the page
@@ -99,15 +100,16 @@ class Explore extends React.Component {
             copyArray = [];
         }
 
-        const ordering = sessionStorage.getItem("ordering");
-        let checkTemp = false;
-        if (ordering !== null) {
-            this.setState({ Ordering: ordering });
-            const checked = sessionStorage.getItem("checked");
-            if (checked !== null) {
-                let isChecked = checked === 'true';
-                checkTemp = isChecked;
-                this.setState({ Checkbox: isChecked });
+        const checked = sessionStorage.getItem("checked");
+        console.log(checked);
+        let checkOrderBy = false;
+        if(checked !== null) {
+            if(checked === 'false') {
+                this.setState({ IsDescending: OrderBy[0]});
+                checkOrderBy = false
+            } else {
+                this.setState({ IsDescending: OrderBy[1]});
+                checkOrderBy = true    
             }
         }
 
@@ -119,7 +121,7 @@ class Explore extends React.Component {
             body: JSON.stringify({
                 Array: copyArray,
                 Filter: Sortby[indices].value,
-                IsDescending: checkTemp
+                IsDescending: checkOrderBy
             })
         }).then(response => {
             return response.json()
@@ -484,6 +486,7 @@ class Explore extends React.Component {
                                 className="basic-multi-select"
                                 classNamePrefix="select"
                                 value={this.state.StateFilter}
+                                closeMenuOnSelect={false}
                         />
                         </div>
                     </div>
@@ -511,20 +514,18 @@ class Explore extends React.Component {
                     <div className="content-display">
                         <div className="topbar-info">
                             <div className="filter-clear">
-                                <button onClick={this.clearFilter}>CLEAR FILTERS</button>
+                                {this.state.ToggleClear ? <button onClick={this.clearFilter}>CLEAR FILTERS</button> : null}
                             </div>
 
                             <div className="float-display">
                                 <div className="sort-by">
                                     <Select onChange={this.handleFilter}
-                                        options={Sortby} placeholder={"National Ranking"} value={this.state.Filter}/>
+                                        options={Sortby} value={this.state.Filter}/>
                                 </div>
-                                <input
-                                    className="button"
-                                    type="submit"
-                                    onClick={this.changeAscent}
-                                    value={this.state.Ordering}
-                                />
+                                <div className="order-by">
+                                    <Select onChange={this.handleOrderBy}
+                                        options={OrderBy} value={this.state.IsDescending}/>
+                                </div>
                             </div>
                         </div>
                         {this.displayResults()}
@@ -542,7 +543,7 @@ class Explore extends React.Component {
             App: [],
             LOR: [],
             Filter: Sortby[0],
-            Checkbox: false,
+            IsDescending: OrderBy[0],
             AppFeeLower: '',
             AppFeeUpper: '',
             AcceptanceLower: '',
@@ -553,7 +554,6 @@ class Explore extends React.Component {
             TuitionUpper: '',
             RankingLower: '',
             RankingUpper: '',
-            Ordering: "Low to High",
             TuitionState: {value: "reset", label: 'reset'},
             StateFilter: [],
             CheckedState: false,
@@ -601,7 +601,8 @@ class Explore extends React.Component {
         if (state === null || state === '') {
             //Nothing happens
             sessionStorage.setItem(storage, '');
-        } else if (/^-?\d+\.?\d*$/.test(state)) {
+        } else if (/^[1-9]\d*(\.\d+)?$/.test(state)) {
+            console.log(state);
             if(state.split(".").length > 2) {
                 array.push(string);
                 array.push("--1000");
@@ -609,6 +610,7 @@ class Explore extends React.Component {
                 return;
             }
             array.push(string);
+            console.log(string);
             array.push(sign + state);
             this.setState({Error: false});
             sessionStorage.setItem(storage, state);
@@ -632,12 +634,14 @@ class Explore extends React.Component {
         // }
     }
 
-    handleClick() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
+    handleClick(string) {
+        if(string !== "state") {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
         let array = [];
 
         this.pushToArray(this.state.AppFeeLower, "app_fee", array, "+", "feelower");
@@ -648,9 +652,9 @@ class Explore extends React.Component {
 
         this.pushToArrayDouble(this.state.AcceptanceUpper, "acceptance_rate", array, "-", "acceptupper");
 
-        this.pushToArray(this.state.RankingLower, "national_ranking", array, "+", "nationallower");
+        this.pushToArray(this.state.RankingLower, "national_ranking", array, "-", "nationallower");
 
-        this.pushToArray(this.state.RankingUpper, "national_ranking", array, "-", "nationalupper");
+        this.pushToArray(this.state.RankingUpper, "national_ranking", array, "+", "nationalupper");
 
         this.pushToArray(this.state.PopulationLower, "population", array, "+", "populationlower");
 
@@ -727,14 +731,26 @@ class Explore extends React.Component {
             })
         }
 
+        const keys = [];
+        this.state.StateFilter.forEach(state => {
+            keys.push(state.value);
+        })
+
+        console.log(keys);
+
         sessionStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
-        sessionStorage.setItem("ordering", this.state.Ordering);
-        sessionStorage.setItem("checked", this.state.Checkbox);
+        sessionStorage.setItem("checked", this.state.IsDescending.value);
         sessionStorage.setItem("tuitionstate", [this.state.TuitionState.value, this.state.TuitionState.label]);
         sessionStorage.setItem("schooltype", [this.state.School.value, this.state.School.label]);
         sessionStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
         sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
-        sessionStorage.setItem("statefilter", [this.state.StateFilter.value, this.state.StateFilter.label]);
+        sessionStorage.setItem("statefilter", keys);
+
+        if(array.length !== 0) {
+            this.setState({ ToggleClear: true });
+        } else {
+            this.setState({ ToggleClear: false });    
+        }
 
         sessionStorage.setItem("array", array);
         fetch("/filter", {
@@ -745,7 +761,7 @@ class Explore extends React.Component {
             body: JSON.stringify({
                 Array: array,
                 Filter: this.state.Filter.value,
-                IsDescending: this.state.Checkbox
+                IsDescending: this.state.IsDescending.value
             })
         }).then(response => {
             return response.json();
@@ -760,19 +776,18 @@ class Explore extends React.Component {
             this.togglePanel();
         }
     }
+
     handleFilter(e) {
         this.setState({ Filter: e }, () => {
             this.handleClick();
         });
     }
 
-    changeAscent(e) {
-        let value = this.state.Ordering === "Low to High" ? "High to Low" : "Low to High";
-        this.setState({ Ordering: value }, () => {
+    handleOrderBy(e) {
+        this.setState({ IsDescending: e }, () => {
+            console.log(this.state.IsDescending);
             this.handleClick();
         });
-        let style = !this.state.Checkbox
-        this.setState({ Checkbox: style });
     }
 
     handleState(e) {
@@ -793,7 +808,7 @@ class Explore extends React.Component {
             this.state.StateFilter.forEach(state => {
                 array.push(state.value);
             })
-            this.handleClick();
+            this.handleClick("state");
         });
     };
 

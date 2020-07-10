@@ -86,11 +86,17 @@ const LOR = [
     {value: 4, label: '4'},  
 ]
 
+const OrderBy = [
+    {value: false, label: "Low to High"},
+    {value: true, label: 'High to Low'},
+]
+
 export {
     States,
     Type,
     App,
     Sortby,
     LOR,
-    TuitionState
+    TuitionState,
+    OrderBy
   }

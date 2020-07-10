@@ -153,15 +153,17 @@ span {
     border-left: none;
     height: calc(2.5rem);
     width: calc(5.5rem);
-    font-size: calc(1.3rem);
+    font-size: calc(1rem);
+    border-radius: calc(0.5vh);
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: rgb(209, 202, 202);
+    background-color: rgb(63, 81, 181);
     transition: 0.3s;
+    color: white;
     outline: none;
 }
 
 .filter-button:hover {
-    background-color: rgb(63, 81, 181);
+    background-color: rgb(50, 71, 187);
     color: white;
     transition: 0.3s;
 }
@@ -170,27 +172,32 @@ span {
     width: calc(100%);
 }
 
-.filter-clear{ 
+.filter-clear { 
     width: calc(65%);
     margin-left: calc(5%);
+    margin-top: calc(-0.3vh);
     outline: none;
-    border: none;
 }
 
 .filter-clear button {
     border: none;
     border-left: none;
-    background-color: white;
+    background-color: rgb(63, 81, 181);
     transition: 0.3s;
+    color: white;
     border-radius: calc(0.5vh);
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: calc(1.3rem);
+    font-size: calc(1rem);
     outline: none;
+    padding: calc(0.6vh);
+    padding-left: calc(1vw);
+    padding-right: calc(1vw);
+    margin-left: calc(-2.4vw);
 }
 
 .filter-clear button:hover {
     transition: 0.3s;
-    background-color: #d5d6d8;
+    background-color: rgb(50, 71, 187);
 }
 
 .topbar-info {
@@ -201,7 +208,7 @@ span {
 }
 
 .float-display {
-    width: calc(35vw);
+    width: calc(30vw);
     display: flex;
     flex-direction: row;
     margin-right: calc(1rem);
@@ -210,7 +217,13 @@ span {
 }
 
 .sort-by {
-    width: calc(100%);
+    width: calc(25vw);
+    z-index: 10;
+    margin-right: calc(2vw);
+}
+
+.order-by {
+    width: calc(15vw);
     z-index: 10;
 }
 
