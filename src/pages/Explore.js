@@ -7,7 +7,7 @@ import { States, Type, App, Sortby, LOR, TuitionState, OrderBy } from '../compon
 import { Tuition, Rankings, AcceptanceRate, AppFee, Population, AppType, LetterRec,
      SchoolType, StateList, TuitionStateList } from '../components/Popovers';
 import Select from 'react-select';
-import { faInfoCircle, faSadTear, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faSadTear, faSort, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Explore extends React.Component {
@@ -22,16 +22,16 @@ class Explore extends React.Component {
             LOR: [],
             Filter: Sortby[0],
             IsDescending: OrderBy[0],
-            AppFeeLower: null,
-            AppFeeUpper: null,
-            AcceptanceLower: null,
-            AcceptanceUpper: null,
-            PopulationLower: null,
-            PopulationUpper: null,
-            TuitionLower: null,
-            TuitionUpper: null,
-            RankingLower: null,
-            RankingUpper: null,
+            AppFeeLower: '',
+            AppFeeUpper: '',
+            AcceptanceLower: '',
+            AcceptanceUpper: '',
+            PopulationLower: '',
+            PopulationUpper: '',
+            TuitionLower: '',
+            TuitionUpper: '',
+            RankingLower: '',
+            RankingUpper: '',
             TuitionState: [],
             StateFilter: [],
             CheckedState: false,
@@ -308,6 +308,11 @@ class Explore extends React.Component {
         return (
             <div className="filter" style={{display: String}}>
                 <h1 className="filter-name">Filters</h1>
+
+                {this.state.ToggleClear ? <div className="clear-filters"><button onClick={this.clearFilter}>Clear Filters</button></div> : null}
+                
+                <hr></hr>
+
                 <div className="tuition">
                     <div className="header">Population</div>
                     <form className="filter-form">
@@ -319,6 +324,12 @@ class Explore extends React.Component {
                             value={this.state.PopulationUpper} onKeyDown={this.enterKey}
                         ></input>
                     </form>
+
+                    {this.state.PopulationLower !== '' || this.state.PopulationUpper !== '' ? 
+                    <div className="clear-filter-icon" onClick={() => this.setState({ PopulationLower: '', PopulationUpper: ''}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={Population} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle} style={{ opacity: '60%' }} /></div>
                     </OverlayTrigger>
@@ -337,6 +348,12 @@ class Explore extends React.Component {
                             value={this.state.AcceptanceUpper} onKeyDown={this.enterKey}
                         ></input>
                     </form>
+
+                    {this.state.AcceptanceLower !== '' || this.state.AcceptanceUpper !== '' ? 
+                    <div className="clear-filter-icon" onClick={() => this.setState({ AcceptanceLower: '', AcceptanceUpper: ''}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={AcceptanceRate} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle} style={{ opacity: '60%' }} /></div>
                     </OverlayTrigger>
@@ -355,6 +372,12 @@ class Explore extends React.Component {
                             value={this.state.AppFeeUpper} onKeyDown={this.enterKey}
                         ></input>
                     </form>
+
+                    {this.state.AppFeeLower !== '' || this.state.AppFeeUpper !== '' ? 
+                    <div className="clear-filter-icon" onClick={() => this.setState({ AppFeeLower: '', AppFeeUpper: ''}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={AppFee} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle} style={{ opacity: '60%' }} /></div>
                     </OverlayTrigger>
@@ -373,6 +396,12 @@ class Explore extends React.Component {
                             value={this.state.RankingUpper} onKeyDown={this.enterKey}
                         ></input>
                     </form>
+
+                    {this.state.RankingLower !== '' || this.state.RankingUpper !== '' ? 
+                    <div className="clear-filter-icon" onClick={() => this.setState({ RankingLower: '', RankingUpper: ''}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={Rankings} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle} style={{ opacity: '60%' }} /></div>
                     </OverlayTrigger>
@@ -391,6 +420,12 @@ class Explore extends React.Component {
                             value={this.state.TuitionUpper} onKeyDown={this.enterKey}
                         ></input>
                     </form>
+
+                    {this.state.TuitionLower !== '' || this.state.TuitionUpper !== '' ? 
+                    <div className="clear-filter-icon" onClick={() => this.setState({ TuitionLower: '', TuitionUpper: ''}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={Tuition} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle} style={{ opacity: '60%' }} /></div>
                     </OverlayTrigger>
@@ -412,6 +447,12 @@ class Explore extends React.Component {
                         />
                         </div>
                     </div>
+
+                    {this.state.TuitionState.length !== 0 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ TuitionState: []}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={TuitionStateList} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle}
                             style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(0.6rem)' }} /></div>
@@ -431,6 +472,12 @@ class Explore extends React.Component {
                         />
                         </div>
                     </div>
+
+                    {this.state.App.length !== 0 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ App: []}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={AppType} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle}
                             style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(0.6rem)' }} /></div>
@@ -449,6 +496,12 @@ class Explore extends React.Component {
                         />
                         </div>
                     </div>
+
+                    {this.state.LOR.length !== 0 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ LOR: []}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={LetterRec} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle}
                             style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(0.6rem)' }} /></div>
@@ -467,6 +520,12 @@ class Explore extends React.Component {
                         />
                         </div>
                     </div>
+
+                    {this.state.School.length !== 0 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ School: []}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
                     <OverlayTrigger trigger="click" placement="right" overlay={SchoolType} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle}
                             style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(0.6rem)' }} /></div>
@@ -490,6 +549,7 @@ class Explore extends React.Component {
                         />
                         </div>
                     </div>
+
                     <OverlayTrigger trigger="click" placement="right" overlay={StateList} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle}
                             style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(0.6rem)' }} /></div>
@@ -513,9 +573,7 @@ class Explore extends React.Component {
 
                     <div className="content-display">
                         <div className="topbar-info">
-                            <div className="filter-clear">
-                                {this.state.ToggleClear ? <button onClick={this.clearFilter}>CLEAR FILTERS</button> : null}
-                            </div>
+                            <div className="filter-clear"></div>
 
                             <div className="float-display">
                                 <div className="sort-by">

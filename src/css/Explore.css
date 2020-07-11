@@ -10,11 +10,14 @@
 }
 
 .filter-name {
-    text-align: center;
+    text-align: left;
     padding-bottom: calc(0.2rem);
     padding-top: calc(0rem);
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-size: calc(1.8vw);
+    font-weight: 400;
+    margin-top: calc(1.2vh);
+    margin-bottom: calc(-1.9vh);
 }
 
 .container-div {
@@ -25,25 +28,52 @@
 
 .filter {
     width: calc(25vw);
-    margin-left: calc(0.5rem);
+    margin-left: calc(1vw);
     margin-top: calc(-1vh);
+    position: relative;
 }
+
+.clear-filters button {
+    position: absolute;
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    /*optional*/
+    font-family: 'Noto Sans JP', sans-serif;
+    /*input has OS specific font-family*/
+    color: rgb(63, 81, 181);
+    text-decoration: underline;
+    cursor: pointer;
+    top: calc(2.7vh);
+    right: 0;
+    transition: 0.3s;
+}
+
+.clear-filters button:hover {
+    transition: 0.3s;
+    color: rgb(216, 39, 32);
+}
+
+.clear-filters button:focus {
+    outline: 0;
+}
+
 
 .tuition {
     width: 100%;
-    margin-top: calc(1rem);
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 .header {
-    width: calc(50%);
+    width: calc(40%);
     text-align: left;
-    font-size: calc(0.95vw);
+    font-size: calc(0.9vw);
     white-space: nowrap;
     position: relative;
-    top: calc(0rem);
-    font-family: 'Noto Sans JP', sans-serif;
+    top: calc(0.3vh);
+    font-family: 'Roboto', sans-serif;
     outline: none;
     margin-left: calc(0.5rem);
 }
@@ -54,16 +84,28 @@
     position: relative;
     bottom: calc(0.3rem);
     outline: none;
+    margin-left: calc(0.7vw);
 }
 
 .filter-form input {
     font-family: 'Noto Sans JP', sans-serif;
-    width: calc(37%);
+    width: calc(33%);
     font-size: inherit;
     outline: none;
     border: none;
     border-bottom: 1px solid black;
     margin-top: calc(0.2rem);
+}
+
+.clear-filter-icon {
+    position: absolute;
+    right: calc(1.5vw);
+}
+
+.clear-filter-icon-dd {
+    position: absolute;
+    right: calc(1.5vw);
+    top: calc(0.7vh);
 }
 
 input::-webkit-outer-spin-button,
@@ -106,12 +148,14 @@ span {
     margin-top: calc(0.75rem);
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 .school-type {
     margin-top: calc(1rem);
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 .filter-type {
@@ -125,7 +169,7 @@ span {
 }
 
 .dropdown-main {
-    width: calc(93%);
+    width: calc(89%);
 }
 
 .dropdown-name {
@@ -177,27 +221,6 @@ span {
     margin-left: calc(5%);
     margin-top: calc(-0.3vh);
     outline: none;
-}
-
-.filter-clear button {
-    border: none;
-    border-left: none;
-    background-color: rgb(63, 81, 181);
-    transition: 0.3s;
-    color: white;
-    border-radius: calc(0.5vh);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: calc(1rem);
-    outline: none;
-    padding: calc(0.6vh);
-    padding-left: calc(1vw);
-    padding-right: calc(1vw);
-    margin-left: calc(-2.4vw);
-}
-
-.filter-clear button:hover {
-    transition: 0.3s;
-    background-color: rgb(50, 71, 187);
 }
 
 .topbar-info {
