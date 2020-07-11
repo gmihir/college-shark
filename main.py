@@ -590,6 +590,7 @@ def essays():
         colleges = post_request['currentUser']
     
     name_list = []
+    print(colleges)
     for name in colleges.values():
         if name != "none":
             name_list.append(name)

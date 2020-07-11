@@ -3,7 +3,7 @@ import time
 
 # GLOBAL LISTS
 numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition_normal', "tuition_oos", 'app_fee',
-           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date','letter_of_rec_required','letter_of_rec_total']
+           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date']
 
 dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date']
 
