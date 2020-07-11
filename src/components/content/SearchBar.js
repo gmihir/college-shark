@@ -170,7 +170,9 @@ class SearchBar extends React.Component {
                                             {college}
                                         </div>
                                     </Link>
-                                    <Heart className="heart" collegeName={college} key={college} />
+                                    <div className="heart">
+                                        <Heart collegeName={college} key={college} />
+                                    </div>
                                 </div>
                             )
                         }

@@ -291,7 +291,7 @@ select {
     width: 100%;
     margin-left: calc(0rem);
     display: grid;
-    grid-template-columns: calc(33.3%) calc(33.3%) calc(33.3%);
+    grid-template-columns: calc(25%) calc(25%) calc(25%) calc(25%);
     margin-left: calc(0rem);
 }
 
