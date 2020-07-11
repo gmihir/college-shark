@@ -82,7 +82,6 @@ class Dashboard extends React.Component {
   }
 
   pullColleges() {
-
     fetch("/dashboard", {
       method: "POST",
       headers: {

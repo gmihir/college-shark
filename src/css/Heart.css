@@ -1,3 +1,35 @@
+.removefavicon {
+  top: calc(.75vh);
+  left: calc(15.25vw);
+  color: #b50404;
+  position: relative;
+  cursor: pointer;
+}
+
+.removeoutlinefavicon {
+  top: calc(.75vh);
+  left: calc(15.25vw);
+  color: #b50404;
+  position: relative;
+  cursor: pointer;
+}
+
+.addfavicon {
+  top: calc(.75vh);
+  left: calc(15.25vw);
+  color: #04b52a;
+  position: relative;
+  cursor: pointer;
+}
+
+.addoutlinefavicon {
+  top: calc(.75vh);
+  left: calc(15.25vw);
+  color: #04b52a;
+  position: relative;
+  cursor: pointer;
+}
+
 .heart:hover,
   .heart:hover:before,
   .heart:hover:after {

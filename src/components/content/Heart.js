@@ -1,4 +1,8 @@
 import React from 'react';
+import AddCircle from '@material-ui/icons/AddCircle';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
 import '../../css/Heart.css';
 
 class Heart extends React.Component {
@@ -6,10 +10,13 @@ class Heart extends React.Component {
         super(props);
         this.state = {
             status: false,
+            hoverStatus: false,
             currentCollege: this.props.collegeName,
             key: this.props.key
         }
         this.handleClick = this.handleClick.bind(this);
+        this.handleMouseEnter = this.handleMouseEnter.bind(this);
+        this.handleMouseLeave = this.handleMouseLeave.bind(this);
     }
 
     handleClick = async (e) => {
@@ -73,15 +80,35 @@ class Heart extends React.Component {
         }
     }
 
+    handleMouseEnter() {
+        this.setState({hoverStatus: true})
+    }
+
+    handleMouseLeave() {
+        this.setState({hoverStatus: false})
+    }
+
     render() {
-        if (this.state.status === true) {
-            return (
-                <div className="redheart" onClick={this.handleClick} />
-            )
-        } else {
-            return (
-                <div className="heart" onClick={this.handleClick} />
-            )
+        if(this.state.status){
+            if(this.state.hoverStatus){
+                return (
+                    <RemoveCircle className="removefavicon" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.handleClick}/>
+                )
+            }else{
+                return (
+                    <RemoveCircleOutline className="removeoutlinefavicon" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.handleClick} />
+                )
+            }
+        }else{
+            if(this.state.hoverStatus){
+                return (
+                    <AddCircle className="addfavicon" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.handleClick} />
+                )
+            }else{
+                return (
+                    <AddCircleOutline className="addoutlinefavicon" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.handleClick} />
+                )
+            }
         }
     }
 }
