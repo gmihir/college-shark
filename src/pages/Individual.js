@@ -5,6 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Heart from '../components/content/Heart';
 import { IoIosUndo } from "react-icons/io";
 import NavBar from '../components/content/Navbar';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Typography from '@material-ui/core/Typography';
 import {Redirect} from 'react-router';
 
 const commonApp = "https://www.commonapp.org/apply/essay-prompts";
@@ -73,25 +78,94 @@ class Individual extends Component {
         this.props.history.goBack();
     }
 
-    essayFormat(essays) {
-        if (typeof essays === 'string') {
+    essayFormat(essays, application) {
+        if (typeof essays === 'string' && typeof application === 'string') {
             var essayArrayInit = essays.split("|");
             var essayArray = [];
             for (var i = 1; i < essayArrayInit.length; i++) {
                 essayArray.push(essayArrayInit[i]);
             }
-            return (
+            var commonReturn = false;
+            var applicationArray = application.split("/");
+            applicationArray.map((applications) => {
+                var typeArray = applications.split(" ");
+                var type = typeArray[0];
+                var coalitionType = "none";
+                if(typeArray.length > 1) {
+                    coalitionType = typeArray[1];
+                }
+                if (type === "Common") {
+                    commonReturn = true;
+                }
+            })
+            if(commonReturn == true) {
+                return (
+                    <div className="essay-text">
+                        <Accordion style={{width: "100%", backgroundColor: "#313b4c"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon style={{color: "white"}}/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                            <h1>
+                                Common Application (1 of 7 required)
+                            </h1>
+                            </AccordionSummary>
+                            <AccordionDetails style={{backgroundColor: "white", flexDirection: "column", border: "none"}}>
+                                <p>1. Some students have a background, identity, interest, or talent so meaningful they believe their application would be incomplete without it. If this sounds like you, please share your story.</p>
+                                <p>2. The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</p>
+                                <p>3. Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</p>
+                                <p>4. Describe a problem you’ve solved or a problem you’d like to solve. It can be an intellectual challenge, a research query, an ethical dilemma — anything of personal importance, no matter the scale. Explain its significance to you and what steps you took or could be taken to identify a solution.</p>
+                                <p>5. Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.</p>
+                                <p>6. Describe a topic, idea, or concept you find so engaging it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?</p>
+                                <p>7. Share an essay on any topic of your choice. It can be one you’ve already written, one that responds to a different prompt, or one of your own design.</p>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion style={{width: "100%", backgroundColor: "#313b4c"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon style={{color: "white"}}/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                            <h1>
+                                Supplemental Essay Questions {this.essayHeaderFunc(this.state.college_json["supplemental_essays"])}
+                            </h1>
+                            </AccordionSummary>
+                            <AccordionDetails style={{backgroundColor: "white", flexDirection: "column", border: "none"}}>
+                                {essayArray.map((essay, index) => {
+                                return (
+                                    <p style={{width: "100%"}}>{index + 1}.{essay}</p>
+                                )
+                                })}
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+                );
+            }
+            else {
+                return (
                 <div className="essay-text">
-                    <h1 className="essay-header">
-                        Supplemental Essay Questions {this.essayHeaderFunc(this.state.college_json["supplemental_essays"])}
-                </h1>
-                    {essayArray.map((essay, index) => {
-                        return (
-                                <p>{index + 1}.{essay}</p>
-                        )
-                    })}
+                    <Accordion style={{width: "100%", backgroundColor: "#313b4c"}}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon style={{color: "white"}}/>}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <h1>
+                                Supplemental Essay Questions {this.essayHeaderFunc(this.state.college_json["supplemental_essays"])}
+                            </h1>
+                        </AccordionSummary>
+                        <AccordionDetails style={{backgroundColor: "white", flexDirection: "column", border: "none"}}>
+                            {essayArray.map((essay, index) => {
+                            return (
+                                <p style={{width: "100%"}}>{index + 1}.{essay}</p>
+                            )
+                            })}
+                        </AccordionDetails>
+                    </Accordion>
                 </div>
-            );
+                );
+            }
         }
         else {
             return essays;
@@ -126,7 +200,6 @@ class Individual extends Component {
                         Apply Via:
                     </h1>
                     {applicationArray.map((applications) => {
-                        console.log(applications);
                         var typeArray = applications.split(" ");
                         var type = typeArray[0];
                         var coalitionType = "none";
@@ -223,7 +296,7 @@ class Individual extends Component {
                     <div className="white-circle">
                     </div>
                     <img className="college-logo" src={this.state.college_json["college_logo"]} alt="College Logo" />
-                    {this.essayFormat(this.state.college_json["supplemental_essays"])}
+                    {this.essayFormat(this.state.college_json["supplemental_essays"], this.state.college_json["app_site"])}
                     {this.applyFormat(this.state.college_json["app_site"])}
                     <div className="grid-layout">
                         <Grid container direction="column" spacing={5}>
@@ -329,3 +402,5 @@ class Individual extends Component {
 }
 
 export default Individual;
+
+
