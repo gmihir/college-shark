@@ -15,13 +15,82 @@
 }
 
 .sidebar{
+    margin-left: calc(0vw);
+    width: calc(20vw);
+    min-width: calc(20vw);
     padding-top: calc(6vh);
-    padding-left: calc(4vw);
-    padding-right: calc(2vw);
-    padding-bottom: calc(6vh);
-    display: inline-block;
-    border-right: medium solid black;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid black;
+    min-height: calc(70vh);
+    height: auto;
+    text-align: center;
+    align-items: center;
+}
 
+.general-tab, .supplemental-tab {
+    width: 100%;
+    border: none;
+    border-left: none;
+    background-color: white;
+    font-size: calc(1.3vw);
+    transition: 0.3s;
+}
+
+.general-tab:hover, .supplemental-tab:hover {
+    transition: 0.3s;
+    background-color: #313b4c;
+    color: white;
+    width: 90%;
+    border-radius: calc(5vh);
+}
+
+.supplemental-tab {
+    margin-top: calc(2vh);
+}
+
+.active-side {
+    width: 90%;
+    border: none;
+    border-left: none;
+    font-size: calc(1.3vw);
+    background-color: #313b4c;
+    border-radius: calc(5vh);
+    color: white
+}
+
+.active-side-sup {
+    width: 90%;
+    border: none;
+    border-left: none;
+    font-size: calc(1.3vw);
+    background-color: #313b4c;
+    border-radius: calc(5vh);
+    color: white;
+    margin-top: calc(2vh);
+}
+
+.general-tab:focus, .supplemental-tab:focus, .active-side:focus, .active-side-sup:focus {
+    outline: 0;
+}
+
+.essays-loadout {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.essay-prompts {
+    width: 95%;
+    margin-left: calc(1vw);
+}
+
+.render-essays-div {
+    width: calc(100%);
+}
+
+.render-essays {
+    display: grid;
+    grid-template-columns: calc(33.3%) calc(33.3%) calc(33.3%);
 }
 
 .popup{
@@ -34,15 +103,10 @@
 }
 
 
-.header-div{
-    padding-left: calc(4vw);
-    padding-top: calc(2vh);
-    padding-bottom: calc(4vh);
-}
-
-h3.header-text{
+.header-text{
     font-family: 'Roboto','sans-serif';
     font-weight: 400;
+    color: white;
 }
 
 .required{
@@ -72,9 +136,9 @@ h3.required-text{
 }
 
 .supplementaltext{
-    padding-top: calc(0.225vh);
+    /* padding-top: calc(0.225vh);
     padding-left: calc(6vw);
-    padding-right: calc(20vw);
+    padding-right: calc(20vw); */
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: normal;
 }

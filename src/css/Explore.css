@@ -287,6 +287,10 @@ select {
     width: calc(40%);
 }
 
+.list-container {
+    width: 100%;
+}
+
 .ListColleges {
     width: 100%;
     margin-left: calc(0rem);
@@ -410,6 +414,10 @@ select {
         background-color: white;
         margin-left: calc(0.5rem);
         overflow-x: hidden;
+    }
+
+    .list-container {
+        width: 100%;
     }
 
     .ListColleges {

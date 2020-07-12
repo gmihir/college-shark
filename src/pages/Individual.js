@@ -394,7 +394,7 @@ class Individual extends Component {
         }
         return (
             <div>
-                <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="2" />
+                <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="0" />
                 {this.state.Loading ? this.renderSpinner() : this.renderIndividual()}
             </div>
         );

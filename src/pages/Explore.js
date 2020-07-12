@@ -273,7 +273,8 @@ class Explore extends React.Component {
                 )
             } else {
                 return (
-                    <ul className="ListColleges">
+                    <div className="list-container">
+                        <ul className="ListColleges">
                         {this.state.College.map(college => {
                             let val = JSON.parse(college);
                             return (
@@ -290,7 +291,8 @@ class Explore extends React.Component {
                                         Acceptance={20} Fee={30} collegeName={"hello"}
                                         Logo={Image3} Type={200} Population={10000}
                                         Ranking={100} /> */}
-                    </ul>
+                        </ul>
+                    </div>
                 )
             }
         } else {
@@ -325,7 +327,7 @@ class Explore extends React.Component {
                         ></input>
                     </form>
 
-                    {this.state.PopulationLower !== '' || this.state.PopulationUpper !== '' ? 
+                    {(this.state.PopulationLower !== '' || this.state.PopulationUpper !== '') && (this.state.PopulationLower !== null || this.state.PopulationUpper !== null) ? 
                     <div className="clear-filter-icon" onClick={() => this.setState({ PopulationLower: '', PopulationUpper: ''}, () => this.handleClick())}>
                         <FontAwesomeIcon icon={faTimes} />
                     </div> : null}
@@ -349,7 +351,7 @@ class Explore extends React.Component {
                         ></input>
                     </form>
 
-                    {this.state.AcceptanceLower !== '' || this.state.AcceptanceUpper !== '' ? 
+                    {(this.state.AcceptanceLower !== '' || this.state.AcceptanceUpper !== '') && (this.state.AcceptanceLower !== null || this.state.AcceptanceUpper !== null) ? 
                     <div className="clear-filter-icon" onClick={() => this.setState({ AcceptanceLower: '', AcceptanceUpper: ''}, () => this.handleClick())}>
                         <FontAwesomeIcon icon={faTimes} />
                     </div> : null}
@@ -373,7 +375,7 @@ class Explore extends React.Component {
                         ></input>
                     </form>
 
-                    {this.state.AppFeeLower !== '' || this.state.AppFeeUpper !== '' ? 
+                    {(this.state.AppFeeLower !== '' || this.state.AppFeeUpper !== '') && (this.state.AppFeeLower !== null || this.state.AppFeeUpper !== null) ? 
                     <div className="clear-filter-icon" onClick={() => this.setState({ AppFeeLower: '', AppFeeUpper: ''}, () => this.handleClick())}>
                         <FontAwesomeIcon icon={faTimes} />
                     </div> : null}
@@ -397,7 +399,7 @@ class Explore extends React.Component {
                         ></input>
                     </form>
 
-                    {this.state.RankingLower !== '' || this.state.RankingUpper !== '' ? 
+                    {(this.state.RankingLower !== '' || this.state.RankingUpper !== '') && (this.state.RankingLower !== null || this.state.RankingUpper !== null) ? 
                     <div className="clear-filter-icon" onClick={() => this.setState({ RankingLower: '', RankingUpper: ''}, () => this.handleClick())}>
                         <FontAwesomeIcon icon={faTimes} />
                     </div> : null}
@@ -421,7 +423,7 @@ class Explore extends React.Component {
                         ></input>
                     </form>
 
-                    {this.state.TuitionLower !== '' || this.state.TuitionUpper !== '' ? 
+                    {(this.state.TuitionLower !== '' || this.state.TuitionUpper !== '') && (this.state.TuitionLower !== null || this.state.TuitionUpper !== null) ? 
                     <div className="clear-filter-icon" onClick={() => this.setState({ TuitionLower: '', TuitionUpper: ''}, () => this.handleClick())}>
                         <FontAwesomeIcon icon={faTimes} />
                     </div> : null}
