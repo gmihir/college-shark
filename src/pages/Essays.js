@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
 import '../css/Essays.css';
-import { OverlayTrigger, Spinner } from 'react-bootstrap';
+import { OverlayTrigger, Spinner,Button,ButtonGroup } from 'react-bootstrap';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,6 +36,7 @@ class Essays extends Component {
         this.renderSupplementalTitle = this.renderSupplementalTitle.bind(this);
         this.renderSupplementals = this.renderSupplementals.bind(this);
         this.renderSupplementalHeader = this.renderSupplementalHeader.bind(this);
+        this.renderSidebar = this.renderSidebar.bind(this);
     }
 
     setSearch = (results) => {
@@ -228,6 +229,16 @@ class Essays extends Component {
         });
     }
 
+    renderSidebar = () => {
+        return(
+            <div className="sidebar">
+            <h5>General Essays</h5>
+            <br/>
+            <h5>Supplemental Essays</h5>
+            </div>
+        )
+    }
+
     renderUC = () => {
         var uc = this.requiresUCApp();
         if (uc) {
@@ -412,18 +423,24 @@ class Essays extends Component {
             }
             return(
                 <div>
-                 {this.renderFirstHeader()}
-                 {this.renderGeneralHeader()}
-                 <div className="section">
-                    {this.renderUC()}
-                    {this.renderCommon()}
-                    {this.renderCoalition()}
-                 </div>
-                 <div classname="section">
-                    {this.renderSupplementalHeader()}
-                    {this.renderSupplementals()}
-                 </div>
-               </div>
+                    {this.renderFirstHeader()}
+                    <br/>
+                    <br/>
+                    {this.renderSidebar()}
+                </div>
+            //     <div>
+            //      {this.renderFirstHeader()}
+            //      {this.renderGeneralHeader()}
+            //      <div className="section">
+            //         {this.renderUC()}
+            //         {this.renderCommon()}
+            //         {this.renderCoalition()}
+            //      </div>
+            //      <div classname="section">
+            //         {this.renderSupplementalHeader()}
+            //         {this.renderSupplementals()}
+            //      </div>
+            //    </div>
             )
 
         }

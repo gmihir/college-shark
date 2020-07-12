@@ -14,6 +14,16 @@
     font-weight: bold;
 }
 
+.sidebar{
+    padding-top: calc(6vh);
+    padding-left: calc(4vw);
+    padding-right: calc(2vw);
+    padding-bottom: calc(6vh);
+    display: inline-block;
+    border-right: medium solid black;
+
+}
+
 .popup{
     text-align: left;
     padding-left: calc(1vw);
