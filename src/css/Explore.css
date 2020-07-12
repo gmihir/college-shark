@@ -14,7 +14,7 @@
     padding-bottom: calc(0.2rem);
     padding-top: calc(0rem);
     font-family: 'Roboto', sans-serif;
-    font-size: calc(1.8vw);
+    font-size: calc(2.2vw);
     font-weight: 400;
     margin-top: calc(1.2vh);
     margin-bottom: calc(-1.9vh);
@@ -189,7 +189,7 @@ span {
 .filter-button-div {
     width: 100%;
     text-align: center;
-    margin-top: calc(2rem);
+    margin-top: calc(0rem);
 }
 
 .filter-button {

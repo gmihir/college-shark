@@ -103,8 +103,8 @@
 }
 
 .specifications hr {
-    margin-top: 0;
-    margin-bottom: calc(0.6vh);
+    margin-top: calc(-2vh);
+    margin-bottom: calc(1vh);
     width: calc(85%);
     border: 1px solid rgb(204, 202, 202);
 }
