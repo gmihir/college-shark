@@ -21,7 +21,7 @@
     padding-top: calc(6vh);
     display: flex;
     flex-direction: column;
-    border-right: 2px solid black;
+    border-right: 2.5px solid black;
     min-height: calc(70vh);
     height: auto;
     text-align: center;
@@ -42,7 +42,7 @@
     background-color: #313b4c;
     color: white;
     width: 90%;
-    border-radius: calc(5vh);
+    border-radius: calc(1vh);
 }
 
 .supplemental-tab {
@@ -55,7 +55,7 @@
     border-left: none;
     font-size: calc(1.3vw);
     background-color: #313b4c;
-    border-radius: calc(5vh);
+    border-radius: calc(1vh);
     color: white
 }
 
@@ -65,7 +65,7 @@
     border-left: none;
     font-size: calc(1.3vw);
     background-color: #313b4c;
-    border-radius: calc(5vh);
+    border-radius: calc(1vh);
     color: white;
     margin-top: calc(2vh);
 }
@@ -82,6 +82,7 @@
 .essay-prompts {
     width: 95%;
     margin-left: calc(1vw);
+    padding-bottom: calc(2vh);
 }
 
 .render-essays-div {

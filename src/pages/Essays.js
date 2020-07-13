@@ -482,6 +482,15 @@ class Essays extends Component {
     }
 
     render() {
+        if(this.state.selectedColleges.length === 0) {
+            return(
+                <div>
+                    <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="3" />
+                    {this.renderFirstHeader()}
+                <br></br>
+                </div>
+            )
+        }
         return (
             <div>
                 <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="3" />
