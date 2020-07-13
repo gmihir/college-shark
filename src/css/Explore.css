@@ -28,6 +28,7 @@
 
 .filter {
     width: calc(25vw);
+    min-width: calc(20vw);
     margin-left: calc(1vw);
     margin-top: calc(-1vh);
     position: relative;
