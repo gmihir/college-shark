@@ -4,7 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import '../../App.css';
 import {Redirect} from 'react-router';
 import '../../css/SearchBar.css';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Heart from './Heart';
 import Imaged from '../../pages/UCSDLogo.png';
 
@@ -14,9 +14,11 @@ class SearchBar extends React.Component {
         this.state = {
             searchResults: [],
             clickOutside: true,
+            searchValue: ''
         };
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.exploreRedirect = this.exploreRedirect.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +45,22 @@ class SearchBar extends React.Component {
         }
     }
 
+    exploreRedirect(e) {
+        if(e.keyCode === 13) {
+            console.log(this.state.searchResults);
+            let collegeNames = [];
+            this.state.searchResults.forEach(college => {
+                let val = college[0].replace(',', ':');
+                collegeNames.push(val);
+            })
+            const value = sessionStorage.setItem('results', collegeNames)
+            const search = sessionStorage.setItem('search', this.state.searchValue);
+            this.props.history.push('/loginhome/explore');
+        }   
+    }
+
     handleChange(e) {
+        this.setState({searchValue: e.target.value});
         let currentResults = [];
         let filteredResults = [];
         let perfectMatches = [];
@@ -148,7 +165,9 @@ class SearchBar extends React.Component {
         }
         return (
             <Form className="ml-5 w-75" style={searchBar}>
-                <Form.Control type="text" onInput={this.handleChange} placeholder="Search for colleges" className="mr-0 w-75" style={divStyle} />
+                <Form.Control type="text" onInput={this.handleChange} placeholder="Search for colleges" className="mr-0 w-75" style={divStyle} 
+                    onKeyDown={this.exploreRedirect}
+                />
                 <div>
                     {this.state.searchResults.map(collegeArray => {
                         if (this.state.clickOutside) {
@@ -183,4 +202,4 @@ class SearchBar extends React.Component {
     }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);
