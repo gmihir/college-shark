@@ -86,6 +86,7 @@ class Explore extends React.Component {
             //do nothing
         } else {
             copyArray = savedArray.split(",");
+            this.setState({ToggleClear: true});
         }
 
         const filterBy = sessionStorage.getItem("filterby");
