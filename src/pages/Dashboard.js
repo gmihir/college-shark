@@ -6,6 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 
 import { UsersToolbar, UsersTable } from '../components/dashboardComponents';
+import DashboardTable from '../components/dashboardComponents/UsersTable/DashboardTable';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -146,6 +147,7 @@ class Dashboard extends React.Component {
           <div className={useStyles.theme}>
             <UsersTable users={this.state.users} setColleges={this.selectedCollegeSet} selectedColleges={this.state.selectedColleges} key={this.state.selectedColleges}/>
           </div>
+          <DashboardTable />
         </div>
       )
     } else{
