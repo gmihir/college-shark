@@ -833,7 +833,7 @@ class Explore extends React.Component {
         sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
         sessionStorage.setItem("statefilter", keys);
 
-        if(array.length !== 0 || this.props.location !== undefined) {
+        if(array.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
             this.setState({ ToggleClear: true });
         } else {
             this.setState({ ToggleClear: false });    
