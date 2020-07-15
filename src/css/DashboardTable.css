@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Palanquin+Dark:wght@400&display=swap");
+
+.table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Palanquin Dark', sans-serif;
+}
+
+.headers {
+    position: relative;
+    background-color: #f3f3f8;
+    color: rgb(10, 10, 15);
+    height: calc(8.5vh);
+    width: calc(85vw) !important;
+    border-radius: calc(1.1vmax);
+    display: flex;
+    font-size: calc(1.1vw);
+    flex-direction: row;
+    align-items: center;
+}
+
+.individual {
+    position: relative;
+    height: calc(17.5vh);
+    width: calc(85vw) !important;
+    border-color: transparent;
+    border-bottom-color: #e6e6e6;
+    border-style: solid;
+    border-width: calc(.2vh);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.name-position {
+    position: relative;
+    left: calc(2.5vw);
+    width: calc(25vw);
+    color: #4b4b4b;
+}
+
+.other-position {
+    width: calc(12.5vw) !important;
+    color: #969696;
+}
+
+.trashcan {
+    margin-left: calc(-4vw) !important;
+}  
+
+.logo {
+    margin-left: calc(-3.5vh) !important;
+    margin-top: calc(3.25vh) !important;
+    height: calc(10vh) !important;
+    width: calc(10vh) !important;
+}
+
+.name-position-logo {
+    position: relative;
+    left: calc(7vw);
+    width: calc(25vw);
+    color: #4b4b4b;
+}

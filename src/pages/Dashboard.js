@@ -51,10 +51,11 @@ class Dashboard extends React.Component {
     }).then(response => {
       return response.json();
     }).then(data => {
-      this.setState({ 
+      this.setState({
         rerender: false,
         selectedColleges: [],
-        Loading: false });
+        Loading: false
+      });
     })
   }
 
@@ -104,10 +105,11 @@ class Dashboard extends React.Component {
 
       if (this.state.rerender) {
       } else {
-        this.setState({ 
+        this.setState({
           users: collegeList,
           rerender: true,
-          Loading: false });
+          Loading: false
+        });
       }
     });
 
@@ -124,34 +126,33 @@ class Dashboard extends React.Component {
       if (this.state.Loading) {
         return (
           <div className={useStyles.root}>
-            <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges}/>
+            <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges} />
             <div className="spinner-center">
-                <div className="spinner-div">
-                    <Spinner animation="border" variant="secondary" role="status" className="load-spinner">
-                        <span className="sr-only">Loading...</span>
-                    </Spinner>
-                </div>
+              <div className="spinner-div">
+                <Spinner animation="border" variant="secondary" role="status" className="load-spinner">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
             </div>
           </div>
         )
       } else if (this.state.users.length === 0) {
         return (
-          <div style={{width: '100%', textAlign: 'center', marginTop: 'calc(15%)', color: 'rgb(0, 0, 0, 0.534)', fontFamily: 'Roboto, sans-serif'}}>
+          <div style={{ width: '100%', textAlign: 'center', marginTop: 'calc(15%)', color: 'rgb(0, 0, 0, 0.534)', fontFamily: 'Roboto, sans-serif' }}>
             <h3>You haven't selected any colleges, click Explore to start adding some!</h3>
           </div>
         )
       }
       return (
         <div className={useStyles.root}>
-          <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges}/>
+          <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges} />
           <div className={useStyles.theme}>
-            <UsersTable users={this.state.users} setColleges={this.selectedCollegeSet} selectedColleges={this.state.selectedColleges} key={this.state.selectedColleges}/>
+            <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition']} users={this.state.users} setColleges={this.selectedCollegeSet} selectedColleges={this.state.selectedColleges} key={this.state.selectedColleges} />
           </div>
-          <DashboardTable />
         </div>
       )
-    } else{
-      
+    } else {
+
     }
   }
 

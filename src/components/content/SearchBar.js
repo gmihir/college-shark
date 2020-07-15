@@ -177,6 +177,7 @@ class SearchBar extends React.Component {
                             if(college.length > 43){
                                 college = college.substring(0, 40) + "...";
                             }
+                            console.log(collegeArray[1]);
                             return (
                                 <div className="individual">
                                     <Link to={`/loginhome/page/${college}`}>
