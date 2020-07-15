@@ -162,7 +162,6 @@
     font-size: calc(1.6vw);
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: bold;
-    color: white;
 }
 
 .essay-text p {
@@ -184,6 +183,41 @@
     font-size: calc(1.6vw);   
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: bold;
+}
+
+.dropdown-header {
+    color: white;
+}
+
+.essay-header2 {
+    width: 100%;
+    text-align: left;
+    flex-direction: row;
+    display: flex;
+}
+
+.active-essay {
+    font-size: calc(1.25vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    color: black !important ;
+    text-decoration: underline !important
+}
+
+.inactive-essay {
+    font-size: calc(1.25vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    color: #666666 !important;
+}
+
+.inactive-essay:hover {
+    color: black !important;
+    cursor: pointer;
+}
+
+.active-essay-bar {
+    flex-direction: row;
 }
 
 .info-pane{

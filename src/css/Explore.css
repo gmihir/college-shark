@@ -225,6 +225,13 @@ span {
     outline: none;
 }
 
+.display-search {
+    font-size: calc(1vw);
+    margin-top: calc(2vh);
+    text-align: left;
+    margin-left: calc(-2.3vw);
+}
+
 .topbar-info {
     display: flex;
     flex-direction: row;

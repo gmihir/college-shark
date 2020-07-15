@@ -89,6 +89,7 @@ const LOR = [
 const OrderBy = [
     {value: false, label: "Low to High"},
     {value: true, label: 'High to Low'},
+    {value: '', label: 'Alphabetical order'}
 ]
 
 export {

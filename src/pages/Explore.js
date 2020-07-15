@@ -20,8 +20,8 @@ class Explore extends React.Component {
             School: [],
             App: [],
             LOR: [],
-            Filter: Sortby[0],
-            IsDescending: OrderBy[0],
+            Filter: [],
+            IsDescending: [],
             AppFeeLower: '',
             AppFeeUpper: '',
             AcceptanceLower: '',
@@ -38,7 +38,8 @@ class Explore extends React.Component {
             Loading: true,
             Open: false,
             Error: false,
-            ToggleClear: false
+            ToggleClear: false,
+            DisplayResults: sessionStorage.getItem('results') === null ? false : true
         };
         this.setSearch = this.setSearch.bind(this);
         this.searchBarInUse = this.searchBarInUse.bind(this);
@@ -77,34 +78,42 @@ class Explore extends React.Component {
       }
 
     componentDidMount() {
+        // console.log(this.props.match.params.results);
+        console.log(sessionStorage.getItem('results'));
         window.scrollTo(0, 0);
-        this.setState({ isTrue: true });
         let savedArray = sessionStorage.getItem("array");
         let copyArray = [];
-
-        if (savedArray === null || savedArray === undefined) {
+        if (savedArray === null || savedArray === undefined || savedArray === '') {
             //do nothing
+            this.setState({ToggleClear: false});
         } else {
             copyArray = savedArray.split(",");
+            if (copyArray[0] === "") {
+                copyArray = [];
+            }
             this.setState({ToggleClear: true});
         }
 
+        if(sessionStorage.getItem('results') !== null) {
+            this.setState({ToggleClear: true});    
+        }
+
         const filterBy = sessionStorage.getItem("filterby");
+        console.log(filterBy);
         let indices = 0;
-        if (filterBy !== null) {
+        if (filterBy !== null && filterBy !== ',') {
             const index = this.splitToArray(filterBy, Sortby);
             indices = index;
             this.setState({ Filter: Sortby[index] });
-        }
-
-        if (copyArray[0] === "") {
-            copyArray = [];
+        } else {
+            this.setState({ Filter: []});
+            indices = 0;    
         }
 
         const checked = sessionStorage.getItem("checked");
         console.log(checked);
         let checkOrderBy = false;
-        if(checked !== null) {
+        if(checked !== null && checked !== 'undefined') {
             if(checked === 'false') {
                 this.setState({ IsDescending: OrderBy[0]});
                 checkOrderBy = false
@@ -112,6 +121,10 @@ class Explore extends React.Component {
                 this.setState({ IsDescending: OrderBy[1]});
                 checkOrderBy = true    
             }
+        } else {
+            console.log("here");
+            this.setState({ IsDescending: []});
+            checkOrderBy = false    
         }
 
         fetch("/filter", {
@@ -256,6 +269,17 @@ class Explore extends React.Component {
     }
 
     displayResults() {
+        let results = sessionStorage.getItem('results');
+        console.log(results);
+        let arr = [];
+        if(results !== null) {
+            let resultsArray = results.split(',');
+            arr = [];
+            resultsArray.forEach(college => {
+                college = college.replace(':', ",");
+                arr.push(college);
+            })
+        }
         if (this.state.Loading) {
             return (
                 <div className="spinner-center">
@@ -273,35 +297,62 @@ class Explore extends React.Component {
                     <div></div>
                 )
             } else {
-                return (
-                    <div className="list-container">
-                        <ul className="ListColleges">
-                        {this.state.College.map(college => {
-                            let val = JSON.parse(college);
-                            return (
-                                <li>
-                                    <Tile Alias={val["alias"]} Tuition={this.numFormat(val["tuition_normal"])} TuitionOOS={this.numFormat(val["tuition_oos"])}
-                                        Acceptance={val["acceptance_rate"]} Fee={val["app_fee"]} collegeName={val["college_name"]}
-                                        Logo={val["college_logo"]} Type={val["school_type"]} Population={this.numFormat(val["population"])}
-                                        Ranking={val["national_ranking"]}
-                                    />
-                                </li>
-                            )
-                        })}
-                        {/* <Tile  Alias={"ashwin"} Tuition={10000} TuitionOOS={10000}
-                                        Acceptance={20} Fee={30} collegeName={"hello"}
-                                        Logo={Image3} Type={200} Population={10000}
-                                        Ranking={100} /> */}
-                        </ul>
-                    </div>
-                )
+                if(results === null) {
+                    return (
+                        <div className="list-container">
+                            <ul className="ListColleges">
+                            {
+                                this.state.College.map(college => {
+                                let val = JSON.parse(college);
+                                return (
+                                    <li>
+                                        <Tile Alias={val["alias"]} Tuition={this.numFormat(val["tuition_normal"])} TuitionOOS={this.numFormat(val["tuition_oos"])}
+                                            Acceptance={val["acceptance_rate"]} Fee={val["app_fee"]} collegeName={val["college_name"]}
+                                            Logo={val["college_logo"]} Type={val["school_type"]} Population={this.numFormat(val["population"])}
+                                            Ranking={val["national_ranking"]}
+                                        />
+                                    </li>
+                                )
+                            })}
+                            {/* <Tile  Alias={"ashwin"} Tuition={10000} TuitionOOS={10000}
+                                            Acceptance={20} Fee={30} collegeName={"hello"}
+                                            Logo={Image3} Type={200} Population={10000}
+                                            Ranking={100} /> */}
+                            </ul>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className="list-container">
+                            <ul className="ListColleges">
+                            {
+                                this.state.College.filter(college => arr.includes(JSON.parse(college)["college_name"])).map(college => {
+                                let val = JSON.parse(college);
+                                return (
+                                    <li>
+                                        <Tile Alias={val["alias"]} Tuition={this.numFormat(val["tuition_normal"])} TuitionOOS={this.numFormat(val["tuition_oos"])}
+                                            Acceptance={val["acceptance_rate"]} Fee={val["app_fee"]} collegeName={val["college_name"]}
+                                            Logo={val["college_logo"]} Type={val["school_type"]} Population={this.numFormat(val["population"])}
+                                            Ranking={val["national_ranking"]}
+                                        />
+                                    </li>
+                                )
+                            })}
+                            {/* <Tile  Alias={"ashwin"} Tuition={10000} TuitionOOS={10000}
+                                            Acceptance={20} Fee={30} collegeName={"hello"}
+                                            Logo={Image3} Type={200} Population={10000}
+                                            Ranking={100} /> */}
+                            </ul>
+                        </div>
+                    )
+                }
             }
         } else {
             return (
                 <div className="results-div">
                     <div className="icon-results"><FontAwesomeIcon icon={faSadTear} /></div>
                     <h1 className="no-results">No results found...</h1>
-                    {true && <div className="error-message"><h1>Error: Please check your inputs and try again.</h1></div>}
+                    {this.state.Error && <div className="error-message"><h1>Error: Please check your inputs and try again.</h1></div>}
                 </div>
             )
         }
@@ -576,15 +627,17 @@ class Explore extends React.Component {
 
                     <div className="content-display">
                         <div className="topbar-info">
-                            <div className="filter-clear"></div>
+                            <div className="filter-clear">
+                                {this.state.DisplayResults ? <h3 className="display-search">Display Results for "{sessionStorage.getItem('search')}" </h3> : null}
+                            </div>
 
                             <div className="float-display">
                                 <div className="sort-by">
-                                    <Select onChange={this.handleFilter}
+                                    <Select onChange={this.handleFilter} placeholder={"Order By"}
                                         options={Sortby} value={this.state.Filter}/>
                                 </div>
                                 <div className="order-by">
-                                    <Select onChange={this.handleOrderBy}
+                                    <Select onChange={this.handleOrderBy} placeholder={"Sort By"}
                                         options={OrderBy} value={this.state.IsDescending}/>
                                 </div>
                             </div>
@@ -597,14 +650,15 @@ class Explore extends React.Component {
     }
 
     clearFilter(e) {
+        sessionStorage.removeItem('results')
         this.setState({
             searchBar: false,
             College: [],
             School: [],
             App: [],
             LOR: [],
-            Filter: Sortby[0],
-            IsDescending: OrderBy[0],
+            Filter: [],
+            IsDescending: [],
             AppFeeLower: '',
             AppFeeUpper: '',
             AcceptanceLower: '',
@@ -618,7 +672,8 @@ class Explore extends React.Component {
             TuitionState: {value: "reset", label: 'reset'},
             StateFilter: [],
             CheckedState: false,
-            Loading: true
+            Loading: true,
+            DisplayResults: false
         }, () => this.handleClick())
     }
 
@@ -807,7 +862,7 @@ class Explore extends React.Component {
         sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
         sessionStorage.setItem("statefilter", keys);
 
-        if(array.length !== 0) {
+        if(array.length !== 0 || sessionStorage.getItem('results') !== null) {
             this.setState({ ToggleClear: true });
         } else {
             this.setState({ ToggleClear: false });    
@@ -821,8 +876,8 @@ class Explore extends React.Component {
             },
             body: JSON.stringify({
                 Array: array,
-                Filter: this.state.Filter.value,
-                IsDescending: this.state.IsDescending.value
+                Filter: this.state.Filter.length === 0 ? Sortby[0].value : this.state.Filter.value,
+                IsDescending: this.state.IsDescending.length === 0 ? OrderBy[0].value : this.state.IsDescending.value
             })
         }).then(response => {
             return response.json();
