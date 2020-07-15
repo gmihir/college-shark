@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Modal} from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import '../../App.css';
 import SearchBar from './SearchBar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -158,4 +158,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);
