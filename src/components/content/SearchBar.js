@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Form } from "react-bootstrap";
 import '../../App.css';
-import {Redirect} from 'react-router';
 import '../../css/SearchBar.css';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import Heart from './Heart';
 import Imaged from '../../pages/UCSDLogo.png';
 
@@ -47,15 +46,16 @@ class SearchBar extends React.Component {
 
     exploreRedirect(e) {
         if(e.keyCode === 13) {
-            console.log(this.state.searchResults);
             let collegeNames = [];
             this.state.searchResults.forEach(college => {
-                let val = college[0].replace(',', ':');
-                collegeNames.push(val);
+                collegeNames.push(college[0]);
             })
-            const value = sessionStorage.setItem('results', collegeNames)
-            const search = sessionStorage.setItem('search', this.state.searchValue);
-            this.props.history.push('/loginhome/explore');
+            
+            this.props.history.push({
+                pathname: `/loginhome/explore/results`,
+                search: `?results=${collegeNames[0]}`,
+                state: {Colleges: collegeNames, Search: this.state.searchValue}
+            })
         }   
     }
 

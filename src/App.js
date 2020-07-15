@@ -29,6 +29,23 @@ const RequireAuth = (Component) => {
 }
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.makeid = this.makeid.bind(this);
+  }
+
+  makeid() {
+    var result = '';
+    var characters = 'abcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 6; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   render() {
     return (
       <Router>
@@ -40,7 +57,12 @@ class App extends React.Component {
             crossOrigin="anonymous"
             />
           <Switch>
-            <Route path="/loginhome/explore" component={RequireAuth(Explore)} />
+            <Route exact path="/loginhome/explore" render={(props) => (
+              <Explore {...props} key={"Explore"} />
+            )} />
+            <Route exact path="/loginhome/explore/results" render ={(props) => (
+                <Explore {...props} key={props.location.key} /> 
+              )} />
             <Route path="/loginhome/dashboard" component={RequireAuth(Dashboard)} />
             <Route path="/loginhome/login" component={Login} />
             <Route path="/loginhome/signup" component={Signup} />

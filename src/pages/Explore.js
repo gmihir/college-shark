@@ -9,6 +9,7 @@ import { Tuition, Rankings, AcceptanceRate, AppFee, Population, AppType, LetterR
 import Select from 'react-select';
 import { faInfoCircle, faSadTear, faSort, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withRouter } from 'react-router-dom';
 
 class Explore extends React.Component {
     constructor(props) {
@@ -39,7 +40,8 @@ class Explore extends React.Component {
             Open: false,
             Error: false,
             ToggleClear: false,
-            DisplayResults: sessionStorage.getItem('results') === null ? false : true
+            DisplayResults: this.props.location.state !== undefined && this.props.location !== undefined ? true : false,
+            ExploreRedirect: this.props.location.state !== undefined && this.props.location !== undefined ? true : false
         };
         this.setSearch = this.setSearch.bind(this);
         this.searchBarInUse = this.searchBarInUse.bind(this);
@@ -78,8 +80,7 @@ class Explore extends React.Component {
       }
 
     componentDidMount() {
-        // console.log(this.props.match.params.results);
-        console.log(sessionStorage.getItem('results'));
+        console.log(this.props);
         window.scrollTo(0, 0);
         let savedArray = sessionStorage.getItem("array");
         let copyArray = [];
@@ -94,12 +95,7 @@ class Explore extends React.Component {
             this.setState({ToggleClear: true});
         }
 
-        if(sessionStorage.getItem('results') !== null) {
-            this.setState({ToggleClear: true});    
-        }
-
         const filterBy = sessionStorage.getItem("filterby");
-        console.log(filterBy);
         let indices = 0;
         if (filterBy !== null && filterBy !== ',') {
             const index = this.splitToArray(filterBy, Sortby);
@@ -111,7 +107,6 @@ class Explore extends React.Component {
         }
 
         const checked = sessionStorage.getItem("checked");
-        console.log(checked);
         let checkOrderBy = false;
         if(checked !== null && checked !== 'undefined') {
             if(checked === 'false') {
@@ -122,7 +117,6 @@ class Explore extends React.Component {
                 checkOrderBy = true    
             }
         } else {
-            console.log("here");
             this.setState({ IsDescending: []});
             checkOrderBy = false    
         }
@@ -192,7 +186,6 @@ class Explore extends React.Component {
         this.setState({ TuitionUpper: tuitionUpper });
 
         const appType = sessionStorage.getItem("appfee");
-        console.log(appType);
         if (appType !== null) {
             if(appType.length === 0 || appType === ',') {
                 this.setState({ App: []});
@@ -203,7 +196,6 @@ class Explore extends React.Component {
         }
 
         const letterRec = sessionStorage.getItem("letterrec");
-        console.log(letterRec);
         if (letterRec !== null) {
             if(letterRec.length === 0 || letterRec === ',') {
                 this.setState({ LOR: []});
@@ -214,7 +206,6 @@ class Explore extends React.Component {
         }
 
         const schoolType = sessionStorage.getItem("schooltype");
-        console.log(schoolType);
         if (schoolType !== null) {
             if(schoolType.length === 0 || schoolType === ',') {
                 this.setState({ School: [] });
@@ -225,7 +216,6 @@ class Explore extends React.Component {
         }
 
         const stateFilter = sessionStorage.getItem("statefilter");
-        console.log(stateFilter);
         if (stateFilter !== null) {
             let newArray = [];
             if(stateFilter === "," || stateFilter.length === 0) {
@@ -255,7 +245,6 @@ class Explore extends React.Component {
             }
 
             if (getValue === compare[i].value) {
-                console.log(i);
                 appTypeObj = i;
             }
         }
@@ -269,17 +258,7 @@ class Explore extends React.Component {
     }
 
     displayResults() {
-        let results = sessionStorage.getItem('results');
-        console.log(results);
-        let arr = [];
-        if(results !== null) {
-            let resultsArray = results.split(',');
-            arr = [];
-            resultsArray.forEach(college => {
-                college = college.replace(':', ",");
-                arr.push(college);
-            })
-        }
+        const getPropsState = this.props.location.state;
         if (this.state.Loading) {
             return (
                 <div className="spinner-center">
@@ -297,7 +276,7 @@ class Explore extends React.Component {
                     <div></div>
                 )
             } else {
-                if(results === null) {
+                if(getPropsState === undefined) {
                     return (
                         <div className="list-container">
                             <ul className="ListColleges">
@@ -326,7 +305,7 @@ class Explore extends React.Component {
                         <div className="list-container">
                             <ul className="ListColleges">
                             {
-                                this.state.College.filter(college => arr.includes(JSON.parse(college)["college_name"])).map(college => {
+                                this.state.College.filter(college => getPropsState.Colleges.includes(JSON.parse(college)["college_name"])).map(college => {
                                 let val = JSON.parse(college);
                                 return (
                                     <li>
@@ -364,13 +343,18 @@ class Explore extends React.Component {
                 <h1 className="filter-name">Filters</h1>
 
                 {this.state.ToggleClear ? <div className="clear-filters"><button onClick={this.clearFilter}>Clear Filters</button></div> : null}
+                {this.state.ExploreRedirect ? <div className="clear-filters"><button 
+                onClick={() => {
+                    this.props.history.push('/loginhome/explore');
+                    this.setState({DisplayResults: false, ExploreRedirect: false});
+                }}>Return to Explore</button></div> : null}
                 
                 <hr></hr>
 
                 <div className="tuition">
                     <div className="header">Population</div>
                     <form className="filter-form">
-                        <input onChange={(e) => this.setState({ PopulationLower: e.target.value }, () => console.log(this.state.PopulationLower))} type="text" placeholder="Lower" size="100"
+                        <input onChange={(e) => this.setState({ PopulationLower: e.target.value })} type="text" placeholder="Lower" size="100"
                             value={this.state.PopulationLower} onKeyDown={this.enterKey}
                         ></input>
                         <span>-</span>
@@ -493,7 +477,6 @@ class Explore extends React.Component {
                             <Select onChange={(e) => {
                                 this.setState({ TuitionState: e }, () => {
                                     this.handleClick();
-                                    console.log(this.state.TuitionState);
                                 }
                                 )
                             }}
@@ -628,7 +611,9 @@ class Explore extends React.Component {
                     <div className="content-display">
                         <div className="topbar-info">
                             <div className="filter-clear">
-                                {this.state.DisplayResults ? <h3 className="display-search">Display Results for "{sessionStorage.getItem('search')}" </h3> : null}
+                                {this.state.DisplayResults ? <h3 className="display-search">Display Results for 
+                                {this.props.location !== undefined && this.props.location.state !== undefined ? ` "` + this.props.location.state.Search + `"` : null}
+                                </h3> : null}
                             </div>
 
                             <div className="float-display">
@@ -650,7 +635,6 @@ class Explore extends React.Component {
     }
 
     clearFilter(e) {
-        sessionStorage.removeItem('results')
         this.setState({
             searchBar: false,
             College: [],
@@ -718,7 +702,6 @@ class Explore extends React.Component {
             //Nothing happens
             sessionStorage.setItem(storage, '');
         } else if (/^[1-9]\d*(\.\d+)?$/.test(state)) {
-            console.log(state);
             if(state.split(".").length > 2) {
                 array.push(string);
                 array.push("--1000");
@@ -726,7 +709,6 @@ class Explore extends React.Component {
                 return;
             }
             array.push(string);
-            console.log(string);
             array.push(sign + state);
             this.setState({Error: false});
             sessionStorage.setItem(storage, state);
@@ -739,7 +721,6 @@ class Explore extends React.Component {
 
 
     enterKey(e) {
-        console.log(e.key);
         if (e.key === 'Enter') {
             this.handleClick();
         }
@@ -777,18 +758,15 @@ class Explore extends React.Component {
         this.pushToArray(this.state.PopulationUpper, "population", array, "-", "populationupper");
 
         if (this.state.TuitionState.value === "tuition_normal") {
-            console.log("in state")
             this.pushToArray(this.state.TuitionLower, "tuition_normal", array, "+", "normallower");
 
             this.pushToArray(this.state.TuitionUpper, "tuition_normal", array, "-", "normalupper");
         } else if (this.state.TuitionState.value === "tuition_oos") {
-            console.log("oos");
             this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
 
             this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
         } else if (this.state.TuitionState.value === "reset") {
             this.setState({TuitionState: []});
-            console.log("reset")
             this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
 
             this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
@@ -797,10 +775,7 @@ class Explore extends React.Component {
 
             this.pushToArray(this.state.TuitionUpper, "tuition_normal", array, "-", "normalupper");
         } else if (this.state.TuitionLower !== '' && this.state.TuitionUpper !== '' && this.state.TuitionLower !== null && this.state.TuitionUpper !== null) {
-            console.log(this.state.TuitionLower)
-            console.log(this.state.TuitionUpper)
             this.setState({TuitionState: TuitionState[0]});
-            console.log(TuitionState[0])
             this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
 
             this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
@@ -834,10 +809,8 @@ class Explore extends React.Component {
         }
 
         if (this.state.LOR.value !== 'Any' && this.state.LOR.length !== 0) {
-            console.log("here");
             array.push("letter_of_rec_required");
             array.push(this.state.LOR.value);
-            console.log(array);
         }
 
         if (this.state.StateFilter.value !== 'Any' && this.state.StateFilter.length !== 0) {
@@ -852,8 +825,6 @@ class Explore extends React.Component {
             keys.push(state.value);
         })
 
-        console.log(keys);
-
         sessionStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
         sessionStorage.setItem("checked", this.state.IsDescending.value);
         sessionStorage.setItem("tuitionstate", [this.state.TuitionState.value, this.state.TuitionState.label]);
@@ -862,7 +833,7 @@ class Explore extends React.Component {
         sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
         sessionStorage.setItem("statefilter", keys);
 
-        if(array.length !== 0 || sessionStorage.getItem('results') !== null) {
+        if(array.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
             this.setState({ ToggleClear: true });
         } else {
             this.setState({ ToggleClear: false });    
@@ -901,7 +872,6 @@ class Explore extends React.Component {
 
     handleOrderBy(e) {
         this.setState({ IsDescending: e }, () => {
-            console.log(this.state.IsDescending);
             this.handleClick();
         });
     }
@@ -909,13 +879,11 @@ class Explore extends React.Component {
     handleState(e) {
         const state = this.state;
         state.StateFilter = [];
-        console.log(e);
 
         if (e === null) {
             state.stateFilter = [];
         } else {
             e.forEach((option) => {
-                console.log(option);
                 state.StateFilter.push(option);
             });
         }
@@ -934,9 +902,7 @@ class Explore extends React.Component {
             left: 0,
             behavior: 'smooth'
         });
-        this.setState({ Open: !this.state.Open}, () => {
-            console.log(this.state.Open);
-        });
+        this.setState({ Open: !this.state.Open});
     }
 
     render() {
@@ -946,9 +912,11 @@ class Explore extends React.Component {
                     rel="stylesheet"
                     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
                     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-                    crossorigin="anonymous"
+                    crossOrigin="anonymous"
                     />
-                <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="2" />
+                <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="2" 
+                    location={this.props.location}
+                />
                 {this.renderExplore()}
 
                 {this.state.Open ? this.renderFilter("block") : null}
