@@ -10,7 +10,7 @@
     background-color: white;
     height: calc(6.5vh);
     margin-top: 0;
-    width: calc(75%);
+    width: calc(35vw);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -19,6 +19,7 @@
     border-left-color: transparent;
     border-right-color: transparent;
     border-width: calc(.03vw);
+    z-index: 10;
   }
   
   .heart {
@@ -27,7 +28,7 @@
     transform: scale(1.2);
     position: absolute !important;
     right: calc(0.5vw);
-    top: calc(.4vh);
+    top: calc(1.5vh);
   }
   
   /* .redheart {

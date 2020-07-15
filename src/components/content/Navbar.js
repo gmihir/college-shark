@@ -107,16 +107,16 @@ class NavBar extends React.Component {
     return (
       <div className="div-container">
         <Navbar
-          className="navbar p-3"
+          className="navbar p-3 w-100"
           expand="lg"
           bg="dark" variant="dark"
         >
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Navbar.Brand>
-              <Link style={{textDecoration: 'none', color: 'white'}} eventKey="1" to="/loginhome/dashboard">
+            <Navbar.Brand onClick={() => this.props.history.push('/')}>
+              <Link style={{textDecoration: 'none', color: 'white'}} eventKey="4" to="/">
                   Application Hub
-                </Link>
+              </Link>
             </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={this.props.active}>
               <Nav.Item className="dashboard">
@@ -138,6 +138,7 @@ class NavBar extends React.Component {
               </Nav.Item>
             </Nav>
             <Nav className="ml-auto" navbar>
+              {sessionStorage.getItem('userData') ? 
               <Nav.Item>
                 <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%' }} />}>
                   <NavDropdown.Header>Hi, {this.state.Username}</NavDropdown.Header>
@@ -145,13 +146,23 @@ class NavBar extends React.Component {
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={this.handleClick} href="/">Logout</NavDropdown.Item>
                 </NavDropdown>
-              </Nav.Item>
+              </Nav.Item> : 
+              <Nav className="ml-auto" navbar>
+                <Nav.Item>
+                    <Nav.Link as={Link} to="/loginhome/login">Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link as={Link} to="/loginhome/signup">Sign up</Nav.Link>
+                </Nav.Item>
+              </Nav>
+              }
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <div className="navbar-search">
+        {this.props.displaySearch === false ? null : 
+          <div className="navbar-search">
           <SearchBar list={this.state.collegelist} searchBarInUse={this.props.searchBarInUse} searchBar={this.props.searchBar} />
-        </div>
+        </div>}
         {this.state.Reset ? this.handleDisplay() : null}
       </div>
     );

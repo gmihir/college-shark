@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=Yanone+Kaffeesatz&display=swap');
 
-.logout {
-    font-family: 'Oswald', sans-serif;
-    font-size: calc(3.15vh);
-    font-weight: 700;
-}
-
 .ml-auto:hover {
     color: #313b4c;
 }

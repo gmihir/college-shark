@@ -154,7 +154,7 @@ class SearchBar extends React.Component {
 
     render() {
         const divStyle = {
-            width: 'calc(50vw)'
+            width: 'calc(35vw)'
         }
         const searchBar = {
             display: 'flex',
@@ -164,8 +164,8 @@ class SearchBar extends React.Component {
             this.setState({ clickOutside: !this.props.searchBar })
         }
         return (
-            <Form className="ml-5 w-75" style={searchBar}>
-                <Form.Control type="text" onInput={this.handleChange} placeholder="Search for colleges" className="mr-0 w-75" style={divStyle} 
+            <Form className="ml-5" style={searchBar}>
+                <Form.Control type="text" onInput={this.handleChange} placeholder="Search for colleges" className="mr-0" style={divStyle} 
                     onKeyDown={this.exploreRedirect}
                 />
                 <div>
@@ -177,7 +177,6 @@ class SearchBar extends React.Component {
                             if(college.length > 43){
                                 college = college.substring(0, 40) + "...";
                             }
-                            console.log(collegeArray[1]);
                             return (
                                 <div className="individual">
                                     <Link to={`/loginhome/page/${college}`}>

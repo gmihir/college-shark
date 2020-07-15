@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Redirect} from 'react-router';
 import { Container, Nav, Button, Row, Col, Form, Modal} from 'react-bootstrap';
+import NavBar from '../components/content/Navbar';
+import SearchBar from '../components/content/SearchBar';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
-import { faGlobeAmericas, faLayerGroup, faScroll } from "@fortawesome/free-solid-svg-icons";
+import { faGlobeAmericas, faLayerGroup, faScroll, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Home() {
@@ -12,6 +14,34 @@ function Home() {
     const [name, setName] = useState({Name: ''});
     const [message, setMessage] = useState({Message: ''});
     const [show, setShow] = useState({Show: ''});
+    const [search, setSearching] = useState({Search: false});
+    const [results, setResults] = useState({Results: []});
+    const [colleges, getColleges] = useState({Colleges: []});
+
+    useEffect(() => {
+        fetch("/searchbar", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            IsDescending: true
+          })
+        }).then(response => {
+          return response.json()
+        }).then(data => {
+          let collegeList = [];
+          data.map(college => {
+            let collegeNames = [];
+            collegeNames.push(JSON.parse(college).college_name);
+            collegeNames.push(JSON.parse(college).alias);
+            collegeNames.push(JSON.parse(college).abbreviation);
+            collegeList.push([collegeNames, JSON.parse(college).college_logo]);
+          })
+        getColleges({Colleges: collegeList});
+        });
+    }, []);
+
     function handleClick(e) {
         fetch("/email", {
             method: "POST",
@@ -33,9 +63,24 @@ function Home() {
             setShow({Show: true});
         });
     }
-    if(sessionStorage.getItem("userData")){
-        return(<Redirect to='/loginhome/dashboard' />)
+
+    function searchBarInUse(inUse) {
+        console.log(inUse);
+        console.log(search.Search);
+        if (inUse !== search.Search) {
+            setSearching({ Search: inUse});
+        }
     }
+
+    function setSearch(results) {
+        if (results !== results.Results) {
+          setResults({Results: results});
+        }
+      }
+
+    // if(sessionStorage.getItem("userData")){
+    //     return(<Redirect to='/loginhome/dashboard' />)
+    // }
 
     function handleDisplay() {
         return (
@@ -55,7 +100,7 @@ function Home() {
             <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"></link>
 
             <div className="image-background">
-                <Nav className="justify-content-end w-100" activeKey="/home">
+                {/* <Nav className="justify-content-end w-100" activeKey="/home">
                     <Nav.Item>
                         <Nav.Link as={Link} to="/loginhome/login">Login</Nav.Link>
                     </Nav.Item>
@@ -63,9 +108,12 @@ function Home() {
                     <Nav.Item>
                         <Nav.Link as={Link} to="/loginhome/signup">Sign up</Nav.Link>
                     </Nav.Item>
-                </Nav>
+                </Nav> */}
+                <div className="navbar-home">
+                    <NavBar searchBarInUse={searchBarInUse} setSearch={setSearch} searchBar={search.Search} displaySearch={false} />
+                </div>
 
-                <Container>
+                <Container style={{paddingBottom: 'calc(5vh)'}}>
                     <Row className="justify-content-md-center">
                         <Col md="auto" style={{fontSize: "calc(5.5rem"}}>100 APPS. ONE PLACE.</Col>
                     </Row>
@@ -75,13 +123,20 @@ function Home() {
                     </Row>
 
                     <Row className="justify-content-md-center">
-                        <Link to="/loginhome/signup">
+                        {/* <Link to="/loginhome/signup">
                             <Button variant="primary" size="lg">
                                 Sign up
                             </Button>{' '}
-                        </Link>
+                        </Link> */}
                     </Row>
                 </Container>
+                
+                <div className="searchbar-home">
+                    <span style={{marginLeft: 'calc(50%)'}} />
+                    <div className="searchbar-container">
+                        <SearchBar searchBarInUse={searchBarInUse} setSearch={setSearch} list={colleges.Colleges} />
+                    </div>
+                </div>
 
             </div>
 

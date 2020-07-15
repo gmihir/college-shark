@@ -46,8 +46,8 @@ class DashboardTable extends React.Component {
                 </div>
                 {this.state.users.map(user => {
                     return (
-                        <div className="individual">
-                            <img className="logo" src={user.college_logo} alt="Hello" />
+                        <div className="individual-table">
+                            <img className="logo-table" src={user.college_logo} alt="Hello" />
                             <div className="name-position-logo">
                                 {user.college_name}
                             </div>

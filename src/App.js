@@ -30,22 +30,6 @@ const RequireAuth = (Component) => {
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.makeid = this.makeid.bind(this);
-  }
-
-  makeid() {
-    var result = '';
-    var characters = 'abcdefghijklmnopqrstuvwxyz';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < 6; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
   render() {
     return (
       <Router>
@@ -63,14 +47,14 @@ class App extends React.Component {
             <Route exact path="/loginhome/explore/results" render ={(props) => (
                 <Explore {...props} key={props.location.key} /> 
               )} />
-            <Route path="/loginhome/dashboard" component={RequireAuth(Dashboard)} />
-            <Route path="/loginhome/login" component={Login} />
-            <Route path="/loginhome/signup" component={Signup} />
+            <Route exact path="/loginhome/dashboard" component={Dashboard} />
+            <Route exact path="/loginhome/login" component={Login} />
+            <Route exact path="/loginhome/signup" component={Signup} />
             <Route exact path="/loginhome/page/:collegeName" render={(props) => (
               <Individual key={props.match.params.collegeName} {...props} />)
             } />
-            <Route path="/loginhome/essays" component={RequireAuth(Essays)} />
-            <Route path="/profile" component={RequireAuth(Profile)} />
+            <Route exact path="/loginhome/essays" component={Essays} />
+            <Route exact path="/profile" component={RequireAuth(Profile)} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

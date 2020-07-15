@@ -17,10 +17,14 @@
 	background-repeat:no-repeat;
   background-size:cover;
   height: calc(45rem);
-  font-family: 'Oswald', sans-serif;
 }
 
-.nav {
+.navbar-home {
+  width: 100%;
+  font-family: "Segoe UI";
+}
+
+/* .nav {
   background-color: rgba(0, 0, 0, 0.452) !important;  
 }
 
@@ -33,7 +37,7 @@
 
 .nav .nav-link:hover {
   color: rgb(0, 0, 0) !important;
-}
+} */
 
 .features-container {
   width: 75%;
@@ -47,6 +51,20 @@
 .features {
   height: calc(35rem);
   width: 100%;
+}
+
+.searchbar-home {
+  margin-top: calc(2vh);
+  width: calc(100%);
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  font-family: "Segoe UI";
+}
+
+.searchbar-container{
+  width: 100%;
+  min-width: calc(90vw);
 }
 
 .features .row {
@@ -105,7 +123,7 @@
 
 .image-background .container {
   margin-top: calc(6rem) !important;
-  background-color: rgba(0, 0, 0, 0.158) !important;
+  background-color: rgba(0, 0, 0, 0.205) !important;
   color: white !important;
 }
 
