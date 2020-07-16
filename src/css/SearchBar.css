@@ -28,7 +28,7 @@
     transform: scale(1.2);
     position: absolute !important;
     right: calc(0.5vw);
-    top: calc(1.5vh);
+    top: calc(.4vh);
   }
   
   /* .redheart {
