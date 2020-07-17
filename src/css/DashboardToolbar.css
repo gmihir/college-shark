@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@600&display=swap");
+
+.toprow{
+    width: calc(100vw);
+    height: calc(15vh);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-header{
+    margin-left: calc(5vw);
+    font-family: 'Mukta', sans-serif;
+    font-size: calc(6vh);
+}
+
+.edit-button:hover{
+    cursor: pointer;
+}
+
+.edit-button{
+    margin-right: calc(7.5vw);
+    font-family: 'Mukta', sans-serif;
+    font-size: calc(3vh);
+    width: calc(13.25vw);
+    height: calc(8vh);
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+    color: rgb(240, 240, 240);
+    background-color: #0cc76c;
+    border-radius: calc(1.5vh);
+    padding-left: calc(1.25vh);
+    padding-right: calc(1.25vh);
+}

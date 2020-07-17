@@ -123,7 +123,6 @@ class Dashboard extends React.Component {
       if (this.state.Loading) {
         return (
           <div className={useStyles.root}>
-            <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges} />
             <div className="spinner-center">
               <div className="spinner-div">
                 <Spinner animation="border" variant="secondary" role="status" className="load-spinner">
@@ -141,12 +140,9 @@ class Dashboard extends React.Component {
         )
       }
       return (
-        <div className={useStyles.root}>
-          <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges} />
           <div className={useStyles.theme}>
             <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition', 'Status']} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
           </div>
-        </div>
       )
     } else {
 

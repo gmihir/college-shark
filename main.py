@@ -27,7 +27,7 @@ headers = ["college_name","alias","abbreviation","transcripts","mid_year","lette
             "interview","app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","college_description","college_campus"]
 
 #headers required for JSON output for dashboard page
-headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decision","regular_decision","state"] 
+headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decision","regular_decision","state","college_logo"] 
 
 #headers required for JSON output for explore page
 headers_explore = ["college_name","alias","letter_of_rec_required",
