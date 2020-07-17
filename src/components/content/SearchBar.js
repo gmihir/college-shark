@@ -154,7 +154,7 @@ class SearchBar extends React.Component {
 
     render() {
         const divStyle = {
-            width: 'calc(35vw)'
+            width: this.props.barwidth ? this.props.barwidth : 'calc(35vw)'
         }
         const searchBar = {
             display: 'flex',
@@ -177,23 +177,34 @@ class SearchBar extends React.Component {
                             if(college.length > 43){
                                 college = college.substring(0, 40) + "...";
                             }
-                            return (
-                                <div className="individual">
-                                    <Link to={`/loginhome/page/${college}`}>
-                                        <div>
-                                            <div className="circle">
-                                            </div>
-                                            <img className="logo" src={collegeArray[1]} alt="Hello" />
-                                        </div>
-                                        <div className="collegeName">
+
+                            if(this.props.nodelayout) {
+                                return (
+                                    <div className="map-results">
+                                        <div className="map-collegename">
                                             {college}
                                         </div>
-                                    </Link>
-                                    <div className="heart">
-                                        <Heart collegeName={college} key={college} />
                                     </div>
-                                </div>
-                            )
+                                )
+                            } else {
+                                return (
+                                    <div className="individual">
+                                        <Link to={`/loginhome/page/${college}`}>
+                                            <div>
+                                                <div className="circle">
+                                                </div>
+                                                <img className="logo" src={collegeArray[1]} alt="Hello" />
+                                            </div>
+                                            <div className="collegeName">
+                                                {college}
+                                            </div>
+                                        </Link>
+                                        <div className="heart">
+                                            <Heart collegeName={college} key={college} />
+                                        </div>
+                                    </div>
+                                )
+                            }
                         }
                     })}
                 </div>

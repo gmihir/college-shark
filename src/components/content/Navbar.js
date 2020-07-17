@@ -147,7 +147,7 @@ class NavBar extends React.Component {
 
               <Nav.Item>
                 <Nav.Link eventKey="4" href="/loginhome/map">
-                  Map
+                  Map View
                   </Nav.Link>
               </Nav.Item>
             </Nav>

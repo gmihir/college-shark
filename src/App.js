@@ -49,14 +49,14 @@ class App extends React.Component {
                 <Explore {...props} key={props.location.key} /> 
               )} />
             <Route path="/loginhome/dashboard" component={Dashboard} />
-            <Route path="/loginhome/login" component={Login} />
-            <Route path="/loginhome/signup" component={Signup} />
+            <Route exact path="/loginhome/login" component={Login} />
+            <Route exact path="/loginhome/signup" component={Signup} />
             <Route exact path="/loginhome/page/:collegeName" render={(props) => (
               <Individual key={props.match.params.collegeName} {...props} />)
             } />
-            <Route path="/loginhome/essays" component={Essays} />
+            <Route exact path="/loginhome/essays" component={Essays} />
             <Route exact path="/profile" component={RequireAuth(Profile)} />
-            <Route path="/loginhome/map" component={MapView} />
+            <Route exact path="/loginhome/map" component={MapView} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

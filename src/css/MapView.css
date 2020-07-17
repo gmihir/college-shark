@@ -2,9 +2,99 @@
     width: 100%;
     height: calc(50vh);
     overflow-y: none;
+    overflow: hidden;
 }
 
 .mapview {
     height: calc(95vh);
     height: auto;
+}
+
+.college-display {
+    margin-top: 0;
+    width: calc(22%);
+    min-height: calc(92vh);
+    border-radius: calc(1vh);
+    position: absolute;
+    box-shadow: calc(3px) calc(3px) calc(10px) grey; 
+}
+
+.map-search {
+    width: 100%;
+    position: absolute;
+    left: calc(-1.5vw);
+    top: calc(1vh);
+    z-index: 10;
+}
+
+.img-section {
+    width: 100%;
+}
+
+.img-section img {
+    max-width: calc(25vw);
+    max-height: calc(30vh);
+    object-fit: cover;
+    position: relative;
+}
+
+.college-add-icon {
+    position: absolute;
+    right: calc(0.7vw);
+    top: calc(14.8vh);
+    transform: scale(1.7);
+}
+
+.individual-redirect {
+    border: none;
+    border-left: none;
+    border-radius: calc(0.4vw);
+    padding: calc(0.6vw);
+    background-color: rgb(63, 81, 181);
+    color: white;
+    transition: 0.3s;
+}
+
+.individual-redirect:hover {
+    background-color: rgb(50, 71, 187);
+    color: white;
+    transition: 0.3s;
+}
+
+.college-information {
+    margin-top: calc(3vh);
+    text-align: center;
+    position: relative;
+}
+
+.college-name {
+    width: calc(90%);
+    font-size: calc(1.2vw);    
+}
+
+.college-information hr {
+    width: calc(95%);
+    color: rgb(0, 0, 0);
+}
+
+.college-info-container{ 
+    display: flex;
+    flex-direction: row;
+    margin-top: calc(4vh);
+}
+
+.college-info-header {
+    width: 55%;
+    text-align: left;
+    padding-left: calc(1.2vw);
+}
+
+.college-info-values {
+    text-align: left;
+}
+
+.college-info-container h2{
+    font-size: calc(1.2vw);
+    margin-top: calc(0vh);
+    margin-bottom: calc(2vh);
 }
