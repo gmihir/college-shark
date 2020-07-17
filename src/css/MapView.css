@@ -1,0 +1,10 @@
+.mapview-container {
+    width: 100%;
+    height: calc(50vh);
+    overflow-y: none;
+}
+
+.mapview {
+    height: calc(95vh);
+    height: auto;
+}

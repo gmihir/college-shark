@@ -127,21 +127,27 @@ class NavBar extends React.Component {
               </Link>
             </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={this.props.active}>
-              <Nav.Item className="dashboard">
+              <Nav.Item >
                 <Nav.Link eventKey="1" href="/loginhome/dashboard">
                   My Colleges
                   </Nav.Link>
               </Nav.Item>
 
-              <Nav.Item className="explore">
+              <Nav.Item >
                 <Nav.Link eventKey="2" href="/loginhome/explore">
                   Explore
                   </Nav.Link>
               </Nav.Item>
 
-              <Nav.Item className="explore">
+              <Nav.Item >
                 <Nav.Link eventKey="3" href="/loginhome/essays">
                   Essays
+                  </Nav.Link>
+              </Nav.Item>
+
+              <Nav.Item>
+                <Nav.Link eventKey="4" href="/loginhome/map">
+                  Map
                   </Nav.Link>
               </Nav.Item>
             </Nav>

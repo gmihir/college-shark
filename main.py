@@ -541,6 +541,7 @@ def test_func():
 @app.route("/loginhome/login")
 @app.route("/loginhome/signup")
 @app.route("/loginhome/dashboard")
+@app.route("/loginhome/map")
 @app.route("/profile")
 @app.route("/loginhome/essays")
 def my_index():
