@@ -1,0 +1,61 @@
+.category-section, .category-section-profile {
+    display: flex;
+    flex-direction: row;
+}
+
+.category-section-profile .input-field {
+    margin-left: calc(-0.5vw);
+    
+}
+
+.label {
+    width: 25%;
+    float: left;
+}
+
+.label h1 {
+    margin-top: calc(0.3vh);
+    font-size: calc(1vw);
+}
+
+.input-field, .border-input {
+    width: 90%;
+    float: left;
+    height: auto;
+
+}
+
+.input-field input {
+    width: 90%;
+    margin-top: calc(0.3vh);
+    border: none;
+}
+
+.border-input input {
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.border-input input:focus {
+    outline: 0;
+}
+
+.edit-icon {
+    margin-top: calc(0vh);
+    cursor: pointer;
+}
+
+.dropdown {
+    width: 100%;
+    float: left;
+}
+
+.save-button {
+    border: none;
+    background-color: rgb(50, 71, 187);
+    color: white;
+    padding-left: calc(0.5vw);
+    padding-right: calc(0.5vw);
+    margin-top: calc(0.2vh);
+    border-radius: calc(0.5rem);
+}
