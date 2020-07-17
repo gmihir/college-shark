@@ -10,7 +10,9 @@ dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date
 headers = ["college_name","alias","abbreviation","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
             "people_for_letters","sat","sat_essay","act_essay","self_report","subject_tests","essays","supplemental_essays","acceptance_rate",
             "population","national_ranking","tuition_normal","tuition_oos","early_decision","early_action","regular_decision","scholarship_date",
-            "interview","app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","college_description","college_campus"]
+            "interview","app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","college_description","college_campus",
+            "latitude","longitude","school_url","npc_url","sat_overall","act_overall","ethnicity_white","ethnicity_black","ethnicity_hispanic","ethnicity_asian","ethnicity_aian",
+            "ethnicity_nhpi","ethnicity_nra","locale"]
 
 
 class College:

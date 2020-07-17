@@ -24,7 +24,9 @@ dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date
 headers = ["college_name","alias","abbreviation","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
             "people_for_letters","sat","sat_essay","act_essay","self_report","subject_tests","essays","supplemental_essays","acceptance_rate",
             "population","national_ranking","tuition_normal","tuition_oos","early_decision","early_action","regular_decision","scholarship_date",
-            "interview","app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","college_description","college_campus"]
+            "interview","app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","college_description","college_campus",
+            "latitude","longitude","school_url","npc_url","sat_overall","act_overall","ethnicity_white","ethnicity_black","ethnicity_hispanic","ethnicity_asian","ethnicity_aian",
+            "ethnicity_nhpi","ethnicity_nra","locale"]
 
 #headers required for JSON output for dashboard page
 headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decision","regular_decision","state","college_logo"] 
@@ -33,7 +35,7 @@ headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decis
 headers_explore = ["college_name","alias","letter_of_rec_required",
             "acceptance_rate",
             "population","national_ranking","tuition_normal","tuition_oos",
-            "app_fee","app_site","common_app","coalition_app","college_logo","school_type","state"]
+            "app_fee","app_site","common_app","coalition_app","college_logo","school_type","state","sat_overall","act_overall","locale"]
 
 #headers required for essays page
 headers_essay = ["college_name","supplemental_essays","app_site","common_app","coalition_app"]
@@ -42,7 +44,9 @@ headers_essay = ["college_name","supplemental_essays","app_site","common_app","c
 headers_individual = ["college_name","transcripts","mid_year","letter_of_rec_required",
             "sat","self_report","subject_tests","supplemental_essays","acceptance_rate",
             "population","national_ranking","tuition_normal","tuition_oos","early_decision","early_action","regular_decision","scholarship_date",
-            "app_fee","app_site","college_logo","school_type","state","college_description","college_campus"]
+            "app_fee","app_site","college_logo","school_type","state","college_description","college_campus","latitude","longitude","school_url","npc_url",
+            "sat_overall","act_overall","ethnicity_white","ethnicity_black","ethnicity_hispanic","ethnicity_asian","ethnicity_aian",
+            "ethnicity_nhpi","ethnicity_nra","locale"]
 
 #headers required for search bar
 headers_searchbar = ["college_name","alias","abbreviation","college_logo"]
@@ -149,7 +153,6 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
         results = []
 
     toBeSorted = []
-
 
 
     # convert to college object
