@@ -130,10 +130,10 @@ export class MapView extends Component {
     }
 
     componentDidMount() {
-      console.log("here: fetch2")
-      if(sessionStorage.getItem('mapview') === '') {
+      if(sessionStorage.getItem('mapview') === null) {
         //Check to see sessionStorage is empty
       } else {
+        console.log("here");
         //Get items out of sessionStorage, only need the name and details, no title
         const toArray = JSON.parse(sessionStorage.getItem('mapview'));
         const getName = JSON.parse(sessionStorage.getItem('mapviewName'));
@@ -152,8 +152,6 @@ export class MapView extends Component {
             lng: obj.college.longitude
           },
           ShowReset: true
-        }, () => {
-          console.log(this.state.selectedPlace);
         });
       }
 
@@ -177,7 +175,6 @@ export class MapView extends Component {
           collegeList.push([collegeNames, JSON.parse(college).college_logo]);
         })
       this.setState({Colleges: collegeList});
-      console.log("here")
         fetch("/map", {
           method: "POST",
           headers: {
@@ -208,6 +205,10 @@ export class MapView extends Component {
                     google={this.props.google}
                     zoom={this.state.Zoom}
                     style={mapStyles}
+                    initialCenter={{
+                      lat: 40.854885,
+                      lng: -98.081807
+                    }}
                     center={this.state.Bounds}
                 >
                     {this.state.CollegeMap.map(college => {
