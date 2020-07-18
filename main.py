@@ -368,8 +368,7 @@ def get_colleges_for_searchbar(headers_searchbar):
     for college in toBeSorted:
         json.append(college.get_json(headers_searchbar))
 
-    return json
-
+    return json    
 
 
 
@@ -624,29 +623,15 @@ def individual():
 
 @app.route("/map", methods = ['POST'])
 def map():
-    try:
-        db.child("users").get().val()
-        #print(db.get().val())
-        #listColleges()
-        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    except:
-        post_request = request.get_json(force=True)
+    post_request = request.get_json(force=True)
 
-        # Assign value from the request
-        colleges = post_request['currentUser']
-    
-    name_list = []
-    for name in colleges.values():
-        if name != "none":
-            name_list.append(name)
-    query_lst = []
-    for i in name_list[:-1]:
-        query_lst.append("college_name")
-        query_lst.append(i)
-    print(query_lst)
-    json_return = get_colleges_for_dashboard(query_lst, headers_map)
+    #Assign value from the request
+    is_descending = post_request['IsDescending']
 
-    return json.dumps(json_return)
+    colleges_array = get_colleges_for_searchbar(headers_map)
+    # print(colleges_array)
+
+    return jsonify(get_order(colleges_array, "college_name", is_descending, headers_searchbar))
 
 
 
