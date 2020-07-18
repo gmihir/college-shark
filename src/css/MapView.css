@@ -1,12 +1,10 @@
 .mapview-container {
     width: 100%;
-    height: calc(50vh);
-    overflow-y: none;
-    overflow: hidden;
+    max-height: calc(50vh);
 }
 
 .mapview {
-    height: calc(95vh);
+    max-height: calc(95vh);
     height: auto;
 }
 
@@ -16,7 +14,7 @@
     min-height: calc(92vh);
     border-radius: calc(1vh);
     position: absolute;
-    box-shadow: calc(3px) calc(3px) calc(10px) grey; 
+    box-shadow: calc(4px) calc(4px) calc(10px) rgb(24, 23, 23); 
 }
 
 .map-search {
@@ -38,11 +36,40 @@
     position: relative;
 }
 
+.heart-location {
+    position: relative;
+}
+
 .college-add-icon {
     position: absolute;
     right: calc(0.7vw);
-    top: calc(14.8vh);
+    top: calc(0.9vh);
     transform: scale(1.7);
+}
+
+.reset-map{ 
+    position: absolute;
+    z-index: 20;
+    left: calc(24vw);
+    background-color: rgb(63, 81, 181);
+    padding: calc(1vh);
+    transition: 0.2s;
+}
+
+.reset-button {
+    border: none;
+    border-left: none;
+    background: none;
+    color: white; 
+}
+
+.reset-button:focus {
+    outline: 0
+}
+
+.reset-map:hover {
+    transition: 0.2s;
+    background-color: rgb(50, 71, 187);
 }
 
 .individual-redirect {
@@ -53,6 +80,7 @@
     background-color: rgb(63, 81, 181);
     color: white;
     transition: 0.3s;
+    box-shadow: calc(4px) calc(4px) calc(10px) rgb(110, 109, 109); 
 }
 
 .individual-redirect:hover {
@@ -70,6 +98,12 @@
 .college-name {
     width: calc(90%);
     font-size: calc(1.2vw);    
+}
+
+.college-information h3 {
+    font-size: calc(0.9vw);
+    text-align: left;
+    margin-left: calc(1.1vw);
 }
 
 .college-information hr {
@@ -94,7 +128,7 @@
 }
 
 .college-info-container h2{
-    font-size: calc(1.2vw);
-    margin-top: calc(0vh);
+    font-size: calc(1.0vw);
+    margin-top: calc(0.5vh);
     margin-bottom: calc(2vh);
 }
