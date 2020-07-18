@@ -51,6 +51,9 @@ headers_individual = ["college_name","transcripts","mid_year","letter_of_rec_req
 #headers required for search bar
 headers_searchbar = ["college_name","alias","abbreviation","college_logo"]
 
+headers_map = ["college_name","population","national_ranking","tuition_normal","tuition_oos",
+                "regular_decision","college_logo","college_campus", "latitude","longitude""locale"]
+
 app = flask.Flask(__name__, static_folder='./build', template_folder = "./build", static_url_path='/')
 CORS(app)
 
@@ -617,6 +620,33 @@ def individual():
     #formats incoming request to proper format for calling function
     college_json = get_colleges_for_dashboard(["college_name",name],headers_individual)
     return jsonify(college_json)
+
+
+@app.route("/map", methods = ['POST'])
+def map():
+    try:
+        db.child("users").get().val()
+        #print(db.get().val())
+        #listColleges()
+        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+    except:
+        post_request = request.get_json(force=True)
+
+        # Assign value from the request
+        colleges = post_request['currentUser']
+    
+    name_list = []
+    for name in colleges.values():
+        if name != "none":
+            name_list.append(name)
+    query_lst = []
+    for i in name_list[:-1]:
+        query_lst.append("college_name")
+        query_lst.append(i)
+    print(query_lst)
+    json_return = get_colleges_for_dashboard(query_lst, headers_map)
+
+    return json.dumps(json_return)
 
 
 
