@@ -10,20 +10,23 @@ First, run the command:
   
 Then, install all the following dependencies USING NPM: 
 
-  1. npm add react-router-dom
-  2. npm add @material-ui/core
-  3. npm add @material-ui/icons
-  4. npm add react-bootstrap
-  5. npm add @fortawesome/react-fontawesome
-  6. npm add @material-ui/styles
-  7. npm add react-select
-  8. npm install google-maps-react
-  10. npm install react-minimal-pie-chart
+```
+1. npm add react-router-dom
+2. npm add @material-ui/core
+3. npm add @material-ui/icons
+4. npm add react-bootstrap
+5. npm add @fortawesome/react-fontawesome
+6. npm add @material-ui/styles
+7. npm add react-select
+8. npm install google-maps-react
+9. npm install react-minimal-pie-chart
 
+```
 Then, run the command in one terminal:
 
-  npm start
-  
+```
+npm start
+```
 Once the build completes, follow these steps to run the backend (in another terminal):
 
   Make sure you are inside the root directory of the project as well (application-hub)
