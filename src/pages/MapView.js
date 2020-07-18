@@ -24,11 +24,16 @@ export class MapView extends Component {
         this.state = {
           resultsFromSearch: [],
           searchBar: false,
-          Colleges: []
+          Colleges: [],
+          CollegeMap: [],
+          isVisible: false,
+          activeMarker: {},
+          selectedPlace: {}
       }
 
         this.searchBarInUse = this.searchBarInUse.bind(this);
         this.setSearch = this.setSearch.bind(this);
+        this.markerClicked = this.markerClicked.bind(this);
     }
 
     searchBarInUse = (inUse) => {
@@ -45,28 +50,54 @@ export class MapView extends Component {
       }
     }
 
+    markerClicked(props, marker) {
+      console.log("here");
+      console.log(props)
+      console.log(marker);
+      this.setState({
+        selectedPlace: props,
+        activeMarker: marker,
+        isVisible: true
+      })
+    }
+
     componentDidMount() {
-        fetch("/searchbar", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              IsDescending: true
-            })
-          }).then(response => {
-            return response.json()
-          }).then(data => {
-            let collegeList = [];
-            data.map(college => {
-              let collegeNames = [];
-              collegeNames.push(JSON.parse(college).college_name);
-              collegeNames.push(JSON.parse(college).alias);
-              collegeNames.push(JSON.parse(college).abbreviation);
-              collegeList.push([collegeNames, JSON.parse(college).college_logo]);
-            })
-          this.setState({Colleges: collegeList});
-          });
+      console.log("here: fetch2")
+      fetch("/searchbar", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          IsDescending: true
+        })
+      }).then(response => {
+        return response.json()
+      }).then(data => {
+        let collegeList = [];
+        data.map(college => {
+          let collegeNames = [];
+          collegeNames.push(JSON.parse(college).college_name);
+          collegeNames.push(JSON.parse(college).alias);
+          collegeNames.push(JSON.parse(college).abbreviation);
+          collegeList.push([collegeNames, JSON.parse(college).college_logo]);
+        })
+      this.setState({Colleges: collegeList});
+      console.log("here")
+        fetch("/map", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            IsDescending: true
+          })
+        }).then(response => {
+          return response.json()
+        }).then(data => {
+            this.setState({CollegeMap: data});
+        })
+      })
     }
     
     render() {
@@ -84,16 +115,26 @@ export class MapView extends Component {
                         lng: -98.081807
                     }}
                 >
-                    <Marker name={'USD'} title={"UCSD"} position={{lat: 41, lng: -72}}/>
-                    <Marker title={"UCSD"} position={{lat: 31, lng: -92}}/>
-                    <Marker
-                        name={'Your position'}                      
-                        position={{lat: 37.762391, lng: -122.439192}}
-                    />
+                    {this.state.CollegeMap.map(college => {
+                      const lat = JSON.parse(college).latitude;
+                      const lng = JSON.parse(college).longitude;
+                      const title = JSON.parse(college).college_name;
+                      return ( <Marker college={college} name={title} title={title} position={{lat: lat, lng: lng}} 
+                        onClick={(props, marker, e) => this.markerClicked(props, marker, e)}
+                      /> )
+                    })}
                 </Map>
             </section>
 
+            {!this.state.isVisible ? 
             <section className="college-display">
+              <div className="map-search">
+                    <SearchBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} list={this.state.Colleges} 
+                        barwidth={'95%'} nodelayout={"map-results"}
+                    />
+                </div>
+            </section> : 
+              <section className="college-display">
                 <div className="map-search">
                     <SearchBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} list={this.state.Colleges} 
                         barwidth={'95%'} nodelayout={"map-results"}
@@ -101,11 +142,11 @@ export class MapView extends Component {
                 </div>
 
                 <section className="img-section">
-                    <img src={Image} alt="College Campus" width="100%" height="100%" />
+                    <img src={JSON.parse(this.state.selectedPlace.college).college_campus} alt="College Campus" width="100%" height="100%" />
                 </section>
                 
                 <div className="college-information">
-                    <h1 className="college-name">University of California, Los Angeles</h1>
+                    <h1 className="college-name">{this.state.selectedPlace.name}</h1>
                     <hr></hr>
 
                     <div>
@@ -129,19 +170,19 @@ export class MapView extends Component {
                         </div>
 
                         <div className="college-info-values">
-                            <h2>1</h2>
-                            <h2>$10,000</h2>
-                            <h2>CA</h2>
-                            <h2>College town</h2>
-                            <h2>20,000 </h2>
-                            <h2>11/30/2020</h2>   
+                            <h2>{JSON.parse(this.state.selectedPlace.college).national_ranking}</h2>
+                            <h2>{JSON.parse(this.state.selectedPlace.college).tuition_normal}</h2>
+                            <h2>{JSON.parse(this.state.selectedPlace.college).state}</h2>
+                            <h2>{JSON.parse(this.state.selectedPlace.college).locale}</h2>
+                            <h2>{JSON.parse(this.state.selectedPlace.college).population}</h2>
+                            <h2>{JSON.parse(this.state.selectedPlace.college).regular_decision}</h2>   
                         </div>
                     </div>
 
                     <hr></hr>
 
                 </div>
-            </section>
+            </section>}
         </div>
       );
     }
