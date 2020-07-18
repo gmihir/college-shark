@@ -11,16 +11,15 @@ First, run the command:
 Then, install all the following dependencies USING NPM: 
 
 ```
-1. npm add react-router-dom
-2. npm add @material-ui/core
-3. npm add @material-ui/icons
-4. npm add react-bootstrap
-5. npm add @fortawesome/react-fontawesome
-6. npm add @material-ui/styles
-7. npm add react-select
+1. npm install react-router-dom
+2. npm install @material-ui/core
+3. npm install @material-ui/icons
+4. npm install react-bootstrap
+5. npm install @fortawesome/react-fontawesome
+6. npm install @material-ui/styles
+7. npm install react-select
 8. npm install google-maps-react
 9. npm install react-minimal-pie-chart
-
 ```
 Then, run the command in one terminal:
 
