@@ -35,11 +35,9 @@ class Dashboard extends React.Component {
     this.searchBarInUse = this.searchBarInUse.bind(this);
   }
 
-  removeColleges = async () => {
+  removeColleges = async (selected) => {
     let CollegeNames = []
-    this.state.selectedColleges.map(colleges => {
-      CollegeNames.push(colleges.college_name);
-    })
+    CollegeNames.push(selected);
     fetch("/removecolleges", {
       method: "POST",
       headers: {
@@ -53,7 +51,6 @@ class Dashboard extends React.Component {
     }).then(data => {
       this.setState({
         rerender: false,
-        selectedColleges: [],
         Loading: false
       });
     })
@@ -126,7 +123,6 @@ class Dashboard extends React.Component {
       if (this.state.Loading) {
         return (
           <div className={useStyles.root}>
-            <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges} />
             <div className="spinner-center">
               <div className="spinner-div">
                 <Spinner animation="border" variant="secondary" role="status" className="load-spinner">
@@ -144,12 +140,9 @@ class Dashboard extends React.Component {
         )
       }
       return (
-        <div className={useStyles.root}>
-          <UsersToolbar selectedColleges={this.state.selectedColleges} removeColleges={this.removeColleges} />
           <div className={useStyles.theme}>
-            <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition']} users={this.state.users} setColleges={this.selectedCollegeSet} selectedColleges={this.state.selectedColleges} key={this.state.selectedColleges} />
+            <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition', 'Status']} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
           </div>
-        </div>
       )
     } else {
 

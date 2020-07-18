@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Modal} from "react-bootstrap";
 import { Link, withRouter } from 'react-router-dom';
+import Profile from '../Profile';
 import '../../App.css';
 import SearchBar from './SearchBar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,11 +17,13 @@ class NavBar extends React.Component {
       collegelist: [],
       Reset: false,
       Show: false,
-      Username: ''
+      Username: '',
+      ShowProfile: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleDisplay = this.handleDisplay.bind(this);
+    this.hideProfile = this.hideProfile.bind(this);
   }
 
   // addColleges(){
@@ -103,9 +106,14 @@ class NavBar extends React.Component {
     )
   }
 
+  hideProfile() {
+    this.setState({ShowProfile: false});
+  }
+
   render() {
     return (
       <div className="div-container">
+      <Profile show={this.state.ShowProfile} handler={this.hideProfile}/>
         <Navbar
           className="navbar p-3 w-100"
           expand="lg"
@@ -115,25 +123,31 @@ class NavBar extends React.Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Navbar.Brand onClick={() => this.props.history.push('/')}>
               <Link style={{textDecoration: 'none', color: 'white'}} eventKey="4" to="/">
-                  Application Hub
+                  College Shark
               </Link>
             </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={this.props.active}>
-              <Nav.Item className="dashboard">
+              <Nav.Item >
                 <Nav.Link eventKey="1" href="/loginhome/dashboard">
                   My Colleges
                   </Nav.Link>
               </Nav.Item>
 
-              <Nav.Item className="explore">
+              <Nav.Item >
                 <Nav.Link eventKey="2" href="/loginhome/explore">
                   Explore
                   </Nav.Link>
               </Nav.Item>
 
-              <Nav.Item className="explore">
+              <Nav.Item >
                 <Nav.Link eventKey="3" href="/loginhome/essays">
                   Essays
+                  </Nav.Link>
+              </Nav.Item>
+
+              <Nav.Item>
+                <Nav.Link eventKey="4" href="/loginhome/map">
+                  Map View
                   </Nav.Link>
               </Nav.Item>
             </Nav>
@@ -142,7 +156,9 @@ class NavBar extends React.Component {
               <Nav.Item>
                 <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%' }} />}>
                   <NavDropdown.Header>Hi, {this.state.Username}</NavDropdown.Header>
+                  <NavDropdown.Item onClick={() => this.setState({ShowProfile: true})}> My Account </NavDropdown.Item>
                   <NavDropdown.Item onClick={this.handleReset}>Reset Password</NavDropdown.Item>
+                  <NavDropdown.Item style={{color: 'red'}} onClick={this.handleDelete}>Delete Account</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={this.handleClick} href="/">Logout</NavDropdown.Item>
                 </NavDropdown>

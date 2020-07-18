@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Individual from './pages/Individual';
+import MapView from './pages/MapView';
 import Essays from './pages/Essays';
  
 
@@ -47,7 +48,7 @@ class App extends React.Component {
             <Route exact path="/loginhome/explore/results" render ={(props) => (
                 <Explore {...props} key={props.location.key} /> 
               )} />
-            <Route exact path="/loginhome/dashboard" component={Dashboard} />
+            <Route path="/loginhome/dashboard" component={Dashboard} />
             <Route exact path="/loginhome/login" component={Login} />
             <Route exact path="/loginhome/signup" component={Signup} />
             <Route exact path="/loginhome/page/:collegeName" render={(props) => (
@@ -55,6 +56,7 @@ class App extends React.Component {
             } />
             <Route exact path="/loginhome/essays" component={Essays} />
             <Route exact path="/profile" component={RequireAuth(Profile)} />
+            <Route exact path="/loginhome/map" component={MapView} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

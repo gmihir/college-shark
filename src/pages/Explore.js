@@ -832,11 +832,16 @@ class Explore extends React.Component {
         sessionStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
         sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
         sessionStorage.setItem("statefilter", keys);
-
-        if(array.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
-            this.setState({ ToggleClear: true });
+        console.log(array);
+        console.log(this.props.location);
+        console.log(this.props.location.state);
+        console.log( (this.props.location !== undefined && this.props.location.state !== undefined))
+        console.log(array.length !== 0)
+        if(array.length !== 0 && (this.props.location !== undefined && this.props.location.state !== undefined)) {
+            console.log("here: ", true);
+            this.setState({ ToggleClear: true, ExploreRedirect: false });
         } else {
-            this.setState({ ToggleClear: false });    
+            this.setState({ ToggleClear: false, ExploreRedirect: true });    
         }
 
         sessionStorage.setItem("array", array);

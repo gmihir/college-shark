@@ -229,16 +229,17 @@
     position: absolute;
     text-align: left;
     top: calc(41rem);
-    left: calc(81vw);
+    left: calc(79vw);
     font-size: calc(1.25vw);
-    width: calc(16.5vw);
+    width: calc(18.5vw);
+    height: 15vw;
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: normal;
 }
 
 .application-header {
     position: absolute;
-    text-align: left;
+    text-align: center;
     font-size: calc(1.6vw);
     top: calc(-2.5rem);
     font-family: 'Noto Sans JP', sans-serif;
@@ -293,7 +294,12 @@
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: normal;
     z-index: 12;
-
+    text-overflow: ellipsis;
+    /*overflow: scroll;*/
+    white-space: pre-line;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    word-wrap: break-word;
 }
 
 .sat-header {
@@ -576,7 +582,7 @@
         position: absolute;
         text-align: left;
         top: calc(41rem);
-        left: calc(78vw);
+        left: calc(80vw);
         font-size: calc(1.4vw);
         width: calc(16.5vw);
         font-family: 'Noto Sans JP', sans-serif;

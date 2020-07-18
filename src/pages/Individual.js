@@ -11,7 +11,12 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import {Redirect} from 'react-router';
+import Map from '../components/MapComponent';
+import { PieChart } from 'react-minimal-pie-chart';
 
+const officialSite = "https://admissions.ucsd.edu/";
+const housing = "https://hdh.ucsd.edu/housing/incoming/pages/";
+const financialAid = "https://fas.ucsd.edu/forms-and-resources/financial-aid-estimator/index.html";
 const commonApp = "https://www.commonapp.org/apply/essay-prompts";
 const coalitionApp = "https://www.coalitionforcollegeaccess.org/essays";
 const UCApp = "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-freshman/personal-insight-questions.html";
@@ -41,7 +46,12 @@ class Individual extends Component {
             Loading: true,
             selectedPrompts: [],
             activeKey: 0, 
-            essayContent: "Common Application"
+            essayContent: "Common Application", 
+            labels: ["White", "Asian", "Black", "Hispanic", "Other"], 
+            datasets :[{
+                data: [20, 40, 10, 15, 15], 
+                backgroundColor: ["Blue", "White", "Black", "Gray", "#313b4c"]
+            }]
         }
         this.searchBarInUse = this.searchBarInUse.bind(this);
         this.setSearch = this.setSearch.bind(this);
@@ -277,6 +287,7 @@ class Individual extends Component {
                             );
                         })}
                         </div>
+                        <h1 style={{marginTop:"1rem"}}>Essays Required:</h1>
                         <Accordion style={{width: "100%", backgroundColor: "#313b4c"}}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon style={{color: "white"}}/>}
@@ -307,7 +318,16 @@ class Individual extends Component {
                                 })}
                             </AccordionDetails>
                         </Accordion>
-                        {console.log("end")}
+                        <h1 style={{marginTop:"1rem"}}>Other Helpful Links</h1>
+                                <p>
+                                    Official Site: <a href={this.state.college_json["school_url"]} target="_blank" rel="noopener noreferrer">{this.state.college_json["school_url"]}</a>
+                                </p>
+                                <p>
+                                    Financial Aid: <a href={this.state.college_json["npc_url"]} target="_blank" rel="noopener noreferrer">{this.state.college_json["npc_url"]}</a>
+                                </p>
+                                <p>
+                                    Housing: <a href={financialAid} target="_blank" rel="noopener noreferrer">{financialAid}</a>
+                                </p>
                     </div>
                 );
         }
@@ -412,7 +432,7 @@ class Individual extends Component {
             let value = JSON.parse(data);
             this.setState({ 
                 college_json: value, 
-                Loading: false 
+                Loading: false,
             });
         });
 
@@ -506,8 +526,33 @@ class Individual extends Component {
                                 <p>
                                     Subject Tests: {this.state.college_json["subject_tests"]}
                                 </p>
+                                <p>
+                                    Average SAT: {this.state.college_json["sat_overall"]}
+                                </p>
+                                <p>
+                                    Average ACT: {this.state.college_json["act_overall"]}
+                                </p>
                             </Grid>
-                        </Grid>
+                            </Grid>
+                    </div>
+                    <div className = "application-type" >
+                        <h1 className = "application-header" >Location</h1>
+                        <Map lat= {this.state.college_json["latitude"]} lng={this.state.college_json["longitude"]}/>
+                        <div style={{width:"100%", height:"100%"}} />
+                        <p>{this.state.college_json["locale"]}</p>
+                        <p>Ethnicity Breakdown</p>
+                        <PieChart
+                            data={[
+                                { title: 'Asian', value: this.state.college_json["ethnicity_asian"]*100, color: 'blue' },
+                                { title: 'White', value: this.state.college_json["ethnicity_white"]*100, color: '#313b4c' },
+                                { title: 'Black', value: this.state.college_json["ethnicity_black"]*100, color: 'red' },
+                                { title: 'Hispanic', value: this.state.college_json["ethnicity_hispanic"]*100, color: 'gray'}
+                            ]}
+                            label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
+                            labelStyle={{fontSize:"50%"}}
+                            style={{height:"70%"}}
+                        />
+                        {console.log(this.state.college_json["ethnicity_asian"])}
                     </div>
                     <div className="description-container">
                     <div className="holder" >

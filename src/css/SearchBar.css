@@ -5,7 +5,8 @@
     cursor: pointer;
   }
 
-  .individual {
+  /* Styling for the results on the Map tab and Search bar */
+  .individual, .map-results {
     position: relative;
     background-color: white;
     height: calc(6.5vh);
@@ -21,6 +22,18 @@
     border-width: calc(.03vw);
     z-index: 10;
   }
+
+  .map-results {
+    width: calc(95%);
+  }
+
+  .map-collegename {
+    font-family: 'Oswald', sans-serif;
+    font-size: calc(3vh);
+    color: black !important;
+    margin-top: calc(1vh) !important;
+    z-index: 1;
+  }
   
   .heart {
     -webkit-transform: scale(1.2);
@@ -28,7 +41,7 @@
     transform: scale(1.2);
     position: absolute !important;
     right: calc(0.5vw);
-    top: calc(1.5vh);
+    top: calc(.5vh);
   }
   
   /* .redheart {

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Palanquin+Dark:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@400&display=swap");
 
 .table {
     display: flex;
@@ -31,34 +32,96 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    font-family: 'Mukta', sans-serif;
 }
 
 .name-position {
     position: relative;
     left: calc(2.5vw);
-    width: calc(25vw);
+    width: calc(30vw);
     color: #4b4b4b;
 }
 
 .other-position {
-    width: calc(12.5vw) !important;
+    width: calc(11.5vw) !important;
+    padding-right: calc(3vw);
+    color: #969696;
+}
+
+.other-position:hover {
+    color: #4b4b4b;
+    cursor: pointer;
+}
+
+.other-position-table {
+    width: calc(10vw) !important;
     color: #969696;
 }
 
 .trashcan {
-    margin-left: calc(-4vw) !important;
+    margin-left: calc(2.75vw) !important;
 }  
 
 .logo-table {
-    margin-left: calc(-3.5vh) !important;
-    margin-top: calc(3.25vh) !important;
+    margin-left: calc(3vh) !important;
+    margin-top: calc(1vh) !important;
     height: calc(10vh) !important;
     width: calc(10vh) !important;
 }
 
 .name-position-logo {
     position: relative;
-    left: calc(7vw);
-    width: calc(25vw);
+    left: calc(2.25vw);
+    width: calc(19.5vw);
+    padding-right: calc(5vw);
     color: #4b4b4b;
+}
+
+.done-icon {
+    font-family: 'Palanquin Dark', sans-serif;
+    margin-left: calc(-1vw);
+    width: calc(6.5vw);
+    height: calc(2vw);
+    border-radius: calc(1vw);
+    background-color: #0cc76c;
+    color: rgb(255, 255, 255);
+    font-size: calc(.9vw);
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+}
+
+.inprogress-icon {
+    font-family: 'Palanquin Dark', sans-serif;
+    margin-left: calc(-1vw);
+    width: calc(6.5vw);
+    height: calc(2vw);
+    border-radius: calc(1vw);
+    background-color: #ebe310;
+    color: rgb(255, 255, 255);
+    font-size: calc(.9vw);
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+}
+
+.notstarted-icon {
+    font-family: 'Palanquin Dark', sans-serif;
+    margin-left: calc(-1vw);
+    width: calc(6.5vw);
+    height: calc(2vw);
+    border-radius: calc(1vw);
+    background-color: #c91616;
+    color: rgb(255, 255, 255);
+    font-size: calc(.9vw);
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+}
+
+.fade-table{
+    opacity: .1;
 }

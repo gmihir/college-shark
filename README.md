@@ -18,6 +18,8 @@ Then, install all the following dependencies USING YARN:
   6. yarn add @material-ui/styles
   7. yarn add react-select
   8. npm install react-bootstrap
+  9. npm install google-maps-react
+  10. npm install react-minimal-pie-chart
 
 Then, run the command in one terminal:
 

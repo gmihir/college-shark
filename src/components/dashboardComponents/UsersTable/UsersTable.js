@@ -81,7 +81,7 @@ const UsersTable = props => {
     else if(input === 0) {
       return("Rolling");
     }
-    var myDate = new Date(input * 1000);
+    var myDate = new Date(input * 1000);  
     return ((myDate.getUTCMonth() + 1) + "/" + myDate.getUTCDate() + "/" + myDate.getUTCFullYear());
   }
 
