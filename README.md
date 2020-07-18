@@ -8,22 +8,21 @@ First, run the command:
 
   npm install
   
-Then, install all the following dependencies USING YARN: 
+Then, install all the following dependencies USING NPM: 
 
-  1. yarn add react-router-dom
-  2. yarn add @material-ui/core
-  3. yarn add @material-ui/icons
-  4. yarn add react-bootstrap
-  5. yarn add @fortawesome/react-fontawesome
-  6. yarn add @material-ui/styles
-  7. yarn add react-select
-  8. npm install react-bootstrap
-  9. npm install google-maps-react
+  1. npm add react-router-dom
+  2. npm add @material-ui/core
+  3. npm add @material-ui/icons
+  4. npm add react-bootstrap
+  5. npm add @fortawesome/react-fontawesome
+  6. npm add @material-ui/styles
+  7. npm add react-select
+  8. npm install google-maps-react
   10. npm install react-minimal-pie-chart
 
 Then, run the command in one terminal:
 
-  yarn start
+  npm start
   
 Once the build completes, follow these steps to run the backend (in another terminal):
 
