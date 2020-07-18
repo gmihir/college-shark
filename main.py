@@ -52,7 +52,7 @@ headers_individual = ["college_name","transcripts","mid_year","letter_of_rec_req
 headers_searchbar = ["college_name","alias","abbreviation","college_logo"]
 
 headers_map = ["college_name","population","national_ranking","tuition_normal","tuition_oos",
-                "regular_decision","state","college_logo","college_campus", "latitude","longitude""locale"]
+                "regular_decision","state","college_logo","college_campus", "latitude","longitude","locale"]
 
 app = flask.Flask(__name__, static_folder='./build', template_folder = "./build", static_url_path='/')
 CORS(app)
@@ -631,7 +631,7 @@ def map():
     colleges_array = get_colleges_for_searchbar(headers_map)
     # print(colleges_array)
 
-    return jsonify(get_order(colleges_array, "college_name", is_descending, headers_searchbar))
+    return jsonify(get_order(colleges_array, "college_name", is_descending, headers_map))
 
 
 
