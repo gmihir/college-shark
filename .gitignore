@@ -18,3 +18,4 @@ venv
 
 # .flaskenv allows for running locally
 # .flaskenv
+firebase.py
