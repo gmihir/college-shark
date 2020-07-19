@@ -68,7 +68,7 @@ password = os.environ.get("DB_PASSWD")
 driver = '{ODBC Driver 17 for SQL Server}'
 con = 'Yes'
 
-#print(server)
+#connection string for database
 db_info = 'DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + username + ';PWD=' + password + ';MARS_Connection=' + con
 #print(db_info)
 
@@ -112,6 +112,7 @@ def get_query(query):
 
 
 def query_screen(query_lst):
+    #regex match to ensure only allowed characters are in the query
     for i in query_lst:
         if "St John''s University-New York" in str(i):
             continue
@@ -126,19 +127,24 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
     if len(query_lst) is 0:
         return []
 
-
     cols = ','.join(headers_dashboard)
+    #initial query formation
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
     if len(query_lst) > 0:
+        #use IN (...) query structure for efficiency
         query += " WHERE college_name IN ("
         for i in range(0, len(query_lst), 2):
             if query_lst[i+1].find("'") is not -1:
+                #replace every ' with another ' immediately after 
                 query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]
             if query_lst[i] == "college_name":
+                #put string in single quotes
                 query += "\'" + query_lst[i + 1] + "\'"
+                #end of college name list, close parens 
                 if i+3 >= len(query_lst):
                     query += ")"
                 else:
+                    #still more colleges, keep (...,...) structure in query
                     query += ","
             else:
                 return "Incorrect Usage -- Not all parameters are college names"
@@ -149,7 +155,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
     print(query)
 
-
+    #only execute query if it passes the screening
     if query_screen(query_lst):
         results = get_query(query)
     else:
@@ -163,14 +169,14 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
         c = College(element)
         toBeSorted.append(c)
 
+    #sort alphabetically in-place
     mergeSort_alphabetical(toBeSorted,headers_dashboard)
     json = []
 
     for college in toBeSorted:
         json.append(college.get_json(headers_dashboard))
     
-
-
+    #return json result
     return json
 
 
