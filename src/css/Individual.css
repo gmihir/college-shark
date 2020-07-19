@@ -246,6 +246,13 @@
     font-weight: bold;
 }
 
+.ethnicity-header {
+    font-size: calc(1.6vw);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    margin-top: 1.5rem;
+}
+
 .application-link {
     text-decoration: underline;
     color: black;

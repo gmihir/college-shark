@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import {Redirect} from 'react-router';
 import Map from '../components/MapComponent';
-import { PieChart } from 'react-minimal-pie-chart';
+import { Pie } from 'react-chartjs-2';
 
 const officialSite = "https://admissions.ucsd.edu/";
 const housing = "https://hdh.ucsd.edu/housing/incoming/pages/";
@@ -486,6 +486,12 @@ class Individual extends Component {
                                 <p>
                                     School: {this.state.college_json["school_type"]}
                                 </p>
+                                <p>
+                                    State: {this.state.college_json["state"]}
+                                </p>
+                                <p>
+                                    Location Type: {this.state.college_json["locale"]}
+                                </p>
                             </Grid>
                             <Grid item className="deadline-layout" >
                                 <h1 className="deadline-header">
@@ -536,23 +542,32 @@ class Individual extends Component {
                             </Grid>
                     </div>
                     <div className = "application-type" >
-                        <h1 className = "application-header" >Location</h1>
+                        <h1 className = "application-header" >Map Location</h1>
                         <Map lat= {this.state.college_json["latitude"]} lng={this.state.college_json["longitude"]}/>
                         <div style={{width:"100%", height:"100%"}} />
-                        <p>{this.state.college_json["locale"]}</p>
-                        <p>Ethnicity Breakdown</p>
-                        <PieChart
-                            data={[
-                                { title: 'Asian', value: this.state.college_json["ethnicity_asian"]*100, color: 'blue' },
-                                { title: 'White', value: this.state.college_json["ethnicity_white"]*100, color: '#313b4c' },
-                                { title: 'Black', value: this.state.college_json["ethnicity_black"]*100, color: 'red' },
-                                { title: 'Hispanic', value: this.state.college_json["ethnicity_hispanic"]*100, color: 'gray'}
-                            ]}
-                            label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
-                            labelStyle={{fontSize:"50%"}}
-                            style={{height:"70%"}}
+                        <h1 className="ethnicity-header">Ethnicity Breakdown</h1>
+                        <div style={{marginLeft:"-5%"}} >
+                        <Pie height="225%"
+                            data={{
+                                labels: ['Asian', 'White', 'Black', 'Hispanic', 'International'], 
+                                datasets: [{data: [this.state.college_json["ethnicity_asian"]*100, this.state.college_json["ethnicity_white"]*100, this.state.college_json["ethnicity_black"]*100, this.state.college_json["ethnicity_hispanic"]*100, this.state.college_json["ethnicity_nra"]*100],
+                                            backgroundColor: ['#313b4c', '#cccccc', '#737373', '#6666ff', 'green', 'red', 'purple']}]
+                            }}
+                            options={{
+                                tooltips: {
+                                    callbacks: {
+                                        label: function(tooltipItem, data) {
+                                            let value = data.datasets[0].data[tooltipItem.index]
+                                            return Math.round(value) + '%'
+                                        }, 
+                                        title: function(tooltipItem, data) {
+                                            return data.labels[tooltipItem[0].index];
+                                        }
+                                    }
+                                }
+                            }}
                         />
-                        {console.log(this.state.college_json["ethnicity_asian"])}
+                        </div>
                     </div>
                     <div className="description-container">
                     <div className="holder" >
