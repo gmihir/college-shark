@@ -35,6 +35,14 @@
     font-family: 'Mukta', sans-serif;
 }
 
+.name-position:hover{
+    cursor: pointer;
+}
+
+.other-position:hover{
+    cursor: pointer;
+}
+
 .name-position {
     position: relative;
     left: calc(2.5vw);
