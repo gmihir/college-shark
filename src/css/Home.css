@@ -21,7 +21,7 @@
 
 .navbar-home {
   width: 100%;
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", BlinkMacSystemFont;
 }
 
 /* .nav {
@@ -60,7 +60,6 @@
   text-align: center;
   display: flex;
   font-family: "Segoe UI";
-  font-family: BlinkMacSystemFont;
 }
 
 .searchbar-container{
