@@ -74,7 +74,7 @@ db_info = 'DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + da
 
 retry = True
 count = 0
-
+retry_count = 0
 
 while retry and count < 8:
     try:
@@ -92,7 +92,29 @@ while retry and count < 8:
         cnxn = pypyodbc.connect(db_info)
         #retry every 2 seconds up to 8 attempts
         time.sleep(2)
-        
+
+
+def reconnect():
+    global count
+    global retry
+    
+    while retry and count < 8:
+        try:
+            #checking for transient errors in azure connection
+            cnxn = pypyodbc.connect(db_info)
+            test_cursor = cnxn.cursor()
+            test_cursor.execute("SELECT " + headers[0] + " FROM " + os.environ.get("TABLE_NAME"))
+            #successful execution of test query, no need to keep trying
+            retry = False
+            break
+        except:
+            #retry only up to 8 times
+            count += 1
+            cnxn.close()
+            cnxn = pypyodbc.connect(db_info)
+            #retry every 2 seconds up to 8 attempts
+            time.sleep(2)
+            
 
 if __name__ == '__main__':
     app.run(debug=False)
@@ -101,14 +123,24 @@ if __name__ == '__main__':
 # returns a list
 # colleges is the table where accurate information is stored
 def get_query(query):
+    global retry_count
+    try:
+        cursor = cnxn.cursor()
 
-    cursor = cnxn.cursor()
+        cursor.execute(query)
+        myresult = cursor.fetchall()
+        cursor.close()
 
-    cursor.execute(query)
-    myresult = cursor.fetchall()
-    cursor.close()
+        return myresult
+    except:
+        retry_count += 1
+        reconnect()
+        if retry_count is 1:
+            cursor = cnxn.cursor()
+            cursor.execute(query)
+            myresult = cursor.fetchall()
+            cursor.close()
 
-    return myresult
 
 
 def query_screen(query_lst):
