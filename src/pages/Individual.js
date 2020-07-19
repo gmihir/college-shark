@@ -441,7 +441,13 @@ class Individual extends Component {
     }
 
     generateLink(link) {
-        return "https://"+link;
+        var linkArray = link.split("https://");
+        if(linkArray.length>1) {
+            return link;
+        }
+        else{
+            return "https://"+link;
+        }
     }
 
     renderSpinner = () => {
