@@ -148,6 +148,7 @@ class Essays extends Component {
         if (required.length > 0) {
             return (
                 <div className="collegelist">
+                    <h2>Required For: </h2>
                     <ul>
                     {required.map((college) => {
                         return (
@@ -177,11 +178,12 @@ class Essays extends Component {
         if (required.length > 0) {
             return (
                 <div className="collegelist">
+                    <h2>Required For: </h2>
                     <ul>
                     {required.map((college) => {
                         return (
                             <div className="collegelisttext">
-                                    <li>{college}</li>
+                                <li>{college}</li>
                             </div>
                         )
                     })}
@@ -206,6 +208,7 @@ class Essays extends Component {
         if (required.length > 0) {
             return (
                 <div className="collegelist">
+                    <h2>Required For: </h2>
                     <ul>
                     {required.map((college) => {
                         return (
@@ -536,47 +539,33 @@ class Essays extends Component {
                             </Spinner>
                         </div>
                     </div>
-    
                 )
-            }
-            return(
-                <div>
-                    {this.renderFirstHeader()}
-                    <br/>
-                    <br/>
-                    <div className="essays-loadout">
-                        {this.renderSidebar()}
-                        <div className="render-essays-div">
-                            {this.state.ShowEssays ? <section className="render-essays">
-                                {this.renderUC()}   
-                                {this.renderCommon()}
-                                {this.renderCoalition()}
-                            </section> : null}
-
-                            {this.state.ShowSupplemental ? this.renderSupplementals() : null}
+            } else {
+                return(
+                    <div>
+                        {this.renderFirstHeader()}
+                        <br/>
+                        <br/>
+                        <div className="essays-loadout">
+                            {this.renderSidebar()}
+                            <div className="render-essays-div">
+                                {this.state.ShowEssays ? <section className="render-essays">
+                                    {this.renderUC()}   
+                                    {this.renderCommon()}
+                                    {this.renderCoalition()}
+                                </section> : null}
+    
+                                {this.state.ShowSupplemental ? this.renderSupplementals() : null}
+                            </div>
                         </div>
                     </div>
-                </div>
-            //     <div>
-            //      {this.renderFirstHeader()}
-            //      {this.renderGeneralHeader()}
-            //      <div className="section">
-            //         {this.renderUC()}
-            //         {this.renderCommon()}
-            //         {this.renderCoalition()}
-            //      </div>
-            //      <div classname="section">
-            //         {this.renderSupplementalHeader()}
-            //         {this.renderSupplementals()}
-            //      </div>
-            //    </div>
-            )
-
+                )
+            }
         }
     }
 
     render() {
-        if(this.state.selectedColleges.length === 0) {
+        if(this.state.selectedColleges.length === 0 && this.state.Loading === false) {
             return(
                 <div>
                     <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="3" />

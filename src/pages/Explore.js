@@ -3,9 +3,13 @@ import '../css/Explore.css';
 import { OverlayTrigger, Spinner } from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 import Tile from '../components/Tile';
-import { States, Type, App, Sortby, LOR, TuitionState, OrderBy } from '../components/State';
+import { States, Type, App, Sortby, LOR, OrderBy } from '../components/State';
 import { Tuition, Rankings, AcceptanceRate, AppFee, Population, AppType, LetterRec,
      SchoolType, StateList, TuitionStateList } from '../components/Popovers';
+import {Slider} from 'primereact/slider';
+import 'primereact/resources/primereact.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primeicons/primeicons.css';
 import Select from 'react-select';
 import { faInfoCircle, faSadTear, faSort, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,6 +27,7 @@ class Explore extends React.Component {
             LOR: [],
             Filter: [],
             IsDescending: [],
+            SATAverage: [0, 1600],
             AppFeeLower: '',
             AppFeeUpper: '',
             AcceptanceLower: '',
@@ -33,7 +38,6 @@ class Explore extends React.Component {
             TuitionUpper: '',
             RankingLower: '',
             RankingUpper: '',
-            TuitionState: [],
             StateFilter: [],
             CheckedState: false,
             Loading: true,
@@ -80,6 +84,7 @@ class Explore extends React.Component {
       }
 
     componentDidMount() {
+        console.log(this.state.exploreRedirect);
         console.log(this.props);
         window.scrollTo(0, 0);
         let savedArray = sessionStorage.getItem("array");
@@ -140,6 +145,20 @@ class Explore extends React.Component {
             })
         });
 
+        let satArr = [0, 1600];
+        let temp = [];
+        if(sessionStorage.getItem('satscore') !== null) {
+            const satAverage = sessionStorage.getItem('satscore');
+            satArr = satAverage.split(',');
+            satArr.forEach((sat) => {
+                temp.push(parseInt(sat));
+            })
+        } else {
+            temp = satArr
+        }
+
+        this.setState({SATAverage: temp});
+
         const appFee = sessionStorage.getItem("feelower");
         this.setState({ AppFeeLower: appFee });
 
@@ -167,16 +186,6 @@ class Explore extends React.Component {
         const checkedState = sessionStorage.getItem("checkedstate");
         if (checkedState !== null) {
             this.setState({ CheckedState: checkedState });
-        }
-
-        const tuitionState = sessionStorage.getItem("tuitionstate");
-        if (tuitionState !== null) {
-            if(tuitionState.length === 0 || tuitionState === ',' || tuitionState === 'reset,reset') {
-                this.setState({ TuitionState: []});
-            } else {
-                const index = this.splitToArray(tuitionState, TuitionState);
-                this.setState({ TuitionState: TuitionState[index]});
-            }
         }
 
         const tuitionLower = sessionStorage.getItem("normallower");
@@ -472,27 +481,21 @@ class Explore extends React.Component {
                 <hr></hr>
 
                 <div className="app-type">
-                    <div className="dropdown-div">
-                        <div className="dropdown-main">
-                            <Select onChange={(e) => {
-                                this.setState({ TuitionState: e }, () => {
-                                    this.handleClick();
-                                }
-                                )
-                            }}
-                                options={TuitionState} placeholder={"Tuition Type"} value={this.state.TuitionState}
-                        />
+                    <div className="div-slider">
+                        <div className="slider-header">SAT Average: <p>{this.state.SATAverage[0]} - {this.state.SATAverage[1]}</p></div>
+                        <div className="slider-main">
+                            <Slider value={this.state.SATAverage} onChange={(e) => this.setState({SATAverage: e.value})} range={true} max={1600}/>    
                         </div>
                     </div>
 
-                    {this.state.TuitionState.length !== 0 ? 
-                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ TuitionState: []}, () => this.handleClick())}>
+                    {this.state.SATAverage[0] !== 0 || this.state.SATAverage[1] !== 1600 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ SATAverage: [0, 1600]}, () => this.handleClick())}>
                         <FontAwesomeIcon icon={faTimes} />
                     </div> : null}
 
                     <OverlayTrigger trigger="click" placement="right" overlay={TuitionStateList} rootClose>
                         <div><FontAwesomeIcon icon={faInfoCircle}
-                            style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(0.6rem)' }} /></div>
+                            style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(1.1rem)' }} /></div>
                     </OverlayTrigger>
                 </div>
 
@@ -653,7 +656,7 @@ class Explore extends React.Component {
             TuitionUpper: '',
             RankingLower: '',
             RankingUpper: '',
-            TuitionState: {value: "reset", label: 'reset'},
+            SATAverage: [0, 1600],
             StateFilter: [],
             CheckedState: false,
             Loading: true,
@@ -757,40 +760,14 @@ class Explore extends React.Component {
 
         this.pushToArray(this.state.PopulationUpper, "population", array, "-", "populationupper");
 
-        if (this.state.TuitionState.value === "tuition_normal") {
+        if (true) {
             this.pushToArray(this.state.TuitionLower, "tuition_normal", array, "+", "normallower");
 
             this.pushToArray(this.state.TuitionUpper, "tuition_normal", array, "-", "normalupper");
-        } else if (this.state.TuitionState.value === "tuition_oos") {
+        } else if (true) {
             this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
 
             this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
-        } else if (this.state.TuitionState.value === "reset") {
-            this.setState({TuitionState: []});
-            this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
-
-            this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
-
-            this.pushToArray(this.state.TuitionLower, "tuition_normal", array, "+", "normallower");
-
-            this.pushToArray(this.state.TuitionUpper, "tuition_normal", array, "-", "normalupper");
-        } else if (this.state.TuitionLower !== '' && this.state.TuitionUpper !== '' && this.state.TuitionLower !== null && this.state.TuitionUpper !== null) {
-            this.setState({TuitionState: TuitionState[0]});
-            this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
-
-            this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
-
-            this.pushToArray(this.state.TuitionLower, "tuition_normal", array, "+", "normallower");
-
-            this.pushToArray(this.state.TuitionUpper, "tuition_normal", array, "-", "normalupper");
-        } else {
-            this.pushToArray(this.state.TuitionLower, "tuition_oos", array, "+", "normallower");
-
-            this.pushToArray(this.state.TuitionUpper, "tuition_oos", array, "-", "normalupper");
-
-            this.pushToArray(this.state.TuitionLower, "tuition_normal", array, "+", "normallower");
-
-            this.pushToArray(this.state.TuitionUpper, "tuition_normal", array, "-", "normalupper");
         }
 
         if (this.state.App.value !== 'Any' && this.state.App.length !== 0) {
@@ -801,6 +778,11 @@ class Explore extends React.Component {
                 array.push("coalition_app");
                 array.push("y");
             }
+        }
+
+        if (this.state.School.value !== 'Any' && this.state.School.length !== 0) {
+            array.push("school_type");
+            array.push(this.state.School.value);
         }
 
         if (this.state.School.value !== 'Any' && this.state.School.length !== 0) {
@@ -820,6 +802,12 @@ class Explore extends React.Component {
             })
         }
 
+        console.log(this.state.SATAverage)
+        array.push("sat_overall");
+        array.push("+" + this.state.SATAverage[0]);
+        array.push("sat_overall");
+        array.push("-" + this.state.SATAverage[1]);
+
         const keys = [];
         this.state.StateFilter.forEach(state => {
             keys.push(state.value);
@@ -827,21 +815,17 @@ class Explore extends React.Component {
 
         sessionStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
         sessionStorage.setItem("checked", this.state.IsDescending.value);
-        sessionStorage.setItem("tuitionstate", [this.state.TuitionState.value, this.state.TuitionState.label]);
         sessionStorage.setItem("schooltype", [this.state.School.value, this.state.School.label]);
         sessionStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
         sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
         sessionStorage.setItem("statefilter", keys);
-        console.log(array);
-        console.log(this.props.location);
-        console.log(this.props.location.state);
-        console.log( (this.props.location !== undefined && this.props.location.state !== undefined))
-        console.log(array.length !== 0)
-        if(array.length !== 0 && (this.props.location !== undefined && this.props.location.state !== undefined)) {
+        sessionStorage.setItem("satscore", this.state.SATAverage);
+
+        if(array.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
             console.log("here: ", true);
             this.setState({ ToggleClear: true, ExploreRedirect: false });
         } else {
-            this.setState({ ToggleClear: false, ExploreRedirect: true });    
+            this.setState({ ToggleClear: false, ExploreRedirect: false });    
         }
 
         sessionStorage.setItem("array", array);

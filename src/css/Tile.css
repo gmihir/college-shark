@@ -87,7 +87,7 @@
 
 .ranking {
     margin-bottom: 0;
-    margin-top: calc(-1vh);
+    margin-top: calc(-0.6vh);
     height: calc(2.8vh);
     display: flex;
     text-align: right;
@@ -97,7 +97,7 @@
 }
 
 .ranking h3 {
-    padding-top: calc(0.7vh);;
+    padding-top: calc(0.6vh);;
     font-size: calc(0.8vw);
 
 }

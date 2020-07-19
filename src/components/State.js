@@ -71,12 +71,6 @@ const Sortby = [
     {value: "population", label: 'Population'}
 ]
 
-const TuitionState = [
-    {value: "both", label: 'In State or Out of State'},
-    {value: "tuition_normal", label: 'In State Tuition'},
-    {value: "tuition_oos", label: 'Out of State Tuition'},
-]
-
 const LOR = [
     {value: "Any", label: 'Any'},
     {value: 0, label: '0'},
@@ -91,12 +85,20 @@ const OrderBy = [
     {value: true, label: 'High to Low'}
 ]
 
+// const AvgSAT = [
+//     {value: "Any", label: 'Any'},
+//     {value: "+1450, sat_overall, -1600, sat_overall", label: "1450 - 1600"},
+//     {value: "+1300, sat_overall, -1450, sat_overall", label: '1300 - 1450'},
+//     {value: "+1150, sat_overall, -1300, sat_overall", label: "1150 - 1300"},
+//     {value: "+1000, sat_overall, -1150, sat_overall", label: '1000 - 1150'},
+//     {value: "-1000, sat_overall", label: "1000 or less"},     
+// ]
+
 export {
     States,
     Type,
     App,
     Sortby,
     LOR,
-    TuitionState,
     OrderBy
   }

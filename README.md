@@ -21,6 +21,8 @@ Then, install all the following dependencies USING NPM:
 8. npm install google-maps-react
 9. npm install chart.js
 10. npm install react-chartjs-2
+11. npm install primereact
+12. npm install primeicon
 ```
 Then, run the command in one terminal:
 

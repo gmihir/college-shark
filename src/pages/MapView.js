@@ -44,6 +44,7 @@ export class MapView extends Component {
         this.numFormat = this.numFormat.bind(this);
         this.dateFormat = this.dateFormat.bind(this);
         this.rankFormat = this.rankFormat.bind(this);
+        this.searchBarMapView = this.searchBarMapView.bind(this);
     }
 
     searchBarInUse = (inUse) => {
@@ -100,7 +101,45 @@ export class MapView extends Component {
       })
     }
 
-    markerClicked(props, marker) {
+    searchBarMapView(item) {
+      //Array is empty when mounting, if statement is needed
+      if(this.state.CollegeMap.length !== 0) {
+        let arr = [];
+        //Convert the array to an array of objects
+        this.state.CollegeMap.forEach(college => {
+          let obj = {};
+          obj.college = JSON.parse(college);
+          obj.name = JSON.parse(college).college_name;
+          arr.push(obj);
+        })
+
+        //Find the college name clicked on the searchbar
+        const getCollege = arr.filter(obj => {
+          //If 'name' key is the same as the name in searchbar
+          //Return it and store it in "getCollege"
+          if(obj.name === item) {
+            return obj;
+          }
+        });
+
+        //Use 'getCollege[0]' because it is an array of size1
+        this.setState({
+          selectedPlace: getCollege[0],
+          isVisible: true,
+          Zoom: 13,
+          ShowReset: true
+        }, () => {
+          //Set bound to zoom onto the point
+          const bound = {
+            lat: getCollege[0].college.latitude,
+            lng: getCollege[0].college.longitude
+          }
+          this.setState({Bounds: bound})
+        })
+      }
+    }
+
+    markerClicked(props) {
       //Create an object
       let object = {};
 
@@ -113,48 +152,20 @@ export class MapView extends Component {
       //Set the state accordingly
       this.setState({
         selectedPlace: object,
-        activeMarker: marker,
         isVisible: true,
-        Zoom: 12,
+        Zoom: 13,
         ShowReset: true
       }, () => {
-        //Set the sessionStorage for when user comes back to the page
+        //Set bound to zoom onto the point
         const bound = {
           lat: this.state.selectedPlace.college.latitude,
           lng: this.state.selectedPlace.college.longitude
         }
         this.setState({Bounds: bound})
-        sessionStorage.setItem('mapview', JSON.stringify(this.state.selectedPlace.college));
-        sessionStorage.setItem('mapviewName', JSON.stringify(this.state.selectedPlace.name));
       })
     }
 
     componentDidMount() {
-      if(sessionStorage.getItem('mapview') === null) {
-        //Check to see sessionStorage is empty
-      } else {
-        console.log("here");
-        //Get items out of sessionStorage, only need the name and details, no title
-        const toArray = JSON.parse(sessionStorage.getItem('mapview'));
-        const getName = JSON.parse(sessionStorage.getItem('mapviewName'));
-        
-        //Create an object to resemble that in this.markerClicked()
-        let obj = {};
-        obj.college = toArray;
-        obj.name = getName;
-
-        this.setState({
-          selectedPlace: obj, 
-          isVisible: true,
-          Zoom: 12,
-          Bounds: {
-            lat: obj.college.latitude,
-            lng: obj.college.longitude
-          },
-          ShowReset: true
-        });
-      }
-
       fetch("/searchbar", {
         method: "POST",
         headers: {
@@ -217,7 +228,7 @@ export class MapView extends Component {
                         const lng = JSON.parse(college).longitude;
                         const title = JSON.parse(college).college_name;
                         return ( <Marker college={college} name={title} title={title} position={{lat: lat, lng: lng}} 
-                          onClick={(props, marker, e) => this.markerClicked(props, marker, e)}
+                          onClick={(props, marker, e) => this.markerClicked(props, marker, e)} icon={{url: require('./saved.png'), scaledSize: new this.props.google.maps.Size(40,47)}}
                         /> )
                       })}
                   </Map>
@@ -227,16 +238,19 @@ export class MapView extends Component {
             {!this.state.isVisible ? 
             <section className="college-display">
               <div className="map-search">
-                    <SearchBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} list={this.state.Colleges} 
-                        barwidth={'95%'} nodelayout={"map-results"}
-                    />
-                </div>
+                  <SearchBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} list={this.state.Colleges} 
+                      barwidth={'95%'} nodelayout={"map-results"} onClick={this.searchBarMapView} isMap={true}
+                  />
+              </div>
+              <div className="empty-list">
+                <div className="empty-text"> <p>Click a marker to begin viewing or slap the bossman in the face</p></div>
+              </div>
             </section> : 
             /* If a college is selected, then this will render */
               <section className="college-display">
                 <div className="map-search">
                     <SearchBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} list={this.state.Colleges} 
-                        barwidth={'95%'} nodelayout={"map-results"}
+                        barwidth={'95%'} nodelayout={"map-results"} onClick={this.searchBarMapView} isMap={true}
                     />
                 </div>
 

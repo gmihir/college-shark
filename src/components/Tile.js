@@ -14,7 +14,7 @@ class Tile extends Component {
         if(this.props.Ranking >= 500) {
             return <h3 className="ranking">Rank: Unranked</h3>
         } else {
-            return <h3>Rank: #{this.props.Ranking}</h3>
+            return <h3 className="ranking">Rank: #{this.props.Ranking}</h3>
         }
     }
 

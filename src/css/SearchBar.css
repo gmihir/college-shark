@@ -6,9 +6,9 @@
   }
 
   /* Styling for the results on the Map tab and Search bar */
-  .individual, .map-results {
+  .individual {
     position: relative;
-    background-color: white;
+    background-color: rgb(247, 247, 247);
     height: calc(6.5vh);
     margin-top: 0;
     width: calc(35vw);
@@ -23,9 +23,21 @@
     z-index: 10;
   }
 
-  .map-results {
+  .map-container {
+    box-shadow: 4px 4px 10px rgb(102, 101, 101);
     width: calc(95%);
+  }
+
+  .map-results {
+    position: relative;
+    background-color: rgb(247, 247, 247);
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: calc(100%);
     transition: 0.3s;
+    height: calc(4vh);
   }
 
   .map-results:hover {
@@ -34,11 +46,21 @@
     cursor: pointer;
   }
 
+  .map-results-space {
+    width: calc(20%);
+    text-align: center;
+    margin-top: calc(0.6vh);
+  }
+
   .map-collegename {
+    width: calc(100%);
     font-family: 'Oswald', sans-serif;
-    font-size: calc(3vh);
+    font-size: calc(2vh);
     color: black !important;
-    margin-top: calc(1vh) !important;
+    margin-top: calc(0.5vh) !important;
+    text-align: left;
+    justify-content: start;
+    align-items: flex-start;
     z-index: 1;
   }
   
