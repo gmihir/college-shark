@@ -60,6 +60,7 @@
   text-align: center;
   display: flex;
   font-family: "Segoe UI";
+  font-family: BlinkMacSystemFont;
 }
 
 .searchbar-container{
