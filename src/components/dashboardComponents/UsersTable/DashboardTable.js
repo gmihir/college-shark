@@ -38,27 +38,51 @@ class DashboardTable extends React.Component {
         }
     }
 
-    renderIcon = () => {
-        var num = Math.random();
-        if (num < .33) {
-            return (
-                <div className="done-icon">
-                    {"Done"}
-                </div>
-            )
-        } else if (num < .66) {
-            return (
-                <div className="inprogress-icon">
-                    {"In Progress"}
-                </div>
-            )
-        } else {
-            return (
-                <div className="notstarted-icon">
-                    {"Not Started"}
-                </div>
-            )
+    renderIcon = (percentage) => {
+        var color = this.getColor(percentage);
+        var linear = "linear-gradient(to right, " + color + " 0%, " + color + " " + Math.ceil(percentage * 100) + "%, white" + Math.ceil(percentage * 100) + "%, white 100%)";
+        
+        return (
+            <div className="icon" style={{
+                background: `
+                linear-gradient(
+                    to right, 
+                    ${color} 0%,
+                    ${color} ${Math.ceil(percentage * 100)}%,
+                    white ${Math.ceil(percentage * 100)}%,
+                    white 100%
+                )
+                `
+            }}>
+                {Math.ceil(percentage * 100) + "%"}
+            </div>
+        )
+    }
+
+    getColor = (percentage) => {
+        var percentColor = [
+            { pct: 0.0, color: { r: 255, g: 0, b: 0 } },
+            { pct: 0.5, color: { r: 255, g: 255, b: 0 } },
+            { pct: 1.0, color: { r: 0, g: 255, b: 0 } } ];
+        for(var i = 1; i < percentColor; i++){
+            if(percentage < percentColor[i].pct){
+                break;
+            }
         }
+        var firstColor = percentColor[i - 1];
+        var secondColor = percentColor[i];
+        var range = secondColor.pct - firstColor.pct;
+        var rangePct = (percentage - firstColor.pct) / range;
+        var pctLower = 1 - rangePct;
+        var pctUpper = rangePct;
+        var color = {
+            r: Math.floor(firstColor.color.r * pctLower + secondColor.color.r * pctUpper),
+            g: Math.floor(firstColor.color.g * pctLower + secondColor.color.g * pctUpper),
+            b: Math.floor(firstColor.color.b * pctLower + secondColor.color.b * pctUpper)
+        };
+
+        return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
+
     }
 
     handleEditClick() {
@@ -74,8 +98,8 @@ class DashboardTable extends React.Component {
             <div>
                 <div className="toprow">
                     <div className="dashboard-header">{"My Colleges"}</div>
-                    <div className="edit-button" onClick={() => {this.handleEditClick()}}>
-                        <Edit/>
+                    <div className="edit-button" onClick={() => { this.handleEditClick() }}>
+                        <Edit />
                         {"Edit the Table"}
                     </div>
                 </div>
@@ -113,7 +137,7 @@ class DashboardTable extends React.Component {
                                 <div className="other-position-table">
                                     <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
                                 </div>
-                                {this.renderIcon()}
+                                {this.renderIcon(.20)}
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
                                     const finish = await this.props.removeColleges(user.college_name);
                                 }} />
@@ -130,7 +154,7 @@ class DashboardTable extends React.Component {
             <div>
                 <div className="toprow">
                     <div className="dashboard-header">{"My Colleges"}</div>
-                    <div className="edit-button" onClick={() => {this.handleFinishClick()}}>
+                    <div className="edit-button" onClick={() => { this.handleFinishClick() }}>
                         <Edit />
                         {"Finish Editing"}
                     </div>
