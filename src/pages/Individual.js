@@ -11,6 +11,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import {Redirect} from 'react-router';
+import {Route} from 'react-router';
 import Map from '../components/MapComponent';
 import { Pie } from 'react-chartjs-2';
 
@@ -63,6 +64,7 @@ class Individual extends Component {
         this.applyFormat = this.applyFormat.bind(this);
         this.renderSpinner = this.renderSpinner.bind(this);
         this.setActiveTab = this.setActiveTab.bind(this);
+        this.generateLink = this.generateLink.bind(this);
     }
 
     setSearch = (results) => {
@@ -320,10 +322,10 @@ class Individual extends Component {
                         </Accordion>
                         <h1 style={{marginTop:"1rem"}}>Other Helpful Links</h1>
                                 <p>
-                                    Official Site: <a href={this.state.college_json["school_url"]} target="_blank" rel="noopener noreferrer">{this.state.college_json["school_url"]}</a>
+                                Financial Aid: <a href={this.generateLink(this.state.college_json["school_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["school_url"])}</a>
                                 </p>
                                 <p>
-                                    Financial Aid: <a href={this.state.college_json["npc_url"]} target="_blank" rel="noopener noreferrer">{this.state.college_json["npc_url"]}</a>
+                                    Financial Aid: <a href={this.generateLink(this.state.college_json["npc_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["npc_url"])}</a>
                                 </p>
                                 <p>
                                     Housing: <a href={financialAid} target="_blank" rel="noopener noreferrer">{financialAid}</a>
@@ -436,6 +438,10 @@ class Individual extends Component {
             });
         });
 
+    }
+
+    generateLink(link) {
+        return "https://"+link;
     }
 
     renderSpinner = () => {
