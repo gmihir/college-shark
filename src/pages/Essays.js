@@ -42,6 +42,9 @@ class Essays extends Component {
         this.renderSupplementalTitle = this.renderSupplementalTitle.bind(this);
         this.renderSupplementals = this.renderSupplementals.bind(this);
         this.renderSidebar = this.renderSidebar.bind(this);
+        this.collegesRequiringCommon = this.collegesRequiringCommon.bind(this);
+        this.collegesRequiringUC = this.collegesRequiringUC.bind(this);
+        this.collegesRequiringCoalition = this.collegesRequiringCoalition.bind(this);
     }
 
     setSearch = (results) => {
@@ -130,6 +133,93 @@ class Essays extends Component {
                 </OverlayTrigger>
             )
         } 
+    }
+
+    collegesRequiringUC() {
+        var required = [];
+        if(!this.requiresCommonApp) {
+            return;
+        }
+        this.state.selectedColleges.forEach(college => {
+            if(college.app_site === "UC Application") {
+                required.push(college.college_name);
+            }
+        });
+        if (required.length > 0) {
+            return (
+                <div className="collegelist">
+                    <ul>
+                    {required.map((college) => {
+                        return (
+                            <div className="collegelisttext">
+                                    <li>{college}</li>
+                            </div>
+                        )
+                    })}
+                    </ul>
+                </div>
+            );
+        } else {
+            return 0;
+        }
+    }
+
+    collegesRequiringCommon() {
+        var required = [];
+        if(!this.requiresCommonApp) {
+            return;
+        }
+        this.state.selectedColleges.forEach(college => {
+            if(college.common_app === "y") {
+                required.push(college.college_name);
+            }
+        });
+        if (required.length > 0) {
+            return (
+                <div className="collegelist">
+                    <ul>
+                    {required.map((college) => {
+                        return (
+                            <div className="collegelisttext">
+                                    <li>{college}</li>
+                            </div>
+                        )
+                    })}
+                    </ul>
+                </div>
+            );
+        } else {
+            return 0;
+        }
+    }
+
+    collegesRequiringCoalition() {
+        var required = [];
+        if(!this.requiresCommonApp) {
+            return;
+        }
+        this.state.selectedColleges.forEach(college => {
+            if(college.coalition_app === "y") {
+                required.push(college.college_name);
+            }
+        });
+        if (required.length > 0) {
+            return (
+                <div className="collegelist">
+                    <ul>
+                    {required.map((college) => {
+                        return (
+                            <div className="collegelisttext">
+                                    <li>{college}</li>
+                            </div>
+                        )
+                    })}
+                    </ul>
+                </div>
+            );
+        } else {
+            return 0;
+        }
     }
 
     calculateNumEssays() {
@@ -272,6 +362,7 @@ class Essays extends Component {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {this.collegesRequiringUC()}
                 </div>
             )
         }
@@ -303,6 +394,7 @@ class Essays extends Component {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {this.collegesRequiringCommon()}
                 </div>
             )
         }
@@ -332,6 +424,7 @@ class Essays extends Component {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {this.collegesRequiringCoalition()}
                 </div>
             )
         }
@@ -419,6 +512,7 @@ class Essays extends Component {
                                         </Typography>
                                     </AccordionDetails>
                                 </Accordion>
+                                
                             </div>
                         )
                     })}

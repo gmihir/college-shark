@@ -19,7 +19,8 @@ Then, install all the following dependencies USING NPM:
 6. npm install @material-ui/styles
 7. npm install react-select
 8. npm install google-maps-react
-9. npm install react-minimal-pie-chart
+9. npm install chart.js
+10. npm install react-chartjs-2
 ```
 Then, run the command in one terminal:
 

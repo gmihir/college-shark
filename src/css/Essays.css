@@ -178,3 +178,14 @@ h3.required-text{
     z-index: 10;
     color: rgba(0, 0, 0, 0.534);
 }
+
+.collegelist{
+    margin-top: calc(1.5vh);
+    margin-left: calc(-1vw);
+    font-family: 'Noto Sans JP', sans-serif;
+
+}
+
+.collegelisttext{
+    padding-top:calc(0.3vh);
+}

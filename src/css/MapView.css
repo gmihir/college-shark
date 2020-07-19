@@ -4,13 +4,15 @@
 }
 
 .mapview {
-    max-height: calc(95vh);
+    max-height: calc(92vh);
     height: auto;
 }
 
+/*
 .map-div div:first-child {
     height: calc(92vh) !important;
 }
+*/
 
 .college-display {
     margin-top: 0;

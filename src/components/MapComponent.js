@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 const { REACT_APP_API_KEY } = process.env;
 
 const mapStyles = {
-    position: 'static',
     width: '100%',
     height: '100%'
   };
