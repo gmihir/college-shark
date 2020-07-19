@@ -53,7 +53,7 @@ class SearchBar extends React.Component {
             
             this.props.history.push({
                 pathname: `/loginhome/explore/results`,
-                search: `?results=${collegeNames[0]}`,
+                search: `?results=AfeHYOXYhzE`,
                 state: {Colleges: collegeNames, Search: this.state.searchValue}
             })
         }   

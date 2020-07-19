@@ -201,25 +201,27 @@ export class MapView extends Component {
               <div className="reset-map" onClick={() => this.resetMap()}>
                 <button className="reset-button">Reset Mapview</button>
               </div> : null}
+               <div className="map-div">
                 <Map
-                    google={this.props.google}
-                    zoom={this.state.Zoom}
-                    style={mapStyles}
-                    initialCenter={{
-                      lat: 40.854885,
-                      lng: -98.081807
-                    }}
-                    center={this.state.Bounds}
-                >
-                    {this.state.CollegeMap.map(college => {
-                      const lat = JSON.parse(college).latitude;
-                      const lng = JSON.parse(college).longitude;
-                      const title = JSON.parse(college).college_name;
-                      return ( <Marker college={college} name={title} title={title} position={{lat: lat, lng: lng}} 
-                        onClick={(props, marker, e) => this.markerClicked(props, marker, e)}
-                      /> )
-                    })}
-                </Map>
+                      google={this.props.google}
+                      zoom={this.state.Zoom}
+                      style={mapStyles}
+                      initialCenter={{
+                        lat: 40.854885,
+                        lng: -98.081807
+                      }}
+                      center={this.state.Bounds}
+                  >
+                      {this.state.CollegeMap.map(college => {
+                        const lat = JSON.parse(college).latitude;
+                        const lng = JSON.parse(college).longitude;
+                        const title = JSON.parse(college).college_name;
+                        return ( <Marker college={college} name={title} title={title} position={{lat: lat, lng: lng}} 
+                          onClick={(props, marker, e) => this.markerClicked(props, marker, e)}
+                        /> )
+                      })}
+                  </Map>
+               </div>
             </section>
 
             {!this.state.isVisible ? 

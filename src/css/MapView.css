@@ -1,7 +1,3 @@
-body {
-    overflow: hidden;
-}
-
 .mapview-container {
     width: 100%;
     max-height: calc(50vh);
@@ -10,6 +6,10 @@ body {
 .mapview {
     max-height: calc(95vh);
     height: auto;
+}
+
+.map-div div:first-child {
+    height: calc(92vh) !important;
 }
 
 .college-display {

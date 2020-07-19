@@ -25,6 +25,13 @@
 
   .map-results {
     width: calc(95%);
+    transition: 0.3s;
+  }
+
+  .map-results:hover {
+    transition: 0.3s;
+    background-color: #b0bed6;
+    cursor: pointer;
   }
 
   .map-collegename {
