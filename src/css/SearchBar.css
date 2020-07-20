@@ -54,7 +54,7 @@
 
   .map-collegename {
     width: calc(100%);
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
     font-size: calc(2vh);
     color: black !important;
     margin-top: calc(0.5vh) !important;
@@ -83,8 +83,8 @@
   } */
 
   .collegeName {
-    font-family: 'Oswald', sans-serif;
-    font-size: calc(3.15vh);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: calc(2.5vh);
     color: black !important;
     margin-top: calc(1vh) !important;
     position: absolute !important;
