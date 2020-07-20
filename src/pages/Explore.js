@@ -803,10 +803,12 @@ class Explore extends React.Component {
         }
 
         console.log(this.state.SATAverage)
-        array.push("sat_overall");
-        array.push("+" + this.state.SATAverage[0]);
-        array.push("sat_overall");
-        array.push("-" + this.state.SATAverage[1]);
+        if(this.state.SATAverage[0] !== 0 && this.state.SATAverage[1] !== 1600) {
+            array.push("sat_overall");
+            array.push("+" + this.state.SATAverage[0]);
+            array.push("sat_overall");
+            array.push("-" + this.state.SATAverage[1]);
+        }
 
         const keys = [];
         this.state.StateFilter.forEach(state => {

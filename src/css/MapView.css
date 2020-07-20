@@ -6,6 +6,7 @@
 .mapview {
     max-height: calc(92vh);
     height: auto;
+    position: relative;
 }
 
 /*
@@ -58,8 +59,8 @@
 .reset-map{ 
     position: absolute;
     z-index: 5;
-    left: calc(33vw);
-    top: calc(8.8vh);
+    left: calc(35vw);
+    top: calc(1.2vh);
     background-color: rgb(63, 81, 181);
     border-radius: calc(0.4rem);
     padding: calc(0.8vh);

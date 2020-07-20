@@ -191,7 +191,7 @@ class SearchBar extends React.Component {
 
         return (
             <Form className="ml-5" style={searchBar}>
-                <Form.Control type="text" onInput={this.handleChange} placeholder="Search for colleges" className="mr-0" style={divStyle} 
+                <Form.Control type="text" onInput={this.handleChange} placeholder={this.props.nodelayout ? "Find College" : "Search for colleges" }className="mr-0" style={divStyle} 
                     onKeyDown={this.props.isMap ? this.mapView : this.exploreRedirect}
                 />
                 <div>
