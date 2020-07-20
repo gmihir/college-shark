@@ -125,7 +125,6 @@ class Explore extends React.Component {
             this.setState({ IsDescending: []});
             checkOrderBy = false    
         }
-
         fetch("/filter", {
             method: "POST",
             headers: {

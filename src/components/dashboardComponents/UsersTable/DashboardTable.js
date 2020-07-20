@@ -41,7 +41,13 @@ class DashboardTable extends React.Component {
     renderIcon = (percentage) => {
         var color = this.getColor(percentage);
         var linear = "linear-gradient(to right, " + color + " 0%, " + color + " " + Math.ceil(percentage * 100) + "%, white" + Math.ceil(percentage * 100) + "%, white 100%)";
-        
+        let percentageComplete = Math.ceil(percentage * 100) + "%";
+        if (Math.ceil(percentage * 100) === 0) {
+            percentageComplete = "Not Started";
+        }
+        if (Math.ceil(percentage * 100) === 100) {
+            percentageComplete = "Completed";
+        }
         return (
             <div className="icon" style={{
                 background: `
@@ -54,7 +60,7 @@ class DashboardTable extends React.Component {
                 )
                 `
             }}>
-                {Math.ceil(percentage * 100) + "%"}
+                {percentageComplete}
             </div>
         )
     }
@@ -63,9 +69,12 @@ class DashboardTable extends React.Component {
         var percentColor = [
             { pct: 0.0, color: { r: 255, g: 0, b: 0 } },
             { pct: 0.5, color: { r: 255, g: 255, b: 0 } },
-            { pct: 1.0, color: { r: 0, g: 255, b: 0 } } ];
-        for(var i = 1; i < percentColor; i++){
-            if(percentage < percentColor[i].pct){
+            { pct: 1.0, color: { r: 0, g: 255, b: 0 } }];
+        var j;
+        let i = 0;
+        for (let j = 0; j < percentColor.length; j++) {
+            if (percentage < percentColor[j].pct) {
+                i = j;
                 break;
             }
         }
@@ -73,12 +82,10 @@ class DashboardTable extends React.Component {
         var secondColor = percentColor[i];
         var range = secondColor.pct - firstColor.pct;
         var rangePct = (percentage - firstColor.pct) / range;
-        var pctLower = 1 - rangePct;
-        var pctUpper = rangePct;
         var color = {
-            r: Math.floor(firstColor.color.r * pctLower + secondColor.color.r * pctUpper),
-            g: Math.floor(firstColor.color.g * pctLower + secondColor.color.g * pctUpper),
-            b: Math.floor(firstColor.color.b * pctLower + secondColor.color.b * pctUpper)
+            r: Math.floor(rangePct * (secondColor.color.r - firstColor.color.r) + firstColor.color.r),
+            g: Math.floor(rangePct * (secondColor.color.g - firstColor.color.g) + firstColor.color.g),
+            b: Math.floor(rangePct * (secondColor.color.b - firstColor.color.b) + firstColor.color.b)
         };
 
         return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
@@ -91,6 +98,73 @@ class DashboardTable extends React.Component {
 
     handleFinishClick() {
         this.setState({ edit: false });
+    }
+
+    handleSort(category) {
+        this.setState({ users: this.quickSort(this.state.users, 0, this.state.users.length - 1, category) })
+    }
+
+    // quickSort(arr, start, end) {
+    //     if (arr.length <= 1) {
+    //         return arr;
+    //     }
+
+    //     const pivot = arr[arr.length - 1]; //pivot value
+    //     const left = [];  // left handside array
+    //     const right = []; // right handside array
+    //     while (start < end) {  // comparing and pushing
+    //         if (arr[start] < pivot) {
+    //             left.push(arr[start])
+    //         }
+    //         else {
+    //             right.push(arr[start])
+    //         }
+    //         start++ //  incrementing start value
+    //     }
+    //     // calling quick sort recursively
+    //     return this.quickSort(left, 0, left.length - 1).concat(pivot).concat(this.quickSort(right, 0 , right.length - 1));
+    // }
+
+    quickSort(array, low, high, category){
+        var place;
+        if(low < high){
+            place = this.partition(array, low, high, category);
+            this.quickSort(array, low, place - 1, category);
+            this.quickSort(array, place + 1, high, category);
+        }
+        return array;
+    }
+
+    partition(array, low, high, category) {
+        let pivot = array[high];
+        let i = (low - 1);
+        var j;
+        for (let j = low; j <= high - 1; j++) {
+            let bool = false;
+            var k;
+            for (let k = 0; k < array[j].length; k++) {
+                if (k > pivot.length) {
+                    break;
+                } else if (array[j].category.charCodeAt(k) > pivot.category.charCodeAt(k)) {
+                    break;
+                } else if (array[j].category.charCodeAt(k) < pivot.category.charCodeAt(k)) {
+                    bool = true;
+                    break;
+                } else {
+
+                }
+            }
+            if (bool) {
+                i++;
+                let temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        let temp = array[i + 1];
+        array[i + 1] = array[high];
+        array[high] = temp;
+        return i + 1;
     }
 
     renderRegular() {
@@ -109,7 +183,7 @@ class DashboardTable extends React.Component {
                         <div className="name-position">College Name</div>
                         {this.state.headers.map(title => {
                             return (
-                                <div className="other-position">{title}</div>
+                                <div className="other-position" onClick={() => { this.handleSort(title) }}>{title}</div>
                             )
                         })}
                     </div>
@@ -137,7 +211,7 @@ class DashboardTable extends React.Component {
                                 <div className="other-position-table">
                                     <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
                                 </div>
-                                {this.renderIcon(.20)}
+                                {this.renderIcon(Math.random())}
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
                                     const finish = await this.props.removeColleges(user.college_name);
                                 }} />
@@ -194,7 +268,7 @@ class DashboardTable extends React.Component {
                                     <div className="other-position-table">
                                         <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
                                     </div>
-                                    {this.renderIcon()}
+                                    {this.renderIcon(Math.random())}
                                     <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
                                         const finish = await this.props.removeColleges(user.college_name);
                                     }} />
