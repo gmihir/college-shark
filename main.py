@@ -16,7 +16,7 @@ import pypyodbc
 import time
 
 numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition_normal', "tuition_oos", 'app_fee',
-           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date']
+           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date','sat_overall','act_overall']
 
 dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date']
 
@@ -555,13 +555,12 @@ def get_college_names():
 
 
 #QUERY TESTING
-#lst = get_colleges(["national_ranking","+1","national_ranking","-20","tuition_oos","+10000","tuition_oos","-15000","tuition_normal","+10000","tuition_normal","-15000"])
-
+lst = get_colleges(["national_ranking","-40","sat_overall","+1400","sat_overall","-1600","school_type","Public"])
 
 #TUITION TESTING
 # lst = get_colleges(["tuition_oos", "+10000","tuition_oos","-20000"])
-# for i in lst:
-#     print(i)
+for i in lst:
+    print(i)
 
 # GET NAMES TESTING
 # names = get_college_names()
