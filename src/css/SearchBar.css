@@ -55,9 +55,9 @@
   .map-collegename {
     width: calc(100%);
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: calc(2vh);
+    font-size: calc(1.4vh);
     color: black !important;
-    margin-top: calc(0.5vh) !important;
+    margin-top: calc(0.9vh) !important;
     text-align: left;
     justify-content: start;
     align-items: flex-start;
