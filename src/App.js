@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Explore from './pages/Explore';
 import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -48,14 +47,13 @@ class App extends React.Component {
             <Route exact path="/loginhome/explore/results" render ={(props) => (
                 <Explore {...props} key={props.location.key} /> 
               )} />
-            <Route path="/loginhome/dashboard" component={Dashboard} />
+            <Route exact path="/loginhome/dashboard" component={Dashboard} />
             <Route exact path="/loginhome/login" component={Login} />
             <Route exact path="/loginhome/signup" component={Signup} />
-            <Route exact path="/loginhome/page/:collegeName" render={(props) => (
+            <Route path="/loginhome/page/:collegeName" render={(props) => (
               <Individual key={props.match.params.collegeName} {...props} />)
             } />
             <Route exact path="/loginhome/essays" component={Essays} />
-            <Route exact path="/profile" component={RequireAuth(Profile)} />
             <Route exact path="/loginhome/map" component={MapView} />
             <Route path="/" component={Home} />
           </Switch>

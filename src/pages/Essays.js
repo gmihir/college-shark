@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
 import '../css/Essays.css';
 import { OverlayTrigger, Spinner,Button,ButtonGroup } from 'react-bootstrap';
+import { withRouter } from 'react-router';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +11,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { IoIosReturnLeft } from 'react-icons/io';
 
 class Essays extends Component {
     constructor(props) {
@@ -272,6 +274,10 @@ class Essays extends Component {
 
 
     componentDidMount() {
+        if(!sessionStorage.getItem('userData')) {
+            this.setState({Loading: false});
+            return;
+        }
         fetch("/essays", {
             method: "POST",
             header: {
@@ -435,15 +441,25 @@ class Essays extends Component {
 
     renderFirstHeader = () => {
         console.log(this.state.selectedColleges)
+
+        if(!sessionStorage.getItem('userData')) {
+            return (
+                <div className="empty-div">
+                    <div className="redirect-div">
+                        <h3 className="explore-redirect">To use this feature, you have to be signed in! Click 'Sign up' If you're not a user</h3>
+                        <button className="signup-redirect" onClick={() => this.props.history.push('/loginhome/signup')}>Sign up</button>
+                    </div>
+                </div>
+            )
+        }
         if(this.state.selectedColleges.length === 0) {
-            return(
+            return (
             <div className="empty-div">
                 <div className="redirect-div">
                     <br />
                     <h3 className="explore-redirect">You haven't selected any colleges, click Explore to start adding some!</h3>
                 </div>
             </div>
-
             )
         } else {
             return (
