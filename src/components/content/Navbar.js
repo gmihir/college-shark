@@ -165,10 +165,10 @@ class NavBar extends React.Component {
               </Nav.Item> : 
               <Nav className="ml-auto" navbar>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/loginhome/login">Login</Nav.Link>
+                    <Nav.Link href="/loginhome/login">Login</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/loginhome/signup">Sign up</Nav.Link>
+                    <Nav.Link href="/loginhome/signup">Sign up</Nav.Link>
                 </Nav.Item>
               </Nav>
               }

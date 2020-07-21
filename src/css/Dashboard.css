@@ -5,3 +5,53 @@
     width: 100%;
     flex-direction: column;
   }
+  
+  /* STYLING THE TEXT FOR WHEN THE USE HAS NO COLLEGES ADDED */
+
+.empty-div {
+  width: calc(100%);
+  display: flex;
+  justify-content: center;
+  height: calc(80vh);
+  font-family: 'Roboto', sans-serif;
+  color:black;
+}
+
+.redirect-div {
+  width: 100%;
+  text-align: center;
+  margin-top: calc(15%);
+  color: black;
+}
+
+.explore-redirect {
+  font-family: 'Roboto', sans-serif;
+  z-index: 10;
+  color: rgba(0, 0, 0, 0.534);
+}
+
+.signup-redirect {
+  margin-top: calc(1.2vh);
+  padding: calc(1vh);
+  padding-right: calc(1vw);
+  padding-left: calc(1vw);
+  border: none;
+  border-left: none;
+  font-size: calc(1rem);
+  border-radius: calc(0.5vh);
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: rgb(63, 81, 181);
+  transition: 0.3s;
+  color: white;
+  outline: none;
+}
+
+.signup-redirect:hover {
+  background-color: rgb(50, 71, 187);
+  color: white;
+  transition: 0.3s;
+}
+
+.signup-redirect:focus {
+  outline: 0;
+}
