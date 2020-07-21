@@ -12,7 +12,8 @@ class DashboardTable extends React.Component {
         this.state = {
             headers: this.props.headers,
             users: this.props.users,
-            edit: false
+            edit: false,
+            descending: true,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleFinishClick = this.handleFinishClick.bind(this);
@@ -101,7 +102,8 @@ class DashboardTable extends React.Component {
     }
 
     handleSort(category) {
-        this.setState({ users: this.quickSort(this.state.users, 0, this.state.users.length - 1, category) })
+        let order = this.quickSort(this.state.users, 0, this.state.users.length - 1, category);
+        this.setState({ users: order, descending: !this.state.descending });
     }
 
     // quickSort(arr, start, end) {
@@ -125,34 +127,56 @@ class DashboardTable extends React.Component {
     //     return this.quickSort(left, 0, left.length - 1).concat(pivot).concat(this.quickSort(right, 0 , right.length - 1));
     // }
 
-    quickSort(array, low, high, category){
+    quickSort(array, low, high, category) {
         var place;
-        if(low < high){
+        if (low < high) {
             place = this.partition(array, low, high, category);
+            console.log(array);
             this.quickSort(array, low, place - 1, category);
             this.quickSort(array, place + 1, high, category);
         }
         return array;
     }
 
-    partition(array, low, high, category) {
+    partition(array, low, high, column) {
         let pivot = array[high];
         let i = (low - 1);
         var j;
-        for (let j = low; j <= high - 1; j++) {
-            let bool = false;
+        var category;
+        if (column === 'Out-of-State Tuition') {
+            category = 'tuition_oos';
+        } else if (column === 'In-State Tuition') {
+            category = 'tuition_normal';
+        } else if (column === 'RD Deadline') {
+            console.log('jere');
+            category = 'regular_decision';
+        } else if (column === 'ED Deadline') {
+            category = 'early_decision';
+        } else if (column === 'State') {
+            category = 'state';
+        } for (let j = low; j <= high - 1; j++) {
+            let bool = true;
             var k;
-            for (let k = 0; k < array[j].length; k++) {
-                if (k > pivot.length) {
-                    break;
-                } else if (array[j].category.charCodeAt(k) > pivot.category.charCodeAt(k)) {
-                    break;
-                } else if (array[j].category.charCodeAt(k) < pivot.category.charCodeAt(k)) {
-                    bool = true;
-                    break;
-                } else {
+            console.log(array[j][category].toString().charCodeAt(k) + ' ' + pivot[category].toString().charCodeAt(k))
+            if (array[j][category].toString().length < pivot[category].toString().length) {
 
+            } else if (array[j][category].toString().length > pivot[category].toString().length) {
+                bool = false;
+            } else {
+                for (let k = 0; k < array[j][category].toString().length; k++) {
+                    if (array[j][category].toString().charCodeAt(k) > pivot[category].toString().charCodeAt(k)) {
+                        bool = false;
+                        break;
+                    } else if (array[j][category].toString().charCodeAt(k) < pivot[category].toString().charCodeAt(k)) {
+                        bool = true;
+                        break;
+                    } else {
+
+                    }
                 }
+            }
+            if (this.state.descending) {
+                bool = !bool;
             }
             if (bool) {
                 i++;
