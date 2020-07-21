@@ -10,7 +10,7 @@
 
 .navbar,
 .navbar-default {
-    font-family: "Segoe UI", BlinkMacSystemFont;
+    font-family: "Segoe UI", sans-serif;
     background-image: linear-gradient(to bottom, #313b4c 0,#313b4c 100%) !important; /* override background image gradient w/ flat color */
 }
 

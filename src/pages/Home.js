@@ -142,7 +142,7 @@ function Home() {
                     height="850"
                     />
                     <Carousel.Caption>
-                        <h3>Stanford University Campus</h3>
+                        <h3>Stanford University</h3>
                         <p>The Main Quad</p>
                     </Carousel.Caption>
                 </Carousel.Item>
@@ -168,7 +168,7 @@ function Home() {
                     />
 
                     <Carousel.Caption>
-                        <h3>University of Texas- Austin</h3>
+                        <h3>University of Texas-Austin</h3>
                         <p>The Tower</p>
                     </Carousel.Caption>
             </Carousel.Item>
