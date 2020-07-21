@@ -128,25 +128,25 @@ class NavBar extends React.Component {
             </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={this.props.active}>
               <Nav.Item >
-                <Nav.Link eventKey="1" href="/loginhome/dashboard">
+                <Nav.Link eventKey="1" href="/mycolleges">
                   My Colleges
                   </Nav.Link>
               </Nav.Item>
 
               <Nav.Item >
-                <Nav.Link eventKey="2" href="/loginhome/explore">
+                <Nav.Link eventKey="2" href="/explore">
                   Explore
                   </Nav.Link>
               </Nav.Item>
 
               <Nav.Item >
-                <Nav.Link eventKey="3" href="/loginhome/essays">
+                <Nav.Link eventKey="3" href="/essays">
                   Essays
                   </Nav.Link>
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link eventKey="4" href="/loginhome/map">
+                <Nav.Link eventKey="4" href="/map">
                   Map View
                   </Nav.Link>
               </Nav.Item>
@@ -165,10 +165,10 @@ class NavBar extends React.Component {
               </Nav.Item> : 
               <Nav className="ml-auto" navbar>
                 <Nav.Item>
-                    <Nav.Link href="/loginhome/login">Login</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/loginhome/signup">Sign up</Nav.Link>
+                    <Nav.Link href="/signup">Sign up</Nav.Link>
                 </Nav.Item>
               </Nav>
               }

@@ -164,7 +164,7 @@ class Dashboard extends React.Component {
           <div className="empty-div">
             <div className="redirect-div">
               <h3 className="explore-redirect">To use this feature, you have to be signed in! Click 'Sign up' If you're not a user</h3>
-              <button className="signup-redirect" onClick={() => this.props.history.push('/loginhome/signup')}>Sign up</button>
+              <button className="signup-redirect" onClick={() => this.props.history.push('/signup')}>Sign up</button>
             </div>
           </div>
         </div>

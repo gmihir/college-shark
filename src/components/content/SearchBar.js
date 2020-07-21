@@ -56,7 +56,7 @@ class SearchBar extends React.Component {
             })
             
             this.props.history.push({
-                pathname: `/loginhome/explore/results`,
+                pathname: `/explore/results`,
                 search: `?results=AfeHYOXYhzE`,
                 state: {Colleges: collegeNames, Search: this.state.searchValue}
             })
@@ -226,7 +226,7 @@ class SearchBar extends React.Component {
                             } else {
                                 return (
                                     <div className="individual">
-                                        <Link to={`/loginhome/page/${college}`}>
+                                        <Link to={`/page/${college}`}>
                                             <div>
                                                 <div className="circle">
                                                 </div>

@@ -31,11 +31,11 @@ class Heart extends React.Component {
                 </Modal.Header>
                 <Modal.Body>To use this feature, you have to be signed in! Click 'Sign up' If you're not a user</Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => this.props.history.push('/loginhome/signup')}
+                <Button variant="secondary" onClick={() => this.props.history.push('/signup')}
                     style={{fontFamily: 'Roboto, sans-serif', fontWeight: '500'}}>
                     Sign up
                 </Button>
-                <Button variant="primary" onClick={() => this.props.history.push('/loginhome/login')}
+                <Button variant="primary" onClick={() => this.props.history.push('/login')}
                 style={{fontFamily: 'Roboto, sans-serif', fontWeight: '500'}}>
                     Login
                 </Button>

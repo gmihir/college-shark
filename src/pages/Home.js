@@ -82,7 +82,7 @@ function Home() {
       }
 
     // if(sessionStorage.getItem("userData")){
-    //     return(<Redirect to='/loginhome/dashboard' />)
+    //     return(<Redirect to='/mycolleges' />)
     // }
 
     function handleDisplay() {
@@ -116,7 +116,7 @@ function Home() {
                     </Row>
 
                     <Row className="justify-content-md-center">
-                        {/* <Link to="/loginhome/signup">
+                        {/* <Link to="/signup">
                             <Button variant="primary" size="lg">
                                 Sign up
                             </Button>{' '}

@@ -55,7 +55,7 @@ export default function SignInSide() {
   const [header, setHeader] = useState({ Header: 'Password Reset Request'});
 
   if (sessionStorage.getItem("userData")) {
-    return (<Redirect to='/loginhome/dashboard' />)
+    return (<Redirect to='/mycolleges' />)
   }
 
   function showModal(e) {
@@ -162,7 +162,7 @@ export default function SignInSide() {
                       setError(newError);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      history.push("/loginhome/dashboard");
+                      history.push("/mycolleges");
                     }
                   })
                 }
@@ -203,7 +203,7 @@ export default function SignInSide() {
                       setError(newError);
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      history.push("/loginhome/dashboard");
+                      history.push("/mycolleges");
                     }
                   })
                 }
@@ -247,7 +247,7 @@ export default function SignInSide() {
                     setError(newError);
                   } else {
                     sessionStorage.setItem("userData", username.username);
-                    history.push("/loginhome/dashboard");
+                    history.push("/mycolleges");
                   }
                 })
               }}
@@ -261,7 +261,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/loginhome/signup" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

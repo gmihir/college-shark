@@ -265,7 +265,7 @@ export class MapView extends Component {
 
                     <div>
                         <button className="individual-redirect" 
-                        onClick={() => this.props.history.push(`/loginhome/page/${this.state.selectedPlace.name}`)}>
+                        onClick={() => this.props.history.push(`/page/${this.state.selectedPlace.name}`)}>
                           Click here to learn more
                         </button>
                     </div>

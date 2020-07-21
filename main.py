@@ -61,10 +61,10 @@ CORS(app)
 
 app.secret_key = os.urandom(24)  # do we need this? read it somewhere, could possibly be helpful
 
-server = os.environ.get("SERVER_ADDRESS")
-database = os.environ.get("DATABASE_NAME")
-username = os.environ.get("DB_USERNAME")
-password = os.environ.get("DB_PASSWD")
+server = 'collegeapp.database.windows.net'
+database = 'collegeapp'
+username = 'reader'
+password = 'ashwinSucks123!'
 driver = '{ODBC Driver 17 for SQL Server}'
 con = 'Yes'
 
@@ -81,7 +81,7 @@ while retry and count < 8:
         #checking for transient errors in azure connection
         cnxn = pypyodbc.connect(db_info)
         test_cursor = cnxn.cursor()
-        test_cursor.execute("SELECT " + headers[0] + " FROM " + os.environ.get("TABLE_NAME"))
+        test_cursor.execute("SELECT " + headers[0] + " FROM " + 'dev')
         #successful execution of test query, no need to keep trying
         retry = False
         break
@@ -103,7 +103,7 @@ def reconnect():
             #checking for transient errors in azure connection
             cnxn = pypyodbc.connect(db_info)
             test_cursor = cnxn.cursor()
-            test_cursor.execute("SELECT " + headers[0] + " FROM " + os.environ.get("TABLE_NAME"))
+            test_cursor.execute("SELECT " + headers[0] + " FROM " + 'dev')
             #successful execution of test query, no need to keep trying
             retry = False
             break
@@ -161,7 +161,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
     cols = ','.join(headers_dashboard)
     #initial query formation
-    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
+    query = "SELECT " + cols + " FROM " + 'dev'    
     if len(query_lst) > 0:
         #use IN (...) query structure for efficiency
         query += " WHERE college_name IN ("
@@ -214,7 +214,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
 def get_colleges_for_explore(query_lst,headers_explore):
     cols = ','.join(headers_explore)
-    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
+    query = "SELECT " + cols + " FROM " + 'dev'
     first_state = True
     tuition_absolute = False
     tuition_count = Counter(query_lst)
@@ -300,7 +300,7 @@ def get_colleges_for_essays(query_lst,headers_essay):
         return []
  
     cols = ','.join(headers_essay)
-    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
+    query = "SELECT " + cols + " FROM " + 'dev'    
 
     if len(query_lst) > 0:
         query += " WHERE college_name IN ("
@@ -345,7 +345,7 @@ def get_colleges_for_individual(query_lst,headers_individual):
 
 
     cols = ','.join(headers_dashboard)
-    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
+    query = "SELECT " + cols + " FROM " + 'dev'    
     if len(query_lst) > 0:
         query += " WHERE college_name IN ("
         for i in range(0, len(query_lst), 2):
@@ -392,7 +392,7 @@ def get_colleges_for_individual(query_lst,headers_individual):
 
 def get_colleges_for_searchbar(headers_searchbar):
     cols = ','.join(headers_searchbar)
-    query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
+    query = "SELECT " + cols + " FROM " + 'dev'
     results = get_query(query)
     toBeSorted = []
 
@@ -415,7 +415,7 @@ def get_colleges_for_searchbar(headers_searchbar):
 # date format needs to be DD.MM.YYYY
 # returns list of JSON objects with college information
 def get_colleges(query_lst):
-    query = "SELECT * FROM " + os.environ.get("TABLE_NAME")
+    query = "SELECT * FROM " + 'dev'
     first_state = True
     tuition_absolute = False
     tuition_count = Counter(query_lst)
@@ -535,7 +535,7 @@ def get_ranking_order(college_lst):
 # returns a list of lists with name, abbreviation, alias of each college
 # puts highest ranked colleges at the top of the list
 def get_college_names():
-    query_str = "SELECT college_name, alias, abbreviation, national_ranking FROM " + os.environ.get("TABLE_NAME") + ";"
+    query_str = "SELECT college_name, alias, abbreviation, national_ranking FROM " + 'dev' + ";"
     res = get_query(query_str)
 
     res.sort(key=get_ranking_order)
@@ -576,17 +576,17 @@ def test_func():
 
 @app.route("/")
 @app.route("/profile")
-@app.route("/loginhome/explore")
-@app.route("/loginhome/login")
-@app.route("/loginhome/signup")
-@app.route("/loginhome/dashboard")
-@app.route("/loginhome/map")
+@app.route("/explore")
+@app.route("/login")
+@app.route("/signup")
+@app.route("/mycolleges")
+@app.route("/map")
 @app.route("/profile")
-@app.route("/loginhome/essays")
+@app.route("/essays")
 def my_index():
     return app.send_static_file("index.html")
 
-@app.route('/loginhome/page/<collegeName>')
+@app.route('/page/<collegeName>')
 def my_indexes(collegeName):
     return app.send_static_file("index.html")
 
@@ -676,14 +676,14 @@ def map():
 
 
 config = {
-"apiKey": os.environ.get("API_KEY"),
-"authDomain": os.environ.get("AUTH_DOMAIN"),
-"databaseURL": os.environ.get("DATABASE_URL"),
-"projectId": os.environ.get("PROJECT_ID"),
-"storageBucket": os.environ.get("STORAGE_BUCKET"),
-"messagingSenderId": os.environ.get("MESSAGING_SENDER_ID"),
-"appId": os.environ.get("APP_ID"),
-"measurementId": os.environ.get("MEASUREMENT_ID")
+    "apiKey": 'AIzaSyAMXUdaYdnlx9K9eOiDL6MFB2XY4itAUBU',
+    "authDomain": 'college-apps-e7acc.firebaseapp.com',
+    "databaseURL": 'https://college-apps-e7acc.firebaseio.com/',
+    "projectId": 'college-apps-e7acc',
+    "storageBucket": 'college-apps-e7acc.appspot.com',
+    "messagingSenderId": '823612742022',
+    "appId": '1:823612742022:web:c0a0d64ee1613e8d5b7407',
+    "measurementId": 'G-TJTQE5NENW'
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -1000,17 +1000,15 @@ def dashboard():
     print("START OF DASHBOARD METHOD")
     try:
         db.child("users").get().val()
-        print("db.get():" + db.get().val())
+        #print(db.get().val())
         #listColleges()
         colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-        print("try: " + session['currentUser'])
-        print("in try: " + colleges)
     except:
         post_request = request.get_json(force=True)
-        print("catch: " + post_request['currentUser'])
+
         # Assign value from the request
         colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
-        print("in catch: " + colleges)
+    
     print(colleges)
     name_list = []
     for name in colleges.values():
@@ -1030,7 +1028,7 @@ def dashboard():
 @app.route('/email', methods = ['POST'])
 def sendEmail():
     port = 465  # For SSL
-    password = os.environ.get("PASSWD")
+    password = 'ashwinSucks123!'
     
     post_request = request.get_json(force=True)
     

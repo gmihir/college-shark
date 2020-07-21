@@ -237,26 +237,26 @@ class DashboardTable extends React.Component {
                     {this.state.users.map(user => {
                         return (
                             <div className="individual-table">  
-                                <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>
+                                <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>
                                     <img className="logo-table" src={user.college_logo} alt="Hello" />
                                 </Link>
                                 <div className="name-position-logo">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{user.college_name}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{user.college_name}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{`${user.state}`}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{`${user.state}`}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.dateFormat(user.regular_decision)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.regular_decision)}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.dateFormat(user.early_decision)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.early_decision)}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_normal)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_normal)}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
                                 </div>
                                 {this.renderIcon(Math.random())}
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
@@ -302,26 +302,26 @@ class DashboardTable extends React.Component {
                         {this.state.users.map(user => {
                             return (
                                 <div className="individual-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>
                                         <img className="logo-table" src={user.college_logo} alt="Hello" />
                                     </Link>
                                     <div className="name-position-logo">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{user.college_name}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{user.college_name}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{`${user.state}`}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{`${user.state}`}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.dateFormat(user.regular_decision)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.regular_decision)}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.dateFormat(user.early_decision)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.early_decision)}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_normal)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_normal)}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
                                     </div>
                                     {this.renderIcon(Math.random())}
                                     <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {

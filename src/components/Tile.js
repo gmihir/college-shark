@@ -27,7 +27,7 @@ class Tile extends Component {
                     </div>
 
                     <div className="header-tile">
-                        <Link style={{textDecoration: 'none', color: 'black', width: '100%'}} to={`/loginhome/page/${this.props.collegeName}`}>
+                        <Link style={{textDecoration: 'none', color: 'black', width: '100%'}} to={`/page/${this.props.collegeName}`}>
                             <div className="college-name">
                                 <h1>{this.props.Alias}</h1>
                             </div>
@@ -43,7 +43,7 @@ class Tile extends Component {
                     <Heart collegeName={this.props.collegeName} key={this.props.collegeName} />
                 </div>
 
-                <Link style={{textDecoration: 'none', color: 'black'}} to={`/loginhome/page/${this.props.collegeName}`}>
+                <Link style={{textDecoration: 'none', color: 'black'}} to={`/page/${this.props.collegeName}`}>
                     <div className="specifications">
                     <hr></hr>
                         <div className="info-container">

@@ -60,7 +60,7 @@ export default function SignInSide() {
     });
   
   if(sessionStorage.getItem("userData")){
-      return(<Redirect to='/loginhome/dashboard' />)
+      return(<Redirect to='/mycolleges' />)
   }
 
   const textDisplay = () => {
@@ -137,7 +137,7 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        history.push("/loginhome/dashboard");
+                        history.push("/mycolleges");
                       }
                     });
                   }
@@ -193,7 +193,7 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        history.push("/loginhome/dashboard");
+                        history.push("/mycolleges");
                       }
                     });
                   }
@@ -249,7 +249,7 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
-                        history.push("/loginhome/dashboard");
+                        history.push("/mycolleges");
                       }
                     });
                   }
@@ -300,7 +300,7 @@ export default function SignInSide() {
                       setSpinner({ Spinner: false, Check: true });
                     } else {
                       sessionStorage.setItem("userData", username.username);
-                      history.push("/loginhome/dashboard");
+                      history.push("/mycolleges");
                     }
                   });
 
@@ -317,7 +317,7 @@ export default function SignInSide() {
                 </Link> */}
               </Grid>
               <Grid item>
-                <Link href="/loginhome/login" variant="body2">
+                <Link href="/login" variant="body2">
                   {"Already have an account? Log In"}
                 </Link>
               </Grid>

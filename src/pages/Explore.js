@@ -358,7 +358,7 @@ class Explore extends React.Component {
                 {this.state.ToggleClear ? <div className="clear-filters"><button onClick={this.clearFilter}>Clear Filters</button></div> : null}
                 {this.state.ExploreRedirect ? <div className="clear-filters"><button 
                 onClick={() => {
-                    this.props.history.push('/loginhome/explore');
+                    this.props.history.push('/explore');
                     this.setState({DisplayResults: false, ExploreRedirect: false});
                 }}>Return to Explore</button></div> : null}
                 

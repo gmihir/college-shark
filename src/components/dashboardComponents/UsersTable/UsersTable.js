@@ -163,7 +163,7 @@ const UsersTable = props => {
                     </TableCell>
 
                     <TableCell>
-                      <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}> <div className={classes.nameContainer}>
+                      <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}> <div className={classes.nameContainer}>
                         {/* <Avatar src={ucsd}
                           className={classes.avatar}
                           // src={user.avatarUrl}
@@ -173,11 +173,11 @@ const UsersTable = props => {
                       </div>
                       </Link>
                     </TableCell>
-                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{user.state}</Link></TableCell>
-                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{dateFormat(user.regular_decision)}</Link></TableCell>
-                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{dateFormat(user.early_decision)}</Link></TableCell>
-                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{numFormat(user.tuition_normal)}</Link></TableCell>
-                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>{numFormat(user.tuition_oos)}</Link> </TableCell>
+                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{user.state}</Link></TableCell>
+                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{dateFormat(user.regular_decision)}</Link></TableCell>
+                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{dateFormat(user.early_decision)}</Link></TableCell>
+                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{numFormat(user.tuition_normal)}</Link></TableCell>
+                    <TableCell className="info"><Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{numFormat(user.tuition_oos)}</Link> </TableCell>
                   </TableRow>
 
                 ))}
