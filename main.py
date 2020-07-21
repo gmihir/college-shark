@@ -623,13 +623,20 @@ def searchbar():
 def essays():
     try:
         db.child("users").get().val()
-        #print(db.get().val())
+        print("db.get().val()")
+        print(db.get().val())
         #listColleges()
         colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+        print("try: " + session['currentUser'])
+        print("in try: " + colleges)
     except:
+        db.child("users").get().val()
         post_request = request.get_json(force=True)
+        print("catch: " + post_request['currentUser'])
         # Assign value from the request
         colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
+        print("catch: colleges")
+        print(colleges)
     
     name_list = []
     print(colleges)
