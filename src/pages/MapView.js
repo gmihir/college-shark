@@ -243,7 +243,7 @@ export class MapView extends Component {
                   />
               </div>
               <div className="empty-list">
-                <div className="empty-text"> <p>Click a marker to begin viewing or slap the bossman in the face</p></div>
+                <div className="empty-text"> <p>Click a marker or search to begin viewing </p></div>
               </div>
             </section> : 
             /* If a college is selected, then this will render */

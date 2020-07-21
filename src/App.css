@@ -14,15 +14,15 @@
     background-image: linear-gradient(to bottom, #313b4c 0,#313b4c 100%) !important; /* override background image gradient w/ flat color */
 }
 
-.profile-icon {
-    width: 10%;
+.navbar-nav .nav-item .dropdown a {
+    z-index: 2;
 }
 
 .navbar-search { 
     position: absolute;
-    top: calc(3vh); 
+    top: calc(2vh); 
     left: calc(38vw); 
-    width: calc(60vw); 
+    width: calc(50vw); 
 }
 
 @media screen and (max-width: 767px) {

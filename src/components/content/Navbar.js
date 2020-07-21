@@ -151,10 +151,10 @@ class NavBar extends React.Component {
                   </Nav.Link>
               </Nav.Item>
             </Nav>
-            <Nav className="ml-auto" navbar>
+            <Nav navbar>
               {sessionStorage.getItem('userData') ? 
               <Nav.Item>
-                <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%' }} />}>
+                <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%'}} />}>
                   <NavDropdown.Header>Hi, {this.state.Username}</NavDropdown.Header>
                   <NavDropdown.Item onClick={() => this.setState({ShowProfile: true})}> My Account </NavDropdown.Item>
                   <NavDropdown.Item onClick={this.handleReset}>Reset Password</NavDropdown.Item>

@@ -55,6 +55,11 @@ class SearchBar extends React.Component {
                 collegeNames.push(college[0]);
             })
             
+            if(this.state.searchResults.length === 1) {
+                this.props.history.push(`/page/${this.state.searchResults[0][0]}`);
+                return;
+            }
+            
             this.props.history.push({
                 pathname: `/explore/results`,
                 search: `?results=AfeHYOXYhzE`,
@@ -191,7 +196,7 @@ class SearchBar extends React.Component {
 
         return (
             <Form className="ml-5" style={searchBar}>
-                <Form.Control type="text" onInput={this.handleChange} placeholder={this.props.nodelayout ? "Find College" : "Search for colleges" }className="mr-0" style={divStyle} 
+                <Form.Control type="text" onInput={this.handleChange} placeholder={this.props.nodelayout ? "Find College" : "Search for colleges" } className="mr-0" style={divStyle} 
                     onKeyDown={this.props.isMap ? this.mapView : this.exploreRedirect}
                 />
                 <div>

@@ -336,6 +336,7 @@ class Essays extends Component {
     renderSidebar = () => {
         return(
             <div className="sidebar">
+                {this.renderFirstHeader()}
                 <button className={this.state.ShowEssays ? "active-side" : "general-tab"} 
                     onClick={() => this.setState({ ShowEssays: true, ShowSupplemental: false})}>General Essays</button>
                 <span></span>
@@ -465,7 +466,6 @@ class Essays extends Component {
             return (
                 <div className="titleheader">
                     <div className="required">
-                        <br />
                         <h3 className="required-text">You have <b>{this.calculateNumEssays(this.state.selectedColleges)}</b> required prompt(s).</h3>
                     </div>
                     <div className="popup">
@@ -559,9 +559,6 @@ class Essays extends Component {
             } else {
                 return(
                     <div>
-                        {this.renderFirstHeader()}
-                        <br/>
-                        <br/>
                         <div className="essays-loadout">
                             {this.renderSidebar()}
                             <div className="render-essays-div">
@@ -594,9 +591,6 @@ class Essays extends Component {
             <div>
                 <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="3" />
                 {this.renderPage()}
-                <br></br>
-                <br></br>
-                <br></br>
             </div>
         )
     }
