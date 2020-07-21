@@ -1000,7 +1000,8 @@ def dashboard():
     print("START OF DASHBOARD METHOD")
     try:
         db.child("users").get().val()
-        print("db.get():" + db.get().val())
+        print("db.get().val()")
+        print(db.get().val())
         #listColleges()
         colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
         print("try: " + session['currentUser'])
@@ -1010,7 +1011,8 @@ def dashboard():
         print("catch: " + post_request['currentUser'])
         # Assign value from the request
         colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
-        print("in catch: " + colleges)
+        print("catch: colleges")
+        print(colleges)
     print(colleges)
     name_list = []
     for name in colleges.values():
