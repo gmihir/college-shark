@@ -1007,6 +1007,7 @@ def dashboard():
         print("try: " + session['currentUser'])
         print("in try: " + colleges)
     except:
+        db.child("users").get().val()
         post_request = request.get_json(force=True)
         print("catch: " + post_request['currentUser'])
         # Assign value from the request
