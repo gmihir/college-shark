@@ -5,6 +5,7 @@ import '../../../css/DashboardTable.css';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Edit from '@material-ui/icons/Edit';
 import '../../../css/DashboardToolbar.css';
+import Select from 'react-select';
 
 class DashboardTable extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class DashboardTable extends React.Component {
             headers: this.props.headers,
             users: this.props.users,
             edit: false,
+            options: [],
             descending: true,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
@@ -39,6 +41,15 @@ class DashboardTable extends React.Component {
         }
     }
 
+    componentDidMount(){
+        let options = [];
+        this.state.headers.map(header => {
+            var option = { value: header, label: header };   
+            options.push(option); 
+        })
+        this.setState({ options: options });
+    }
+
     renderIcon = (percentage) => {
         var color = this.getColor(percentage);
         var linear = "linear-gradient(to right, " + color + " 0%, " + color + " " + Math.ceil(percentage * 100) + "%, white" + Math.ceil(percentage * 100) + "%, white 100%)";
@@ -56,8 +67,8 @@ class DashboardTable extends React.Component {
                     to right, 
                     ${color} 0%,
                     ${color} ${Math.ceil(percentage * 100)}%,
-                    white ${Math.ceil(percentage * 100)}%,
-                    white 100%
+                    rgb(225, 247, 250) ${Math.ceil(percentage * 100)}%,
+                    rgb(225, 247, 250) 100%
                 )
                 `
             }}>
@@ -69,8 +80,8 @@ class DashboardTable extends React.Component {
     getColor = (percentage) => {
         var percentColor = [
             { pct: 0.0, color: { r: 255, g: 0, b: 0 } },
-            { pct: 0.5, color: { r: 255, g: 255, b: 0 } },
-            { pct: 1.0, color: { r: 0, g: 255, b: 0 } }];
+            { pct: 0.5, color: { r: 245, g: 220, b: 0 } },
+            { pct: 1.0, color: { r: 0, g: 199, b: 39 } }];
         var j;
         let i = 0;
         for (let j = 0; j < percentColor.length; j++) {
@@ -148,7 +159,6 @@ class DashboardTable extends React.Component {
         } else if (column === 'In-State Tuition') {
             category = 'tuition_normal';
         } else if (column === 'RD Deadline') {
-            console.log('jere');
             category = 'regular_decision';
         } else if (column === 'ED Deadline') {
             category = 'early_decision';
@@ -191,6 +201,19 @@ class DashboardTable extends React.Component {
         return i + 1;
     }
 
+    changeHeaders(newHeader, oldHeader){
+        let newHeaders = [];
+        var i;
+        for(let i = 0; i < this.state.headers.length; i++){
+            if(i === oldHeader){
+                newHeaders.push(newHeader['value']);
+            }else{
+                newHeaders.push(this.state.headers[i]);
+            }
+        }
+        this.setState({ headers: newHeaders });
+    }
+
     renderRegular() {
         return (
             <div>
@@ -213,7 +236,7 @@ class DashboardTable extends React.Component {
                     </div>
                     {this.state.users.map(user => {
                         return (
-                            <div className="individual-table">
+                            <div className="individual-table">  
                                 <Link style={{ textDecoration: 'none', color: 'black' }} to={`/loginhome/page/${user.college_name}`}>
                                     <img className="logo-table" src={user.college_logo} alt="Hello" />
                                 </Link>
@@ -248,6 +271,7 @@ class DashboardTable extends React.Component {
     }
 
     renderEdit() {
+        let arrayCounter = -1;
         return (
             <div>
                 <div className="toprow">
@@ -262,8 +286,15 @@ class DashboardTable extends React.Component {
                     <div className="headers">
                         <div className="name-position">College Name</div>
                         {this.state.headers.map(title => {
+                            arrayCounter++;
                             return (
-                                <div className="other-position">{title}</div>
+                                <div className="other-position-edit">
+                                    <Select onChange={(e) => {
+                                        this.changeHeaders(e, arrayCounter);    
+                                    }}
+                                        options={this.state.options} placeholder={title} value={title}
+                                    />
+                                </div>
                             )
                         })}
                     </div>
