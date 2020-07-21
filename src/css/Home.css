@@ -8,36 +8,20 @@
 
 .Background-home-page {
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .image-background {
-  background-image: url('../pages/wp2017235.jpg');
-	background-position:center;
-	background-repeat:no-repeat;
-  background-size:cover;
+  position: absolute;
+  z-index: 10;
   height: calc(45rem);
+  left: calc(5vw);
 }
 
 .navbar-home {
   width: 100%;
   font-family: "Segoe UI", BlinkMacSystemFont;
 }
-
-/* .nav {
-  background-color: rgba(0, 0, 0, 0.452) !important;  
-}
-
-.nav .nav-link {
-  color: white !important;
-  padding-top: calc(0.7rem) !important;
-  padding-bottom: calc(0.7rem) !important;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.nav .nav-link:hover {
-  color: rgb(0, 0, 0) !important;
-} */
 
 .features-container {
   width: 75%;
@@ -60,11 +44,13 @@
   text-align: center;
   display: flex;
   font-family: "Segoe UI";
+  overflow: hidden;
 }
 
 .searchbar-container{
   width: 100%;
   min-width: calc(90vw);
+  margin-left: calc(1vw);
 }
 
 .features .row {
@@ -123,7 +109,9 @@
 
 .image-background .container {
   margin-top: calc(6rem) !important;
-  background-color: rgba(0, 0, 0, 0.205) !important;
+  background-color: rgba(0, 0, 0, 0.349) !important;
+  border-radius: calc(0.6vw);
+  box-shadow: 1px 1px 5px black;
   color: white !important;
 }
 
@@ -160,6 +148,17 @@
   margin-top: calc(2rem);
   color: white;
   font-family: 'Oswald', sans-serif;
+}
 
+.carousel {
+  height: calc(45rem) !important;
+}
+
+.carousel img {
+  padding-bottom: calc(15vh) !important;
+}
+
+.carousel-caption {
+  padding-bottom: calc(22vh) !important;
 }
 

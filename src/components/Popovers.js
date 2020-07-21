@@ -20,7 +20,10 @@ const Tuition = (
         Filter results based on national rankings.
         <br/>
         <br/>
-        Example: 1 for lower bound, 10 for upper bound will return all colleges between 1 - 10 in national ranking.
+        Example: 10 for lower bound, 1 for upper bound will return all colleges between 1 - 10 in national ranking.
+        <br />
+        <br />
+        Example: 10 for lower bound, and no input for upper bound will also return all colleges between 1 - 10 in national ranking.
         <br/>
         <br/>
         All rankings come from <a href="https://www.usnews.com/best-colleges" target="_blank">usnews.com</a> 
@@ -115,20 +118,38 @@ const Tuition = (
     </Popover>
   );
 
-  const TuitionStateList = (
+  const SATScoreList = (
     <Popover id="popover-basic">
-      <Popover.Title as="h3">Tuition Type</Popover.Title>
+      <Popover.Title as="h3">SAT Average Score</Popover.Title>
       <Popover.Content>
-        Filter results based on their In State and Out of State tuitions.
+        Filter results based on the average SAT Scores for all accepted students at each college.
           <br/>
           <br/>
-        Example: Select 'In State or Out of State' filters the results in which the college has either tuition state within the range.
+        The slider starts at 0 and is capped at 1600. Dragging the slider will change the numbers above, 
+        showing you what your lower bound and upper bound is.
           <br/>
           <br/>
-        Selecting 'In State' will filter the tuition range by only the college's in state tuition.
+        For Example, if the number display is "900 - 1200", it will return Schools with average SAT score accepted between
+        900 and 1200
+          <br/>
+      </Popover.Content>
+    </Popover>
+  );
+
+  const ACTScoreList = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">ACT Average Score</Popover.Title>
+      <Popover.Content>
+      Filter results based on the average ACT Scores for all accepted students at each college.
           <br/>
           <br/>
-        The default value will be 'In state or Out of State' if no tuition type is selected
+          The slider starts at 0 and is capped at 36. Dragging the slider will change the numbers above, 
+          showing you what your lower bound and upper bound is.          
+          <br/>
+          <br/>
+          For Example, if the number display is "15 - 25", it will return Schools with average ACT score accepted between
+          15 and 25
+          <br/>
       </Popover.Content>
     </Popover>
   );
@@ -167,7 +188,8 @@ const Tuition = (
       SchoolType,
       StateList,
       LetterRec,
-      TuitionStateList,
+      ACTScoreList,
+      SATScoreList,
       Common,
       Coalition
   }

@@ -604,9 +604,6 @@ class Individual extends Component {
     }
 
     render() {
-        if(!sessionStorage.getItem("userData")){
-            return(<Redirect to='/loginhome/dashboard' />)
-        }
         return (
             <div>
                 <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="0" />
