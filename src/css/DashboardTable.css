@@ -56,6 +56,13 @@
     color: #969696;
 }
 
+.other-position-edit {
+    width: calc(11.5vw) !important;
+    padding-right: calc(3vw);
+    color: #969696;
+    font-size: calc(.75vw);
+}
+
 .other-position:hover {
     color: #4b4b4b;
     cursor: pointer;
