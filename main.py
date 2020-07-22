@@ -16,7 +16,7 @@ import pypyodbc
 import time
 
 numbers = ['acceptance_rate', 'national_ranking', 'population', 'tuition_normal', "tuition_oos", 'app_fee',
-           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date']
+           'ed_date', 'early_action', 'early_decision', 'regular_decision', 'scholarship_date','sat_overall','act_overall']
 
 dates = ['early_decision', 'early_action', 'regular_decision', 'scholarship_date']
 
@@ -51,6 +51,9 @@ headers_individual = ["college_name","transcripts","mid_year","letter_of_rec_req
 #headers required for search bar
 headers_searchbar = ["college_name","alias","abbreviation","college_logo"]
 
+headers_map = ["college_name","population","national_ranking","tuition_normal","tuition_oos",
+                "regular_decision","state","college_logo","college_campus", "latitude","longitude","locale"]
+
 app = flask.Flask(__name__, static_folder='./build', template_folder = "./build", static_url_path='/')
 CORS(app)
 
@@ -65,13 +68,13 @@ password = os.environ.get("DB_PASSWD")
 driver = '{ODBC Driver 17 for SQL Server}'
 con = 'Yes'
 
-#print(server)
+#connection string for database
 db_info = 'DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + username + ';PWD=' + password + ';MARS_Connection=' + con
 #print(db_info)
 
 retry = True
 count = 0
-
+retry_count = 0
 
 while retry and count < 8:
     try:
@@ -89,7 +92,29 @@ while retry and count < 8:
         cnxn = pypyodbc.connect(db_info)
         #retry every 2 seconds up to 8 attempts
         time.sleep(2)
-        
+
+
+def reconnect():
+    global count
+    global retry
+    
+    while retry and count < 8:
+        try:
+            #checking for transient errors in azure connection
+            cnxn = pypyodbc.connect(db_info)
+            test_cursor = cnxn.cursor()
+            test_cursor.execute("SELECT " + headers[0] + " FROM " + os.environ.get("TABLE_NAME"))
+            #successful execution of test query, no need to keep trying
+            retry = False
+            break
+        except:
+            #retry only up to 8 times
+            count += 1
+            cnxn.close()
+            cnxn = pypyodbc.connect(db_info)
+            #retry every 2 seconds up to 8 attempts
+            time.sleep(2)
+            
 
 if __name__ == '__main__':
     app.run(debug=False)
@@ -98,17 +123,28 @@ if __name__ == '__main__':
 # returns a list
 # colleges is the table where accurate information is stored
 def get_query(query):
+    global retry_count
+    try:
+        cursor = cnxn.cursor()
 
-    cursor = cnxn.cursor()
+        cursor.execute(query)
+        myresult = cursor.fetchall()
+        cursor.close()
 
-    cursor.execute(query)
-    myresult = cursor.fetchall()
-    cursor.close()
+        return myresult
+    except:
+        retry_count += 1
+        reconnect()
+        if retry_count is 1:
+            cursor = cnxn.cursor()
+            cursor.execute(query)
+            myresult = cursor.fetchall()
+            cursor.close()
 
-    return myresult
 
 
 def query_screen(query_lst):
+    #regex match to ensure only allowed characters are in the query
     for i in query_lst:
         if "St John''s University-New York" in str(i):
             continue
@@ -123,19 +159,24 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
     if len(query_lst) is 0:
         return []
 
-
     cols = ','.join(headers_dashboard)
+    #initial query formation
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")    
     if len(query_lst) > 0:
+        #use IN (...) query structure for efficiency
         query += " WHERE college_name IN ("
         for i in range(0, len(query_lst), 2):
             if query_lst[i+1].find("'") is not -1:
+                #replace every ' with another ' immediately after 
                 query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]
             if query_lst[i] == "college_name":
+                #put string in single quotes
                 query += "\'" + query_lst[i + 1] + "\'"
+                #end of college name list, close parens 
                 if i+3 >= len(query_lst):
                     query += ")"
                 else:
+                    #still more colleges, keep (...,...) structure in query
                     query += ","
             else:
                 return "Incorrect Usage -- Not all parameters are college names"
@@ -146,7 +187,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
     print(query)
 
-
+    #only execute query if it passes the screening
     if query_screen(query_lst):
         results = get_query(query)
     else:
@@ -160,14 +201,14 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
         c = College(element)
         toBeSorted.append(c)
 
+    #sort alphabetically in-place
     mergeSort_alphabetical(toBeSorted,headers_dashboard)
     json = []
 
     for college in toBeSorted:
         json.append(college.get_json(headers_dashboard))
     
-
-
+    #return json result
     return json
 
 
@@ -365,8 +406,7 @@ def get_colleges_for_searchbar(headers_searchbar):
     for college in toBeSorted:
         json.append(college.get_json(headers_searchbar))
 
-    return json
-
+    return json    
 
 
 
@@ -515,8 +555,7 @@ def get_college_names():
 
 
 #QUERY TESTING
-#lst = get_colleges(["national_ranking","+1","national_ranking","-20","tuition_oos","+10000","tuition_oos","-15000","tuition_normal","+10000","tuition_normal","-15000"])
-
+#lst = get_colleges(["national_ranking","-40","sat_overall","+1400","sat_overall","-1600","school_type","Public"])
 
 #TUITION TESTING
 # lst = get_colleges(["tuition_oos", "+10000","tuition_oos","-20000"])
@@ -537,17 +576,17 @@ def test_func():
 
 @app.route("/")
 @app.route("/profile")
-@app.route("/loginhome/explore")
-@app.route("/loginhome/login")
-@app.route("/loginhome/signup")
-@app.route("/loginhome/dashboard")
-@app.route("/loginhome/map")
+@app.route("/explore")
+@app.route("/login")
+@app.route("/signup")
+@app.route("/mycolleges")
+@app.route("/map")
 @app.route("/profile")
-@app.route("/loginhome/essays")
+@app.route("/essays")
 def my_index():
     return app.send_static_file("index.html")
 
-@app.route('/loginhome/page/<collegeName>')
+@app.route('/page/<collegeName>')
 def my_indexes(collegeName):
     return app.send_static_file("index.html")
 
@@ -589,9 +628,8 @@ def essays():
         colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
     except:
         post_request = request.get_json(force=True)
-
         # Assign value from the request
-        colleges = post_request['currentUser']
+        colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
     
     name_list = []
     print(colleges)
@@ -617,6 +655,19 @@ def individual():
     #formats incoming request to proper format for calling function
     college_json = get_colleges_for_dashboard(["college_name",name],headers_individual)
     return jsonify(college_json)
+
+
+@app.route("/map", methods = ['POST'])
+def map():
+    post_request = request.get_json(force=True)
+
+    #Assign value from the request
+    is_descending = post_request['IsDescending']
+
+    colleges_array = get_colleges_for_searchbar(headers_map)
+    # print(colleges_array)
+
+    return jsonify(get_order(colleges_array, "college_name", is_descending, headers_map))
 
 
 
@@ -956,7 +1007,7 @@ def dashboard():
         post_request = request.get_json(force=True)
 
         # Assign value from the request
-        colleges = post_request['currentUser']
+        colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
     
     print(colleges)
     name_list = []

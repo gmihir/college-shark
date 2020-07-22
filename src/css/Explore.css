@@ -170,8 +170,36 @@ span {
     width: calc(100%);
 }
 
+.slider-header {
+    font-family: 'Noto Sans JP', sans-serif;
+    width: 100%;
+    text-align: left;
+    margin-bottom: calc(1vh);
+    margin-left: calc(0.5rem);
+    display: flex;
+    flex-direction: row;
+}
+
+.slider-header p{
+    margin-left: calc(1vw);
+    font-weight: 500;
+    margin-top: calc(0.1vh);
+}
+
+.div-slider {
+    width: calc(100%);
+    display: flex;
+    flex-direction: column;
+}
+
 .dropdown-main {
     width: calc(89%);
+}
+
+.slider-main {
+    width: calc(78%);
+    margin-top: calc(-0.5vh);
+    margin-left: calc(1vw);
 }
 
 .dropdown-name {

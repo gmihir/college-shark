@@ -128,33 +128,33 @@ class NavBar extends React.Component {
             </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={this.props.active}>
               <Nav.Item >
-                <Nav.Link eventKey="1" href="/loginhome/dashboard">
+                <Nav.Link eventKey="1" href="/mycolleges">
                   My Colleges
                   </Nav.Link>
               </Nav.Item>
 
               <Nav.Item >
-                <Nav.Link eventKey="2" href="/loginhome/explore">
+                <Nav.Link eventKey="2" href="/explore">
                   Explore
                   </Nav.Link>
               </Nav.Item>
 
               <Nav.Item >
-                <Nav.Link eventKey="3" href="/loginhome/essays">
+                <Nav.Link eventKey="3" href="/essays">
                   Essays
                   </Nav.Link>
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link eventKey="4" href="/loginhome/map">
+                <Nav.Link eventKey="4" href="/map">
                   Map View
                   </Nav.Link>
               </Nav.Item>
             </Nav>
-            <Nav className="ml-auto" navbar>
+            <Nav navbar>
               {sessionStorage.getItem('userData') ? 
               <Nav.Item>
-                <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%' }} />}>
+                <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%'}} />}>
                   <NavDropdown.Header>Hi, {this.state.Username}</NavDropdown.Header>
                   <NavDropdown.Item onClick={() => this.setState({ShowProfile: true})}> My Account </NavDropdown.Item>
                   <NavDropdown.Item onClick={this.handleReset}>Reset Password</NavDropdown.Item>
@@ -165,10 +165,10 @@ class NavBar extends React.Component {
               </Nav.Item> : 
               <Nav className="ml-auto" navbar>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/loginhome/login">Login</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/loginhome/signup">Sign up</Nav.Link>
+                    <Nav.Link href="/signup">Sign up</Nav.Link>
                 </Nav.Item>
               </Nav>
               }

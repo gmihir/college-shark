@@ -42,7 +42,7 @@ class Features extends React.Component {
         } else {
             return (
                 this.state.resultsFromSearch.map(college => (
-                    <Nav.Link href={`/loginhome/features/${college}`} className="fixedHeight">
+                    <Nav.Link href={`/features/${college}`} className="fixedHeight">
                         <div className="searchResult">
                             <img src={Image3} alt="Hello" className="imageBox" />
                             {college}

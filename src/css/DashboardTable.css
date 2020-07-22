@@ -35,6 +35,14 @@
     font-family: 'Mukta', sans-serif;
 }
 
+.name-position:hover{
+    cursor: pointer;
+}
+
+.other-position:hover{
+    cursor: pointer;
+}
+
 .name-position {
     position: relative;
     left: calc(2.5vw);
@@ -46,6 +54,13 @@
     width: calc(11.5vw) !important;
     padding-right: calc(3vw);
     color: #969696;
+}
+
+.other-position-edit {
+    width: calc(11.5vw) !important;
+    padding-right: calc(3vw);
+    color: #969696;
+    font-size: calc(.75vw);
 }
 
 .other-position:hover {
@@ -77,44 +92,13 @@
     color: #4b4b4b;
 }
 
-.done-icon {
+.icon {
     font-family: 'Palanquin Dark', sans-serif;
     margin-left: calc(-1vw);
     width: calc(6.5vw);
     height: calc(2vw);
     border-radius: calc(1vw);
-    background-color: #0cc76c;
-    color: rgb(255, 255, 255);
-    font-size: calc(.9vw);
-    align-items: center;
-    justify-content: space-evenly;
-    display: flex;
-    flex-direction: row;
-}
-
-.inprogress-icon {
-    font-family: 'Palanquin Dark', sans-serif;
-    margin-left: calc(-1vw);
-    width: calc(6.5vw);
-    height: calc(2vw);
-    border-radius: calc(1vw);
-    background-color: #ebe310;
-    color: rgb(255, 255, 255);
-    font-size: calc(.9vw);
-    align-items: center;
-    justify-content: space-evenly;
-    display: flex;
-    flex-direction: row;
-}
-
-.notstarted-icon {
-    font-family: 'Palanquin Dark', sans-serif;
-    margin-left: calc(-1vw);
-    width: calc(6.5vw);
-    height: calc(2vw);
-    border-radius: calc(1vw);
-    background-color: #c91616;
-    color: rgb(255, 255, 255);
+    color: rgb(25, 25, 25);
     font-size: calc(.9vw);
     align-items: center;
     justify-content: space-evenly;
@@ -123,5 +107,5 @@
 }
 
 .fade-table{
-    opacity: .1;
+    opacity: .15;
 }

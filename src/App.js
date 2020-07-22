@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Explore from './pages/Explore';
 import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -18,7 +17,7 @@ const RequireAuth = (Component) => {
       if (sessionStorage.getItem("userData")) {
 
       } else {
-        this.props.history.replace({ pathname: '/loginhome/login' });
+        this.props.history.replace({ pathname: '/login' });
       }
     }
 
@@ -42,21 +41,20 @@ class App extends React.Component {
             crossOrigin="anonymous"
             />
           <Switch>
-            <Route exact path="/loginhome/explore" render={(props) => (
+            <Route exact path="/explore" render={(props) => (
               <Explore {...props} key={"Explore"} />
             )} />
-            <Route exact path="/loginhome/explore/results" render ={(props) => (
+            <Route exact path="/explore/results" render ={(props) => (
                 <Explore {...props} key={props.location.key} /> 
               )} />
-            <Route path="/loginhome/dashboard" component={Dashboard} />
-            <Route exact path="/loginhome/login" component={Login} />
-            <Route exact path="/loginhome/signup" component={Signup} />
-            <Route exact path="/loginhome/page/:collegeName" render={(props) => (
+            <Route exact path="/mycolleges" component={Dashboard} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route path="/page/:collegeName" render={(props) => (
               <Individual key={props.match.params.collegeName} {...props} />)
             } />
-            <Route exact path="/loginhome/essays" component={Essays} />
-            <Route exact path="/profile" component={RequireAuth(Profile)} />
-            <Route exact path="/loginhome/map" component={MapView} />
+            <Route exact path="/essays" component={Essays} />
+            <Route exact path="/map" component={MapView} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

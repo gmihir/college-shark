@@ -17,12 +17,12 @@ class Navigationbar extends React.Component {
                 </div>
                 <Nav variant="tabs" className="flex-column" defaultActiveKey={this.props.active}>
                     <Nav.Item className="dashboard">
-                        <Nav.Link eventKey="1" href="/loginhome/dashboard">
+                        <Nav.Link eventKey="1" href="/mycolleges">
                         <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>  Dashboard</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item className="explore">
-                        <Nav.Link eventKey="2" href="/loginhome/explore">
+                        <Nav.Link eventKey="2" href="/explore">
                         <FontAwesomeIcon icon={faQuestion}></FontAwesomeIcon>  Explore</Nav.Link>
                     </Nav.Item>
                 </Nav>

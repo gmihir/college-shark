@@ -6,10 +6,13 @@ import '../../css/SearchBar.css';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import Heart from './Heart';
 import Imaged from '../../pages/UCSDLogo.png';
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             searchResults: [],
             clickOutside: true,
@@ -18,6 +21,7 @@ class SearchBar extends React.Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.exploreRedirect = this.exploreRedirect.bind(this);
+        this.mapView = this.mapView.bind(this);
     }
 
     componentDidMount() {
@@ -51,12 +55,38 @@ class SearchBar extends React.Component {
                 collegeNames.push(college[0]);
             })
             
+            if(this.state.searchResults.length === 1) {
+                this.props.history.push(`/page/${this.state.searchResults[0][0]}`);
+                return;
+            }
+            
             this.props.history.push({
-                pathname: `/loginhome/explore/results`,
-                search: `?results=${collegeNames[0]}`,
+                pathname: `/explore/results`,
+                search: `?results=AfeHYOXYhzE`,
                 state: {Colleges: collegeNames, Search: this.state.searchValue}
             })
         }   
+    }
+
+    mapView(e) {
+        //Check the keyCode
+        if(e.keyCode === 13) {
+            //Prevent the refresh from occuring
+            e.preventDefault();
+            if(this.state.searchResults.length === 0) {
+                //If no results, nothing happens
+                return;
+            } else {
+                //Get the first item from the list when user hits 'Enter'
+                const getCollege = this.state.searchResults[0][0];
+                //Call the onClick method from MapView.js
+                this.props.onClick(getCollege)
+                //Clear the searchbar when done
+                this.setState({
+                    clickOutside: true
+                })
+            }
+        }
     }
 
     handleChange(e) {
@@ -163,10 +193,11 @@ class SearchBar extends React.Component {
         if (this.props.searchBar === this.state.clickOutside) {
             this.setState({ clickOutside: !this.props.searchBar })
         }
+
         return (
             <Form className="ml-5" style={searchBar}>
-                <Form.Control type="text" onInput={this.handleChange} placeholder="Search for colleges" className="mr-0" style={divStyle} 
-                    onKeyDown={this.exploreRedirect}
+                <Form.Control type="text" onInput={this.handleChange} placeholder={this.props.nodelayout ? "Find College" : "Search for colleges" } className="mr-0" style={divStyle} 
+                    onKeyDown={this.props.isMap ? this.mapView : this.exploreRedirect}
                 />
                 <div>
                     {this.state.searchResults.map(collegeArray => {
@@ -179,17 +210,28 @@ class SearchBar extends React.Component {
                             }
 
                             if(this.props.nodelayout) {
+                                console.log(this.props)
                                 return (
-                                    <div className="map-results">
-                                        <div className="map-collegename">
-                                            {college}
+                                    <div className="map-container">
+                                        <div className="map-results">
+                                            <div className="map-results-space">
+                                                <FontAwesomeIcon icon={faMapMarkerAlt} />
+                                            </div>
+                                            <div className="map-collegename" onClick={() => {
+                                                this.props.onClick(college);
+                                                this.setState({
+                                                    clickOutside: true
+                                                })
+                                            }}>
+                                                <p>{college}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 )
                             } else {
                                 return (
                                     <div className="individual">
-                                        <Link to={`/loginhome/page/${college}`}>
+                                        <Link to={`/page/${college}`}>
                                             <div>
                                                 <div className="circle">
                                                 </div>

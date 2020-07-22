@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {Redirect} from 'react-router';
-import { Container, Nav, Button, Row, Col, Form, Modal} from 'react-bootstrap';
+import { Container, Nav, Button, Row, Col, Form, Modal, Carousel} from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 import SearchBar from '../components/content/SearchBar';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
 import { faGlobeAmericas, faLayerGroup, faScroll, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+const Stanford = require('./wp2017235.jpg');
+const Rice = require('./Rice.jpg');
+const Royce = require('./Royce.jpg');
 
 function Home() {
 
@@ -79,7 +82,7 @@ function Home() {
       }
 
     // if(sessionStorage.getItem("userData")){
-    //     return(<Redirect to='/loginhome/dashboard' />)
+    //     return(<Redirect to='/mycolleges' />)
     // }
 
     function handleDisplay() {
@@ -98,21 +101,11 @@ function Home() {
     return (
         <div className="Background-home-page">
             <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"></link>
-
-            <div className="image-background">
-                {/* <Nav className="justify-content-end w-100" activeKey="/home">
-                    <Nav.Item>
-                        <Nav.Link as={Link} to="/loginhome/login">Login</Nav.Link>
-                    </Nav.Item>
-                
-                    <Nav.Item>
-                        <Nav.Link as={Link} to="/loginhome/signup">Sign up</Nav.Link>
-                    </Nav.Item>
-                </Nav> */}
-                <div className="navbar-home">
+            <div className="navbar-home">
                     <NavBar searchBarInUse={searchBarInUse} setSearch={setSearch} searchBar={search.Search} displaySearch={false} />
                 </div>
 
+            <div className="image-background">
                 <Container style={{paddingBottom: 'calc(5vh)'}}>
                     <Row className="justify-content-md-center">
                         <Col md="auto" style={{fontSize: "calc(5.5rem"}}>100 APPS. ONE PLACE.</Col>
@@ -123,7 +116,7 @@ function Home() {
                     </Row>
 
                     <Row className="justify-content-md-center">
-                        {/* <Link to="/loginhome/signup">
+                        {/* <Link to="/signup">
                             <Button variant="primary" size="lg">
                                 Sign up
                             </Button>{' '}
@@ -139,6 +132,47 @@ function Home() {
                 </div>
 
             </div>
+
+            <Carousel pause={true} interval={3500}>
+                <Carousel.Item>
+                    <img
+                    className="w-100"
+                    src={Stanford}
+                    alt="First slide"
+                    height="850"
+                    />
+                    <Carousel.Caption>
+                        <h3>Stanford University</h3>
+                        <p>The Main Quad</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src={Rice}
+                    alt="Secord slide"
+                    height="850"
+                    />
+
+                    <Carousel.Caption>
+                        <h3>Rice University</h3>
+                        <p>Lovett Hall</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src={Royce}
+                    alt="Third slide"
+                    height="850"
+                    />
+
+                    <Carousel.Caption>
+                        <h3>University of Texas-Austin</h3>
+                        <p>The Tower</p>
+                    </Carousel.Caption>
+            </Carousel.Item>
+            </Carousel>
 
             <div className="features-container">
                 <div className="features">
@@ -240,7 +274,6 @@ function Home() {
             <span></span>
 
             {show.Show ? handleDisplay() : null}
-
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
 import '../css/Essays.css';
 import { OverlayTrigger, Spinner,Button,ButtonGroup } from 'react-bootstrap';
+import { withRouter } from 'react-router';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +11,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { IoIosReturnLeft } from 'react-icons/io';
 
 class Essays extends Component {
     constructor(props) {
@@ -42,6 +44,9 @@ class Essays extends Component {
         this.renderSupplementalTitle = this.renderSupplementalTitle.bind(this);
         this.renderSupplementals = this.renderSupplementals.bind(this);
         this.renderSidebar = this.renderSidebar.bind(this);
+        this.collegesRequiringCommon = this.collegesRequiringCommon.bind(this);
+        this.collegesRequiringUC = this.collegesRequiringUC.bind(this);
+        this.collegesRequiringCoalition = this.collegesRequiringCoalition.bind(this);
     }
 
     setSearch = (results) => {
@@ -132,6 +137,96 @@ class Essays extends Component {
         } 
     }
 
+    collegesRequiringUC() {
+        var required = [];
+        if(!this.requiresCommonApp) {
+            return;
+        }
+        this.state.selectedColleges.forEach(college => {
+            if(college.app_site === "UC Application") {
+                required.push(college.college_name);
+            }
+        });
+        if (required.length > 0) {
+            return (
+                <div className="collegelist">
+                    <h2>Required For: </h2>
+                    <ul>
+                    {required.map((college) => {
+                        return (
+                            <div className="collegelisttext">
+                                    <li>{college}</li>
+                            </div>
+                        )
+                    })}
+                    </ul>
+                </div>
+            );
+        } else {
+            return 0;
+        }
+    }
+
+    collegesRequiringCommon() {
+        var required = [];
+        if(!this.requiresCommonApp) {
+            return;
+        }
+        this.state.selectedColleges.forEach(college => {
+            if(college.common_app === "y") {
+                required.push(college.college_name);
+            }
+        });
+        if (required.length > 0) {
+            return (
+                <div className="collegelist">
+                    <h2>Required For: </h2>
+                    <ul>
+                    {required.map((college) => {
+                        return (
+                            <div className="collegelisttext">
+                                <li>{college}</li>
+                            </div>
+                        )
+                    })}
+                    </ul>
+                </div>
+            );
+        } else {
+            return 0;
+        }
+    }
+
+    collegesRequiringCoalition() {
+        var required = [];
+        if(!this.requiresCommonApp) {
+            return;
+        }
+        this.state.selectedColleges.forEach(college => {
+            if(college.coalition_app === "y") {
+                required.push(college.college_name);
+            }
+        });
+        if (required.length > 0) {
+            return (
+                <div className="collegelist">
+                    <h2>Required For: </h2>
+                    <ul>
+                    {required.map((college) => {
+                        return (
+                            <div className="collegelisttext">
+                                    <li>{college}</li>
+                            </div>
+                        )
+                    })}
+                    </ul>
+                </div>
+            );
+        } else {
+            return 0;
+        }
+    }
+
     calculateNumEssays() {
         var num = 0;
         if(this.state.selectedColleges.length === 0) {
@@ -179,6 +274,10 @@ class Essays extends Component {
 
 
     componentDidMount() {
+        if(!sessionStorage.getItem('userData')) {
+            this.setState({Loading: false});
+            return;
+        }
         fetch("/essays", {
             method: "POST",
             header: {
@@ -237,6 +336,7 @@ class Essays extends Component {
     renderSidebar = () => {
         return(
             <div className="sidebar">
+                {this.renderFirstHeader()}
                 <button className={this.state.ShowEssays ? "active-side" : "general-tab"} 
                     onClick={() => this.setState({ ShowEssays: true, ShowSupplemental: false})}>General Essays</button>
                 <span></span>
@@ -272,6 +372,7 @@ class Essays extends Component {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {this.collegesRequiringUC()}
                 </div>
             )
         }
@@ -303,6 +404,7 @@ class Essays extends Component {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {this.collegesRequiringCommon()}
                 </div>
             )
         }
@@ -332,6 +434,7 @@ class Essays extends Component {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {this.collegesRequiringCoalition()}
                 </div>
             )
         }
@@ -339,21 +442,30 @@ class Essays extends Component {
 
     renderFirstHeader = () => {
         console.log(this.state.selectedColleges)
+
+        if(!sessionStorage.getItem('userData')) {
+            return (
+                <div className="empty-div">
+                    <div className="redirect-div">
+                        <h3 className="explore-redirect">To use this feature, you have to be signed in! Click 'Sign up' If you're not a user</h3>
+                        <button className="signup-redirect" onClick={() => this.props.history.push('/signup')}>Sign up</button>
+                    </div>
+                </div>
+            )
+        }
         if(this.state.selectedColleges.length === 0) {
-            return(
+            return (
             <div className="empty-div">
                 <div className="redirect-div">
                     <br />
                     <h3 className="explore-redirect">You haven't selected any colleges, click Explore to start adding some!</h3>
                 </div>
             </div>
-
             )
         } else {
             return (
                 <div className="titleheader">
                     <div className="required">
-                        <br />
                         <h3 className="required-text">You have <b>{this.calculateNumEssays(this.state.selectedColleges)}</b> required prompt(s).</h3>
                     </div>
                     <div className="popup">
@@ -419,6 +531,7 @@ class Essays extends Component {
                                         </Typography>
                                     </AccordionDetails>
                                 </Accordion>
+                                
                             </div>
                         )
                     })}
@@ -442,47 +555,30 @@ class Essays extends Component {
                             </Spinner>
                         </div>
                     </div>
-    
                 )
-            }
-            return(
-                <div>
-                    {this.renderFirstHeader()}
-                    <br/>
-                    <br/>
-                    <div className="essays-loadout">
-                        {this.renderSidebar()}
-                        <div className="render-essays-div">
-                            {this.state.ShowEssays ? <section className="render-essays">
-                                {this.renderUC()}   
-                                {this.renderCommon()}
-                                {this.renderCoalition()}
-                            </section> : null}
-
-                            {this.state.ShowSupplemental ? this.renderSupplementals() : null}
+            } else {
+                return(
+                    <div>
+                        <div className="essays-loadout">
+                            {this.renderSidebar()}
+                            <div className="render-essays-div">
+                                {this.state.ShowEssays ? <section className="render-essays">
+                                    {this.renderUC()}   
+                                    {this.renderCommon()}
+                                    {this.renderCoalition()}
+                                </section> : null}
+    
+                                {this.state.ShowSupplemental ? this.renderSupplementals() : null}
+                            </div>
                         </div>
                     </div>
-                </div>
-            //     <div>
-            //      {this.renderFirstHeader()}
-            //      {this.renderGeneralHeader()}
-            //      <div className="section">
-            //         {this.renderUC()}
-            //         {this.renderCommon()}
-            //         {this.renderCoalition()}
-            //      </div>
-            //      <div classname="section">
-            //         {this.renderSupplementalHeader()}
-            //         {this.renderSupplementals()}
-            //      </div>
-            //    </div>
-            )
-
+                )
+            }
         }
     }
 
     render() {
-        if(this.state.selectedColleges.length === 0) {
+        if(this.state.selectedColleges.length === 0 && this.state.Loading === false) {
             return(
                 <div>
                     <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="3" />
@@ -495,9 +591,6 @@ class Essays extends Component {
             <div>
                 <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="3" />
                 {this.renderPage()}
-                <br></br>
-                <br></br>
-                <br></br>
             </div>
         )
     }

@@ -1,14 +1,19 @@
 .mapview-container {
     width: 100%;
-    height: calc(50vh);
-    overflow-y: none;
-    overflow: hidden;
+    max-height: calc(50vh);
 }
 
 .mapview {
-    height: calc(95vh);
+    max-height: calc(92vh);
     height: auto;
+    position: relative;
 }
+
+/*
+.map-div div:first-child {
+    height: calc(92vh) !important;
+}
+*/
 
 .college-display {
     margin-top: 0;
@@ -16,13 +21,13 @@
     min-height: calc(92vh);
     border-radius: calc(1vh);
     position: absolute;
-    box-shadow: calc(3px) calc(3px) calc(10px) grey; 
+    box-shadow: calc(4px) calc(4px) calc(10px) rgb(24, 23, 23); 
 }
 
 .map-search {
     width: 100%;
     position: absolute;
-    left: calc(-1.5vw);
+    left: calc(-1vw);
     top: calc(1vh);
     z-index: 10;
 }
@@ -33,16 +38,49 @@
 
 .img-section img {
     max-width: calc(25vw);
-    max-height: calc(30vh);
+    height: calc(30vh);
+    min-height: calc(27vh);
+    max-height: calc(33vh);
     object-fit: cover;
+    position: relative;
+}
+
+.heart-location {
     position: relative;
 }
 
 .college-add-icon {
     position: absolute;
     right: calc(0.7vw);
-    top: calc(14.8vh);
+    top: calc(0.9vh);
     transform: scale(1.7);
+}
+
+.reset-map{ 
+    position: absolute;
+    z-index: 5;
+    left: calc(35vw);
+    top: calc(1.2vh);
+    background-color: rgb(63, 81, 181);
+    border-radius: calc(0.4rem);
+    padding: calc(0.8vh);
+    transition: 0.2s;
+}
+
+.reset-button {
+    border: none;
+    border-left: none;
+    background: none;
+    color: white; 
+}
+
+.reset-button:focus {
+    outline: 0
+}
+
+.reset-map:hover {
+    transition: 0.2s;
+    background-color: rgb(50, 71, 187);
 }
 
 .individual-redirect {
@@ -53,6 +91,7 @@
     background-color: rgb(63, 81, 181);
     color: white;
     transition: 0.3s;
+    box-shadow: calc(4px) calc(4px) calc(10px) rgb(110, 109, 109); 
 }
 
 .individual-redirect:hover {
@@ -65,11 +104,18 @@
     margin-top: calc(3vh);
     text-align: center;
     position: relative;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 .college-name {
     width: calc(90%);
-    font-size: calc(1.2vw);    
+    font-size: calc(1.1vw);    
+}
+
+.college-information h3 {
+    font-size: calc(0.8vw);
+    text-align: left;
+    margin-left: calc(1.1vw);
 }
 
 .college-information hr {
@@ -94,7 +140,27 @@
 }
 
 .college-info-container h2{
-    font-size: calc(1.2vw);
-    margin-top: calc(0vh);
+    font-size: calc(0.9vw);
+    margin-top: calc(0.5vh);
     margin-bottom: calc(2vh);
+}
+
+/* For when there is no colleges on the side tab */
+.empty-list {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: calc(70%);
+}
+
+.empty-text {
+    width:80%;
+}
+
+.empty-list p {
+    width: 100%;
+    color: grey;
+    font-size: calc(1.2vw);
+    font-family: 'Noto Sans JP', sans-serif;
 }

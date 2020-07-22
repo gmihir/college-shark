@@ -5,6 +5,8 @@
     width: calc(100%);
     display: flex;
     flex-direction: row;
+    border-bottom: 1px solid grey;
+    height: calc(13vh);
 }
 
 .title{
@@ -18,14 +20,21 @@
     margin-left: calc(0vw);
     width: calc(20vw);
     min-width: calc(20vw);
-    padding-top: calc(6vh);
+    padding-top: calc(3vh);
     display: flex;
+    background-color: rgb(243, 243, 243);
     flex-direction: column;
-    border-right: 2.5px solid black;
-    min-height: calc(70vh);
+    border-top-right-radius: calc(1rem);
+    border-bottom-right-radius: calc(1rem);
+    box-shadow: 4px 4px 14px grey;
+    min-height: calc(92vh);
     height: auto;
     text-align: center;
     align-items: center;
+}
+
+.general-tab {
+    margin-top: calc(4vh);
 }
 
 .general-tab, .supplemental-tab {
@@ -50,6 +59,7 @@
 }
 
 .active-side {
+    margin-top: calc(4vh);
     width: 90%;
     border: none;
     border-left: none;
@@ -87,6 +97,7 @@
 
 .render-essays-div {
     width: calc(100%);
+    margin-top: calc(2vh);
 }
 
 .render-essays {
@@ -96,7 +107,8 @@
 
 .popup{
     text-align: left;
-    padding-left: calc(1vw);
+    padding-left: calc(0vw);
+    margin-right: calc(1vw);
 }
 
 .btn {
@@ -116,10 +128,12 @@
     padding-left: calc(1vw);
     font-family: 'Roboto', sans-serif;
     font-weight:lighter;
+    margin-bottom: calc(5vh);
 }
 
 h3.required-text{
     font-family: 'Roboto',sans-serif;
+    font-size: calc(1.6vw);
     font-weight: 400;
 }
 
@@ -169,6 +183,8 @@ h3.required-text{
 }
 
 .redirect-div {
+    width: 100%;
+    text-align: center;
     margin-top: calc(15%);
     color: black;
 }
@@ -177,4 +193,56 @@ h3.required-text{
     font-family: 'Roboto', sans-serif;
     z-index: 10;
     color: rgba(0, 0, 0, 0.534);
+}
+
+.signup-redirect {
+    margin-top: calc(1.2vh);
+    padding: calc(1vh);
+    padding-right: calc(1vw);
+    padding-left: calc(1vw);
+    border: none;
+    border-left: none;
+    font-size: calc(1rem);
+    border-radius: calc(0.5vh);
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: rgb(63, 81, 181);
+    transition: 0.3s;
+    color: white;
+    outline: none;
+}
+
+.signup-redirect:hover {
+    background-color: rgb(50, 71, 187);
+    color: white;
+    transition: 0.3s;
+}
+
+.signup-redirect:focus {
+    outline: 0;
+}
+
+
+/* STYLING FOR LIST OF COLLEGE NAMES */
+
+.collegelist{
+    margin-top: calc(1.1vh);
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: rgb(248, 248, 248);
+    box-shadow: 4px 4px 10px rgb(155, 154, 154);
+    border-radius: calc(0.5vw);
+    padding: calc(1vh)
+}
+
+.collegelist h2 {
+    font-size: calc(1.2vw);
+    margin-left: calc(0.5vw);
+}
+
+.collegelist ul {
+    list-style: circle;
+    
+}
+
+.collegelisttext{
+    padding-top:calc(0.3vh);
 }

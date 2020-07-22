@@ -56,6 +56,12 @@ class Dashboard extends React.Component {
     })
   }
 
+  componentDidMount() {
+    if (!sessionStorage.getItem('userData')) {
+      this.setState({ Loading: false });
+    }
+  }
+
   selectedCollegeSet = (colleges) => {
     if (this.state.selectedColleges !== colleges) {
       this.setState({ selectedColleges: colleges });
@@ -140,9 +146,9 @@ class Dashboard extends React.Component {
         )
       }
       return (
-          <div className={useStyles.theme}>
-            <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition', 'Status']} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
-          </div>
+        <div className={useStyles.theme}>
+          <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition', 'Status']} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
+        </div>
       )
     } else {
 
@@ -150,17 +156,32 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />
-        <div>
-          {
-            this.renderDashboard()
-          }
-        </div>
 
-      </div>
-    )
+    if (!sessionStorage.getItem('userData')) {
+      return (
+        <div>
+          <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />
+          <div className="empty-div">
+            <div className="redirect-div">
+              <h3 className="explore-redirect">To use this feature, you have to be signed in! Click 'Sign up' If you're not a user</h3>
+              <button className="signup-redirect" onClick={() => this.props.history.push('/signup')}>Sign up</button>
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />
+          <div>
+            {
+              this.renderDashboard()
+            }
+          </div>
+
+        </div>
+      )
+    }
   }
 }
 

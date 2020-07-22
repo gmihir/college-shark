@@ -1,4 +1,6 @@
 import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { withRouter } from 'react-router';
 import AddCircle from '@material-ui/icons/AddCircle';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
@@ -12,14 +14,43 @@ class Heart extends React.Component {
             status: false,
             hoverStatus: false,
             currentCollege: this.props.collegeName,
-            key: this.props.key
+            key: this.props.key,
+            Show: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
+        this.notSignedIn = this.notSignedIn.bind(this);
+    }
+
+    notSignedIn() {
+        return (
+            <Modal show={this.state.Show} onHide={() => this.setState({Show: false})}>
+                <Modal.Header closeButton>
+                <Modal.Title>Not Signed In!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>To use this feature, you have to be signed in! Click 'Sign up' If you're not a user</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={() => this.props.history.push('/signup')}
+                    style={{fontFamily: 'Roboto, sans-serif', fontWeight: '500'}}>
+                    Sign up
+                </Button>
+                <Button variant="primary" onClick={() => this.props.history.push('/login')}
+                style={{fontFamily: 'Roboto, sans-serif', fontWeight: '500'}}>
+                    Login
+                </Button>
+                </Modal.Footer>
+            </Modal>
+        )
     }
 
     handleClick = async (e) => {
+        console.log(sessionStorage.getItem("userData"))
+        if(sessionStorage.getItem("userData") === null) {
+            this.setState({Show: true});
+            return;
+        }
+
         if (this.state.status === true) {
             fetch("/removecollege", {
                 method: "POST",
@@ -89,6 +120,12 @@ class Heart extends React.Component {
     }
 
     render() {
+        if(this.state.Show) {
+            return (
+                this.notSignedIn()
+            )
+        }
+
         if(this.state.status){
             if(this.state.hoverStatus){
                 return (
@@ -113,4 +150,4 @@ class Heart extends React.Component {
     }
 }
 
-export default Heart
+export default withRouter(Heart);
