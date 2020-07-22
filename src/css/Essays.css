@@ -41,7 +41,7 @@
     width: 90%;
     border: none;
     border-left: none;
-    background-color: white;
+    background-color: rgb(243, 243, 243);
     font-size: calc(1.3vw);
     transition: 0.3s;
 }
