@@ -58,7 +58,8 @@ class Heart extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    CollegeName: this.state.currentCollege
+                    CollegeName: this.state.currentCollege,
+                    UserEmail: sessionStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json();
@@ -79,7 +80,8 @@ class Heart extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    CollegeName: this.state.currentCollege
+                    CollegeName: this.state.currentCollege,
+                    UserEmail: sessionStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json();

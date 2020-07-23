@@ -71,7 +71,7 @@ export default function SignInSide() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        Email: email.Email 
+        UserEmail: email.Email 
     })
     }).then(response => {
       return response.json();

@@ -82,7 +82,10 @@ class NavBar extends React.Component {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({
+        UserEmail: sessionStorage.getItem("userData")
+    })
     }).then(response => {
       return response.json();
     }).then(data => {

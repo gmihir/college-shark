@@ -44,7 +44,8 @@ class Dashboard extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        CollegeName: CollegeNames
+        CollegeName: CollegeNames,
+        UserEmail: sessionStorage.getItem("userData")
       })
     }).then(response => {
       return response.json();
@@ -93,7 +94,7 @@ class Dashboard extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        currentUser: sessionStorage.getItem("userData")
+        UserEmail: sessionStorage.getItem("userData")
       })
     }).then(response => {
       return response.json()

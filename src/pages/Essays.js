@@ -284,7 +284,7 @@ class Essays extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              currentUser: sessionStorage.getItem("userData")
+              UserEmail: sessionStorage.getItem("userData")
             })
         }).then(response => {
             console.log(response);
@@ -312,7 +312,7 @@ class Essays extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              currentUser: sessionStorage.getItem("userData")
+              UserEmail: sessionStorage.getItem("userData")
             })
         }).then(response => {
             console.log(response);
