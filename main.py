@@ -621,19 +621,15 @@ def searchbar():
 
 @app.route("/essays", methods = ['POST'])
 def essays():
-    try:
-        db.child("users").get().val()
-        #print(db.get().val())
-        #listColleges()
-        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    except:
-        post_request = request.get_json(force=True)
-        # Assign value from the request
-        colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
+    post_request = request.get_json(force=True)
+    email = post_request["UserEmail"]
+
+    # Assign value from the request
+    colleges = getUserColleges(email)
     
     name_list = []
     print(colleges)
-    for name in colleges.values():
+    for name in colleges:
         if name != "none":
             name_list.append(name)
     query_lst = []
@@ -695,7 +691,7 @@ auth = firebase.auth()
 # parameters are Strings for email and password
 # return boolean - true if successful creation, false if not
 
-@app.route("/signup", methods = ['POST'])
+#@app.route("/signup", methods = ['POST'])
 def createUserWithEmailPassword():
     #gets incoming request
     post_request = request.get_json(force=True)
@@ -777,7 +773,8 @@ def loginAfterCreation(email, password):
 # parameters are Strings for email and password
 # return 1 if unsuccessful, 2 otherwise
 # takes in an email and password from the request
-@app.route("/login", methods = ['POST'])
+
+#@app.route("/login", methods = ['POST'])
 def loginWithEmailPassword():
     post_request = request.get_json(force=True)
 
@@ -850,7 +847,7 @@ def isLoggedIn():
         isLoggedIn = False
     return isLoggedIn
 
-@app.route("/addcollege", methods = ['POST'])
+#@app.route("/addcollege", methods = ['POST'])
 def addCollege():
     print("add function call")
     post_request = request.get_json(force=True)
@@ -875,7 +872,7 @@ def addCollegeTest(collegeName):
     db.child("users").child(session['currentUser'][:-6]).update(colleges)
 
 
-@app.route("/removecollege", methods = ['POST'])
+#@app.route("/removecollege", methods = ['POST'])
 def removeCollege():
     print("remove function call")
     post_request = request.get_json(force=True)
@@ -894,10 +891,10 @@ def removeColleges():
 
     # Assign value from the request
     collegeNames = post_request['CollegeName']
-    for collegeName in collegeNames:
-        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-        colleges[collegeName] = "none"
-        db.child("users").child(session['currentUser'][:-6]).update(colleges)
+    # for collegeName in collegeNames:
+    #     colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+    #     colleges[collegeName] = "none"
+    #     db.child("users").child(session['currentUser'][:-6]).update(colleges)
     return json.dumps({"True": 2})
 
 def removeCollegeTest(collegeName):
@@ -946,7 +943,7 @@ def sendPasswordReset():
     successful = json.dumps({"True": 2})
     try:
         if (isLoggedIn()):
-            email = getEmail()
+            email = post_request["UserEmail"]
             print("Email " + email)
             auth.send_password_reset_email(email)
     except:
@@ -958,7 +955,7 @@ def resetPasswordLogin():
     successful = json.dumps({"True": 2})
     try:
         post_request = request.get_json(force=True)
-        email = post_request["Email"]
+        email = post_request["UserEmail"]
         auth.send_password_reset_email(email)
     except:
         successful = json.dumps({"True": 1})
@@ -998,20 +995,15 @@ def resetPasswordLogin():
 @app.route("/dashboard", methods = ['POST'])
 def dashboard():
     print("START OF DASHBOARD METHOD")
-    try:
-        db.child("users").get().val()
-        #print(db.get().val())
-        #listColleges()
-        colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    except:
-        post_request = request.get_json(force=True)
+    post_request = request.get_json(force=True)
+    email = post_request["UserEmail"]
 
-        # Assign value from the request
-        colleges = db.child("users").child(post_request['currentUser'][:-6]).get().val()
-    
+    # Assign value from the request
+    colleges = getUserColleges(email)
+
     print(colleges)
     name_list = []
-    for name in colleges.values():
+    for name in colleges:
         if name != "none":
             name_list.append(name)
     query_lst = []
@@ -1064,8 +1056,16 @@ def sendEmail():
 #
 
 
-#@app.route("/signup", methods = ['POST'])
-def createUserWithEmailPassword(email, password, name, state):
+@app.route("/signup", methods = ['POST'])
+def createUserWithEmailPassword():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Username']
+    email = filterEmail(email)
+    password = post_request['Password']
+    state = "CA"
+    name = "Gdog"
+
     try:
         email = filterEmail(email)
         auth.create_user_with_email_and_password(email, password)
@@ -1079,9 +1079,9 @@ def createUserWithEmailPassword(email, password, name, state):
         #db.child("users2").child(email[:indexOfAt]).child("colleges").child("defaultCollege").update({"collegeName": "none"})
     except Exception as e:
         print(e)
-        return False
-    loginAfterCreation(email, password)
-    return True
+        return json.dumps({"True": 1})
+    #loginAfterCreation(email, password)
+    return json.dumps({"True": 2})
 
 def loginAfterCreation(email, password):
     email = filterEmail(email)
@@ -1092,7 +1092,7 @@ def loginAfterCreation(email, password):
     return True
 
 
-#@app.route("/login", methods = ['POST'])
+@app.route("/login", methods = ['POST'])
 def loginWithEmailPassword():
     post_request = request.get_json(force=True)
 
@@ -1103,25 +1103,40 @@ def loginWithEmailPassword():
     try:
         user = auth.sign_in_with_email_and_password(email, password)
     except:
-        return False
-    return True
+        return json.dumps({"True": 1})
+    return json.dumps({"True": 2})
 
-#@app.route("/addcollege", methods = ['POST'])
-def addCollege(email, collegeName):
+@app.route("/addcollege", methods = ['POST'])
+def addCollege():
     print("add function call")
+
+    post_request = request.get_json(force=True)
+
+    # Assign value from the request
+    collegeName = post_request['CollegeName']
+    email = post_request["UserEmail"]
+
     email = filterEmail(email)
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"collegeName": collegeName})
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"appStatus": "incomplete"})
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"essayStatus": [0,0,0,0,0]})
-    #return dashboard()
+    return dashboard()
 
-#@app.route("/removecollege", methods = ['POST'])
+@app.route("/removecollege", methods = ['POST'])
 def removeCollege(email, collegeName):
     print("remove function call")
+
+    post_request = request.get_json(force=True)
+
+    # Assign value from the request
+    collegeName = post_request['CollegeName']
+    email = post_request["UserEmail"]
+
+    email = filterEmail(email)
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).remove()
-    #return dashboard()
+    return dashboard()
 
 #returns python list of all the college names
 def getUserColleges(email):
