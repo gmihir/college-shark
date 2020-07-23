@@ -156,7 +156,7 @@ def query_screen(query_lst):
 
 def get_colleges_for_dashboard(query_lst,headers_dashboard):
     print("HERE")
-    if len(query_lst) is 0:
+    if len(query_lst) is 0 or query_lst is None:
         return []
 
     cols = ','.join(headers_dashboard)
@@ -621,23 +621,21 @@ def searchbar():
 
 @app.route("/essays", methods = ['POST'])
 def essays():
+    print("START OF DASHBOARD METHOD")
     post_request = request.get_json(force=True)
     email = post_request["UserEmail"]
 
     # Assign value from the request
     colleges = getUserColleges(email)
-    
-    name_list = []
+
     print(colleges)
+    name_list = []
     for name in colleges:
-        if name != "none":
-            name_list.append(name)
-    query_lst = []
-    for i in name_list[:-1]:
-        query_lst.append("college_name")
-        query_lst.append(i)
-    #print(query_lst)
-    json_return = get_colleges_for_essays(query_lst,headers_essay)
+        name_list.append("college_name")
+        name_list.append(name)
+    print(name_list)
+    json_return = get_colleges_for_dashboard(name_list, headers_essay)
+
     return json.dumps(json_return)
 
 
@@ -873,29 +871,29 @@ def addCollegeTest(collegeName):
 
 
 #@app.route("/removecollege", methods = ['POST'])
-def removeCollege():
-    print("remove function call")
-    post_request = request.get_json(force=True)
+# def removeCollege():
+#     print("remove function call")
+#     post_request = request.get_json(force=True)
 
-    # Assign value from the request
-    collegeName = post_request['CollegeName']
+#     # Assign value from the request
+#     collegeName = post_request['CollegeName']
     
-    colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    colleges[collegeName] = "none"
-    db.child("users").child(session['currentUser'][:-6]).update(colleges)
-    return dashboard()
+#     colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+#     colleges[collegeName] = "none"
+#     db.child("users").child(session['currentUser'][:-6]).update(colleges)
+#     return dashboard()
 
-@app.route("/removecolleges", methods = ['POST'])
-def removeColleges():
-    post_request = request.get_json(force=True)
+# @app.route("/removecolleges", methods = ['POST'])
+# def removeColleges():
+#     post_request = request.get_json(force=True)
 
-    # Assign value from the request
-    collegeNames = post_request['CollegeName']
-    # for collegeName in collegeNames:
-    #     colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
-    #     colleges[collegeName] = "none"
-    #     db.child("users").child(session['currentUser'][:-6]).update(colleges)
-    return json.dumps({"True": 2})
+#     # Assign value from the request
+#     collegeNames = post_request['CollegeName']
+#     # for collegeName in collegeNames:
+#     #     colleges = db.child("users").child(session['currentUser'][:-6]).get().val()
+#     #     colleges[collegeName] = "none"
+#     #     db.child("users").child(session['currentUser'][:-6]).update(colleges)
+#     return json.dumps({"True": 2})
 
 def removeCollegeTest(collegeName):
     print("remove function call")
@@ -997,23 +995,20 @@ def dashboard():
     print("START OF DASHBOARD METHOD")
     post_request = request.get_json(force=True)
     email = post_request["UserEmail"]
-
+    
     # Assign value from the request
     colleges = getUserColleges(email)
 
     print(colleges)
     name_list = []
     for name in colleges:
-        if name != "none":
-            name_list.append(name)
-    query_lst = []
-    for i in name_list[:-1]:
-        query_lst.append("college_name")
-        query_lst.append(i)
-    print(query_lst)
-    json_return = get_colleges_for_dashboard(query_lst, headers_dashboard)
+        name_list.append("college_name")
+        name_list.append(name)
+    print(name_list)
+    json_return = get_colleges_for_dashboard(name_list, headers_dashboard)
 
     return json.dumps(json_return)
+
 
 #method to send email for contact page
 #sends email to redpandas920@gmail.com from itself
@@ -1064,7 +1059,7 @@ def createUserWithEmailPassword():
     email = filterEmail(email)
     password = post_request['Password']
     state = "CA"
-    name = "Gdog"
+    name = "Hello"
 
     try:
         email = filterEmail(email)
@@ -1123,8 +1118,9 @@ def addCollege():
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"essayStatus": [0,0,0,0,0]})
     return dashboard()
 
+
 @app.route("/removecollege", methods = ['POST'])
-def removeCollege(email, collegeName):
+def removeCollege():
     print("remove function call")
 
     post_request = request.get_json(force=True)
@@ -1138,11 +1134,29 @@ def removeCollege(email, collegeName):
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).remove()
     return dashboard()
 
+@app.route("/removedashboardcollege", methods = ['POST'])
+def remove_dashboard_college():
+    print("remove function call")
+
+    post_request = request.get_json(force=True)
+
+    # Assign value from the request
+    collegeName = post_request['CollegeName']
+    email = post_request["UserEmail"]
+
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).remove()
+    return json.dumps({"True": 2})
+
 #returns python list of all the college names
 def getUserColleges(email):
     email = filterEmail(email)
     indexOfAt = email.index("@")
+    print(email)
     collegeKeys = db.child("users2").child(email[:indexOfAt]).child("colleges").shallow().get().val()
+    if collegeKeys is None:
+        return []
     return list(collegeKeys)
 
 def changeState(email, state):
@@ -1170,6 +1184,11 @@ def getAllUserData(email):
     email = filterEmail(email)
     indexOfAt = email.index("@")
     return db.child("users2").child(email[:indexOfAt]).get().val()
+
+def getState(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+
 
 #returns ordered dictionary of all information about the user without college-specific info
 def getUserInformation(email):
