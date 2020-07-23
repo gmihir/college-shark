@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Settings.css';
 import { Modal, Button, Col, Row, Container } from 'react-bootstrap';
 import CreateIcon from '@material-ui/icons/Create';
-import Select from 'react-select'
+import Select from 'react-select';
 import { States } from './State';
 
 class Profile extends React.Component {

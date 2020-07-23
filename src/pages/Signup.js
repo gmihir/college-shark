@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {Redirect} from 'react-router';
+import { Redirect } from 'react-router';
 import { useHistory } from 'react-router-dom';
+import Select from 'react-select';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +15,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Spinner } from 'react-bootstrap';
+import { States } from '../components/State';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,30 +52,34 @@ export default function SignInSide() {
   const history = useHistory();
   const classes = useStyles();
   const [usernameError, setUsernameError] = useState({ usernameError: false });
+  const [nameError, setNameError] = useState({ nameError: false });
+  const [stateError, setStateError] = useState({ stateError: false });
+  const [name, setName] = useState({ name: '' });
+  const [state, setState] = useState({ state: '' });
   const [username, setUsername] = useState({ username: '' });
   const [password, setPassword] = useState({ password: '' });
   const [cpassword, setcPassword] = useState({ cpassword: '' });
   const [spinner, setSpinner] = useState(
-    { 
+    {
       Spinner: false,
       Check: false
     });
-  
-  if(sessionStorage.getItem("userData")){
-      return(<Redirect to='/mycolleges' />)
+
+  if (sessionStorage.getItem("userData")) {
+    return (<Redirect to='/mycolleges' />)
   }
 
   const textDisplay = () => {
-    if(spinner.Check) {
+    if (spinner.Check) {
       return (
         <div>
           <CloseIcon />
           Sign up Failed
         </div>
       )
-    } else if(spinner.Spinner) {
+    } else if (spinner.Spinner) {
       return (
-        <Spinner animation="border" variant="light"/>  
+        <Spinner animation="border" variant="light" />
       )
     } else {
       return "Sign up";
@@ -98,24 +104,29 @@ export default function SignInSide() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
+              id="name"
+              label="Name"
+              name="name"
               onChange={e => {
                 setSpinner({ Spinner: false, Check: false });
-                const newUsername = { username: e.target.value };
-                setUsername(newUsername);
-                console.log(newUsername.username);
+                const newName = { name: e.target.value };
+                setName(newName);
               }}
               onKeyPress={e => {
                 if (e.key === 'Enter') {
                   setSpinner({ Spinner: true, Check: false });
-                  if (cpassword.cpassword !== password.password) {
-                    setUsernameError(true);
+                  if(state.state === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (name.name === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                    setNameError(true);
+                  }else if(cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
-                    setUsernameError(true);
                     setSpinner({ Spinner: false, Check: true });
+                  } else if (username.username === ''){
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });  
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -125,13 +136,89 @@ export default function SignInSide() {
                       // body: JSON.stringify(["national_ranking", "+15", "national_ranking", "-30"])
                       body: JSON.stringify({
                         Username: username.username,
-                        Password: password.password
+                        Password: password.password,
+                        Name: name.name,
+                        State: state.state
                       })
                     }).then(response => {
                       return response.json();
                     }).then(data => {
                       setSpinner({ Spinner: false, Check: true });
                       console.log(data);
+                      if (data["True"] === 1) {
+                        setUsernameError(true);
+                        setSpinner({ Spinner: false, Check: true });
+                      } else {
+                        sessionStorage.setItem("userData", username.username);
+                        history.push("/mycolleges");
+                      }
+                    });
+                  }
+                }
+              }
+              }
+              autoComplete="name"
+              autoFocus
+              error={nameError.usernameError}
+              helperText={nameError.usernameError ? "Please Enter a Name!" : ' '}
+            />
+            <Select
+            options={States}
+            onChange={(e)=>{
+              const newState = e.value;
+              setState(newState);
+            }}
+            className="basic-multi-select"
+            classNamePrefix="select"
+            closeMenuOnSelect={true}
+            defaultValue={{label: "State", value: 0}}
+          />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              onChange={e => {
+                setSpinner({ Spinner: false, Check: false });
+                const newUsername = { username: e.target.value };
+                setUsername(newUsername);
+              }}
+              onKeyPress={e => {
+                if (e.key === 'Enter') {
+                  setSpinner({ Spinner: true, Check: false });
+                  console.log(state.state);
+                  if(state.state === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (name.name === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                    setNameError(true);
+                  }else if(cpassword.cpassword !== password.password) {
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (password.password.length < 6) {
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (username.username === ''){
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });  
+                  } else {
+                    fetch("/signup", {
+                      method: "POST",
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      // body: JSON.stringify(["national_ranking", "+15", "national_ranking", "-30"])
+                      body: JSON.stringify({
+                        Username: username.username,
+                        Password: password.password,
+                        Name: name.name,
+                        State: state.state
+                      })
+                    }).then(response => {
+                      return response.json();
+                    }).then(data => {
+                      setSpinner({ Spinner: false, Check: true });
                       if (data["True"] === 1) {
                         setUsernameError(true);
                         setSpinner({ Spinner: false, Check: true });
@@ -166,12 +253,18 @@ export default function SignInSide() {
               onKeyPress={e => {
                 if (e.key === 'Enter') {
                   setSpinner({ Spinner: true, Check: false });
-                  if (cpassword.cpassword !== password.password) {
-                    setUsernameError(true);
+                  if(state.state === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (name.name === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                    setNameError(true);
+                  }else if(cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
-                    setUsernameError(true);
                     setSpinner({ Spinner: false, Check: true });
+                  } else if (username.username === ''){
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });  
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -181,7 +274,9 @@ export default function SignInSide() {
                       // body: JSON.stringify(["national_ranking", "+15", "national_ranking", "-30"])
                       body: JSON.stringify({
                         Username: username.username,
-                        Password: password.password
+                        Password: password.password,
+                        Name: name.name,
+                        State: state.state
                       })
                     }).then(response => {
                       return response.json();
@@ -222,12 +317,18 @@ export default function SignInSide() {
               onKeyPress={e => {
                 setSpinner({ Spinner: true, Check: false });
                 if (e.key === 'Enter') {
-                  if (cpassword.cpassword !== password.password) {
-                    setUsernameError(true);
+                  if(state.state === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (name.name === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                    setNameError(true);
+                  }else if(cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
-                    setUsernameError(true);
                     setSpinner({ Spinner: false, Check: true });
+                  } else if (username.username === ''){
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });  
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -271,15 +372,21 @@ export default function SignInSide() {
               className={classes.submit}
               size='large'
               onClick={e => {
-                setSpinner({Spinner: true, Check: false});
+                setSpinner({ Spinner: true, Check: false });
                 //e.preventDefault();
-                if (cpassword.cpassword !== password.password) {
-                    setUsernameError(true);
-                    setSpinner({ Spinner: false, Check: true });   
-                } else if (password.password.length < 6) {
-                    setUsernameError(true);
+                  if(state.state === ''){
                     setSpinner({ Spinner: false, Check: true });
-                } else {
+                  } else if (name.name === ''){
+                    setSpinner({ Spinner: false, Check: true });
+                    setNameError(true);
+                  }else if(cpassword.cpassword !== password.password) {
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (password.password.length < 6) {
+                    setSpinner({ Spinner: false, Check: true });
+                  } else if (username.username === ''){
+                    setUsernameError(true);
+                    setSpinner({ Spinner: false, Check: true });  
+                  } else {
                   fetch("/signup", {
                     method: "POST",
                     headers: {
@@ -293,7 +400,7 @@ export default function SignInSide() {
                   }).then(response => {
                     return response.json();
                   }).then(data => {
-                    console.log(data);
+                    console.log(state.state);
                     setSpinner({ Spinner: false, Check: true });
                     if (data["True"] === 1) {
                       setUsernameError(true);
