@@ -710,7 +710,7 @@ def createUserWithEmailPassword():
         db.child("users").child(session['initialUser'][:-6]).update({"username": email})
     except:
         return json.dumps({"True": 1})
-    loginAfterCreation(email, password)
+    #loginAfterCreation(email, password)
     return json.dumps({"True": 2})
 
     # this should redirect to the homepage...
@@ -1055,3 +1055,115 @@ def sendEmail():
     return json.dumps({"True": 2})
 
 
+#
+#
+#
+#
+#
+#
+#
+
+
+#@app.route("/signup", methods = ['POST'])
+def createUserWithEmailPassword(email, password, name, state):
+    try:
+        email = filterEmail(email)
+        auth.create_user_with_email_and_password(email, password)
+        print(email)
+        indexOfAt = email.index("@")
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": ["State", "Ranking", "RD Deadline", "ED Deadline", "In-State Tuition", "Out-of-State Tution", "Status"]})
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": [0,0,0]})
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"email": email})
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"state": state})
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"name": name})
+        #db.child("users2").child(email[:indexOfAt]).child("colleges").child("defaultCollege").update({"collegeName": "none"})
+    except Exception as e:
+        print(e)
+        return False
+    loginAfterCreation(email, password)
+    return True
+
+def loginAfterCreation(email, password):
+    email = filterEmail(email)
+    try:
+        user = auth.sign_in_with_email_and_password(email, password)
+    except:
+        return False
+    return True
+
+
+#@app.route("/login", methods = ['POST'])
+def loginWithEmailPassword():
+    post_request = request.get_json(force=True)
+
+    # Assign value from the request
+    email = post_request['Username']
+    email = filterEmail(email)
+    password = post_request['Password']
+    try:
+        user = auth.sign_in_with_email_and_password(email, password)
+    except:
+        return False
+    return True
+
+#@app.route("/addcollege", methods = ['POST'])
+def addCollege(email, collegeName):
+    print("add function call")
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"collegeName": collegeName})
+    db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"appStatus": "incomplete"})
+    db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"essayStatus": [0,0,0,0,0]})
+    #return dashboard()
+
+#@app.route("/removecollege", methods = ['POST'])
+def removeCollege(email, collegeName):
+    print("remove function call")
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).remove()
+    #return dashboard()
+
+#returns python list of all the college names
+def getUserColleges(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    collegeKeys = db.child("users2").child(email[:indexOfAt]).child("colleges").shallow().get().val()
+    return list(collegeKeys)
+
+def changeState(email, state):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("information").update({"state": state})
+
+def setCollegeEssayStatus(email, collegeName, essayArray):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"essayStatus": essayArray})
+
+def setGeneralEssayStatus(email, essayArray):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": essayArray})
+
+def setTabs(email, tabArray):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": tabArray})
+
+#returns ordered dictionary of all information about the user and his/her colleges, essays, nested format
+def getAllUserData(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    return db.child("users2").child(email[:indexOfAt]).get().val()
+
+#returns ordered dictionary of all information about the user without college-specific info
+def getUserInformation(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    return db.child("users2").child(email[:indexOfAt]).child("information").get().val()
+
+#returns ordered dictionary of all information about the user's colleges
+def getUserCollegeInformation(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    return db.child("users2").child(email[:indexOfAt]).child("colleges").get().val()
