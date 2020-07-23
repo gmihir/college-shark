@@ -38,13 +38,13 @@ class Dashboard extends React.Component {
   removeColleges = async (selected) => {
     let CollegeNames = []
     CollegeNames.push(selected);
-    fetch("/removecolleges", {
+    fetch("/removedashboardcollege", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        CollegeName: CollegeNames,
+        CollegeName: selected,
         UserEmail: sessionStorage.getItem("userData")
       })
     }).then(response => {
