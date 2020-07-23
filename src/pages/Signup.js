@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import Select from 'react-select';
+import Select from '@material-ui/core/Select';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -18,6 +21,10 @@ import { Spinner } from 'react-bootstrap';
 import { States } from '../components/State';
 
 const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
   root: {
     height: '100vh',
   },
@@ -115,18 +122,18 @@ export default function SignInSide() {
               onKeyPress={e => {
                 if (e.key === 'Enter') {
                   setSpinner({ Spinner: true, Check: false });
-                  if(state.state === ''){
+                  if (state.state === '') {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (name.name === ''){
+                  } else if (name.name === '') {
                     setSpinner({ Spinner: false, Check: true });
                     setNameError(true);
-                  }else if(cpassword.cpassword !== password.password) {
+                  } else if (cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (username.username === ''){
+                  } else if (username.username === '') {
                     setUsernameError(true);
-                    setSpinner({ Spinner: false, Check: true });  
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -162,17 +169,84 @@ export default function SignInSide() {
               error={nameError.usernameError}
               helperText={nameError.usernameError ? "Please Enter a Name!" : ' '}
             />
-            <Select
-            options={States}
-            onChange={(e)=>{
-              const newState = e.value;
-              setState(newState);
-            }}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            closeMenuOnSelect={true}
-            defaultValue={{label: "State", value: 0}}
-          />
+            {/* <Select
+              options={States}
+              onChange={(e) => {
+                const newState = e.value;
+                setState(newState);
+              }}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              closeMenuOnSelect={true}
+              defaultValue={{ label: "State", value: 0 }}
+            /> */}
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
+              <Select
+                native
+                value={state}
+                onChange={(e) => {
+                  const newState = e.target.value;
+                  setState(newState);
+                }}
+                label="State"
+                inputProps={{
+                  name: 'state',
+                  id: 'outlined-state-native-simple',
+                }}
+              >
+                <option aria-label="None" value="" />
+                <option value={"AL"}>AL</option>
+                <option value={"AK"}>AK</option>
+                <option value={"AZ"}>AZ</option>
+                <option value={"AR"}>AR</option>
+                <option value={"CA"}>CA</option>
+                <option value={"CO"}>CO</option>
+                <option value={"CT"}>CT</option>
+                <option value={"DE"}>DE</option>
+                <option value={"FL"}>FL</option>
+                <option value={"GA"}>GA</option>
+                <option value={'HI'}>HI</option>
+                <option value={'ID'}>ID</option>
+                <option value={'IL'}>IL</option>
+                <option value={'IN'}>IN</option>
+                <option value={'IA'}>IA</option>
+                <option value={'KS'}>KS</option>
+                <option value={'KY'}>KY</option>
+                <option value={'LA'}>LA</option>
+                <option value={'ME'}>ME</option>
+                <option value={'MD'}>MD</option>
+                <option value={'MA'}>MA</option>
+                <option value={'MI'}>MI</option>
+                <option value={'MN'}>MN</option>
+                <option value={'MS'}>MS</option>
+                <option value={'MO'}>MO</option>
+                <option value={'MT'}>MT</option>
+                <option value={'NE'}>NE</option>
+                <option value={'NV'}>NV</option>
+                <option value={'NH'}>NH</option>
+                <option value={'NJ'}>NJ</option>
+                <option value={'NM'}>NM</option>
+                <option value={'NY'}>NY</option>
+                <option value={'ND'}>ND</option>
+                <option value={'OH'}>OH</option>
+                <option value={'OK'}>OK</option>
+                <option value={'OR'}>OR</option>
+                <option value={'PA'}>PA</option>
+                <option value={'RI'}>RI</option>
+                <option value={'SC'}>SC</option>
+                <option value={'SD'}>SD</option>
+                <option value={'TN'}>TN</option>
+                <option value={'TX'}>TX</option>
+                <option value={'UT'}>UT</option>
+                <option value={'VT'}>VT</option>
+                <option value={'VA'}>VA</option>
+                <option value={'WA'}>WA</option>
+                <option value={'WV'}>WV</option>
+                <option value={'WI'}>WI</option>
+                <option value={'WY'}>WY</option>
+              </Select>
+            </FormControl>
             <TextField
               variant="outlined"
               margin="normal"
@@ -190,18 +264,18 @@ export default function SignInSide() {
                 if (e.key === 'Enter') {
                   setSpinner({ Spinner: true, Check: false });
                   console.log(state.state);
-                  if(state.state === ''){
+                  if (state.state === '') {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (name.name === ''){
+                  } else if (name.name === '') {
                     setSpinner({ Spinner: false, Check: true });
                     setNameError(true);
-                  }else if(cpassword.cpassword !== password.password) {
+                  } else if (cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (username.username === ''){
+                  } else if (username.username === '') {
                     setUsernameError(true);
-                    setSpinner({ Spinner: false, Check: true });  
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -253,18 +327,18 @@ export default function SignInSide() {
               onKeyPress={e => {
                 if (e.key === 'Enter') {
                   setSpinner({ Spinner: true, Check: false });
-                  if(state.state === ''){
+                  if (state.state === '') {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (name.name === ''){
+                  } else if (name.name === '') {
                     setSpinner({ Spinner: false, Check: true });
                     setNameError(true);
-                  }else if(cpassword.cpassword !== password.password) {
+                  } else if (cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (username.username === ''){
+                  } else if (username.username === '') {
                     setUsernameError(true);
-                    setSpinner({ Spinner: false, Check: true });  
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -317,18 +391,18 @@ export default function SignInSide() {
               onKeyPress={e => {
                 setSpinner({ Spinner: true, Check: false });
                 if (e.key === 'Enter') {
-                  if(state.state === ''){
+                  if (state.state === '') {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (name.name === ''){
+                  } else if (name.name === '') {
                     setSpinner({ Spinner: false, Check: true });
                     setNameError(true);
-                  }else if(cpassword.cpassword !== password.password) {
+                  } else if (cpassword.cpassword !== password.password) {
                     setSpinner({ Spinner: false, Check: true });
                   } else if (password.password.length < 6) {
                     setSpinner({ Spinner: false, Check: true });
-                  } else if (username.username === ''){
+                  } else if (username.username === '') {
                     setUsernameError(true);
-                    setSpinner({ Spinner: false, Check: true });  
+                    setSpinner({ Spinner: false, Check: true });
                   } else {
                     fetch("/signup", {
                       method: "POST",
@@ -374,19 +448,19 @@ export default function SignInSide() {
               onClick={e => {
                 setSpinner({ Spinner: true, Check: false });
                 //e.preventDefault();
-                  if(state.state === ''){
-                    setSpinner({ Spinner: false, Check: true });
-                  } else if (name.name === ''){
-                    setSpinner({ Spinner: false, Check: true });
-                    setNameError(true);
-                  }else if(cpassword.cpassword !== password.password) {
-                    setSpinner({ Spinner: false, Check: true });
-                  } else if (password.password.length < 6) {
-                    setSpinner({ Spinner: false, Check: true });
-                  } else if (username.username === ''){
-                    setUsernameError(true);
-                    setSpinner({ Spinner: false, Check: true });  
-                  } else {
+                if (state.state === '') {
+                  setSpinner({ Spinner: false, Check: true });
+                } else if (name.name === '') {
+                  setSpinner({ Spinner: false, Check: true });
+                  setNameError(true);
+                } else if (cpassword.cpassword !== password.password) {
+                  setSpinner({ Spinner: false, Check: true });
+                } else if (password.password.length < 6) {
+                  setSpinner({ Spinner: false, Check: true });
+                } else if (username.username === '') {
+                  setUsernameError(true);
+                  setSpinner({ Spinner: false, Check: true });
+                } else {
                   fetch("/signup", {
                     method: "POST",
                     headers: {
