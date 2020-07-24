@@ -37,7 +37,7 @@ class NavBar extends React.Component {
 
 
   componentDidMount() {
-    const email = sessionStorage.getItem("userData");
+    const name = sessionStorage.getItem("userName");
     fetch("/searchbar", {
       method: "POST",
       headers: {
@@ -59,7 +59,7 @@ class NavBar extends React.Component {
       })
       this.setState({
         collegelist: collegeList,
-        Username: email
+        Username: name
       })
     });
   }

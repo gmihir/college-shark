@@ -34,7 +34,8 @@ export class MapView extends Component {
             lng: -98.081807
           },
           Zoom: 5,
-          ShowReset: false
+          ShowReset: false,
+          MyColleges: JSON.parse(sessionStorage.getItem('collegeNames'))
       }
 
         this.searchBarInUse = this.searchBarInUse.bind(this);
@@ -166,6 +167,12 @@ export class MapView extends Component {
     }
 
     componentDidMount() {
+      let tempArr = [];
+      this.state.MyColleges.forEach(college => {
+        tempArr.push(college.college_name);
+      })
+      this.setState({MyColleges: tempArr});
+
       fetch("/searchbar", {
         method: "POST",
         headers: {
@@ -185,7 +192,7 @@ export class MapView extends Component {
           collegeNames.push(JSON.parse(college).abbreviation);
           collegeList.push([collegeNames, JSON.parse(college).college_logo]);
         })
-      this.setState({Colleges: collegeList});
+        this.setState({Colleges: collegeList});
         fetch("/map", {
           method: "POST",
           headers: {
@@ -227,8 +234,12 @@ export class MapView extends Component {
                         const lat = JSON.parse(college).latitude;
                         const lng = JSON.parse(college).longitude;
                         const title = JSON.parse(college).college_name;
+                        let saved = require('./saved.png');
+                        if(this.state.MyColleges.includes(title)) {
+                          saved = require('./unsaved.png');      
+                        }
                         return ( <Marker college={college} name={title} title={title} position={{lat: lat, lng: lng}} 
-                          onClick={(props, marker, e) => this.markerClicked(props, marker, e)} icon={{url: require('./saved.png'), scaledSize: new this.props.google.maps.Size(40,47)}}
+                          onClick={(props, marker, e) => this.markerClicked(props, marker, e)} icon={{url: saved, scaledSize: new this.props.google.maps.Size(40,47)}}
                         /> )
                       })}
                   </Map>
@@ -280,7 +291,8 @@ export class MapView extends Component {
                     
                     <div className="college-info-container">
                         <div className="college-info-header">
-                            <h2>Tuition:</h2>
+                            <h2>{this.state.selectedPlace.college.state === sessionStorage.getItem('userState') ? 
+                            "In State Tuition:" : "Out of State Tuition:"} </h2>
                             <h2>State:</h2>
                             <h2>Town type:</h2>
                             <h2>Student size:</h2>
@@ -288,7 +300,8 @@ export class MapView extends Component {
                         </div>
 
                         <div className="college-info-values">
-                            <h2>${this.numFormat(this.state.selectedPlace.college.tuition_normal)}</h2>
+                            <h2>${this.state.selectedPlace.college.state === sessionStorage.getItem('userState') ? 
+                            this.numFormat(this.state.selectedPlace.college.tuition_normal) : this.numFormat(this.state.selectedPlace.college.tuition_oos)}</h2>
                             <h2>{this.state.selectedPlace.college.state}</h2>
                             <h2>{this.state.selectedPlace.college.locale}</h2>
                             <h2>{this.numFormat(this.state.selectedPlace.college.population)}</h2>
