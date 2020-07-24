@@ -1066,7 +1066,7 @@ def createUserWithEmailPassword():
         auth.create_user_with_email_and_password(email, password)
         print(email)
         indexOfAt = email.index("@")
-        db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": ["State", "Ranking", "RD Deadline", "ED Deadline", "In-State Tuition", "Out-of-State Tution", "Status"]})
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": ['College Name', 'State', 'Rank', 'RD Deadline', 'ED Deadline', 'Tuition', 'Status']})
         db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": [0,0,0]})
         db.child("users2").child(email[:indexOfAt]).child("information").update({"email": email})
         db.child("users2").child(email[:indexOfAt]).child("information").update({"state": state})
