@@ -85,9 +85,23 @@ class Explore extends React.Component {
       }
 
     componentDidMount() {
-        console.log(this.state.exploreRedirect);
-        console.log(this.props);
         window.scrollTo(0, 0);
+        const getTuitionArray = sessionStorage.getItem("tuitionarray");
+        console.log(getTuitionArray);
+        let toArray = [];
+
+        let tuitionLower = sessionStorage.getItem("normallower");
+        if(tuitionLower !== null && tuitionLower !== '') {
+            tuitionLower = parseInt(tuitionLower);
+        }
+        this.setState({ TuitionLower: tuitionLower });
+
+        let tuitionUpper = sessionStorage.getItem("normalupper");
+        if(tuitionUpper !== null && tuitionUpper !== '') {
+            tuitionUpper = parseInt(tuitionUpper);
+        }
+        this.setState({ TuitionUpper: tuitionUpper });
+
         let savedArray = sessionStorage.getItem("array");
         let copyArray = [];
         if (savedArray === null || savedArray === undefined || savedArray === '') {
@@ -126,6 +140,17 @@ class Explore extends React.Component {
             this.setState({ IsDescending: []});
             checkOrderBy = false    
         }
+
+        if(getTuitionArray !== '' && getTuitionArray !== null) {
+            toArray = getTuitionArray.split(",");
+            toArray[0] = "tuition"
+            toArray[1] = parseInt(toArray[1]);
+            toArray[2] = parseInt(toArray[2]);
+            this.setState({ToggleClear: true});
+        }
+
+        console.log(toArray);
+        
         fetch("/filter", {
             method: "POST",
             headers: {
@@ -135,7 +160,7 @@ class Explore extends React.Component {
                 Array: copyArray,
                 Filter: Sortby[indices].value,
                 IsDescending: checkOrderBy,
-                Tuition: [],
+                Tuition: toArray,
                 State: sessionStorage.getItem("userState")
             })
         }).then(response => {
@@ -201,18 +226,6 @@ class Explore extends React.Component {
         if (checkedState !== null) {
             this.setState({ CheckedState: checkedState });
         }
-
-        let tuitionLower = sessionStorage.getItem("normallower");
-        if(tuitionLower !== null && tuitionLower !== '') {
-            tuitionLower = parseInt(tuitionLower);
-        }
-        this.setState({ TuitionLower: tuitionLower });
-
-        let tuitionUpper = sessionStorage.getItem("normalupper");
-        if(tuitionUpper !== null && tuitionUpper !== '') {
-            tuitionUpper = parseInt(tuitionUpper);
-        }
-        this.setState({ TuitionUpper: tuitionUpper });
 
         const appType = sessionStorage.getItem("appfee");
         if (appType !== null) {
@@ -741,7 +754,7 @@ class Explore extends React.Component {
 
     pushToTuitionArray(stateLower, stateUpper, array) {     
         let getLower = 0;
-        let getHigher = 80000;
+        let getHigher = 800000;
         
         if(/^\d+$/.test(stateLower)) {
             console.log(stateLower);
@@ -886,7 +899,7 @@ class Explore extends React.Component {
         sessionStorage.setItem("satscore", this.state.SATAverage);
         sessionStorage.setItem("actscore", this.state.ACTAverage);
 
-        if(array.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
+        if(array.length !== 0 || arrayTuition.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
             console.log("here: ", true);
             this.setState({ ToggleClear: true, ExploreRedirect: false });
         } else {
@@ -895,6 +908,7 @@ class Explore extends React.Component {
 
         sessionStorage.setItem("array", array);
         sessionStorage.setItem("tuitionarray", arrayTuition);
+        console.log(arrayTuition);
         fetch("/filter", {
             method: "POST",
             headers: {
