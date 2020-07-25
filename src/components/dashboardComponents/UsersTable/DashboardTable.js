@@ -149,6 +149,48 @@ class DashboardTable extends React.Component {
         return array;
     }
 
+    categoryRender(user, category){
+        if(category === 'tuition_oos'){
+            return this.numFormat(user[category]);
+        }else if(category === 'tuition_normal'){
+            return this.numFormat(user[category]);
+        }else if(category === 'regular_decision'){
+            return this.dateFormat(user[category]);
+        }else if(category === 'early_decision'){
+            return this.dateFormat(user[category]);
+        }else if(category === 'early_action'){
+            return this.dateFormat(user[category]);
+        }else{
+            return user[category];
+        }
+    }
+
+    convertHeader(header){
+        if (header === 'tuition_oos') {
+            return 'Out-of-State Tuition';
+        } else if (header === 'tuition_normal') {
+            return 'In-State Tuition';
+        }else if(header === 'regular_decision'){
+            return 'RD Deadline';
+        }else if(header === 'early_decision'){
+            return 'ED Deadline';
+        }else if(header === 'early_action'){
+            return 'Early Action';
+        }else if(header === 'national_ranking'){
+            return 'Ranking';
+        }else{
+            let name = '';
+            var splitName = header.split("_");
+            for(let i = 0; i < splitName.length; i++){
+                let holder = splitName[i];
+                holder = holder.substring(0, 1).toUowerCase() + holder.substring(1, holder.length);
+                name += holder + ' ';
+            }
+            name = name.substring(0, name.length - 1);
+            return name;
+        }
+    }
+
     partition(array, low, high, column) {
         let pivot = array[high];
         let i = (low - 1);
@@ -214,6 +256,32 @@ class DashboardTable extends React.Component {
         this.setState({ headers: newHeaders });
     }
 
+    convertToHeader(newHeader, oldHeader){
+        if (header === 'Out-of-State Tuition') {
+            return 'tuition_oos';
+        } else if (header === 'In-State Tuition') {
+            return 'tuition_normal';
+        }else if(header === 'RD Deadline'){
+            return 'regular_decision';
+        }else if(header === 'ED Deadline'){
+            return 'early_decision';
+        }else if(header === 'Early Action'){
+            return 'early_action';
+        }else if(header === 'Ranking'){
+            return 'national_ranking';
+        }else{
+            let name = '';
+            var splitName = header.split(" ");
+            for(let i = 0; i < splitName.length; i++){
+                let holder = splitName[i];
+                holder = holder.toLowerCase();
+                name += holder + '_';
+            }
+            name = name.substring(0, name.length - 1);
+            return name;
+        }
+    }
+
     renderRegular() {
         return (
             <div>
@@ -244,19 +312,19 @@ class DashboardTable extends React.Component {
                                     <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{user.college_name}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{`${user.state}`}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[0]))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.regular_decision)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[1]))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.early_decision)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[2]))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_normal)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[3]))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[4]))}</Link>
                                 </div>
                                 {this.renderIcon(Math.random())}
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {

@@ -27,7 +27,8 @@ class Dashboard extends React.Component {
       users: [],
       rerender: false,
       selectedColleges: [],
-      Loading: true
+      Loading: true,
+      userInfo: []
     };
     this.setSearch = this.setSearch.bind(this);
     this.removeColleges = this.removeColleges.bind(this);
@@ -88,35 +89,44 @@ class Dashboard extends React.Component {
   }
 
   pullColleges() {
-    fetch("/dashboard", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        UserEmail: sessionStorage.getItem("userData")
+    Promise.all([
+      fetch("/dashboard", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          UserEmail: sessionStorage.getItem("userData")
+        })
+      }),
+      fetch("/userdashboardinfo", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Email: sessionStorage.getItem("userData")
+        })
       })
-    }).then(response => {
-      return response.json()
-    }).then(data => {
+    ]).then(([res1, res2]) => 
+    Promise.all([res1.json(), res2.json()])
+    ).then(([data1, data2]) => {
       let collegeList = [];
-      let boolean = true;
-      data.map(college => {
+      data1.map(college => {
         var collegeName = JSON.parse(college);
         collegeList.push(collegeName);
       })
       sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
-
       if (this.state.rerender) {
       } else {
         this.setState({
           users: collegeList,
           rerender: true,
-          Loading: false
+          Loading: false,
+          userInfo: data2
         });
       }
-    });
-
+    })
   }
 
   renderDashboard = () => {
@@ -148,7 +158,7 @@ class Dashboard extends React.Component {
       }
       return (
         <div className={useStyles.theme}>
-          <DashboardTable headers={['State', 'RD Deadline', 'ED Deadline', 'In-State Tuition', 'Out-of-State Tuition', 'Status']} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
+          <DashboardTable headers={this.state.userInfo['information']['tabs']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
         </div>
       )
     } else {

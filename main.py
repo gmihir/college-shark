@@ -29,7 +29,9 @@ headers = ["college_name","alias","abbreviation","transcripts","mid_year","lette
             "ethnicity_nhpi","ethnicity_nra","locale"]
 
 #headers required for JSON output for dashboard page
-headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decision","regular_decision","state","college_logo"] 
+headers_dashboard = ["college_name", "tuition_normal","tuition_oos","early_decision","regular_decision","college_logo","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
+            "people_for_letters","sat","sat_essay","act_essay","self_report","subject_tests","essays","supplemental_essays","acceptance_rate",
+            "population","national_ranking","early_action","scholarship_date","interview","app_fee","common_app","coalition_app","school_type","state","college_campus","sat_overall","act_overall","locale"] 
 
 #headers required for JSON output for explore page
 headers_explore = ["college_name","alias","letter_of_rec_required",
@@ -1180,8 +1182,12 @@ def setTabs(email, tabArray):
     db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": tabArray})
 
 #returns ordered dictionary of all information about the user and his/her colleges, essays, nested format
-def getAllUserData(email):
-    email = filterEmail(email)
+@app.route("/userdashboardinfo", methods = ['POST'])
+def getAllUserData():
+    post_request = request.get_json(force=True)
+
+    # Assign value from the request
+    email = filterEmail(post_request["Email"])
     indexOfAt = email.index("@")
     return db.child("users2").child(email[:indexOfAt]).get().val()
 
