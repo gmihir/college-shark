@@ -301,10 +301,10 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
             print
             if json_college['state'] == state:
                 if json_college["tuition_normal"] > tuition_lst[1] and json_college["tuition_normal"] < tuition_lst[2]:
-                    json_return.append(str(json_college))
+                    json_return.append(json.dumps(json_college))
             else:
                 if json_college["tuition_oos"] > tuition_lst[1] and json_college["tuition_oos"] < tuition_lst[2]:
-                    json_return.append(str(json_college))
+                    json_return.append(json.dumps(json_college))
         return json_return
 
     return json_result
@@ -520,6 +520,7 @@ def get_order(json_lst, param, is_descending, columns=headers):
     colleges = []
 
     for element in json_lst:
+        print(element)
         element = json.loads(element)
         element = [v for v in dict.values(element)]
         c = College(element)
@@ -620,6 +621,7 @@ def test_filter():
     state = post_request["State"]
     colleges_array = get_colleges_for_explore(array, tuition,state,headers_explore) # put in fillers for tuition list and state to not break things
     # print(colleges_array)
+    print(colleges_array)
 
     return jsonify(get_order(colleges_array, filter_by, is_descending, headers_explore))
 
