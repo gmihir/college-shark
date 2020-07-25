@@ -157,6 +157,8 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
+                        sessionStorage.setItem("userState", state.state);
+                        sessionStorage.setItem("userName", name.name);
                         history.push("/mycolleges");
                       }
                     });
@@ -184,10 +186,10 @@ export default function SignInSide() {
               <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
               <Select
                 native
-                value={state}
+                value={state.state}
                 onChange={(e) => {
                   const newState = e.target.value;
-                  setState(newState);
+                  setState({state: newState});
                 }}
                 label="State"
                 inputProps={{
@@ -277,6 +279,7 @@ export default function SignInSide() {
                     setUsernameError(true);
                     setSpinner({ Spinner: false, Check: true });
                   } else {
+                    console.log(state.state);
                     fetch("/signup", {
                       method: "POST",
                       headers: {
@@ -298,6 +301,9 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
+                        sessionStorage.setItem("userState", state.state);
+                        sessionStorage.setItem("userName", name.name);
+                        console.log(state.state);
                         history.push("/mycolleges");
                       }
                     });
@@ -362,6 +368,8 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
+                        sessionStorage.setItem("userState", state.state);
+                        sessionStorage.setItem("userName", name.name);
                         history.push("/mycolleges");
                       }
                     });
@@ -404,6 +412,7 @@ export default function SignInSide() {
                     setUsernameError(true);
                     setSpinner({ Spinner: false, Check: true });
                   } else {
+                    console.log(state.state);
                     fetch("/signup", {
                       method: "POST",
                       headers: {
@@ -412,7 +421,9 @@ export default function SignInSide() {
                       // body: JSON.stringify(["national_ranking", "+15", "national_ranking", "-30"])
                       body: JSON.stringify({
                         Username: username.username,
-                        Password: password.password
+                        Password: password.password,
+                        Name: name.name,
+                        State: state.state
                       })
                     }).then(response => {
                       return response.json();
@@ -424,6 +435,8 @@ export default function SignInSide() {
                         setSpinner({ Spinner: false, Check: true });
                       } else {
                         sessionStorage.setItem("userData", username.username);
+                        sessionStorage.setItem("userState", state.state);
+                        sessionStorage.setItem("userName", name.name);
                         history.push("/mycolleges");
                       }
                     });
@@ -461,6 +474,7 @@ export default function SignInSide() {
                   setUsernameError(true);
                   setSpinner({ Spinner: false, Check: true });
                 } else {
+                  console.log(state.state);
                   fetch("/signup", {
                     method: "POST",
                     headers: {
@@ -469,7 +483,9 @@ export default function SignInSide() {
                     // body: JSON.stringify(["national_ranking", "+15", "national_ranking", "-30"])
                     body: JSON.stringify({
                       Username: username.username,
-                      Password: password.password
+                      Password: password.password,
+                      Name: name.name,
+                      State: state.state
                     })
                   }).then(response => {
                     return response.json();
@@ -481,6 +497,8 @@ export default function SignInSide() {
                       setSpinner({ Spinner: false, Check: true });
                     } else {
                       sessionStorage.setItem("userData", username.username);
+                      sessionStorage.setItem("userState", state.state);
+                      sessionStorage.setItem("userName", name.name);
                       history.push("/mycolleges");
                     }
                   });

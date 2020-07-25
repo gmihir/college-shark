@@ -161,6 +161,8 @@ export default function SignInSide() {
                       const newError = {error: true};
                       setError(newError);
                     } else {
+                      sessionStorage.setItem("userState", data["Info"].state);
+                      sessionStorage.setItem("userName", data["Info"].name);
                       sessionStorage.setItem("userData", username.username);
                       history.push("/mycolleges");
                     }
@@ -202,6 +204,8 @@ export default function SignInSide() {
                       const newError = {error: true};
                       setError(newError);
                     } else {
+                      sessionStorage.setItem("userState", data["Info"].state);
+                      sessionStorage.setItem("userName", data["Info"].name);
                       sessionStorage.setItem("userData", username.username);
                       history.push("/mycolleges");
                     }
@@ -246,6 +250,8 @@ export default function SignInSide() {
                     const newError = {error: true};
                     setError(newError);
                   } else {
+                    sessionStorage.setItem("userState", data["Info"].state);
+                    sessionStorage.setItem("userName", data["Info"].name);
                     sessionStorage.setItem("userData", username.username);
                     history.push("/mycolleges");
                   }

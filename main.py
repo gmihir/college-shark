@@ -1060,15 +1060,15 @@ def createUserWithEmailPassword():
     email = post_request['Username']
     email = filterEmail(email)
     password = post_request['Password']
-    state = "CA"
-    name = "Hello"
+    state = post_request['State']
+    name = post_request['Name']
 
     try:
         email = filterEmail(email)
         auth.create_user_with_email_and_password(email, password)
         print(email)
         indexOfAt = email.index("@")
-        db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": ["State", "Ranking", "RD Deadline", "ED Deadline", "In-State Tuition", "Out-of-State Tution", "Status"]})
+        db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": ['College Name', 'State', 'Rank', 'RD Deadline', 'ED Deadline', 'Tuition', 'Status']})
         db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": [0,0,0]})
         db.child("users2").child(email[:indexOfAt]).child("information").update({"email": email})
         db.child("users2").child(email[:indexOfAt]).child("information").update({"state": state})
@@ -1097,11 +1097,14 @@ def loginWithEmailPassword():
     email = post_request['Username']
     email = filterEmail(email)
     password = post_request['Password']
+
+    info = ''
     try:
         user = auth.sign_in_with_email_and_password(email, password)
+        info = getUserInformation(email)
     except:
         return json.dumps({"True": 1})
-    return json.dumps({"True": 2})
+    return json.dumps({"True": 2, "Info": info})
 
 @app.route("/addcollege", methods = ['POST'])
 def addCollege():
@@ -1151,6 +1154,39 @@ def remove_dashboard_college():
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).remove()
     return json.dumps({"True": 2})
 
+@app.route("/userprofile", methods = ['POST'])
+def get_user_profile():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email']
+    print("email: " + email)
+
+    # Get the information about the user
+    value = getUserInformation(email)
+    print("Value: " + str(value))
+    return json.dumps(value)
+
+@app.route("/updateprofile", methods = ['POST'])
+def set_user_profile():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email']
+    state = post_request['State']
+    name = post_request['Name']
+
+    print(email)
+    print(state)
+    print(name)
+
+    try:
+        # Update the user's information on state
+        changeState(email, state)
+        changeName(email, name)
+        return json.dumps({'Name': name, 'State': state, })
+    except:
+        return json.dumps({'isTrue': False})
+    
+
 #returns python list of all the college names
 def getUserColleges(email):
     email = filterEmail(email)
@@ -1165,6 +1201,11 @@ def changeState(email, state):
     email = filterEmail(email)
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("information").update({"state": state})
+
+def changeName(email, name):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    db.child("users2").child(email[:indexOfAt]).child("information").update({"name": name})
 
 def setCollegeEssayStatus(email, collegeName, essayArray):
     email = filterEmail(email)
