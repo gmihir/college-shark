@@ -134,7 +134,9 @@ class Explore extends React.Component {
             body: JSON.stringify({
                 Array: copyArray,
                 Filter: Sortby[indices].value,
-                IsDescending: checkOrderBy
+                IsDescending: checkOrderBy,
+                Tuition: [],
+                State: sessionStorage.getItem("userState")
             })
         }).then(response => {
             return response.json()

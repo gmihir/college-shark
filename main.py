@@ -214,7 +214,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
     return json
 
 
-def get_colleges_for_explore(query_lst,headers_explore):
+def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
     cols = ','.join(headers_explore)
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
     first_state = True
@@ -289,12 +289,26 @@ def get_colleges_for_explore(query_lst,headers_explore):
         toBeSorted.append(c)
 
     mergeSort(toBeSorted,"national_ranking",headers_explore)
-    json = []
+    json_result = []
 
     for college in toBeSorted:
-        json.append(college.get_json(headers_explore))
+        json_result.append(college.get_json(headers_explore))
 
-    return json
+    if tuition_lst != None and len(tuition_lst) != 0:
+        json_return = []
+        for i in json_result:
+            json_college = json.loads(i)
+            print
+            if json_college['state'] == state:
+                if json_college["tuition_normal"] > tuition_lst[1] and json_college["tuition_normal"] < tuition_lst[2]:
+                    json_return.append(json_college)
+            else:
+                if json_college["tuition_oos"] > tuition_lst[1] and json_college["tuition_oos"] < tuition_lst[2]:
+                    json_return.append(json_college)
+        return json_return
+
+    return json_result
+
 
 
 def get_colleges_for_essays(query_lst,headers_essay):
@@ -560,9 +574,9 @@ def get_college_names():
 #lst = get_colleges(["national_ranking","-40","sat_overall","+1400","sat_overall","-1600","school_type","Public"])
 
 #TUITION TESTING
-# lst = get_colleges(["tuition_oos", "+10000","tuition_oos","-20000"])
+# lst = get_colleges_for_explore(["national_ranking","-40"],["tuition",10000,20000],"CA",headers_explore)
 # for i in lst:
-#     print(i)
+#   print(i)
 
 # GET NAMES TESTING
 # names = get_college_names()
@@ -602,8 +616,9 @@ def test_filter():
     array = post_request['Array']
     filter_by = post_request['Filter']
     is_descending = post_request['IsDescending']
-
-    colleges_array = get_colleges_for_explore(array, headers_explore)
+    tuition = post_request['Tuition']
+    state = post_request['State']
+    colleges_array = get_colleges_for_explore(array, tuition,state,headers_explore) # put in fillers for tuition list and state to not break things
     # print(colleges_array)
 
     return jsonify(get_order(colleges_array, filter_by, is_descending, headers_explore))
