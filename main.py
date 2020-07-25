@@ -1217,10 +1217,16 @@ def setGeneralEssayStatus(email, essayArray):
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": essayArray})
 
-def setTabs(email, tabArray):
-    email = filterEmail(email)
+@app.route("/settabs", methods = ['POST'])
+def setTabs():
+    post_request = request.get_json(force=True)
+
+    # Assign value from the request
+    email = filterEmail(post_request["Email"])
+    tabArray = post_request["Tabs"]
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("information").update({"tabs": tabArray})
+    return json.dumps({'isTrue': False})
 
 #returns ordered dictionary of all information about the user and his/her colleges, essays, nested format
 @app.route("/userdashboardinfo", methods = ['POST'])
@@ -1231,6 +1237,7 @@ def getAllUserData():
     email = filterEmail(post_request["Email"])
     indexOfAt = email.index("@")
     return db.child("users2").child(email[:indexOfAt]).get().val()
+    return json.dumps({'isTrue': False})
 
 def getState(email):
     email = filterEmail(email)

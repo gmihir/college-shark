@@ -41,11 +41,11 @@ class DashboardTable extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let options = [];
         this.state.headers.map(header => {
-            var option = { value: header, label: header };   
-            options.push(option); 
+            var option = { value: header, label: header };
+            options.push(option);
         })
         this.setState({ options: options });
     }
@@ -149,41 +149,41 @@ class DashboardTable extends React.Component {
         return array;
     }
 
-    categoryRender(user, category){
-        if(category === 'tuition_oos'){
+    categoryRender(user, category) {
+        if (category === 'tuition_oos') {
             return this.numFormat(user[category]);
-        }else if(category === 'tuition_normal'){
+        } else if (category === 'tuition_normal') {
             return this.numFormat(user[category]);
-        }else if(category === 'regular_decision'){
+        } else if (category === 'regular_decision') {
             return this.dateFormat(user[category]);
-        }else if(category === 'early_decision'){
+        } else if (category === 'early_decision') {
             return this.dateFormat(user[category]);
-        }else if(category === 'early_action'){
+        } else if (category === 'early_action') {
             return this.dateFormat(user[category]);
-        }else{
+        } else {
             return user[category];
         }
     }
 
-    convertHeader(header){
+    convertToHeader(header) {
         if (header === 'tuition_oos') {
             return 'Out-of-State Tuition';
         } else if (header === 'tuition_normal') {
             return 'In-State Tuition';
-        }else if(header === 'regular_decision'){
+        } else if (header === 'regular_decision') {
             return 'RD Deadline';
-        }else if(header === 'early_decision'){
+        } else if (header === 'early_decision') {
             return 'ED Deadline';
-        }else if(header === 'early_action'){
+        } else if (header === 'early_action') {
             return 'Early Action';
-        }else if(header === 'national_ranking'){
+        } else if (header === 'national_ranking') {
             return 'Ranking';
-        }else{
+        } else {
             let name = '';
             var splitName = header.split("_");
-            for(let i = 0; i < splitName.length; i++){
+            for (let i = 0; i < splitName.length; i++) {
                 let holder = splitName[i];
-                holder = holder.substring(0, 1).toUowerCase() + holder.substring(1, holder.length);
+                holder = holder.substring(0, 1).toUpperCase() + holder.substring(1, holder.length);
                 name += holder + ' ';
             }
             name = name.substring(0, name.length - 1);
@@ -243,36 +243,52 @@ class DashboardTable extends React.Component {
         return i + 1;
     }
 
-    changeHeaders(newHeader, oldHeader){
+    changeHeaders(newHeader, oldHeader) {
         let newHeaders = [];
+        var index = this.state.headers.indexOf(oldHeader);
         var i;
-        for(let i = 0; i < this.state.headers.length; i++){
-            if(i === oldHeader){
+        for (let i = 0; i < this.state.headers.length; i++) {
+            if (i === index) {
                 newHeaders.push(newHeader['value']);
-            }else{
+            } else {
                 newHeaders.push(this.state.headers[i]);
             }
         }
-        this.setState({ headers: newHeaders });
+        fetch("/settabs", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Tabs: newHeaders,
+                Email: sessionStorage.getItem("userData")
+            })
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            this.setState({ headers: newHeaders });
+        })
     }
 
-    convertToHeader(newHeader, oldHeader){
-        if (header === 'Out-of-State Tuition') {
-            return 'tuition_oos';
-        } else if (header === 'In-State Tuition') {
-            return 'tuition_normal';
-        }else if(header === 'RD Deadline'){
+    convertHeader(header, state) {
+        if (header === 'Tuition') {
+            if (state === this.props.state) {
+                return 'tuition_normal';
+            } else {
+                return 'tuition_oos';
+            }
+        } else if (header === 'RD Deadline') {
             return 'regular_decision';
-        }else if(header === 'ED Deadline'){
+        } else if (header === 'ED Deadline') {
             return 'early_decision';
-        }else if(header === 'Early Action'){
+        } else if (header === 'Early Action') {
             return 'early_action';
-        }else if(header === 'Ranking'){
+        } else if (header === 'Rank') {
             return 'national_ranking';
-        }else{
+        } else {
             let name = '';
             var splitName = header.split(" ");
-            for(let i = 0; i < splitName.length; i++){
+            for (let i = 0; i < splitName.length; i++) {
                 let holder = splitName[i];
                 holder = holder.toLowerCase();
                 name += holder + '_';
@@ -283,6 +299,7 @@ class DashboardTable extends React.Component {
     }
 
     renderRegular() {
+        console.log(this.props.headers);
         return (
             <div>
                 <div className="toprow">
@@ -295,36 +312,41 @@ class DashboardTable extends React.Component {
 
                 <div className="table">
                     <div className="headers">
-                        <div className="name-position">College Name</div>
                         {this.state.headers.map(title => {
-                            return (
-                                <div className="other-position" onClick={() => { this.handleSort(title) }}>{title}</div>
-                            )
+                            if (title === "College Name") {
+                                return (
+                                    <div className="name-position">{title}</div>
+                                )
+                            } else {
+                                return (
+                                    <div className="other-position" onClick={() => { this.handleSort(title) }}>{title}</div>
+                                )
+                            }
                         })}
                     </div>
                     {this.state.users.map(user => {
                         return (
-                            <div className="individual-table">  
+                            <div className="individual-table">
                                 <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>
                                     <img className="logo-table" src={user.college_logo} alt="Hello" />
                                 </Link>
                                 <div className="name-position-logo">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{user.college_name}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[0], user.state))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[0]))}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[1], user.state))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[1]))}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[2], user.state))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[2]))}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[3], user.state))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[3]))}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[4], user.state))}</Link>
                                 </div>
                                 <div className="other-position-table">
-                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.props.headers[4]))}</Link>
+                                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[5], user.state))}</Link>
                                 </div>
                                 {this.renderIcon(Math.random())}
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
@@ -339,7 +361,6 @@ class DashboardTable extends React.Component {
     }
 
     renderEdit() {
-        let arrayCounter = -1;
         return (
             <div>
                 <div className="toprow">
@@ -354,13 +375,12 @@ class DashboardTable extends React.Component {
                     <div className="headers">
                         <div className="name-position">College Name</div>
                         {this.state.headers.map(title => {
-                            arrayCounter++;
                             return (
                                 <div className="other-position-edit">
                                     <Select onChange={(e) => {
-                                        this.changeHeaders(e, arrayCounter);    
+                                        this.changeHeaders(e, title);
                                     }}
-                                        options={this.state.options} placeholder={title} value={title}
+                                        options={this.state.options} placeholder={title}
                                     />
                                 </div>
                             )

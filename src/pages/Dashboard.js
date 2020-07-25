@@ -158,7 +158,7 @@ class Dashboard extends React.Component {
       }
       return (
         <div className={useStyles.theme}>
-          <DashboardTable headers={this.state.userInfo['information']['tabs']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
+          <DashboardTable headers={this.state.userInfo['information']['tabs']} state={this.state.userInfo['information']['state']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
         </div>
       )
     } else {
