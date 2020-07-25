@@ -215,7 +215,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
 
 def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
-    cols = ','.join(headers_explore)
+    cols = ",".join(headers_explore)
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
     first_state = True
     tuition_absolute = False
@@ -301,10 +301,10 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
             print
             if json_college['state'] == state:
                 if json_college["tuition_normal"] > tuition_lst[1] and json_college["tuition_normal"] < tuition_lst[2]:
-                    json_return.append(json_college)
+                    json_return.append(str(json_college))
             else:
                 if json_college["tuition_oos"] > tuition_lst[1] and json_college["tuition_oos"] < tuition_lst[2]:
-                    json_return.append(json_college)
+                    json_return.append(str(json_college))
         return json_return
 
     return json_result
@@ -613,11 +613,11 @@ def test_filter():
     print(post_request)
 
     #Assign value from the request
-    array = post_request['Array']
-    filter_by = post_request['Filter']
-    is_descending = post_request['IsDescending']
-    tuition = post_request['Tuition']
-    state = post_request['State']
+    array = post_request["Array"]
+    filter_by = post_request["Filter"]
+    is_descending = post_request["IsDescending"]
+    tuition = post_request["Tuition"]
+    state = post_request["State"]
     colleges_array = get_colleges_for_explore(array, tuition,state,headers_explore) # put in fillers for tuition list and state to not break things
     # print(colleges_array)
 

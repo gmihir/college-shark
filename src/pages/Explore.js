@@ -202,10 +202,16 @@ class Explore extends React.Component {
             this.setState({ CheckedState: checkedState });
         }
 
-        const tuitionLower = sessionStorage.getItem("normallower");
+        let tuitionLower = sessionStorage.getItem("normallower");
+        if(tuitionLower !== null && tuitionLower !== '') {
+            tuitionLower = parseInt(tuitionLower);
+        }
         this.setState({ TuitionLower: tuitionLower });
 
-        const tuitionUpper = sessionStorage.getItem("normalupper");
+        let tuitionUpper = sessionStorage.getItem("normalupper");
+        if(tuitionUpper !== null && tuitionUpper !== '') {
+            tuitionUpper = parseInt(tuitionUpper);
+        }
         this.setState({ TuitionUpper: tuitionUpper });
 
         const appType = sessionStorage.getItem("appfee");
@@ -733,35 +739,36 @@ class Explore extends React.Component {
         }
     }
 
-    pushToTuitionArray(stateLower, stateUpper, array) {
-        if (/^\d+$/.test(stateLower) && /^\d+$/.test(stateUpper)) {
-            if(stateLower === '') {
-                array.push("tuition");
-                array.push("+" + 0);
-                array.push("-" + stateUpper);
-                this.setState({Error: false});
-                sessionStorage.setItem("normallower", '');
-                sessionStorage.setItem("normalupper", stateUpper);
-            } else if(stateLower === '') {
-                array.push("tuition");
-                array.push("+" + stateLower);
-                array.push("-" + 80000);
-                this.setState({Error: false});
-                sessionStorage.setItem("normallower", stateLower);
-                sessionStorage.setItem("normalupper", '');
-            } else {
-                array.push("tuition");
-                array.push("-" + stateLower);
-                array.push("+" + stateUpper);
-                this.setState({Error: false});
-                sessionStorage.setItem("normallower", stateLower);
-                sessionStorage.setItem("normalupper", stateUpper);
-            }
+    pushToTuitionArray(stateLower, stateUpper, array) {     
+        let getLower = 0;
+        let getHigher = 80000;
+        
+        if(/^\d+$/.test(stateLower)) {
+            console.log(stateLower);
+            getLower = parseInt(stateLower)
+            this.setState({Error: false});
+            sessionStorage.setItem("normallower", stateLower);
         } else {
+            //Do nothing, this means stateLower is empty or not a real number
+            console.log("error tuitionlower")
             this.setState({Error: true});
-            array.push("tuition");
-            array.push("--1000");
-        }    
+        }
+
+        if(/^\d+$/.test(stateUpper)) {
+            console.log(stateUpper);
+            getHigher = parseInt(stateUpper);
+            this.setState({Error: false});
+            sessionStorage.setItem("normalupper", stateUpper);
+        } else {
+            //Do nothing, this means stateUpper is empty or not a real number
+            console.log("error tuitionupper")
+            this.setState({Error: true});
+        }
+
+        array.push("tuition");
+        array.push(getLower);
+        array.push(getHigher);
+        console.log(array);
     }
 
     pushToArrayDouble(state, string, array, sign, storage) {
@@ -887,6 +894,7 @@ class Explore extends React.Component {
         }
 
         sessionStorage.setItem("array", array);
+        sessionStorage.setItem("tuitionarray", arrayTuition);
         fetch("/filter", {
             method: "POST",
             headers: {

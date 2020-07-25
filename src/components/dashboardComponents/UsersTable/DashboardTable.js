@@ -256,31 +256,31 @@ class DashboardTable extends React.Component {
         this.setState({ headers: newHeaders });
     }
 
-    convertToHeader(newHeader, oldHeader){
-        if (header === 'Out-of-State Tuition') {
-            return 'tuition_oos';
-        } else if (header === 'In-State Tuition') {
-            return 'tuition_normal';
-        }else if(header === 'RD Deadline'){
-            return 'regular_decision';
-        }else if(header === 'ED Deadline'){
-            return 'early_decision';
-        }else if(header === 'Early Action'){
-            return 'early_action';
-        }else if(header === 'Ranking'){
-            return 'national_ranking';
-        }else{
-            let name = '';
-            var splitName = header.split(" ");
-            for(let i = 0; i < splitName.length; i++){
-                let holder = splitName[i];
-                holder = holder.toLowerCase();
-                name += holder + '_';
-            }
-            name = name.substring(0, name.length - 1);
-            return name;
-        }
-    }
+    // convertToHeader(newHeader, oldHeader){
+    //     if (header === 'Out-of-State Tuition') {
+    //         return 'tuition_oos';
+    //     } else if (header === 'In-State Tuition') {
+    //         return 'tuition_normal';
+    //     }else if(header === 'RD Deadline'){
+    //         return 'regular_decision';
+    //     }else if(header === 'ED Deadline'){
+    //         return 'early_decision';
+    //     }else if(header === 'Early Action'){
+    //         return 'early_action';
+    //     }else if(header === 'Ranking'){
+    //         return 'national_ranking';
+    //     }else{
+    //         let name = '';
+    //         var splitName = header.split(" ");
+    //         for(let i = 0; i < splitName.length; i++){
+    //             let holder = splitName[i];
+    //             holder = holder.toLowerCase();
+    //             name += holder + '_';
+    //         }
+    //         name = name.substring(0, name.length - 1);
+    //         return name;
+    //     }
+    // }
 
     renderRegular() {
         return (
@@ -304,7 +304,7 @@ class DashboardTable extends React.Component {
                     </div>
                     {this.state.users.map(user => {
                         return (
-                            <div className="individual-table">  
+                            {/* <div className="individual-table">  
                                 <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>
                                     <img className="logo-table" src={user.college_logo} alt="Hello" />
                                 </Link>
@@ -330,7 +330,7 @@ class DashboardTable extends React.Component {
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
                                     const finish = await this.props.removeColleges(user.college_name);
                                 }} />
-                            </div>
+                            </div> */}
                         )
                     })}
                 </div>
