@@ -105,7 +105,7 @@ class Profile extends React.Component {
                             ></input>
                         </div>
                         {!this.state.ReadName ? <div className="edit-icon" onClick={() => this.setState({ ReadName: true})}>
-                            <button className="save-button" onClick={() => this.saveProfile()}>Save</button>
+                            <button className="save-button" onClick={() => this.setState({ ReadName: true})}>Save</button>
                         </div> : <div className="edit-icon" onClick={() => this.setState({ ReadName: false})}>
                             <CreateIcon />
                         </div>}
