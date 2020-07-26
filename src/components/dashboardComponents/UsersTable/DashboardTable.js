@@ -43,14 +43,26 @@ class DashboardTable extends React.Component {
 
     componentDidMount() {
         let options = [];
-        this.state.headers.map(header => {
-            var option = { value: header, label: header };
+        var allOptions = ["tuition_normal","tuition_oos","early_decision","regular_decision","college_logo","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
+        "people_for_letters","sat","sat_essay","act_essay","self_report","subject_tests","essays","supplemental_essays","acceptance_rate",
+        "population","national_ranking","early_action","scholarship_date","interview","app_fee","common_app","coalition_app","school_type","state","college_campus","sat_overall","act_overall","locale"];
+        allOptions.map(header => {
+            var option = { value: this.convertToHeader(header), label: this.convertToHeader(header) };
             options.push(option);
         })
         this.setState({ options: options });
     }
 
-    renderIcon = (percentage) => {
+    renderIcon = (user) => {
+        var essays = this.props.userInfo['colleges'][user.college_name]['essayStatus'];
+        let count = 0;
+        for(let j = 0; j < essays.length; j++){
+            if(essays[j] === 1){
+                count++;
+            }
+        }
+        var percentage = count / essays.length;
+        var percentage = 0;
         var color = this.getColor(percentage);
         var linear = "linear-gradient(to right, " + color + " 0%, " + color + " " + Math.ceil(percentage * 100) + "%, white" + Math.ceil(percentage * 100) + "%, white 100%)";
         let percentageComplete = Math.ceil(percentage * 100) + "%";
@@ -117,27 +129,6 @@ class DashboardTable extends React.Component {
         this.setState({ users: order, descending: !this.state.descending });
     }
 
-    // quickSort(arr, start, end) {
-    //     if (arr.length <= 1) {
-    //         return arr;
-    //     }
-
-    //     const pivot = arr[arr.length - 1]; //pivot value
-    //     const left = [];  // left handside array
-    //     const right = []; // right handside array
-    //     while (start < end) {  // comparing and pushing
-    //         if (arr[start] < pivot) {
-    //             left.push(arr[start])
-    //         }
-    //         else {
-    //             right.push(arr[start])
-    //         }
-    //         start++ //  incrementing start value
-    //     }
-    //     // calling quick sort recursively
-    //     return this.quickSort(left, 0, left.length - 1).concat(pivot).concat(this.quickSort(right, 0 , right.length - 1));
-    // }
-
     quickSort(array, low, high, category) {
         var place;
         if (low < high) {
@@ -151,9 +142,9 @@ class DashboardTable extends React.Component {
 
     categoryRender(user, category) {
         if (category === 'tuition_oos') {
-            return this.numFormat(user[category]);
+            return this.numFormat(user[category]) + "\n Out-ofState";
         } else if (category === 'tuition_normal') {
-            return this.numFormat(user[category]);
+            return this.numFormat(user[category]) + "\n In-State";
         } else if (category === 'regular_decision') {
             return this.dateFormat(user[category]);
         } else if (category === 'early_decision') {
@@ -299,7 +290,6 @@ class DashboardTable extends React.Component {
     }
 
     renderRegular() {
-        console.log(this.props.headers);
         return (
             <div>
                 <div className="toprow">
@@ -348,7 +338,7 @@ class DashboardTable extends React.Component {
                                 <div className="other-position-table">
                                     <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[5], user.state))}</Link>
                                 </div>
-                                {this.renderIcon(Math.random())}
+                                {this.renderIcon(user)}
                                 <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
                                     const finish = await this.props.removeColleges(user.college_name);
                                 }} />
@@ -385,6 +375,7 @@ class DashboardTable extends React.Component {
                                 </div>
                             )
                         })}
+                        <div className="other-position">Status</div>
                     </div>
                     <div className="fade-table">
                         {this.state.users.map(user => {
@@ -394,24 +385,24 @@ class DashboardTable extends React.Component {
                                         <img className="logo-table" src={user.college_logo} alt="Hello" />
                                     </Link>
                                     <div className="name-position-logo">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{user.college_name}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[0], user.state))}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{`${user.state}`}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[1], user.state))}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.regular_decision)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[2], user.state))}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.dateFormat(user.early_decision)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[3], user.state))}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_normal)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[4], user.state))}</Link>
                                     </div>
                                     <div className="other-position-table">
-                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.numFormat(user.tuition_oos)}</Link>
+                                        <Link style={{ textDecoration: 'none', color: 'black' }} to={`/page/${user.college_name}`}>{this.categoryRender(user, this.convertHeader(this.state.headers[5], user.state))}</Link>
                                     </div>
-                                    {this.renderIcon(Math.random())}
+                                    {this.renderIcon(user)}
                                     <DeleteOutline className="trashcan" style={{ cursor: 'pointer' }} onClick={async () => {
                                         const finish = await this.props.removeColleges(user.college_name);
                                     }} />

@@ -119,6 +119,7 @@ class Dashboard extends React.Component {
       sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
       if (this.state.rerender) {
       } else {
+        console.log(collegeList);
         this.setState({
           users: collegeList,
           rerender: true,
@@ -158,7 +159,7 @@ class Dashboard extends React.Component {
       }
       return (
         <div className={useStyles.theme}>
-          <DashboardTable headers={this.state.userInfo['information']['tabs']} state={this.state.userInfo['information']['state']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={sessionStorage.getItem("collegeNames")} />
+          <DashboardTable headers={this.state.userInfo['information']['tabs']} state={this.state.userInfo['information']['state']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={this.state.users} />
         </div>
       )
     } else {

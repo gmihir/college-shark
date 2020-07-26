@@ -70,6 +70,7 @@
 
 .other-position-table {
     width: calc(10vw) !important;
+    white-space: pre-wrap;
     color: #969696;
 }
 
