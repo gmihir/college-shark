@@ -142,7 +142,7 @@ class DashboardTable extends React.Component {
 
     categoryRender(user, category) {
         if (category === 'tuition_oos') {
-            return this.numFormat(user[category]) + "\n Out-ofState";
+            return this.numFormat(user[category]) + "\n Out-of-State";
         } else if (category === 'tuition_normal') {
             return this.numFormat(user[category]) + "\n In-State";
         } else if (category === 'regular_decision') {
