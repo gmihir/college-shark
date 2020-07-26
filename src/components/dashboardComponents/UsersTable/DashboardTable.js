@@ -42,8 +42,8 @@ class DashboardTable extends React.Component {
     }
 
     componentDidMount() {
-        let options = [];
-        var allOptions = ["tuition_normal","tuition_oos","early_decision","regular_decision","college_logo","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
+        let options = ["Tuition"];
+        var allOptions = ["early_decision","regular_decision","college_logo","transcripts","mid_year","letter_of_rec_required","letter_of_rec_total",
         "people_for_letters","sat","sat_essay","act_essay","self_report","subject_tests","essays","supplemental_essays","acceptance_rate",
         "population","national_ranking","early_action","scholarship_date","interview","app_fee","common_app","coalition_app","school_type","state","college_campus","sat_overall","act_overall","locale"];
         allOptions.map(header => {
