@@ -52,7 +52,10 @@ class Individual extends Component {
             datasets :[{
                 data: [20, 40, 10, 15, 15], 
                 backgroundColor: ["Blue", "White", "Black", "Gray", "#313b4c"]
-            }]
+            }],
+            isMobile: false,
+            width: 0,
+            height: 0
         }
         this.searchBarInUse = this.searchBarInUse.bind(this);
         this.setSearch = this.setSearch.bind(this);
@@ -65,6 +68,7 @@ class Individual extends Component {
         this.renderSpinner = this.renderSpinner.bind(this);
         this.setActiveTab = this.setActiveTab.bind(this);
         this.generateLink = this.generateLink.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     setSearch = (results) => {
@@ -265,6 +269,7 @@ class Individual extends Component {
                     this.state.selectedPrompts.push(false);
                 }
             })
+                if(!this.state.isMobile) {
                 return (
                     <div className="essay-text">
                         <div className = "essay-header">
@@ -330,8 +335,68 @@ class Individual extends Component {
                                 <p>
                                     Housing: <a href={financialAid} target="_blank" rel="noopener noreferrer">{financialAid}</a>
                                 </p>
-                    </div>
+                        </div>
                 );
+                }
+                else {
+                    return (
+                        <div className="essay-text">
+                        <div className = "essay-header">
+                            <h1>Choose Application Type:</h1>
+                        </div>
+                        <div className="essay-header2">
+                        {applicationArray.map((applications, index) => {
+                             var typeArray = applications.split(" ");
+                             var type = typeArray[0];
+                             console.log(this.state.essayContent);
+                             var coalitionType = "none";
+                             const active = this.state.activeKey === index ? "active-essay" : "inactive-essay";
+                             console.log(index);
+                             console.log(this.state.activeKey);
+                             if(typeArray.length > 1) {
+                                 coalitionType = typeArray[1];
+                             }
+                            return (
+                                <h1 style={{width:"100%"}}>
+                                    <a className={active} key={index} onClick={this.handleClick.bind(this, index, applications)}>{applications}</a>
+                                </h1>
+                            );
+                        })}
+                        </div>
+                        <h1 style={{marginTop:"1rem"}}>Essays Required:</h1>
+                        <Accordion style={{width: "100%", backgroundColor: "#313b4c"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon style={{color: "white"}}/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                            <h1 style={{color: "white"}}> {this.essayContentHeader(this.state.college_json["app_site"])} </h1>
+                            </AccordionSummary>
+                            <AccordionDetails style={{backgroundColor: "white", flexDirection: "column", border: "none"}}>
+                                {this.essayContent(this.essayContentHeader(this.state.college_json["app_site"]))}
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion style={{width: "100%", backgroundColor: "#313b4c"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon style={{color: "white"}}/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                            <h1 style={{color: "white"}}>
+                                Supplemental Essay Questions {this.essayHeaderFunc(this.state.college_json["supplemental_essays"])}
+                            </h1>
+                            </AccordionSummary>
+                            <AccordionDetails style={{backgroundColor: "white", flexDirection: "column", border: "none"}}>
+                                {essayArray.map((essay, index) => {
+                                return (
+                                    <p style={{width: "100%"}}>{index + 1}.{essay}</p>
+                                )
+                                })}
+                            </AccordionDetails>
+                        </Accordion>
+                        </div>
+                    );
+                }
         }
         else {
             return essays;
@@ -416,9 +481,20 @@ class Individual extends Component {
         }
     }
 
+    updateWindowDimensions() {
+		if (window.innerWidth > 600 && this.state.isMobile) {
+			this.setState({isMobile: false});
+		}
+		else if (window.innerWidth <= 600 && !this.state.isMobile) {
+			this.setState({isMobile: true});
+		}
+		this.setState({width: window.innerWidth, height: window.innerHeight});
+	}
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        this.updateWindowDimensions();
+		window.addEventListener('resize', this.updateWindowDimensions);
         fetch("/individual", {
             method: "POST",
             headers: {
@@ -464,6 +540,7 @@ class Individual extends Component {
 
     renderIndividual = () => {
         if (this.state.searchBar === false) {
+            if(!this.state.isMobile) {
             return (
                 <div className="individual-container">
                     <img className="Geisel" src={this.state.college_json["college_campus"]} alt="College Campus" />
@@ -525,7 +602,7 @@ class Individual extends Component {
                             <Grid item className="sat-layout">
                                 <h1 className="sat-header">
                                     Tests and Transcripts
-                            </h1>
+                                </h1>
                                 <p>
                                     Transcripts: {this.state.college_json["transcripts"]}
                                 </p>
@@ -559,7 +636,7 @@ class Individual extends Component {
                         <div style={{width:"100%", height:"100%"}} />
                         <h1 className="ethnicity-header">Ethnicity Breakdown</h1>
                         <div style={{marginLeft:"-5%"}} >
-                        <Pie height="225%"
+                        <Pie height="225vh"
                             data={{
                                 labels: ['Asian', 'White', 'Black', 'Hispanic', 'International'], 
                                 datasets: [{data: [this.state.college_json["ethnicity_asian"]*100, this.state.college_json["ethnicity_white"]*100, this.state.college_json["ethnicity_black"]*100, this.state.college_json["ethnicity_hispanic"]*100, this.state.college_json["ethnicity_nra"]*100],
@@ -601,6 +678,147 @@ class Individual extends Component {
                 </div>
             );
         }
+        else {
+            return (
+                <div className="individual-container" >
+                <div className="tint" />
+                <img className="Geisel" src={this.state.college_json["college_campus"]} alt="College Campus" />
+                <div className="image-box">
+                        <h1>
+                            {this.state.college_json["college_name"]}
+                            <span className="individual-heart">
+                                <Heart collegeName={this.state.college_json["college_name"]} key={this.state.college_json["college_name"]} />
+                            </span>
+                        </h1>
+                    </div>
+                <p className="description-text">
+                        {this.state.college_json["college_description"]}
+                </p>
+                <Grid container >
+                            <Grid item className="general-layout" >
+                                <h1 className="general-text">
+                                    General Info
+                            </h1>
+                                <p>
+                                    Acceptance Rate: {this.state.college_json["acceptance_rate"]}%
+                                </p>
+                                <p>
+                                    US News Ranking: {this.state.college_json["national_ranking"]}
+                                </p>
+                                <p>
+                                    Undergrad Population: {this.numFormat(this.state.college_json["population"])}
+                                </p>
+                                <p>
+                                    Tuition: ${this.numFormat(this.state.college_json["tuition_normal"])} (In)/ ${this.numFormat(this.state.college_json["tuition_oos"])} (Out)
+                                </p>
+                                <p>
+                                    Application Fee: ${this.state.college_json["app_fee"]}
+                                </p>
+                                <p>
+                                    School: {this.state.college_json["school_type"]}
+                                </p>
+                                <p>
+                                    State: {this.state.college_json["state"]}
+                                </p>
+                                <p>
+                                    Location Type: {this.state.college_json["locale"]}
+                                </p>
+                        </Grid>
+                        <Grid item className="sat-layout">
+                                <h1 className="sat-header">
+                                    Tests and Transcripts
+                            </h1>
+                                <p>
+                                    Transcripts: {this.state.college_json["transcripts"]}
+                                </p>
+                                <p>
+                                    Mid-Year Report: {this.state.college_json["mid_year"]}
+                                </p>
+                                <p>
+                                    Letters of Rec. Required: {this.state.college_json["letter_of_rec_required"]}
+                                </p>
+                                <p>
+                                    SAT/ACT: {this.state.college_json["sat"]}
+                                </p>
+                                <p>
+                                    SAT/ACT Self-Report: {this.state.college_json["self_report"]}
+                                </p>
+                                <p>
+                                    Subject Tests: {this.state.college_json["subject_tests"]}
+                                </p>
+                                <p>
+                                    Average SAT: {this.state.college_json["sat_overall"]}
+                                </p>
+                                <p>
+                                    Average ACT: {this.state.college_json["act_overall"]}
+                                </p>
+                            </Grid>
+                    </Grid>
+                    <div className="deadline-layout" >
+                                <h1 className="deadline-header">
+                                    Deadlines
+                                </h1>
+                                <p>
+                                    Regular Decision: {this.dateFormat(this.state.college_json["regular_decision"])}
+                                </p>
+                                <p>
+                                    Early Decision: {this.dateFormat(this.state.college_json["early_decision"])}
+                                </p>
+                                <p>
+                                    Early Action: {this.dateFormat(this.state.college_json["early_action"])}
+                                </p>
+                                <p>
+                                    Scholarship: {this.dateFormat(this.state.college_json["scholarship_date"])}
+                                </p>
+                    </div>
+                    <div className="essay-container">
+                        {this.essayFormat(this.state.college_json["supplemental_essays"], this.state.college_json["app_site"])}
+                    </div>
+                    <div className="graphics-container" >
+                        <div className="googlemap-container" >
+                        <h1 className = "application-header" >Map Location</h1>
+                        <Map style={{width:"50vw", height: "26.5vh"}}lat= {this.state.college_json["latitude"]} lng={this.state.college_json["longitude"]}/>
+                        </div>
+                        <div className="pie-container" >
+                        <h1 className="application-header">Ethnicity Breakdown</h1>
+                        <Pie height="300%"
+                            data={{
+                                labels: ['Asian', 'White', 'Black', 'Hispanic', 'International'], 
+                                datasets: [{data: [this.state.college_json["ethnicity_asian"]*100, this.state.college_json["ethnicity_white"]*100, this.state.college_json["ethnicity_black"]*100, this.state.college_json["ethnicity_hispanic"]*100, this.state.college_json["ethnicity_nra"]*100],
+                                            backgroundColor: ['#313b4c', '#cccccc', '#737373', '#6666ff', 'green', 'red', 'purple']}]
+                            }}
+                            options={{
+                                tooltips: {
+                                    callbacks: {
+                                        label: function(tooltipItem, data) {
+                                            let value = data.datasets[0].data[tooltipItem.index]
+                                            return Math.round(value) + '%'
+                                        }, 
+                                        title: function(tooltipItem, data) {
+                                            return data.labels[tooltipItem[0].index];
+                                        }
+                                    }
+                                }
+                            }}
+                        />
+                        </div>
+                    </div>
+                    <div className="essay-text" >
+                        <h1 style={{marginTop:"1rem"}}>Other Helpful Links</h1>
+                                <p>
+                                    Official Site: <a href={this.generateLink(this.state.college_json["school_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["school_url"])}</a>
+                                </p>
+                                <p>
+                                    Financial Aid: <a href={this.generateLink(this.state.college_json["npc_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["npc_url"])}</a>
+                                </p>
+                                <p>
+                                    Housing: <a href={financialAid} target="_blank" rel="noopener noreferrer">{financialAid}</a>
+                                </p>
+                    </div>
+                </div>
+            );
+        }
+    }
     }
 
     render() {

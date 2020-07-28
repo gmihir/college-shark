@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 const { REACT_APP_API_KEY } = process.env;
 
 const mapStyles = {
-    width: '100%',
-    height: '100%'
+    width: '50%',
+    height: '26.5vh'
   };
 
 export class MapComponent extends Component {
@@ -16,8 +16,8 @@ export class MapComponent extends Component {
       return (
         <Map
           google={this.props.google}
+          style={this.props.style}
           zoom={14}
-          style={mapStyles}
           initialCenter={{
            lat: this.props.lat, 
            lng: this.props.lng
