@@ -682,6 +682,12 @@ class Individual extends Component {
             return (
                 <div className="individual-container" >
                 <div className="tint" />
+                <div className="return-container" >
+                <button onClick={this.goBack} className="return"><IoIosUndo /> Return</button>
+                <div className="white-circle">
+                    </div>
+                    <img className="college-logo" src={this.state.college_json["college_logo"]} alt="College Logo" />
+                </div>
                 <img className="Geisel" src={this.state.college_json["college_campus"]} alt="College Campus" />
                 <div className="image-box">
                         <h1>
@@ -779,7 +785,7 @@ class Individual extends Component {
                         <h1 className = "application-header" >Map Location</h1>
                         <Map style={{width:"50vw", height: "26.5vh"}}lat= {this.state.college_json["latitude"]} lng={this.state.college_json["longitude"]}/>
                         </div>
-                        <div className="pie-container" >
+                        <div className="pie-container" style={{position:"relative", zIndex:"11000000"}} >
                         <h1 className="application-header">Ethnicity Breakdown</h1>
                         <Pie height="300%"
                             data={{
@@ -803,7 +809,7 @@ class Individual extends Component {
                         />
                         </div>
                     </div>
-                    <div className="essay-text" >
+                    <div className="essay-text" style={{zIndex:"110000000"}}>
                         <h1 style={{marginTop:"1rem"}}>Other Helpful Links</h1>
                                 <p>
                                     Official Site: <a href={this.generateLink(this.state.college_json["school_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["school_url"])}</a>

@@ -653,6 +653,13 @@
         overflow: hidden;
     }
 
+    .return-container {
+        width: 100%;
+        position: absolute;
+        height: calc(30vh);
+        overflow: hidden;
+    }
+
     .description-text {
         width: 100%;
         /*height: calc(9.5rem);*/
@@ -769,7 +776,7 @@
     }
 
     .essay-text {
-        position: static;
+        position: relative;
         text-align: center;
         left: 0;
         top: 0;
@@ -866,5 +873,52 @@
     .pie-container {
         width: 50%;
         height: 100%;
+    }
+
+    .return {
+        margin-top: 0;
+        background-color: white;
+        border-radius: 7.5px;
+        color: #313b4c;
+        padding: 7px 10px;
+        font-size: calc(0.8rem);
+        transition-duration: 0.5s;
+        text-decoration: none;
+        font-family: 'Noto Sans JP', sans-serif;
+        font-weight: normal;
+        position: absolute;
+        bottom: 0px;
+        margin-bottom: 0.5rem;
+        margin-left: 0.5rem; 
+    }
+
+    .white-circle {
+        width: calc(12vw);
+        height: calc(12vw);
+        border-radius: calc(12vw/2);
+        position: absolute;
+        bottom: 0px;
+        left: auto;
+        top: auto;
+        background-color: white;
+        opacity: 1;
+        box-shadow: 0 0 5px -2px #888;
+        margin-top: calc(0rem);
+        right: 0px;
+        margin-bottom: 0.5rem;
+        margin-right: 0.85rem;
+    }
+
+    .college-logo {
+        width: calc(12vw);
+        height: calc(12vw);
+        position: absolute;
+        bottom: 0px;
+        left: auto;
+        top: auto;
+        margin-top: calc(0rem);
+        right: 0px;
+        margin-bottom: 0.5rem;
+        margin-right: 0.85rem;
     }
 }
