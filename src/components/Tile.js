@@ -49,14 +49,14 @@ class Tile extends Component {
                         <div className="info-container">
                             <div className="information-div">
                                 <h3>Population: </h3>
-                                <h3>In State: </h3>
+                                <h3>{sessionStorage.getItem('userState') === this.props.State ? "In State Tuition: " : "Out of State Tuition: "}</h3>
                                 <h3>App. Fee: </h3>
                                 <h3>Acceptance Rate: </h3>
                             </div>
 
                             <div className="info-div-number">
                                 <h3>{this.props.Population}</h3>
-                                <h3>${this.props.Tuition}</h3>
+                                <h3>${sessionStorage.getItem('userState') === this.props.State ? this.props.Tuition : this.props.TuitionOOS}</h3>
                                 <h3>${this.props.Fee}</h3>
                                 <h3>{this.props.Acceptance}%</h3>
                             </div>
