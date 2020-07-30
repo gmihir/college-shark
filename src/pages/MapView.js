@@ -11,7 +11,7 @@ const { REACT_APP_API_KEY } = process.env;
 const mapStyles = {
     float: 'right',
     position: 'static',
-    width: '78%',
+    width: window.innerWidth <= 760 ? 'calc(100%)' : '78%',
     height: 'auto',
     minHeight: '92vh',
     overflow: 'hidden'
@@ -33,7 +33,7 @@ export class MapView extends Component {
             lat: 40.854885,
             lng: -98.081807
           },
-          Zoom: 5,
+          Zoom: window.innerWidth <= 760 ? 4 : 5,
           ShowReset: false,
           MyColleges: JSON.parse(sessionStorage.getItem('collegeNames'))
       }
@@ -97,7 +97,7 @@ export class MapView extends Component {
           lat: 40.854885,
           lng: -98.081807
         },
-        Zoom: 5,
+        Zoom: window.innerWidth <= 760 ? 4 : 5,
         ShowReset: false  
       })
     }
@@ -205,6 +205,7 @@ export class MapView extends Component {
           return response.json()
         }).then(data => {
             this.setState({CollegeMap: data});
+            console.log(data);
         })
       })
     }
@@ -229,6 +230,7 @@ export class MapView extends Component {
                         lng: -98.081807
                       }}
                       center={this.state.Bounds}
+                      mapTypeControl={false}
                   >
                       {this.state.CollegeMap.map(college => {
                         const lat = JSON.parse(college).latitude;
@@ -313,6 +315,37 @@ export class MapView extends Component {
 
                 </div>
             </section>}
+
+            {window.innerWidth <= 760 ? <div className="map-search">
+                    <SearchBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} list={this.state.Colleges} 
+                        barwidth={'95%'} nodelayout={"map-results"} onClick={this.searchBarMapView} isMap={true}
+                    />
+              </div> : null}
+
+            {window.innerWidth <= 760 && this.state.isVisible ? 
+            <section className="college-display-mobile">
+                <section className="img-section-mobile">
+                    <img src={this.state.selectedPlace.college.college_campus} alt="College Campus" width="100%" height="100%" />
+                </section>
+                
+                <div className="college-information-mobile">
+                    <h1 className="college-name-mobile">{this.state.selectedPlace.name}</h1>
+                    <h3>Ranking: {this.rankFormat(this.state.selectedPlace.college.national_ranking)}</h3>
+
+                    <div>
+                        <button className="individual-redirect-mobile" 
+                        onClick={() => this.props.history.push(`/page/${this.state.selectedPlace.name}`)}>
+                          Click here to learn more
+                        </button>
+                    </div>
+                    
+                    <div className="heart-location-mobile">
+                      <div className="college-add-icon-mobile">
+                          <Heart collegeName={this.state.selectedPlace.name} key={this.state.selectedPlace.name} />
+                      </div>
+                    </div>
+                  </div>
+            </section> : null}
         </div>
       );
     }

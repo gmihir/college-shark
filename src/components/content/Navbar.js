@@ -166,7 +166,7 @@ class NavBar extends React.Component {
                   <NavDropdown.Item onClick={this.handleClick} href="/">Logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav.Item> : 
-              <Nav className="ml-auto" navbar>
+              <Nav className={window.innerWidth <= 760 ? "ml-0" : "ml-auto"} navbar>
                 <Nav.Item>
                     <Nav.Link href="/login">Login</Nav.Link>
                 </Nav.Item>
