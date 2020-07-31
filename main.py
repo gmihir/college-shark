@@ -620,8 +620,6 @@ def test_filter():
     tuition = post_request["Tuition"]
     state = post_request["State"]
     colleges_array = get_colleges_for_explore(array, tuition,state,headers_explore) # put in fillers for tuition list and state to not break things
-    # print(colleges_array)
-    print(colleges_array)
 
     return jsonify(get_order(colleges_array, filter_by, is_descending, headers_explore))
 
@@ -1011,14 +1009,12 @@ def resetPasswordLogin():
 
 @app.route("/dashboard", methods = ['POST'])
 def dashboard():
-    print("START OF DASHBOARD METHOD")
     post_request = request.get_json(force=True)
     email = post_request["UserEmail"]
     
     # Assign value from the request
     colleges = getUserColleges(email)
 
-    print(colleges)
     name_list = []
     for name in colleges:
         name_list.append("college_name")
