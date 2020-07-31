@@ -9,7 +9,7 @@ import { faGlobeAmericas, faLayerGroup, faScroll, faSearch } from "@fortawesome/
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Stanford = require('./wp2017235.jpg');
 const Rice = require('./Rice.jpg');
-const Royce = require('./Royce.jpg');
+const Berkeley = require('./Royce.png');
 
 function Home() {
 
@@ -162,14 +162,14 @@ function Home() {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src={Royce}
+                    src={Berkeley}
                     alt="Third slide"
                     height="850"
                     />
 
                     <Carousel.Caption>
-                        <h3>University of Texas-Austin</h3>
-                        <p>The Tower</p>
+                        <h3>University of California, Berkeley</h3>
+                        <p>Sather Gate</p>
                     </Carousel.Caption>
             </Carousel.Item>
             </Carousel>

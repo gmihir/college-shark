@@ -92,6 +92,9 @@ export class MapView extends Component {
     }
     
     resetMap() {
+      if(window.innerWidth <= 760) {
+        this.setState({isVisible: false});
+      }
       this.setState({
         Bounds: {
           lat: 40.854885,

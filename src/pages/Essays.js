@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
+import EssaysNode from '../components/EssaysNode';
 import '../css/Essays.css';
-import { OverlayTrigger, Spinner,Button,ButtonGroup } from 'react-bootstrap';
+import { OverlayTrigger, Spinner, Form ,ButtonGroup } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +12,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { IoIosReturnLeft } from 'react-icons/io';
 
 class Essays extends Component {
     constructor(props) {
@@ -24,7 +24,9 @@ class Essays extends Component {
             rerender: false,
             Loading: true,
             ShowEssays: true,
-            ShowSupplemental: false
+            ShowSupplemental: false,
+            CollegeList: {},
+            
         };
         this.searchBarInUse = this.searchBarInUse.bind(this);
         this.setSearch = this.setSearch.bind(this);
@@ -47,6 +49,7 @@ class Essays extends Component {
         this.collegesRequiringCommon = this.collegesRequiringCommon.bind(this);
         this.collegesRequiringUC = this.collegesRequiringUC.bind(this);
         this.collegesRequiringCoalition = this.collegesRequiringCoalition.bind(this);
+        this.updateSavedCollege = this.updateSavedCollege.bind(this);
     }
 
     setSearch = (results) => {
@@ -69,19 +72,16 @@ class Essays extends Component {
 
     requiresUCApp() {
         var requires = this.state.selectedColleges.some(college => college.app_site === "UC Application");
-        console.log("uc app: " + requires);
         return requires;
     }
 
     requiresCommonApp() {
         var requires = this.state.selectedColleges.some(college => college.common_app === "y");
-        console.log("common app: " + requires);
         return requires;
     }
 
     requiresCoalitionApp() {
         var requires = this.state.selectedColleges.some(college => college.coalition_app === "y");
-        console.log("coalition app: " + requires);
         return requires;
     }
 
@@ -90,7 +90,6 @@ class Essays extends Component {
         if(this.state.selectedColleges.length === 0) {
             return false;
         }
-        console.log("only common: " + requires);
         return requires;
     }
 
@@ -99,7 +98,6 @@ class Essays extends Component {
         if(this.state.selectedColleges.length === 0) {
             return false;
         }
-        console.log("only coalition: " + requires);
         return requires;
     }
 
@@ -108,7 +106,6 @@ class Essays extends Component {
         if(this.state.selectedColleges.length === 0) {
             return false;
         }
-        console.log("only uc: " + requires);
         return requires;
     }
 
@@ -262,12 +259,10 @@ class Essays extends Component {
 
         for (var i = 0; i < json.length; i++) {
             var curr = json[i].supplemental_essays;
-            console.log(curr);
             var parsed = parseInt(curr, 10);
             if (!isNaN(parsed)) {
                 num += parseInt(curr, 10);
             }
-            console.log(num);
         }
         return num;
     }
@@ -278,59 +273,92 @@ class Essays extends Component {
             this.setState({Loading: false});
             return;
         }
-        fetch("/essays", {
-            method: "POST",
-            header: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              UserEmail: sessionStorage.getItem("userData")
+
+        Promise.all([
+            fetch("/essays", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  UserEmail: sessionStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                let collegeList = [];
+                data.map(college => {
+                    var collegeName = JSON.parse(college);
+                    collegeList.push(collegeName);
+                })
+    
+                this.setState({ 
+                    selectedColleges: collegeList, 
+                    numEssays: this.calculateNumEssays(), 
+                    rerender: true,
+                    Loading: false });
+            }),
+
+            fetch("/getsaved", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: sessionStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                this.setState({CollegeList: data});
             })
-        }).then(response => {
-            console.log(response);
-            return response.json()
-        }).then(data => {
-            let collegeList = [];
-            data.map(college => {
-                var collegeName = JSON.parse(college);
-                collegeList.push(collegeName);
-            })
-            console.log(collegeList);
-            this.setState({ 
-                selectedColleges: collegeList, 
-                numEssays: this.calculateNumEssays(), 
-                rerender: true,
-                Loading: false });
-            console.log(this.state.selectedColleges);
-        });
+
+        ]).then();
     }
 
     updateColleges(){
-        fetch("/essays", {
-            method: "POST",
-            header: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              UserEmail: sessionStorage.getItem("userData")
+        Promise.all([
+            fetch("/essays", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  UserEmail: sessionStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                let collegeList = [];
+                data.map(college => {
+                    var collegeName = JSON.parse(college);
+                    collegeList.push(collegeName);
+                })
+    
+                this.setState({ 
+                    selectedColleges: collegeList, 
+                    numEssays: this.calculateNumEssays(), 
+                    rerender: true,
+                    Loading: false });
+            }),
+
+            fetch("/getsaved", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: sessionStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                this.setState({CollegeList: data});
             })
-        }).then(response => {
-            console.log(response);
-            return response.json()
-        }).then(data => {
-            let collegeList = [];
-            data.map(college => {
-                var collegeName = JSON.parse(college);
-                collegeList.push(collegeName);
-            })
-            console.log(collegeList);
-            this.setState({ 
-                selectedColleges: collegeList, 
-                numEssays: this.calculateNumEssays(), 
-                rerender: true,
-                Loading: false });
-            console.log(this.state.selectedColleges);
-        });
+
+        ]).then();
     }
 
     renderSidebar = () => {
@@ -380,7 +408,6 @@ class Essays extends Component {
 
     renderCommon = () => {
         var common = this.requiresCommonApp();
-        console.log("requires common: " + common);
         if (common) {
             return (
                 <div className="essay-prompts">
@@ -441,7 +468,6 @@ class Essays extends Component {
     }
 
     renderFirstHeader = () => {
-        console.log(this.state.selectedColleges)
 
         if(!sessionStorage.getItem('userData')) {
             return (
@@ -488,21 +514,53 @@ class Essays extends Component {
         }
     }
 
+    updateSavedCollege(collegeName, index) {
+        let getTemp = this.state.CollegeList;
+        let getArr = getTemp[collegeName];
+        
+        if(getArr[index] === 0) {
+            getArr[index] = 1;
+        } else {
+            getArr[index] = 0;
+        }
+
+        getTemp[collegeName] = getArr;
+        this.setState({CollegeList: getTemp}, () => {
+            fetch('/updatesaved', {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: sessionStorage.getItem("userData"),
+                  College: collegeName,
+                  Array: getArr
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+            });   
+        });
+    }
+
     renderSupplementalBody(college) {
         var essays = college.supplemental_essays.split("|");
-        essays.shift();
         console.log(essays);
+        essays.shift();
         if (essays.length > 0) {
             return (
-                <div>
+                <ul className="list-supplementals">
                     {essays.map((prompt, index) => {
                         return (
-                            <div className="supplementaltext">
-                                <p>{index + 1}.{prompt}</p>
-                            </div>
+                           <EssaysNode prompt={prompt} 
+                           getIndex={index} 
+                           updateSaved={this.updateSavedCollege} 
+                           name={college.college_name}
+                           array={this.state.CollegeList[college.college_name]} />
                         )
                     })}
-                </div>
+                </ul>
             );
         } else {
             return 0;
@@ -514,7 +572,6 @@ class Essays extends Component {
             <div className="render-essays-div">
                 <div className="render-essays">
                     {this.state.selectedColleges.filter(college => college.supplemental_essays !== "").map((college) => {
-                        console.log(college);
                         return (
                             <div className="essay-prompts">
                                 <Accordion style={{backgroundColor: "#313b4c"}}>

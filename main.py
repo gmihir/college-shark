@@ -187,7 +187,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
     query += ";"
 
-    print(query)
+    # print(query)
 
     #only execute query if it passes the screening
     if query_screen(query_lst):
@@ -227,7 +227,7 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
     if len(query_lst) > 0:
         query += " WHERE"
         for i in range(0, len(query_lst), 2): 
-            print(query_lst[i+1])
+            # print(query_lst[i+1])
             if str(query_lst[i+1]).find("'") is not -1:
                 query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]    
             if query_lst[i] in dates:
@@ -276,7 +276,7 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
 
 
     query += ";"
-    print(query)
+    # print(query)
     if query_screen(query_lst):
         results = get_query(query)
     else:
@@ -1187,10 +1187,6 @@ def set_user_profile():
     state = post_request['State']
     name = post_request['Name']
 
-    print(email)
-    print(state)
-    print(name)
-
     try:
         # Update the user's information on state
         changeState(email, state)
@@ -1198,7 +1194,29 @@ def set_user_profile():
         return json.dumps({'Name': name, 'State': state, })
     except:
         return json.dumps({'isTrue': False})
-    
+
+@app.route("/updatesaved", methods = ['POST'])
+def update_saved_colleges():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email']
+    collegeName = post_request['College']
+    array = post_request['Array']    
+
+    setCollegeEssayStatus(email, collegeName, array)
+    try:
+        setCollegeEssayStatus(email, collegeName, array)
+        return json.dumps({'isTrue': 1})
+    except:
+        return json.dumps({'isTrue': 0})
+
+@app.route('/getsaved', methods = ['POST'])
+def get_saved_colleges():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email'] 
+    saved = getCollegeEssayStatus(email)
+    return json.dumps(saved) 
 
 #returns python list of all the college names
 def getUserColleges(email):
@@ -1224,6 +1242,16 @@ def setCollegeEssayStatus(email, collegeName, essayArray):
     email = filterEmail(email)
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"essayStatus": essayArray})
+
+def getCollegeEssayStatus(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    val = db.child("users2").child(email[:indexOfAt]).child("colleges").get().val()
+    savedObject = {}
+    for item in val.items():
+        savedObject[item[0]] = item[1].get('essayStatus')
+    return savedObject
+     
 
 def setGeneralEssayStatus(email, essayArray):
     email = filterEmail(email)
