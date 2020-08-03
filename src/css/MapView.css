@@ -9,11 +9,28 @@
     position: relative;
 }
 
-/*
-.map-div div:first-child {
-    height: calc(92vh) !important;
+.key-div {
+    position: absolute;
+    right: calc(4vw);
+    top: calc(8.5vh);
+    background-color: rgb(245, 245, 245);
+    color: black;
+    padding: calc(1vh);
+    border-radius: calc(1rem);
 }
-*/
+
+.key-div section {
+    display: flex;
+    flex-direction: row;
+}
+
+.key-div section img {
+    max-height: calc(4vh);
+}
+
+.key-div section p {
+    margin-top: calc(1vh);
+}
 
 .college-display {
     margin-top: 0;

@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Spinner } from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 
-import { UsersToolbar, UsersTable } from '../components/dashboardComponents';
 import DashboardTable from '../components/dashboardComponents/UsersTable/DashboardTable';
 
 const useStyles = makeStyles(theme => ({

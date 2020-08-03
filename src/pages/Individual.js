@@ -9,24 +9,15 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Typography from '@material-ui/core/Typography';
-import {Redirect} from 'react-router';
-import {Route} from 'react-router';
 import Map from '../components/MapComponent';
 import { Pie } from 'react-chartjs-2';
 
-const officialSite = "https://admissions.ucsd.edu/";
-const housing = "https://hdh.ucsd.edu/housing/incoming/pages/";
 const financialAid = "https://fas.ucsd.edu/forms-and-resources/financial-aid-estimator/index.html";
 const commonApp = "https://www.commonapp.org/apply/essay-prompts";
 const coalitionApp = "https://www.coalitionforcollegeaccess.org/essays";
 const UCApp = "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-freshman/personal-insight-questions.html";
 
 class ActiveTab extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <h1 className={this.props.isActive ? "active-essay": "inactive-essay"} onClick={this.props.onActiveTab}>{this.props.content}</h1>
@@ -206,16 +197,16 @@ class Individual extends Component {
         <h1>Choose your Application Type: </h1>
         {this.state.selectedPrompts.map((prompts, counter) => {
             var header = "";
-            if(counter == 0) {
+            if(counter === 0) {
                 header = "Common";
             }
-            else if (counter == 1) {
+            else if (counter === 1) {
                 header = "Coalition";
             }
             else {
                 header = "UC";
             }
-            if (prompts == true) {
+            if (prompts === true) {
                 keyCounter++;
                 this.setState({essayContent: header})
             return (
@@ -247,7 +238,6 @@ class Individual extends Component {
                     coalitionType = typeArray[1];
                 }
                 if (type === "Common") {
-                    commonReturn = true;
                     this.state.selectedPrompts.push(true);
                 }
                 else {
@@ -278,7 +268,6 @@ class Individual extends Component {
                         <div className="essay-header2">
                         {applicationArray.map((applications, index) => {
                              var typeArray = applications.split(" ");
-                             var type = typeArray[0];
                              console.log(this.state.essayContent);
                              var coalitionType = "none";
                              const active = this.state.activeKey === index ? "active-essay" : "inactive-essay";
@@ -347,7 +336,6 @@ class Individual extends Component {
                         <div className="essay-header2">
                         {applicationArray.map((applications, index) => {
                              var typeArray = applications.split(" ");
-                             var type = typeArray[0];
                              console.log(this.state.essayContent);
                              var coalitionType = "none";
                              const active = this.state.activeKey === index ? "active-essay" : "inactive-essay";

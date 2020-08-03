@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
 import EssaysNode from '../components/EssaysNode';
 import '../css/Essays.css';
-import { OverlayTrigger, Spinner, Form ,ButtonGroup } from 'react-bootstrap';
-import { withRouter } from 'react-router';
+import { OverlayTrigger, Spinner } from 'react-bootstrap';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +25,10 @@ class Essays extends Component {
             ShowEssays: true,
             ShowSupplemental: false,
             CollegeList: {},
+            CompletedUC: false, 
+            CompeltedCommon: false,
+            CompletedCoalition: false
+
             
         };
         this.searchBarInUse = this.searchBarInUse.bind(this);
@@ -50,6 +53,7 @@ class Essays extends Component {
         this.collegesRequiringUC = this.collegesRequiringUC.bind(this);
         this.collegesRequiringCoalition = this.collegesRequiringCoalition.bind(this);
         this.updateSavedCollege = this.updateSavedCollege.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     setSearch = (results) => {
@@ -312,6 +316,31 @@ class Essays extends Component {
             }).then(data => {
                 console.log(data);
                 this.setState({CollegeList: data});
+            }),
+
+            fetch("/getgeneral", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: sessionStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                if(data.generalEssays[0].UC) {
+                    this.setState({CompletedUC: true});
+                }
+
+                if(data.generalEssays[1].Coalition) {
+                    this.setState({CompletedCoalition: true});
+                }
+
+                if(data.generalEssays[2].Common) {
+                    this.setState({CompletedCommon: true});
+                }
             })
 
         ]).then();
@@ -356,6 +385,31 @@ class Essays extends Component {
             }).then(data => {
                 console.log(data);
                 this.setState({CollegeList: data});
+            }),
+
+            fetch("/getgeneral", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: sessionStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                if(data.generalEssays[0].UC) {
+                    this.setState({CompletedUC: true});
+                }
+
+                if(data.generalEssays[1].Coalition) {
+                    this.setState({CompletedCoalition: true});
+                }
+
+                if(data.generalEssays[2].Common) {
+                    this.setState({CompletedCommon: true});
+                }
             })
 
         ]).then();
@@ -374,6 +428,25 @@ class Essays extends Component {
         )
     }
 
+    handleCheck() {
+        let getArray = [];
+        getArray.push({"UC": this.state.CompletedUC});
+        getArray.push({"Coalition": this.state.CompletedCoalition});
+        getArray.push({"Common": this.state.CompletedCommon});
+        fetch('/setgeneral', {
+            method: "POST",
+            header: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              Email: sessionStorage.getItem("userData"),
+              Array: getArray
+            })
+        }).then(response => response.json()).then(data => {
+            console.log(data);
+        })
+    }
+
     renderUC = () => {
         var uc = this.requiresUCApp();
         if (uc) {
@@ -389,6 +462,11 @@ class Essays extends Component {
                         </AccordionSummary>
                         <AccordionDetails style={{backgroundColor: 'white'}}>
                             <Typography>
+                                <p><input type="checkbox" onClick={() => {
+                                    this.setState({CompletedUC: !this.state.CompletedUC}, () => {
+                                        this.handleCheck();
+                                    })
+                                }} checked={this.state.CompletedUC}></input> Completed?</p>
                                 <p>1. Describe an example of your leadership experience in which you have positively influenced others, helped resolve disputes or contributed to group efforts over time.</p>
                                 <p>2. Every person has a creative side, and it can be expressed in many ways: problem solving, original and innovative thinking, and artistically, to name a few. Describe how you express your creative side.</p>
                                 <p>3. What would you say is your greatest talent or skill? How have you developed and demonstrated that talent over time?  </p>
@@ -421,6 +499,11 @@ class Essays extends Component {
                         </AccordionSummary>
                         <AccordionDetails style={{backgroundColor: 'white'}}>
                             <Typography>
+                                <p><input type="checkbox" onClick={() => {
+                                    this.setState({CompletedCommon: !this.state.CompletedCommon}, () => {
+                                        this.handleCheck();
+                                    })
+                                }} checked={this.state.CompletedCommon}></input> Completed?</p>
                                 <p>1. Some students have a background, identity, interest, or talent so meaningful they believe their application would be incomplete without it. If this sounds like you, please share your story.</p>
                                 <p>2. The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</p>
                                 <p>3. Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</p>
@@ -453,6 +536,11 @@ class Essays extends Component {
                         </AccordionSummary>
                         <AccordionDetails style={{backgroundColor: 'white'}}>
                             <Typography>
+                                <p><input type="checkbox" onClick={() => {
+                                    this.setState({CompletedCoalition: !this.state.CompletedCoaltion}, () => {
+                                        this.handleCheck();
+                                    })
+                                }} checked={this.state.CompletedCoalition}></input> Completed?</p>
                                 <p>1. Tell a story from your life, describing an experience that either demonstrates your character or helped to shape it.</p>
                                 <p>2. Describe a time when you made a meaningful contribution to others in which the greater good was your focus. Discuss the challenges and rewards of making your contribution.</p>
                                 <p>3. Has there been a time when you’ve had a long-cherished or accepted belief challenged? How did you respond? How did the challenge affect your beliefs?</p>

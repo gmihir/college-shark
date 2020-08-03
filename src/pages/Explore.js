@@ -13,7 +13,6 @@ import 'primeicons/primeicons.css';
 import Select from 'react-select';
 import { faInfoCircle, faSadTear, faSort, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withRouter } from 'react-router-dom';
 
 class Explore extends React.Component {
     constructor(props) {

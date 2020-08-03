@@ -1218,6 +1218,28 @@ def get_saved_colleges():
     saved = getCollegeEssayStatus(email)
     return json.dumps(saved) 
 
+@app.route('/getgeneral', methods = ['POST'])
+def get_general_essays():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email'] 
+    saved = getGeneralEssayStatus(email)
+    return json.dumps(saved) 
+
+@app.route('/setgeneral', methods = ['POST'])
+def set_general_essays():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email']
+    array = post_request['Array']
+
+    try:
+        setGeneralEssayStatus(email, array)
+    except:
+        return json.dumps({True: 0})
+    
+    return json.dumps({True: 1}) 
+
 #returns python list of all the college names
 def getUserColleges(email):
     email = filterEmail(email)
@@ -1250,13 +1272,17 @@ def getCollegeEssayStatus(email):
     savedObject = {}
     for item in val.items():
         savedObject[item[0]] = item[1].get('essayStatus')
-    return savedObject
-     
+    return savedObject   
 
 def setGeneralEssayStatus(email, essayArray):
     email = filterEmail(email)
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": essayArray})
+
+def getGeneralEssayStatus(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    return db.child("users2").child(email[:indexOfAt]).child("information").get().val()
 
 @app.route("/settabs", methods = ['POST'])
 def setTabs():

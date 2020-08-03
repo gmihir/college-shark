@@ -9,24 +9,6 @@ import Signup from './pages/Signup';
 import Individual from './pages/Individual';
 import MapView from './pages/MapView';
 import Essays from './pages/Essays';
- 
-
-const RequireAuth = (Component) => {
-  return class Application extends Component {
-    componentWillMount() {
-      if (sessionStorage.getItem("userData")) {
-
-      } else {
-        this.props.history.replace({ pathname: '/login' });
-      }
-    }
-
-    render() {
-      return <Component Component />
-    }
-
-  }
-}
 
 class App extends React.Component {
 

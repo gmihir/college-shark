@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import '../css/Essays.css';
 
 export default function EssaysNode(props) {

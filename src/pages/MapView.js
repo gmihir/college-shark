@@ -1,10 +1,9 @@
-import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
 import SearchBar from '../components/content/SearchBar';
 import Heart from '../components/content/Heart';
 import '../css/MapView.css';
-import Image from './UCSDCampus.jpg';
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -171,9 +170,11 @@ export class MapView extends Component {
 
     componentDidMount() {
       let tempArr = [];
-      this.state.MyColleges.forEach(college => {
-        tempArr.push(college.college_name);
-      })
+      if(this.state.MyColleges !== null) {
+        this.state.MyColleges.forEach(college => {
+          tempArr.push(college.college_name);
+        })
+      }
       this.setState({MyColleges: tempArr});
 
       fetch("/searchbar", {
@@ -208,7 +209,6 @@ export class MapView extends Component {
           return response.json()
         }).then(data => {
             this.setState({CollegeMap: data});
-            console.log(data);
         })
       })
     }
@@ -250,6 +250,18 @@ export class MapView extends Component {
                   </Map>
                </div>
             </section>
+
+            {window.innerWidth <= 760 ? null : 
+            <div className="key-div">
+              <section>
+                <img src={require('./unsaved.png')} alt="saved marker"></img>
+                <p>Saved to 'My Colleges'</p>
+              </section>
+              <section>
+                <img src={require('./saved.png')} alt="unsaved marker"></img>
+                <p>Not Saved to 'My Colleges</p>
+              </section>
+            </div>}
 
             {!this.state.isVisible ? 
             <section className="college-display">

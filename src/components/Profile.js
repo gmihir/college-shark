@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/Settings.css';
-import { Modal, Button, Col, Row, Container } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import CreateIcon from '@material-ui/icons/Create';
 import Select from 'react-select';
 import { States } from './State';
@@ -8,7 +8,6 @@ import { States } from './State';
 class Profile extends React.Component {
     constructor(props) {
         super(props)
-        console.log(props);
 
         this.state= {
             ReadName: true,
@@ -32,22 +31,18 @@ class Profile extends React.Component {
           }).then(response => {
             return response.json()
           }).then(data => {
-              console.log(data);
               this.setState({UserData: data, userName: data.name});
 
               //Find the user's state to set the value of the dropdown
               States.forEach(states => {
                 if(this.state.UserData.state === states.value) {
-                    this.setState({UserStates: states}, () => {
-                        console.log(this.state.UserStates);
-                    });
+                    this.setState({UserStates: states});
                 }
             })
         })
     }
 
     saveProfile() {
-        console.log(this.state.userName);
         fetch("/updateprofile", {
             method: "POST",
             headers: {
@@ -62,12 +57,11 @@ class Profile extends React.Component {
             return response.json()
           }).then(data => {
               this.setState({userName: data.Name});
-              sessionStorage.setItem('userState', data.State)
+              sessionStorage.setItem('userState', data.State);
+              sessionStorage.setItem('userName', data.Name);
               States.forEach(states => {
                 if(data.State === states.value) {
-                    this.setState({UserStates: states}, () => {
-                        console.log(this.state.UserStates);
-                    });
+                    this.setState({UserStates: states});
                 }
               })
               window.location.reload(false);
@@ -101,7 +95,7 @@ class Profile extends React.Component {
                             <input type="text" defaultValue={this.state.UserData.name} 
                             readOnly={this.state.ReadName} 
                             onFocus={(event) => event.target.select()}
-                            onChange={(e) => this.setState({userName: e.target.value}, () => console.log(this.state.userName))}
+                            onChange={(e) => this.setState({userName: e.target.value})}
                             ></input>
                         </div>
                         {!this.state.ReadName ? <div className="edit-icon" onClick={() => this.setState({ ReadName: true})}>

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {Redirect} from 'react-router';
-import { Container, Nav, Button, Row, Col, Form, Modal, Carousel} from 'react-bootstrap';
+import { Container, Button, Row, Col, Form, Modal, Carousel} from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 import SearchBar from '../components/content/SearchBar';
-import { Link } from 'react-router-dom';
 import '../css/Home.css';
-import { faGlobeAmericas, faLayerGroup, faScroll, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faGlobeAmericas, faLayerGroup, faScroll } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Stanford = require('./wp2017235.jpg');
 const Rice = require('./Rice.jpg');
