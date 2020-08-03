@@ -86,8 +86,8 @@ class Explore extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
 
-        //Get the array from sessionStorage for searching
-        let savedArray = sessionStorage.getItem("array");
+        //Get the array from localStorage for searching
+        let savedArray = localStorage.getItem("array");
         let copyArray = [];
         //Check if the array is empty or not defined
         if (savedArray === null || savedArray === undefined || savedArray === '') {
@@ -104,7 +104,7 @@ class Explore extends React.Component {
         }
 
         //Filter by to determine how to filter the items
-        const filterBy = sessionStorage.getItem("filterby");
+        const filterBy = localStorage.getItem("filterby");
         //Starting index, used to determine from the Sortby array
         let indices = 0;
         //If it is not null or a comma
@@ -119,7 +119,7 @@ class Explore extends React.Component {
             indices = 0;    
         }
 
-        const checked = sessionStorage.getItem("checked");
+        const checked = localStorage.getItem("checked");
         let checkOrderBy = false;
         if(checked !== null && checked !== 'undefined') {
             if(checked === 'false') {
@@ -134,16 +134,16 @@ class Explore extends React.Component {
             checkOrderBy = false    
         }
 
-        const getTuitionArray = sessionStorage.getItem("tuitionarray");
+        const getTuitionArray = localStorage.getItem("tuitionarray");
         let toArray = [];
 
-        let tuitionLower = sessionStorage.getItem("normallower");
+        let tuitionLower = localStorage.getItem("normallower");
         if(tuitionLower !== null && tuitionLower !== '') {
             tuitionLower = parseInt(tuitionLower);
         }
         this.setState({ TuitionLower: tuitionLower });
 
-        let tuitionUpper = sessionStorage.getItem("normalupper");
+        let tuitionUpper = localStorage.getItem("normalupper");
         if(tuitionUpper !== null && tuitionUpper !== '') {
             tuitionUpper = parseInt(tuitionUpper);
         }
@@ -173,7 +173,7 @@ class Explore extends React.Component {
                 Filter: Sortby[indices].value,
                 IsDescending: checkOrderBy,
                 Tuition: toArray,
-                State: sessionStorage.getItem("userState")
+                State: localStorage.getItem("userState")
             })
         }).then(response => {
             return response.json()
@@ -185,8 +185,8 @@ class Explore extends React.Component {
         });
 
         let satArr = [0, 1600];
-        if(sessionStorage.getItem('satscore') !== null) {
-            const satAverage = sessionStorage.getItem('satscore');
+        if(localStorage.getItem('satscore') !== null) {
+            const satAverage = localStorage.getItem('satscore');
             let temp = [];
             satArr = satAverage.split(',');
             satArr.forEach((sat) => {
@@ -198,8 +198,8 @@ class Explore extends React.Component {
         }
 
         let actArr = [0, 36];
-        if(sessionStorage.getItem('actscore') !== null) {
-            const satAverage = sessionStorage.getItem('actscore');
+        if(localStorage.getItem('actscore') !== null) {
+            const satAverage = localStorage.getItem('actscore');
             let acttemp = [];
             actArr = satAverage.split(',');
             actArr.forEach((sat) => {
@@ -210,36 +210,36 @@ class Explore extends React.Component {
             this.setState({ACTAverage: actArr});
         }
 
-        const appFee = sessionStorage.getItem("feelower");
+        const appFee = localStorage.getItem("feelower");
         this.setState({ AppFeeLower: appFee });
 
-        const appFeeUpper = sessionStorage.getItem("feeupper");
+        const appFeeUpper = localStorage.getItem("feeupper");
         this.setState({ AppFeeUpper: appFeeUpper });
 
-        const acceptLower = sessionStorage.getItem("acceptlower");
+        const acceptLower = localStorage.getItem("acceptlower");
         this.setState({ AcceptanceLower: acceptLower });
 
-        const acceptUpper = sessionStorage.getItem("acceptupper");
+        const acceptUpper = localStorage.getItem("acceptupper");
         this.setState({ AcceptanceUpper: acceptUpper });
 
-        const populationLower = sessionStorage.getItem("populationlower");
+        const populationLower = localStorage.getItem("populationlower");
         this.setState({ PopulationLower: populationLower });
 
-        const populationUpper = sessionStorage.getItem("populationupper");
+        const populationUpper = localStorage.getItem("populationupper");
         this.setState({ PopulationUpper: populationUpper });
 
-        const nationalLower = sessionStorage.getItem("nationallower");
+        const nationalLower = localStorage.getItem("nationallower");
         this.setState({ RankingLower: nationalLower });
 
-        const nationalUpper = sessionStorage.getItem("nationalupper");
+        const nationalUpper = localStorage.getItem("nationalupper");
         this.setState({ RankingUpper: nationalUpper });
 
-        const checkedState = sessionStorage.getItem("checkedstate");
+        const checkedState = localStorage.getItem("checkedstate");
         if (checkedState !== null) {
             this.setState({ CheckedState: checkedState });
         }
 
-        const appType = sessionStorage.getItem("appfee");
+        const appType = localStorage.getItem("appfee");
         if (appType !== null) {
             if(appType.length === 0 || appType === ',') {
                 this.setState({ App: []});
@@ -249,7 +249,7 @@ class Explore extends React.Component {
             }
         }
 
-        const letterRec = sessionStorage.getItem("letterrec");
+        const letterRec = localStorage.getItem("letterrec");
         if (letterRec !== null) {
             if(letterRec.length === 0 || letterRec === ',') {
                 this.setState({ LOR: []});
@@ -259,7 +259,7 @@ class Explore extends React.Component {
             }          
         }
 
-        const schoolType = sessionStorage.getItem("schooltype");
+        const schoolType = localStorage.getItem("schooltype");
         if (schoolType !== null) {
             if(schoolType.length === 0 || schoolType === ',') {
                 this.setState({ School: [] });
@@ -269,7 +269,7 @@ class Explore extends React.Component {
             }
         }
 
-        const stateFilter = sessionStorage.getItem("statefilter");
+        const stateFilter = localStorage.getItem("statefilter");
         if (stateFilter !== null) {
             let newArray = [];
             if(stateFilter === "," || stateFilter.length === 0) {
@@ -750,12 +750,12 @@ class Explore extends React.Component {
     pushToArray(state, string, array, sign, storage) {
         if (state === null || state === '') {
             //Nothing happens
-            sessionStorage.setItem(storage, '');
+            localStorage.setItem(storage, '');
         } else if (/^\d+$/.test(state)) {
             array.push(string);
             array.push(sign + state);
             this.setState({Error: false});
-            sessionStorage.setItem(storage, state);
+            localStorage.setItem(storage, state);
         } else {
             this.setState({Error: true});
             array.push(string);
@@ -770,7 +770,7 @@ class Explore extends React.Component {
         if(/^\d+$/.test(stateLower)) {
             getLower = parseInt(stateLower)
             this.setState({Error: false});
-            sessionStorage.setItem("normallower", stateLower);
+            localStorage.setItem("normallower", stateLower);
         } else {
             //Do nothing, this means stateLower is empty or not a real number
             this.setState({Error: true});
@@ -779,7 +779,7 @@ class Explore extends React.Component {
         if(/^\d+$/.test(stateUpper)) {
             getHigher = parseInt(stateUpper);
             this.setState({Error: false});
-            sessionStorage.setItem("normalupper", stateUpper);
+            localStorage.setItem("normalupper", stateUpper);
         } else {
             //Do nothing, this means stateUpper is empty or not a real number
             this.setState({Error: true});
@@ -793,7 +793,7 @@ class Explore extends React.Component {
     pushToArrayDouble(state, string, array, sign, storage) {
         if (state === null || state === '') {
             //Nothing happens
-            sessionStorage.setItem(storage, '');
+            localStorage.setItem(storage, '');
         } else if (/^[1-9]\d*(\.\d+)?$/.test(state)) {
             if(state.split(".").length > 2) {
                 array.push(string);
@@ -804,7 +804,7 @@ class Explore extends React.Component {
             array.push(string);
             array.push(sign + state);
             this.setState({Error: false});
-            sessionStorage.setItem(storage, state);
+            localStorage.setItem(storage, state);
         } else {
             this.setState({Error: true});
             array.push(string);
@@ -848,11 +848,11 @@ class Explore extends React.Component {
 
         if (this.state.TuitionLower !== '' || this.state.TuitionUpper !== '') {
             this.pushToTuitionArray(this.state.TuitionLower, this.state.TuitionUpper, arrayTuition);
-            sessionStorage.setItem("tuitionarray", arrayTuition);
+            localStorage.setItem("tuitionarray", arrayTuition);
         } else {
-            sessionStorage.setItem("tuitionarray", '');
-            sessionStorage.setItem("normallower", '');
-            sessionStorage.setItem("normalupper", '');
+            localStorage.setItem("tuitionarray", '');
+            localStorage.setItem("normallower", '');
+            localStorage.setItem("normalupper", '');
         }
 
         if (this.state.App.value !== 'Any' && this.state.App.length !== 0) {
@@ -901,14 +901,14 @@ class Explore extends React.Component {
             keys.push(state.value);
         })
 
-        sessionStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
-        sessionStorage.setItem("checked", this.state.IsDescending.value);
-        sessionStorage.setItem("schooltype", [this.state.School.value, this.state.School.label]);
-        sessionStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
-        sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
-        sessionStorage.setItem("statefilter", keys);
-        sessionStorage.setItem("satscore", this.state.SATAverage);
-        sessionStorage.setItem("actscore", this.state.ACTAverage);
+        localStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
+        localStorage.setItem("checked", this.state.IsDescending.value);
+        localStorage.setItem("schooltype", [this.state.School.value, this.state.School.label]);
+        localStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
+        localStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
+        localStorage.setItem("statefilter", keys);
+        localStorage.setItem("satscore", this.state.SATAverage);
+        localStorage.setItem("actscore", this.state.ACTAverage);
 
         if(array.length !== 0 || arrayTuition.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
             this.setState({ ToggleClear: true, ExploreRedirect: false });
@@ -916,7 +916,7 @@ class Explore extends React.Component {
             this.setState({ ToggleClear: false, ExploreRedirect: false });    
         }
 
-        sessionStorage.setItem("array", array);
+        localStorage.setItem("array", array);
         fetch("/filter", {
             method: "POST",
             headers: {
@@ -927,7 +927,7 @@ class Explore extends React.Component {
                 Filter: this.state.Filter.length === 0 ? Sortby[0].value : this.state.Filter.value,
                 IsDescending: this.state.IsDescending.length === 0 ? OrderBy[0].value : this.state.IsDescending.value,
                 Tuition: arrayTuition,
-                State: sessionStorage.getItem('userState')
+                State: localStorage.getItem('userState')
             })
         }).then(response => {
             return response.json();

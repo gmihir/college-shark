@@ -45,8 +45,8 @@ class Heart extends React.Component {
     }
 
     handleClick = async (e) => {
-        console.log(sessionStorage.getItem("userData"))
-        if(sessionStorage.getItem("userData") === null) {
+        console.log(localStorage.getItem("userData"))
+        if(localStorage.getItem("userData") === null) {
             this.setState({Show: true});
             return;
         }
@@ -59,7 +59,7 @@ class Heart extends React.Component {
                 },
                 body: JSON.stringify({
                     CollegeName: this.state.currentCollege,
-                    UserEmail: sessionStorage.getItem("userData")
+                    UserEmail: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json();
@@ -69,8 +69,8 @@ class Heart extends React.Component {
                     var collegeName = JSON.parse(college);
                     collegeList.push(collegeName);
                 })
-                sessionStorage.removeItem("collegeNames");
-                sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
+                localStorage.removeItem("collegeNames");
+                localStorage.setItem("collegeNames", JSON.stringify(collegeList));
             })
             this.setState({ status: false });
         } else {
@@ -81,7 +81,7 @@ class Heart extends React.Component {
                 },
                 body: JSON.stringify({
                     CollegeName: this.state.currentCollege,
-                    UserEmail: sessionStorage.getItem("userData")
+                    UserEmail: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json();
@@ -91,15 +91,15 @@ class Heart extends React.Component {
                     var collegeName = JSON.parse(college);
                     collegeList.push(collegeName);
                 })
-                sessionStorage.removeItem("collegeNames");
-                sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
+                localStorage.removeItem("collegeNames");
+                localStorage.setItem("collegeNames", JSON.stringify(collegeList));
             })
             this.setState({ status: true });
         }
     }
     componentWillMount() {
-        if (sessionStorage.getItem("collegeNames") !== null) {
-            JSON.parse(sessionStorage.getItem("collegeNames")).map(college => {
+        if (localStorage.getItem("collegeNames") !== null) {
+            JSON.parse(localStorage.getItem("collegeNames")).map(college => {
                 if (college.college_name === this.props.collegeName) {
                     if (this.state.status !== true) {
                         this.setState({ status: true })

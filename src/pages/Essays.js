@@ -273,7 +273,7 @@ class Essays extends Component {
 
 
     componentDidMount() {
-        if(!sessionStorage.getItem('userData')) {
+        if(!localStorage.getItem('userData')) {
             this.setState({Loading: false});
             return;
         }
@@ -285,7 +285,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  UserEmail: sessionStorage.getItem("userData")
+                  UserEmail: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json()
@@ -309,7 +309,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  Email: sessionStorage.getItem("userData")
+                  Email: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json()
@@ -324,7 +324,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  Email: sessionStorage.getItem("userData")
+                  Email: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json()
@@ -354,7 +354,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  UserEmail: sessionStorage.getItem("userData")
+                  UserEmail: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json()
@@ -378,7 +378,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  Email: sessionStorage.getItem("userData")
+                  Email: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json()
@@ -393,7 +393,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  Email: sessionStorage.getItem("userData")
+                  Email: localStorage.getItem("userData")
                 })
             }).then(response => {
                 return response.json()
@@ -439,7 +439,7 @@ class Essays extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              Email: sessionStorage.getItem("userData"),
+              Email: localStorage.getItem("userData"),
               Array: getArray
             })
         }).then(response => response.json()).then(data => {
@@ -557,7 +557,7 @@ class Essays extends Component {
 
     renderFirstHeader = () => {
 
-        if(!sessionStorage.getItem('userData')) {
+        if(!localStorage.getItem('userData')) {
             return (
                 <div className="empty-div">
                     <div className="redirect-div">
@@ -620,7 +620,7 @@ class Essays extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  Email: sessionStorage.getItem("userData"),
+                  Email: localStorage.getItem("userData"),
                   College: collegeName,
                   Array: getArr
                 })

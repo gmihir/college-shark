@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
       },
       body: JSON.stringify({
         CollegeName: selected,
-        UserEmail: sessionStorage.getItem("userData")
+        UserEmail: localStorage.getItem("userData")
       })
     }).then(response => {
       return response.json();
@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem('userData')) {
+    if (!localStorage.getItem('userData')) {
       this.setState({ Loading: false });
     }
   }
@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          UserEmail: sessionStorage.getItem("userData")
+          UserEmail: localStorage.getItem("userData")
         })
       }),
       fetch("/userdashboardinfo", {
@@ -104,7 +104,7 @@ class Dashboard extends React.Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          Email: sessionStorage.getItem("userData")
+          Email: localStorage.getItem("userData")
         })
       })
     ]).then(([res1, res2]) => 
@@ -115,7 +115,7 @@ class Dashboard extends React.Component {
         var collegeName = JSON.parse(college);
         collegeList.push(collegeName);
       })
-      sessionStorage.setItem("collegeNames", JSON.stringify(collegeList));
+      localStorage.setItem("collegeNames", JSON.stringify(collegeList));
       if (this.state.rerender) {
       } else {
         console.log(collegeList);
@@ -168,7 +168,7 @@ class Dashboard extends React.Component {
 
   render() {
 
-    if (!sessionStorage.getItem('userData')) {
+    if (!localStorage.getItem('userData')) {
       return (
         <div>
           <NavBar searchBarInUse={this.searchBarInUse} setSearch={this.setSearch} searchBar={this.state.searchBar} active="1" />

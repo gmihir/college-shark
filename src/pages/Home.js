@@ -79,7 +79,7 @@ function Home() {
         }
       }
 
-    // if(sessionStorage.getItem("userData")){
+    // if(localStorage.getItem("userData")){
     //     return(<Redirect to='/mycolleges' />)
     // }
 

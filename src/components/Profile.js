@@ -26,7 +26,7 @@ class Profile extends React.Component {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              Email: sessionStorage.getItem('userData')
+              Email: localStorage.getItem('userData')
             })
           }).then(response => {
             return response.json()
@@ -49,7 +49,7 @@ class Profile extends React.Component {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              Email: sessionStorage.getItem('userData'),
+              Email: localStorage.getItem('userData'),
               State: this.state.UserStates.value,
               Name: this.state.userName 
             })
@@ -57,8 +57,8 @@ class Profile extends React.Component {
             return response.json()
           }).then(data => {
               this.setState({userName: data.Name});
-              sessionStorage.setItem('userState', data.State);
-              sessionStorage.setItem('userName', data.Name);
+              localStorage.setItem('userState', data.State);
+              localStorage.setItem('userName', data.Name);
               States.forEach(states => {
                 if(data.State === states.value) {
                     this.setState({UserStates: states});

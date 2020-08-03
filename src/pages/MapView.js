@@ -34,7 +34,7 @@ export class MapView extends Component {
           },
           Zoom: window.innerWidth <= 760 ? 4 : 5,
           ShowReset: false,
-          MyColleges: JSON.parse(sessionStorage.getItem('collegeNames'))
+          MyColleges: JSON.parse(localStorage.getItem('collegeNames'))
       }
 
         this.searchBarInUse = this.searchBarInUse.bind(this);
@@ -308,7 +308,7 @@ export class MapView extends Component {
                     
                     <div className="college-info-container">
                         <div className="college-info-header">
-                            <h2>{this.state.selectedPlace.college.state === sessionStorage.getItem('userState') ? 
+                            <h2>{this.state.selectedPlace.college.state === localStorage.getItem('userState') ? 
                             "In State Tuition:" : "Out of State Tuition:"} </h2>
                             <h2>State:</h2>
                             <h2>Town type:</h2>
@@ -317,7 +317,7 @@ export class MapView extends Component {
                         </div>
 
                         <div className="college-info-values">
-                            <h2>${this.state.selectedPlace.college.state === sessionStorage.getItem('userState') ? 
+                            <h2>${this.state.selectedPlace.college.state === localStorage.getItem('userState') ? 
                             this.numFormat(this.state.selectedPlace.college.tuition_normal) : this.numFormat(this.state.selectedPlace.college.tuition_oos)}</h2>
                             <h2>{this.state.selectedPlace.college.state}</h2>
                             <h2>{this.state.selectedPlace.college.locale}</h2>
