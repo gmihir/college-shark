@@ -158,6 +158,17 @@ h3.required-text{
     font-weight: normal;
 }
 
+.list-supplementals {
+    list-style: none;
+    position: relative;
+}
+
+.list-supplementals input {
+    position: absolute;
+    left: calc(0.7vw);
+    margin-top: calc(0.4vh);
+}
+
 .icon-background {
     background-color: #313b4c;
     margin-top: calc(3.8vh);

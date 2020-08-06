@@ -187,7 +187,7 @@ def get_colleges_for_dashboard(query_lst,headers_dashboard):
 
     query += ";"
 
-    print(query)
+    # print(query)
 
     #only execute query if it passes the screening
     if query_screen(query_lst):
@@ -218,40 +218,20 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
     cols = ",".join(headers_explore)
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
     first_state = True
-    tuition_absolute = False
-    tuition_count = Counter(query_lst)
-    last_tuition = False
-    first_tuition = True
-    if tuition_count["tuition_oos"] + tuition_count["tuition_normal"] is 4:
-        tuition_absolute = True
     if len(query_lst) > 0:
         query += " WHERE"
         for i in range(0, len(query_lst), 2): 
-            print(query_lst[i+1])
+            # print(query_lst[i+1])
             if str(query_lst[i+1]).find("'") is not -1:
                 query_lst[i+1] = query_lst[i+1][:query_lst[i+1].find("\'")]  + "\'" + query_lst[i+1][query_lst[i+1].find("\'"):]    
             if query_lst[i] in dates:
                 epoch = get_epoch(query_lst[i + 1][1:])
                 query_lst[i + 1] = query_lst[i + 1][0] + str(epoch)
             if query_lst[i] in numbers:
-                if tuition_absolute and not last_tuition and "tuition" in query_lst[i]:
-                    query += "("
-                    if i-2 >= 0 and "tuition" not in query_lst[i-2]:
-                        query += "("
-                elif "tuition" in query_lst[i]:
-                    last_tuition = True
                 if query_lst[i + 1][0] == "+":
                     query += " " + str(query_lst[i]) + " >= " + str(query_lst[i + 1][1:])
                 else:
                     query += " " + str(query_lst[i]) + " <= " + str(query_lst[i + 1][1:])
-                if tuition_absolute and last_tuition and "tuition" in query_lst[i]:
-                    query += ")"
-                    if "tuition" in query_lst[i] and (i+2 > len(query_lst)-1 or "tuition" not in query_lst[i+2]):
-                        query += ")"
-                    if i+2 < len(query_lst) and "tuition" in query_lst[i+2]:
-                        last_tuition = False
-                elif "tuition" in query_lst[i]:
-                    last_tuition = True
             else:
                 if query_lst[i] == "state":
                     if first_state == True:
@@ -266,17 +246,13 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
                         query += ")"
                 else:
                     query += " " + str(query_lst[i]) + "=\'" + str(query_lst[i+1]) + "\'"
-            if i+2 < len(query_lst) and "tuition" in query_lst[i] and "tuition" in query_lst[i+2] and tuition_absolute and not last_tuition:
-                query += " OR "
-                continue
-
             if i != len(query_lst) - 2:
                     query += " AND"
 
 
 
     query += ";"
-    print(query)
+    # print(query)
     if query_screen(query_lst):
         results = get_query(query)
     else:
@@ -294,7 +270,8 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
     for college in toBeSorted:
         json_result.append(college.get_json(headers_explore))
 
-    if tuition_lst != None and len(tuition_lst) != 0:
+    if tuition_lst != None and len(tuition_lst) != 0 and None not in tuition_lst:
+        print(tuition_lst)
         json_return = []
         for i in json_result:
             json_college = json.loads(i)
@@ -620,8 +597,6 @@ def test_filter():
     tuition = post_request["Tuition"]
     state = post_request["State"]
     colleges_array = get_colleges_for_explore(array, tuition,state,headers_explore) # put in fillers for tuition list and state to not break things
-    # print(colleges_array)
-    print(colleges_array)
 
     return jsonify(get_order(colleges_array, filter_by, is_descending, headers_explore))
 
@@ -1011,14 +986,12 @@ def resetPasswordLogin():
 
 @app.route("/dashboard", methods = ['POST'])
 def dashboard():
-    print("START OF DASHBOARD METHOD")
     post_request = request.get_json(force=True)
     email = post_request["UserEmail"]
     
     # Assign value from the request
     colleges = getUserColleges(email)
 
-    print(colleges)
     name_list = []
     for name in colleges:
         name_list.append("college_name")
@@ -1191,10 +1164,6 @@ def set_user_profile():
     state = post_request['State']
     name = post_request['Name']
 
-    print(email)
-    print(state)
-    print(name)
-
     try:
         # Update the user's information on state
         changeState(email, state)
@@ -1202,7 +1171,51 @@ def set_user_profile():
         return json.dumps({'Name': name, 'State': state, })
     except:
         return json.dumps({'isTrue': False})
+
+@app.route("/updatesaved", methods = ['POST'])
+def update_saved_colleges():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email']
+    collegeName = post_request['College']
+    array = post_request['Array']    
+
+    setCollegeEssayStatus(email, collegeName, array)
+    try:
+        setCollegeEssayStatus(email, collegeName, array)
+        return json.dumps({'isTrue': 1})
+    except:
+        return json.dumps({'isTrue': 0})
+
+@app.route('/getsaved', methods = ['POST'])
+def get_saved_colleges():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email'] 
+    saved = getCollegeEssayStatus(email)
+    return json.dumps(saved) 
+
+@app.route('/getgeneral', methods = ['POST'])
+def get_general_essays():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email'] 
+    saved = getGeneralEssayStatus(email)
+    return json.dumps(saved) 
+
+@app.route('/setgeneral', methods = ['POST'])
+def set_general_essays():
+    post_request = request.get_json(force=True)
+
+    email = post_request['Email']
+    array = post_request['Array']
+
+    try:
+        setGeneralEssayStatus(email, array)
+    except:
+        return json.dumps({True: 0})
     
+    return json.dumps({True: 1}) 
 
 #returns python list of all the college names
 def getUserColleges(email):
@@ -1229,10 +1242,24 @@ def setCollegeEssayStatus(email, collegeName, essayArray):
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("colleges").child(collegeName).update({"essayStatus": essayArray})
 
+def getCollegeEssayStatus(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    val = db.child("users2").child(email[:indexOfAt]).child("colleges").get().val()
+    savedObject = {}
+    for item in val.items():
+        savedObject[item[0]] = item[1].get('essayStatus')
+    return savedObject   
+
 def setGeneralEssayStatus(email, essayArray):
     email = filterEmail(email)
     indexOfAt = email.index("@")
     db.child("users2").child(email[:indexOfAt]).child("information").update({"generalEssays": essayArray})
+
+def getGeneralEssayStatus(email):
+    email = filterEmail(email)
+    indexOfAt = email.index("@")
+    return db.child("users2").child(email[:indexOfAt]).child("information").get().val()
 
 @app.route("/settabs", methods = ['POST'])
 def setTabs():

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from '../components/content/Navbar';
+import EssaysNode from '../components/EssaysNode';
 import '../css/Essays.css';
-import { OverlayTrigger, Spinner,Button,ButtonGroup } from 'react-bootstrap';
-import { withRouter } from 'react-router';
+import { OverlayTrigger, Spinner } from 'react-bootstrap';
 import { Common, Coalition } from '../components/Popovers';
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { IoIosReturnLeft } from 'react-icons/io';
 
 class Essays extends Component {
     constructor(props) {
@@ -24,7 +23,13 @@ class Essays extends Component {
             rerender: false,
             Loading: true,
             ShowEssays: true,
-            ShowSupplemental: false
+            ShowSupplemental: false,
+            CollegeList: {},
+            CompletedUC: false, 
+            CompeltedCommon: false,
+            CompletedCoalition: false
+
+            
         };
         this.searchBarInUse = this.searchBarInUse.bind(this);
         this.setSearch = this.setSearch.bind(this);
@@ -47,6 +52,8 @@ class Essays extends Component {
         this.collegesRequiringCommon = this.collegesRequiringCommon.bind(this);
         this.collegesRequiringUC = this.collegesRequiringUC.bind(this);
         this.collegesRequiringCoalition = this.collegesRequiringCoalition.bind(this);
+        this.updateSavedCollege = this.updateSavedCollege.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     setSearch = (results) => {
@@ -69,19 +76,16 @@ class Essays extends Component {
 
     requiresUCApp() {
         var requires = this.state.selectedColleges.some(college => college.app_site === "UC Application");
-        console.log("uc app: " + requires);
         return requires;
     }
 
     requiresCommonApp() {
         var requires = this.state.selectedColleges.some(college => college.common_app === "y");
-        console.log("common app: " + requires);
         return requires;
     }
 
     requiresCoalitionApp() {
         var requires = this.state.selectedColleges.some(college => college.coalition_app === "y");
-        console.log("coalition app: " + requires);
         return requires;
     }
 
@@ -90,7 +94,6 @@ class Essays extends Component {
         if(this.state.selectedColleges.length === 0) {
             return false;
         }
-        console.log("only common: " + requires);
         return requires;
     }
 
@@ -99,7 +102,6 @@ class Essays extends Component {
         if(this.state.selectedColleges.length === 0) {
             return false;
         }
-        console.log("only coalition: " + requires);
         return requires;
     }
 
@@ -108,7 +110,6 @@ class Essays extends Component {
         if(this.state.selectedColleges.length === 0) {
             return false;
         }
-        console.log("only uc: " + requires);
         return requires;
     }
 
@@ -262,75 +263,156 @@ class Essays extends Component {
 
         for (var i = 0; i < json.length; i++) {
             var curr = json[i].supplemental_essays;
-            console.log(curr);
             var parsed = parseInt(curr, 10);
             if (!isNaN(parsed)) {
                 num += parseInt(curr, 10);
             }
-            console.log(num);
         }
         return num;
     }
 
 
     componentDidMount() {
-        if(!sessionStorage.getItem('userData')) {
+        if(!localStorage.getItem('userData')) {
             this.setState({Loading: false});
             return;
         }
-        fetch("/essays", {
-            method: "POST",
-            header: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              UserEmail: sessionStorage.getItem("userData")
+
+        Promise.all([
+            fetch("/essays", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  UserEmail: localStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                let collegeList = [];
+                data.map(college => {
+                    var collegeName = JSON.parse(college);
+                    collegeList.push(collegeName);
+                })
+    
+                this.setState({ 
+                    selectedColleges: collegeList, 
+                    numEssays: this.calculateNumEssays(), 
+                    rerender: true,
+                    Loading: false });
+            }),
+
+            fetch("/getsaved", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: localStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                this.setState({CollegeList: data});
+            }),
+
+            fetch("/getgeneral", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: localStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                if(data.generalEssays[0].UC) {
+                    this.setState({CompletedUC: true});
+                }
+
+                if(data.generalEssays[1].Coalition) {
+                    this.setState({CompletedCoalition: true});
+                }
+
+                if(data.generalEssays[2].Common) {
+                    this.setState({CompletedCommon: true});
+                }
             })
-        }).then(response => {
-            console.log(response);
-            return response.json()
-        }).then(data => {
-            let collegeList = [];
-            data.map(college => {
-                var collegeName = JSON.parse(college);
-                collegeList.push(collegeName);
-            })
-            console.log(collegeList);
-            this.setState({ 
-                selectedColleges: collegeList, 
-                numEssays: this.calculateNumEssays(), 
-                rerender: true,
-                Loading: false });
-            console.log(this.state.selectedColleges);
-        });
+
+        ]).then();
     }
 
     updateColleges(){
-        fetch("/essays", {
-            method: "POST",
-            header: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              UserEmail: sessionStorage.getItem("userData")
+        Promise.all([
+            fetch("/essays", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  UserEmail: localStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                let collegeList = [];
+                data.map(college => {
+                    var collegeName = JSON.parse(college);
+                    collegeList.push(collegeName);
+                })
+    
+                this.setState({ 
+                    selectedColleges: collegeList, 
+                    numEssays: this.calculateNumEssays(), 
+                    rerender: true,
+                    Loading: false });
+            }),
+
+            fetch("/getsaved", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: localStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                this.setState({CollegeList: data});
+            }),
+
+            fetch("/getgeneral", {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: localStorage.getItem("userData")
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                if(data.generalEssays[0].UC) {
+                    this.setState({CompletedUC: true});
+                }
+
+                if(data.generalEssays[1].Coalition) {
+                    this.setState({CompletedCoalition: true});
+                }
+
+                if(data.generalEssays[2].Common) {
+                    this.setState({CompletedCommon: true});
+                }
             })
-        }).then(response => {
-            console.log(response);
-            return response.json()
-        }).then(data => {
-            let collegeList = [];
-            data.map(college => {
-                var collegeName = JSON.parse(college);
-                collegeList.push(collegeName);
-            })
-            console.log(collegeList);
-            this.setState({ 
-                selectedColleges: collegeList, 
-                numEssays: this.calculateNumEssays(), 
-                rerender: true,
-                Loading: false });
-            console.log(this.state.selectedColleges);
-        });
+
+        ]).then();
     }
 
     renderSidebar = () => {
@@ -344,6 +426,25 @@ class Essays extends Component {
                     onClick={() => this.setState({ ShowEssays: false, ShowSupplemental: true})}>Supplemental Essays</button>
             </div>
         )
+    }
+
+    handleCheck() {
+        let getArray = [];
+        getArray.push({"UC": this.state.CompletedUC});
+        getArray.push({"Coalition": this.state.CompletedCoalition});
+        getArray.push({"Common": this.state.CompletedCommon});
+        fetch('/setgeneral', {
+            method: "POST",
+            header: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              Email: localStorage.getItem("userData"),
+              Array: getArray
+            })
+        }).then(response => response.json()).then(data => {
+            console.log(data);
+        })
     }
 
     renderUC = () => {
@@ -361,6 +462,11 @@ class Essays extends Component {
                         </AccordionSummary>
                         <AccordionDetails style={{backgroundColor: 'white'}}>
                             <Typography>
+                                <p><input type="checkbox" onClick={() => {
+                                    this.setState({CompletedUC: !this.state.CompletedUC}, () => {
+                                        this.handleCheck();
+                                    })
+                                }} checked={this.state.CompletedUC}></input> Completed?</p>
                                 <p>1. Describe an example of your leadership experience in which you have positively influenced others, helped resolve disputes or contributed to group efforts over time.</p>
                                 <p>2. Every person has a creative side, and it can be expressed in many ways: problem solving, original and innovative thinking, and artistically, to name a few. Describe how you express your creative side.</p>
                                 <p>3. What would you say is your greatest talent or skill? How have you developed and demonstrated that talent over time?  </p>
@@ -380,7 +486,6 @@ class Essays extends Component {
 
     renderCommon = () => {
         var common = this.requiresCommonApp();
-        console.log("requires common: " + common);
         if (common) {
             return (
                 <div className="essay-prompts">
@@ -394,6 +499,11 @@ class Essays extends Component {
                         </AccordionSummary>
                         <AccordionDetails style={{backgroundColor: 'white'}}>
                             <Typography>
+                                <p><input type="checkbox" onClick={() => {
+                                    this.setState({CompletedCommon: !this.state.CompletedCommon}, () => {
+                                        this.handleCheck();
+                                    })
+                                }} checked={this.state.CompletedCommon}></input> Completed?</p>
                                 <p>1. Some students have a background, identity, interest, or talent so meaningful they believe their application would be incomplete without it. If this sounds like you, please share your story.</p>
                                 <p>2. The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</p>
                                 <p>3. Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</p>
@@ -426,6 +536,11 @@ class Essays extends Component {
                         </AccordionSummary>
                         <AccordionDetails style={{backgroundColor: 'white'}}>
                             <Typography>
+                                <p><input type="checkbox" onClick={() => {
+                                    this.setState({CompletedCoalition: !this.state.CompletedCoaltion}, () => {
+                                        this.handleCheck();
+                                    })
+                                }} checked={this.state.CompletedCoalition}></input> Completed?</p>
                                 <p>1. Tell a story from your life, describing an experience that either demonstrates your character or helped to shape it.</p>
                                 <p>2. Describe a time when you made a meaningful contribution to others in which the greater good was your focus. Discuss the challenges and rewards of making your contribution.</p>
                                 <p>3. Has there been a time when you’ve had a long-cherished or accepted belief challenged? How did you respond? How did the challenge affect your beliefs?</p>
@@ -441,9 +556,8 @@ class Essays extends Component {
     }
 
     renderFirstHeader = () => {
-        console.log(this.state.selectedColleges)
 
-        if(!sessionStorage.getItem('userData')) {
+        if(!localStorage.getItem('userData')) {
             return (
                 <div className="empty-div">
                     <div className="redirect-div">
@@ -488,21 +602,53 @@ class Essays extends Component {
         }
     }
 
+    updateSavedCollege(collegeName, index) {
+        let getTemp = this.state.CollegeList;
+        let getArr = getTemp[collegeName];
+        
+        if(getArr[index] === 0) {
+            getArr[index] = 1;
+        } else {
+            getArr[index] = 0;
+        }
+
+        getTemp[collegeName] = getArr;
+        this.setState({CollegeList: getTemp}, () => {
+            fetch('/updatesaved', {
+                method: "POST",
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  Email: localStorage.getItem("userData"),
+                  College: collegeName,
+                  Array: getArr
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+            });   
+        });
+    }
+
     renderSupplementalBody(college) {
         var essays = college.supplemental_essays.split("|");
-        essays.shift();
         console.log(essays);
+        essays.shift();
         if (essays.length > 0) {
             return (
-                <div>
+                <ul className="list-supplementals">
                     {essays.map((prompt, index) => {
                         return (
-                            <div className="supplementaltext">
-                                <p>{index + 1}.{prompt}</p>
-                            </div>
+                           <EssaysNode prompt={prompt} 
+                           getIndex={index} 
+                           updateSaved={this.updateSavedCollege} 
+                           name={college.college_name}
+                           array={this.state.CollegeList[college.college_name]} />
                         )
                     })}
-                </div>
+                </ul>
             );
         } else {
             return 0;
@@ -514,7 +660,6 @@ class Essays extends Component {
             <div className="render-essays-div">
                 <div className="render-essays">
                     {this.state.selectedColleges.filter(college => college.supplemental_essays !== "").map((college) => {
-                        console.log(college);
                         return (
                             <div className="essay-prompts">
                                 <Accordion style={{backgroundColor: "#313b4c"}}>

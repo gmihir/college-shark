@@ -54,7 +54,7 @@ export default function SignInSide() {
   const [email, setEmail] = useState({ Email: ''});
   const [header, setHeader] = useState({ Header: 'Password Reset Request'});
 
-  if (sessionStorage.getItem("userData")) {
+  if (localStorage.getItem("userData")) {
     return (<Redirect to='/mycolleges' />)
   }
 
@@ -161,9 +161,9 @@ export default function SignInSide() {
                       const newError = {error: true};
                       setError(newError);
                     } else {
-                      sessionStorage.setItem("userState", data["Info"].state);
-                      sessionStorage.setItem("userName", data["Info"].name);
-                      sessionStorage.setItem("userData", username.username);
+                      localStorage.setItem("userState", data["Info"].state);
+                      localStorage.setItem("userName", data["Info"].name);
+                      localStorage.setItem("userData", username.username);
                       history.push("/mycolleges");
                     }
                   })
@@ -204,9 +204,9 @@ export default function SignInSide() {
                       const newError = {error: true};
                       setError(newError);
                     } else {
-                      sessionStorage.setItem("userState", data["Info"].state);
-                      sessionStorage.setItem("userName", data["Info"].name);
-                      sessionStorage.setItem("userData", username.username);
+                      localStorage.setItem("userState", data["Info"].state);
+                      localStorage.setItem("userName", data["Info"].name);
+                      localStorage.setItem("userData", username.username);
                       history.push("/mycolleges");
                     }
                   })
@@ -250,9 +250,9 @@ export default function SignInSide() {
                     const newError = {error: true};
                     setError(newError);
                   } else {
-                    sessionStorage.setItem("userState", data["Info"].state);
-                    sessionStorage.setItem("userName", data["Info"].name);
-                    sessionStorage.setItem("userData", username.username);
+                    localStorage.setItem("userState", data["Info"].state);
+                    localStorage.setItem("userName", data["Info"].name);
+                    localStorage.setItem("userData", username.username);
                     history.push("/mycolleges");
                   }
                 })

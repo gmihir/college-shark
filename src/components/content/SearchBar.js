@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import '../../App.css';
 import '../../css/SearchBar.css';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Heart from './Heart';
-import Imaged from '../../pages/UCSDLogo.png';
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

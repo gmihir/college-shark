@@ -252,7 +252,7 @@ class DashboardTable extends React.Component {
             },
             body: JSON.stringify({
                 Tabs: newHeaders,
-                Email: sessionStorage.getItem("userData")
+                Email: localStorage.getItem("userData")
             })
         }).then(response => {
             return response.json();

@@ -9,11 +9,28 @@
     position: relative;
 }
 
-/*
-.map-div div:first-child {
-    height: calc(92vh) !important;
+.key-div {
+    position: absolute;
+    right: calc(4vw);
+    top: calc(8.5vh);
+    background-color: rgb(245, 245, 245);
+    color: black;
+    padding: calc(1vh);
+    border-radius: calc(1rem);
 }
-*/
+
+.key-div section {
+    display: flex;
+    flex-direction: row;
+}
+
+.key-div section img {
+    max-height: calc(4vh);
+}
+
+.key-div section p {
+    margin-top: calc(1vh);
+}
 
 .college-display {
     margin-top: 0;
@@ -59,7 +76,7 @@
 .reset-map{ 
     position: absolute;
     z-index: 5;
-    left: calc(35vw);
+    left: calc(23vw);
     top: calc(1.2vh);
     background-color: rgb(63, 81, 181);
     border-radius: calc(0.4rem);
@@ -163,4 +180,77 @@
     color: grey;
     font-size: calc(1.2vw);
     font-family: 'Noto Sans JP', sans-serif;
+}
+
+@media screen and (max-width: 767px) {
+    .college-display {
+        display: none;
+    }
+
+    .college-display-mobile {
+        position: relative;
+    }
+
+    .map-render {
+        width: 100% !important;
+    }
+
+    .map-search {
+        position: relative;
+        z-index: 1;
+        margin-left: calc(-5vh);
+    }
+
+    .reset-map {
+        position: absolute;
+        left: calc(64%);
+        top: calc(54vh);
+    }
+
+    .college-display-mobile {
+        position: absolute;
+        bottom: 0;
+        margin-bottom: calc(-1vh);
+        background-color: rgb(255, 255, 255);
+        width: calc(100%);
+        height: calc(70vw);
+        z-index: 2;
+    }
+
+    .img-section-mobile img {
+        max-height: calc(19vh);
+    }
+
+    .college-information-mobile h3 {
+        margin-left: calc(2vw);
+        font-size: calc(4vw);
+    }
+
+    .college-name-mobile {
+        margin-left: calc(2vw);
+        font-size: calc(6vw);
+    }
+
+    .individual-redirect-mobile {
+        border: none;
+        border-left: none;
+        border-radius: calc(0.4vw);
+        padding: calc(1vw);
+        background-color: rgb(63, 81, 181);
+        color: white;
+        transition: 0.3s;
+        box-shadow: calc(4px) calc(4px) calc(10px) rgb(110, 109, 109);   
+        margin-left: calc(2vw); 
+    }
+
+    .heart-location-mobile {
+        position: relative;
+    }
+    
+    .college-add-icon-mobile {
+        position: absolute;
+        right: calc(2.5vw);
+        top: calc(-7.5vh);
+        transform: scale(1.7);
+    }
 }

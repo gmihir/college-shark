@@ -37,7 +37,7 @@ class NavBar extends React.Component {
 
 
   componentDidMount() {
-    const name = sessionStorage.getItem("userName");
+    const name = localStorage.getItem("userName");
     fetch("/searchbar", {
       method: "POST",
       headers: {
@@ -67,7 +67,7 @@ class NavBar extends React.Component {
 
 
   handleClick = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     fetch("/logout", {
       method: "POST",
       headers: {
@@ -84,7 +84,7 @@ class NavBar extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        UserEmail: sessionStorage.getItem("userData")
+        UserEmail: localStorage.getItem("userData")
     })
     }).then(response => {
       return response.json();
@@ -155,7 +155,7 @@ class NavBar extends React.Component {
               </Nav.Item>
             </Nav>
             <Nav navbar>
-              {sessionStorage.getItem('userData') ? 
+              {localStorage.getItem('userData') ? 
               <Nav.Item>
                 <NavDropdown drop="down" alignRight="false" title={<FontAwesomeIcon icon={faUser} style={{ opacity: '60%'}} />}>
                   <NavDropdown.Header>Hi, {this.state.Username}</NavDropdown.Header>
@@ -166,7 +166,7 @@ class NavBar extends React.Component {
                   <NavDropdown.Item onClick={this.handleClick} href="/">Logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav.Item> : 
-              <Nav className="ml-auto" navbar>
+              <Nav className={window.innerWidth <= 760 ? "ml-0" : "ml-auto"} navbar>
                 <Nav.Item>
                     <Nav.Link href="/login">Login</Nav.Link>
                 </Nav.Item>

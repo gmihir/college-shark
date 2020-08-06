@@ -5,7 +5,6 @@ import Select from '@material-ui/core/Select';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -18,7 +17,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Spinner } from 'react-bootstrap';
-import { States } from '../components/State';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -60,7 +58,6 @@ export default function SignInSide() {
   const classes = useStyles();
   const [usernameError, setUsernameError] = useState({ usernameError: false });
   const [nameError, setNameError] = useState({ nameError: false });
-  const [stateError, setStateError] = useState({ stateError: false });
   const [name, setName] = useState({ name: '' });
   const [state, setState] = useState({ state: '' });
   const [username, setUsername] = useState({ username: '' });
@@ -72,7 +69,7 @@ export default function SignInSide() {
       Check: false
     });
 
-  if (sessionStorage.getItem("userData")) {
+  if (localStorage.getItem("userData")) {
     return (<Redirect to='/mycolleges' />)
   }
 
@@ -156,9 +153,9 @@ export default function SignInSide() {
                         setUsernameError(true);
                         setSpinner({ Spinner: false, Check: true });
                       } else {
-                        sessionStorage.setItem("userData", username.username);
-                        sessionStorage.setItem("userState", state.state);
-                        sessionStorage.setItem("userName", name.name);
+                        localStorage.setItem("userData", username.username);
+                        localStorage.setItem("userState", state.state);
+                        localStorage.setItem("userName", name.name);
                         history.push("/mycolleges");
                       }
                     });
@@ -300,9 +297,9 @@ export default function SignInSide() {
                         setUsernameError(true);
                         setSpinner({ Spinner: false, Check: true });
                       } else {
-                        sessionStorage.setItem("userData", username.username);
-                        sessionStorage.setItem("userState", state.state);
-                        sessionStorage.setItem("userName", name.name);
+                        localStorage.setItem("userData", username.username);
+                        localStorage.setItem("userState", state.state);
+                        localStorage.setItem("userName", name.name);
                         console.log(state.state);
                         history.push("/mycolleges");
                       }
@@ -367,9 +364,9 @@ export default function SignInSide() {
                         setUsernameError(true);
                         setSpinner({ Spinner: false, Check: true });
                       } else {
-                        sessionStorage.setItem("userData", username.username);
-                        sessionStorage.setItem("userState", state.state);
-                        sessionStorage.setItem("userName", name.name);
+                        localStorage.setItem("userData", username.username);
+                        localStorage.setItem("userState", state.state);
+                        localStorage.setItem("userName", name.name);
                         history.push("/mycolleges");
                       }
                     });
@@ -434,9 +431,9 @@ export default function SignInSide() {
                         setUsernameError(true);
                         setSpinner({ Spinner: false, Check: true });
                       } else {
-                        sessionStorage.setItem("userData", username.username);
-                        sessionStorage.setItem("userState", state.state);
-                        sessionStorage.setItem("userName", name.name);
+                        localStorage.setItem("userData", username.username);
+                        localStorage.setItem("userState", state.state);
+                        localStorage.setItem("userName", name.name);
                         history.push("/mycolleges");
                       }
                     });
@@ -496,9 +493,9 @@ export default function SignInSide() {
                       setUsernameError(true);
                       setSpinner({ Spinner: false, Check: true });
                     } else {
-                      sessionStorage.setItem("userData", username.username);
-                      sessionStorage.setItem("userState", state.state);
-                      sessionStorage.setItem("userName", name.name);
+                      localStorage.setItem("userData", username.username);
+                      localStorage.setItem("userState", state.state);
+                      localStorage.setItem("userName", name.name);
                       history.push("/mycolleges");
                     }
                   });

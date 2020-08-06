@@ -13,7 +13,6 @@ import 'primeicons/primeicons.css';
 import Select from 'react-select';
 import { faInfoCircle, faSadTear, faSort, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withRouter } from 'react-router-dom';
 
 class Explore extends React.Component {
     constructor(props) {
@@ -86,47 +85,41 @@ class Explore extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
-        const getTuitionArray = sessionStorage.getItem("tuitionarray");
-        console.log(getTuitionArray);
-        let toArray = [];
 
-        let tuitionLower = sessionStorage.getItem("normallower");
-        if(tuitionLower !== null && tuitionLower !== '') {
-            tuitionLower = parseInt(tuitionLower);
-        }
-        this.setState({ TuitionLower: tuitionLower });
-
-        let tuitionUpper = sessionStorage.getItem("normalupper");
-        if(tuitionUpper !== null && tuitionUpper !== '') {
-            tuitionUpper = parseInt(tuitionUpper);
-        }
-        this.setState({ TuitionUpper: tuitionUpper });
-
-        let savedArray = sessionStorage.getItem("array");
+        //Get the array from localStorage for searching
+        let savedArray = localStorage.getItem("array");
         let copyArray = [];
+        //Check if the array is empty or not defined
         if (savedArray === null || savedArray === undefined || savedArray === '') {
             //do nothing
             this.setState({ToggleClear: false});
         } else {
+            //Else, convert the String from session to an array
             copyArray = savedArray.split(",");
             if (copyArray[0] === "") {
                 copyArray = [];
             }
+            //Enable toggleClear since there are filters
             this.setState({ToggleClear: true});
         }
 
-        const filterBy = sessionStorage.getItem("filterby");
+        //Filter by to determine how to filter the items
+        const filterBy = localStorage.getItem("filterby");
+        //Starting index, used to determine from the Sortby array
         let indices = 0;
+        //If it is not null or a comma
         if (filterBy !== null && filterBy !== ',') {
+            //Split to array and return index for the state
             const index = this.splitToArray(filterBy, Sortby);
             indices = index;
             this.setState({ Filter: Sortby[index] });
         } else {
+            //Set it to empty and indices is 0 for "national ranking"
             this.setState({ Filter: []});
             indices = 0;    
         }
 
-        const checked = sessionStorage.getItem("checked");
+        const checked = localStorage.getItem("checked");
         let checkOrderBy = false;
         if(checked !== null && checked !== 'undefined') {
             if(checked === 'false') {
@@ -141,15 +134,34 @@ class Explore extends React.Component {
             checkOrderBy = false    
         }
 
-        if(getTuitionArray !== '' && getTuitionArray !== null) {
-            toArray = getTuitionArray.split(",");
-            toArray[0] = "tuition"
-            toArray[1] = parseInt(toArray[1]);
-            toArray[2] = parseInt(toArray[2]);
-            this.setState({ToggleClear: true});
-        }
+        const getTuitionArray = localStorage.getItem("tuitionarray");
+        let toArray = [];
 
-        console.log(toArray);
+        let tuitionLower = localStorage.getItem("normallower");
+        if(tuitionLower !== null && tuitionLower !== '') {
+            tuitionLower = parseInt(tuitionLower);
+        }
+        this.setState({ TuitionLower: tuitionLower });
+
+        let tuitionUpper = localStorage.getItem("normalupper");
+        if(tuitionUpper !== null && tuitionUpper !== '') {
+            tuitionUpper = parseInt(tuitionUpper);
+        }
+        this.setState({ TuitionUpper: tuitionUpper });
+        if(getTuitionArray !== '' && getTuitionArray !== null && getTuitionArray.length !== 0) {
+            if(tuitionLower !== '' || tuitionUpper !== '') {
+                toArray[0] = "tuition"
+                toArray[1] = tuitionLower;
+                toArray[2] = tuitionUpper;
+                this.setState({ToggleClear: true});
+            } else {
+                toArray = getTuitionArray.split(",");
+                toArray[0] = "tuition"
+                toArray[1] = parseInt(toArray[1]);
+                toArray[2] = parseInt(toArray[2]);
+                this.setState({ToggleClear: true});
+            }
+        }
         
         fetch("/filter", {
             method: "POST",
@@ -161,7 +173,7 @@ class Explore extends React.Component {
                 Filter: Sortby[indices].value,
                 IsDescending: checkOrderBy,
                 Tuition: toArray,
-                State: sessionStorage.getItem("userState")
+                State: localStorage.getItem("userState")
             })
         }).then(response => {
             return response.json()
@@ -173,8 +185,8 @@ class Explore extends React.Component {
         });
 
         let satArr = [0, 1600];
-        if(sessionStorage.getItem('satscore') !== null) {
-            const satAverage = sessionStorage.getItem('satscore');
+        if(localStorage.getItem('satscore') !== null) {
+            const satAverage = localStorage.getItem('satscore');
             let temp = [];
             satArr = satAverage.split(',');
             satArr.forEach((sat) => {
@@ -186,8 +198,8 @@ class Explore extends React.Component {
         }
 
         let actArr = [0, 36];
-        if(sessionStorage.getItem('actscore') !== null) {
-            const satAverage = sessionStorage.getItem('actscore');
+        if(localStorage.getItem('actscore') !== null) {
+            const satAverage = localStorage.getItem('actscore');
             let acttemp = [];
             actArr = satAverage.split(',');
             actArr.forEach((sat) => {
@@ -198,36 +210,36 @@ class Explore extends React.Component {
             this.setState({ACTAverage: actArr});
         }
 
-        const appFee = sessionStorage.getItem("feelower");
+        const appFee = localStorage.getItem("feelower");
         this.setState({ AppFeeLower: appFee });
 
-        const appFeeUpper = sessionStorage.getItem("feeupper");
+        const appFeeUpper = localStorage.getItem("feeupper");
         this.setState({ AppFeeUpper: appFeeUpper });
 
-        const acceptLower = sessionStorage.getItem("acceptlower");
+        const acceptLower = localStorage.getItem("acceptlower");
         this.setState({ AcceptanceLower: acceptLower });
 
-        const acceptUpper = sessionStorage.getItem("acceptupper");
+        const acceptUpper = localStorage.getItem("acceptupper");
         this.setState({ AcceptanceUpper: acceptUpper });
 
-        const populationLower = sessionStorage.getItem("populationlower");
+        const populationLower = localStorage.getItem("populationlower");
         this.setState({ PopulationLower: populationLower });
 
-        const populationUpper = sessionStorage.getItem("populationupper");
+        const populationUpper = localStorage.getItem("populationupper");
         this.setState({ PopulationUpper: populationUpper });
 
-        const nationalLower = sessionStorage.getItem("nationallower");
+        const nationalLower = localStorage.getItem("nationallower");
         this.setState({ RankingLower: nationalLower });
 
-        const nationalUpper = sessionStorage.getItem("nationalupper");
+        const nationalUpper = localStorage.getItem("nationalupper");
         this.setState({ RankingUpper: nationalUpper });
 
-        const checkedState = sessionStorage.getItem("checkedstate");
+        const checkedState = localStorage.getItem("checkedstate");
         if (checkedState !== null) {
             this.setState({ CheckedState: checkedState });
         }
 
-        const appType = sessionStorage.getItem("appfee");
+        const appType = localStorage.getItem("appfee");
         if (appType !== null) {
             if(appType.length === 0 || appType === ',') {
                 this.setState({ App: []});
@@ -237,7 +249,7 @@ class Explore extends React.Component {
             }
         }
 
-        const letterRec = sessionStorage.getItem("letterrec");
+        const letterRec = localStorage.getItem("letterrec");
         if (letterRec !== null) {
             if(letterRec.length === 0 || letterRec === ',') {
                 this.setState({ LOR: []});
@@ -247,7 +259,7 @@ class Explore extends React.Component {
             }          
         }
 
-        const schoolType = sessionStorage.getItem("schooltype");
+        const schoolType = localStorage.getItem("schooltype");
         if (schoolType !== null) {
             if(schoolType.length === 0 || schoolType === ',') {
                 this.setState({ School: [] });
@@ -257,7 +269,7 @@ class Explore extends React.Component {
             }
         }
 
-        const stateFilter = sessionStorage.getItem("statefilter");
+        const stateFilter = localStorage.getItem("statefilter");
         if (stateFilter !== null) {
             let newArray = [];
             if(stateFilter === "," || stateFilter.length === 0) {
@@ -330,7 +342,7 @@ class Explore extends React.Component {
                                         <Tile Alias={val["alias"]} Tuition={this.numFormat(val["tuition_normal"])} TuitionOOS={this.numFormat(val["tuition_oos"])}
                                             Acceptance={val["acceptance_rate"]} Fee={val["app_fee"]} collegeName={val["college_name"]}
                                             Logo={val["college_logo"]} Type={val["school_type"]} Population={this.numFormat(val["population"])}
-                                            Ranking={val["national_ranking"]}
+                                            Ranking={val["national_ranking"]} State={val["state"]}
                                         />
                                     </li>
                                 )
@@ -350,7 +362,7 @@ class Explore extends React.Component {
                                         <Tile Alias={val["alias"]} Tuition={this.numFormat(val["tuition_normal"])} TuitionOOS={this.numFormat(val["tuition_oos"])}
                                             Acceptance={val["acceptance_rate"]} Fee={val["app_fee"]} collegeName={val["college_name"]}
                                             Logo={val["college_logo"]} Type={val["school_type"]} Population={this.numFormat(val["population"])}
-                                            Ranking={val["national_ranking"]}
+                                            Ranking={val["national_ranking"]} State={val["state"]}
                                         />
                                     </li>
                                 )
@@ -506,10 +518,56 @@ class Explore extends React.Component {
                 <hr></hr>
 
                 <div className="app-type">
+                    <div className="div-slider">
+                        <div className="slider-header">SAT Average: <p>{this.state.SATAverage[0]} - {this.state.SATAverage[1]}</p></div>
+                        <div className="slider-main">
+                            <Slider value={this.state.SATAverage} onChange={(e) => this.setState({SATAverage: e.value}, () => {
+                                // setTimeout(function() { this.handleClick(); }.bind(this), 1000);
+                            })} range={true} max={1600}/>    
+                        </div>
+                    </div>
+
+                    {this.state.SATAverage[0] !== 0 || this.state.SATAverage[1] !== 1600 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ SATAverage: [0, 1600]}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
+                    <OverlayTrigger trigger="click" placement="right" overlay={SATScoreList} rootClose>
+                        <div><FontAwesomeIcon icon={faInfoCircle}
+                            style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(1.1rem)' }} /></div>
+                    </OverlayTrigger>
+                </div>
+
+                <hr></hr>
+
+                <div className="app-type">
+                    <div className="div-slider">
+                        <div className="slider-header">ACT Average: <p>{this.state.ACTAverage[0]} - {this.state.ACTAverage[1]}</p></div>
+                        <div className="slider-main">
+                            <Slider value={this.state.ACTAverage} onChange={(e) => this.setState({ACTAverage: e.value}, () => {
+                                // setTimeout(function() { this.handleClick(); }.bind(this), 1000);
+                            })} range={true} max={36}/>    
+                        </div>
+                    </div>
+
+                    {this.state.ACTAverage[0] !== 0 || this.state.ACTAverage[1] !== 36 ? 
+                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ ACTAverage: [0, 36]}, () => this.handleClick())}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div> : null}
+
+                    <OverlayTrigger trigger="click" placement="right" overlay={ACTScoreList} rootClose>
+                        <div><FontAwesomeIcon icon={faInfoCircle}
+                            style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(1.1rem)' }} /></div>
+                    </OverlayTrigger>
+                </div>
+
+                <hr />
+
+                <div className="app-type">
                     <div className="dropdown-div">
                         <div className="dropdown-main">
                             <Select onChange={(e) => {this.setState({ App: e }, () => {
-                                this.handleClick();
+                                // this.handleClick();
                             }
                             )}} 
                             options={App} placeholder={"Application Type"} value={this.state.App}
@@ -534,7 +592,7 @@ class Explore extends React.Component {
                     <div className="dropdown-div">
                         <div className="dropdown-main">
                             <Select onChange={(e) => this.setState({ LOR: e }, () => {
-                                this.handleClick();
+                                // this.handleClick();
                             })}
                                 options={LOR} placeholder={"Letters of Rec."} value={this.state.LOR}
                         />
@@ -558,7 +616,7 @@ class Explore extends React.Component {
                     <div className="dropdown-div">
                         <div className="dropdown-main">
                             <Select onChange={(e) => this.setState({ School: e }, () => {
-                                this.handleClick();
+                                // this.handleClick();
                             })}
                                 options={Type} placeholder={"School Type"} value={this.state.School}
                         />
@@ -601,53 +659,6 @@ class Explore extends React.Component {
                 </div>
 
                 <hr></hr>
-
-                <div className="app-type">
-                    <div className="div-slider">
-                        <div className="slider-header">SAT Average: <p>{this.state.SATAverage[0]} - {this.state.SATAverage[1]}</p></div>
-                        <div className="slider-main">
-                            <Slider value={this.state.SATAverage} onChange={(e) => this.setState({SATAverage: e.value}, () => {
-                                setTimeout(function() { this.handleClick(); }.bind(this), 1000);
-                            })} range={true} max={1600}/>    
-                        </div>
-                    </div>
-
-                    {this.state.SATAverage[0] !== 0 || this.state.SATAverage[1] !== 1600 ? 
-                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ SATAverage: [0, 1600]}, () => this.handleClick())}>
-                        <FontAwesomeIcon icon={faTimes} />
-                    </div> : null}
-
-                    <OverlayTrigger trigger="click" placement="right" overlay={SATScoreList} rootClose>
-                        <div><FontAwesomeIcon icon={faInfoCircle}
-                            style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(1.1rem)' }} /></div>
-                    </OverlayTrigger>
-                </div>
-
-                <hr></hr>
-
-                <div className="app-type">
-                    <div className="div-slider">
-                        <div className="slider-header">ACT Average: <p>{this.state.ACTAverage[0]} - {this.state.ACTAverage[1]}</p></div>
-                        <div className="slider-main">
-                            <Slider value={this.state.ACTAverage} onChange={(e) => this.setState({ACTAverage: e.value}, () => {
-                                setTimeout(function() { this.handleClick(); }.bind(this), 1000);
-                            })} range={true} max={36}/>    
-                        </div>
-                    </div>
-
-                    {this.state.ACTAverage[0] !== 0 || this.state.ACTAverage[1] !== 36 ? 
-                    <div className="clear-filter-icon-dd" onClick={() => this.setState({ ACTAverage: [0, 36]}, () => this.handleClick())}>
-                        <FontAwesomeIcon icon={faTimes} />
-                    </div> : null}
-
-                    <OverlayTrigger trigger="click" placement="right" overlay={ACTScoreList} rootClose>
-                        <div><FontAwesomeIcon icon={faInfoCircle}
-                            style={{ opacity: '60%', marginLeft: 'calc(0.5rem)', marginTop: 'calc(1.1rem)' }} /></div>
-                    </OverlayTrigger>
-                </div>
-
-                <hr></hr>
-                
 
                 <div className="filter-button-div">
                     <button onClick={this.handleClick} className="filter-button">APPLY</button>
@@ -739,12 +750,12 @@ class Explore extends React.Component {
     pushToArray(state, string, array, sign, storage) {
         if (state === null || state === '') {
             //Nothing happens
-            sessionStorage.setItem(storage, '');
+            localStorage.setItem(storage, '');
         } else if (/^\d+$/.test(state)) {
             array.push(string);
             array.push(sign + state);
             this.setState({Error: false});
-            sessionStorage.setItem(storage, state);
+            localStorage.setItem(storage, state);
         } else {
             this.setState({Error: true});
             array.push(string);
@@ -757,37 +768,32 @@ class Explore extends React.Component {
         let getHigher = 800000;
         
         if(/^\d+$/.test(stateLower)) {
-            console.log(stateLower);
             getLower = parseInt(stateLower)
             this.setState({Error: false});
-            sessionStorage.setItem("normallower", stateLower);
+            localStorage.setItem("normallower", stateLower);
         } else {
             //Do nothing, this means stateLower is empty or not a real number
-            console.log("error tuitionlower")
             this.setState({Error: true});
         }
 
         if(/^\d+$/.test(stateUpper)) {
-            console.log(stateUpper);
             getHigher = parseInt(stateUpper);
             this.setState({Error: false});
-            sessionStorage.setItem("normalupper", stateUpper);
+            localStorage.setItem("normalupper", stateUpper);
         } else {
             //Do nothing, this means stateUpper is empty or not a real number
-            console.log("error tuitionupper")
             this.setState({Error: true});
         }
 
         array.push("tuition");
         array.push(getLower);
         array.push(getHigher);
-        console.log(array);
     }
 
     pushToArrayDouble(state, string, array, sign, storage) {
         if (state === null || state === '') {
             //Nothing happens
-            sessionStorage.setItem(storage, '');
+            localStorage.setItem(storage, '');
         } else if (/^[1-9]\d*(\.\d+)?$/.test(state)) {
             if(state.split(".").length > 2) {
                 array.push(string);
@@ -798,7 +804,7 @@ class Explore extends React.Component {
             array.push(string);
             array.push(sign + state);
             this.setState({Error: false});
-            sessionStorage.setItem(storage, state);
+            localStorage.setItem(storage, state);
         } else {
             this.setState({Error: true});
             array.push(string);
@@ -842,7 +848,12 @@ class Explore extends React.Component {
 
         if (this.state.TuitionLower !== '' || this.state.TuitionUpper !== '') {
             this.pushToTuitionArray(this.state.TuitionLower, this.state.TuitionUpper, arrayTuition);
-        } 
+            localStorage.setItem("tuitionarray", arrayTuition);
+        } else {
+            localStorage.setItem("tuitionarray", '');
+            localStorage.setItem("normallower", '');
+            localStorage.setItem("normalupper", '');
+        }
 
         if (this.state.App.value !== 'Any' && this.state.App.length !== 0) {
             if (this.state.App.value === 'commonapp') {
@@ -890,25 +901,22 @@ class Explore extends React.Component {
             keys.push(state.value);
         })
 
-        sessionStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
-        sessionStorage.setItem("checked", this.state.IsDescending.value);
-        sessionStorage.setItem("schooltype", [this.state.School.value, this.state.School.label]);
-        sessionStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
-        sessionStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
-        sessionStorage.setItem("statefilter", keys);
-        sessionStorage.setItem("satscore", this.state.SATAverage);
-        sessionStorage.setItem("actscore", this.state.ACTAverage);
+        localStorage.setItem("filterby", [this.state.Filter.value, this.state.Filter.label]);
+        localStorage.setItem("checked", this.state.IsDescending.value);
+        localStorage.setItem("schooltype", [this.state.School.value, this.state.School.label]);
+        localStorage.setItem("letterrec", [this.state.LOR.value, this.state.LOR.label]);
+        localStorage.setItem("appfee", [this.state.App.value, this.state.App.label]);
+        localStorage.setItem("statefilter", keys);
+        localStorage.setItem("satscore", this.state.SATAverage);
+        localStorage.setItem("actscore", this.state.ACTAverage);
 
         if(array.length !== 0 || arrayTuition.length !== 0 || (this.props.location !== undefined && this.props.location.state !== undefined)) {
-            console.log("here: ", true);
             this.setState({ ToggleClear: true, ExploreRedirect: false });
         } else {
             this.setState({ ToggleClear: false, ExploreRedirect: false });    
         }
 
-        sessionStorage.setItem("array", array);
-        sessionStorage.setItem("tuitionarray", arrayTuition);
-        console.log(arrayTuition);
+        localStorage.setItem("array", array);
         fetch("/filter", {
             method: "POST",
             headers: {
@@ -919,7 +927,7 @@ class Explore extends React.Component {
                 Filter: this.state.Filter.length === 0 ? Sortby[0].value : this.state.Filter.value,
                 IsDescending: this.state.IsDescending.length === 0 ? OrderBy[0].value : this.state.IsDescending.value,
                 Tuition: arrayTuition,
-                State: sessionStorage.getItem('userState')
+                State: localStorage.getItem('userState')
             })
         }).then(response => {
             return response.json();
@@ -963,7 +971,7 @@ class Explore extends React.Component {
             this.state.StateFilter.forEach(state => {
                 array.push(state.value);
             })
-            this.handleClick("state");
+            // this.handleClick("state");
         });
     };
 

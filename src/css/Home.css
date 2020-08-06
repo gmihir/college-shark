@@ -152,13 +152,18 @@
 
 .carousel {
   height: calc(45rem) !important;
+  z-index:0;
 }
 
 .carousel img {
   padding-bottom: calc(15vh) !important;
+  z-index:0;
+
 }
 
 .carousel-caption {
   padding-bottom: calc(22vh) !important;
+  z-index:0;
+
 }
 

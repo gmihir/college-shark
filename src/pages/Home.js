@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {Redirect} from 'react-router';
-import { Container, Nav, Button, Row, Col, Form, Modal, Carousel} from 'react-bootstrap';
+import { Container, Button, Row, Col, Form, Modal, Carousel} from 'react-bootstrap';
 import NavBar from '../components/content/Navbar';
 import SearchBar from '../components/content/SearchBar';
-import { Link } from 'react-router-dom';
 import '../css/Home.css';
-import { faGlobeAmericas, faLayerGroup, faScroll, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faGlobeAmericas, faLayerGroup, faScroll } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Stanford = require('./wp2017235.jpg');
 const Rice = require('./Rice.jpg');
-const Royce = require('./Royce.jpg');
+const Berkeley = require('./Royce.png');
 
 function Home() {
 
@@ -81,7 +79,7 @@ function Home() {
         }
       }
 
-    // if(sessionStorage.getItem("userData")){
+    // if(localStorage.getItem("userData")){
     //     return(<Redirect to='/mycolleges' />)
     // }
 
@@ -162,14 +160,14 @@ function Home() {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src={Royce}
+                    src={Berkeley}
                     alt="Third slide"
                     height="850"
                     />
 
                     <Carousel.Caption>
-                        <h3>University of Texas-Austin</h3>
-                        <p>The Tower</p>
+                        <h3>University of California, Berkeley</h3>
+                        <p>Sather Gate</p>
                     </Carousel.Caption>
             </Carousel.Item>
             </Carousel>
