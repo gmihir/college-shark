@@ -321,9 +321,6 @@ class Individual extends Component {
                                 <p>
                                     Financial Aid: <a href={this.generateLink(this.state.college_json["npc_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["npc_url"])}</a>
                                 </p>
-                                <p>
-                                    Housing: <a href={financialAid} target="_blank" rel="noopener noreferrer">{financialAid}</a>
-                                </p>
                         </div>
                 );
                 }
@@ -804,9 +801,6 @@ class Individual extends Component {
                                 </p>
                                 <p>
                                     Financial Aid: <a href={this.generateLink(this.state.college_json["npc_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["npc_url"])}</a>
-                                </p>
-                                <p>
-                                    Housing: <a href={financialAid} target="_blank" rel="noopener noreferrer">{financialAid}</a>
                                 </p>
                     </div>
                 </div>
