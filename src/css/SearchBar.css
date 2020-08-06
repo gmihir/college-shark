@@ -8,7 +8,8 @@
   /* Styling for the results on the Map tab and Search bar */
   .individual {
     position: relative;
-    background-color: rgb(247, 247, 247);
+    background-color: white;
+    font-weight: 500;
     height: calc(6.5vh);
     margin-top: 0;
     width: calc(35vw);
