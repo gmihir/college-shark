@@ -17,7 +17,6 @@
     flex-direction: row;
     justify-content: center;
     border-color: #313b4c;
-    border-style: solid;
     border-left-color: transparent;
     border-right-color: transparent;
     border-width: calc(.03vw);
