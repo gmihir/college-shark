@@ -218,12 +218,6 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
     cols = ",".join(headers_explore)
     query = "SELECT " + cols + " FROM " + os.environ.get("TABLE_NAME")
     first_state = True
-    tuition_absolute = False
-    tuition_count = Counter(query_lst)
-    last_tuition = False
-    first_tuition = True
-    if tuition_count["tuition_oos"] + tuition_count["tuition_normal"] is 4:
-        tuition_absolute = True
     if len(query_lst) > 0:
         query += " WHERE"
         for i in range(0, len(query_lst), 2): 
@@ -234,24 +228,10 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
                 epoch = get_epoch(query_lst[i + 1][1:])
                 query_lst[i + 1] = query_lst[i + 1][0] + str(epoch)
             if query_lst[i] in numbers:
-                if tuition_absolute and not last_tuition and "tuition" in query_lst[i]:
-                    query += "("
-                    if i-2 >= 0 and "tuition" not in query_lst[i-2]:
-                        query += "("
-                elif "tuition" in query_lst[i]:
-                    last_tuition = True
                 if query_lst[i + 1][0] == "+":
                     query += " " + str(query_lst[i]) + " >= " + str(query_lst[i + 1][1:])
                 else:
                     query += " " + str(query_lst[i]) + " <= " + str(query_lst[i + 1][1:])
-                if tuition_absolute and last_tuition and "tuition" in query_lst[i]:
-                    query += ")"
-                    if "tuition" in query_lst[i] and (i+2 > len(query_lst)-1 or "tuition" not in query_lst[i+2]):
-                        query += ")"
-                    if i+2 < len(query_lst) and "tuition" in query_lst[i+2]:
-                        last_tuition = False
-                elif "tuition" in query_lst[i]:
-                    last_tuition = True
             else:
                 if query_lst[i] == "state":
                     if first_state == True:
@@ -266,10 +246,6 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
                         query += ")"
                 else:
                     query += " " + str(query_lst[i]) + "=\'" + str(query_lst[i+1]) + "\'"
-            if i+2 < len(query_lst) and "tuition" in query_lst[i] and "tuition" in query_lst[i+2] and tuition_absolute and not last_tuition:
-                query += " OR "
-                continue
-
             if i != len(query_lst) - 2:
                     query += " AND"
 
@@ -294,7 +270,8 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
     for college in toBeSorted:
         json_result.append(college.get_json(headers_explore))
 
-    if tuition_lst != None and len(tuition_lst) != 0:
+    if tuition_lst != None and len(tuition_lst) != 0 and None not in tuition_lst:
+        print(tuition_lst)
         json_return = []
         for i in json_result:
             json_college = json.loads(i)
