@@ -466,7 +466,7 @@ class Essays extends Component {
                                     this.setState({CompletedUC: !this.state.CompletedUC}, () => {
                                         this.handleCheck();
                                     })
-                                }} checked={this.state.CompletedUC}></input> Completed?</p>
+                                }} checked={this.state.CompletedUC}></input><b> Complete</b></p>
                                 <p>1. Describe an example of your leadership experience in which you have positively influenced others, helped resolve disputes or contributed to group efforts over time.</p>
                                 <p>2. Every person has a creative side, and it can be expressed in many ways: problem solving, original and innovative thinking, and artistically, to name a few. Describe how you express your creative side.</p>
                                 <p>3. What would you say is your greatest talent or skill? How have you developed and demonstrated that talent over time?  </p>
@@ -503,7 +503,7 @@ class Essays extends Component {
                                     this.setState({CompletedCommon: !this.state.CompletedCommon}, () => {
                                         this.handleCheck();
                                     })
-                                }} checked={this.state.CompletedCommon}></input> Completed?</p>
+                                }} checked={this.state.CompletedCommon}></input> <b>Complete</b></p>
                                 <p>1. Some students have a background, identity, interest, or talent so meaningful they believe their application would be incomplete without it. If this sounds like you, please share your story.</p>
                                 <p>2. The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</p>
                                 <p>3. Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</p>
@@ -540,7 +540,7 @@ class Essays extends Component {
                                     this.setState({CompletedCoalition: !this.state.CompletedCoaltion}, () => {
                                         this.handleCheck();
                                     })
-                                }} checked={this.state.CompletedCoalition}></input> Completed?</p>
+                                }} checked={this.state.CompletedCoalition}></input> <b>Complete</b></p>
                                 <p>1. Tell a story from your life, describing an experience that either demonstrates your character or helped to shape it.</p>
                                 <p>2. Describe a time when you made a meaningful contribution to others in which the greater good was your focus. Discuss the challenges and rewards of making your contribution.</p>
                                 <p>3. Has there been a time when you’ve had a long-cherished or accepted belief challenged? How did you respond? How did the challenge affect your beliefs?</p>

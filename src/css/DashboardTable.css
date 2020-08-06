@@ -16,7 +16,7 @@
     width: calc(85vw) !important;
     border-radius: calc(1.1vmax);
     display: flex;
-    font-size: calc(1.1vw);
+    font-size: 1.5rem;    
     flex-direction: row;
     align-items: center;
 }
@@ -33,6 +33,7 @@
     flex-direction: row;
     align-items: center;
     font-family: 'Mukta', sans-serif;
+    font-size: 1.25rem;
 }
 
 .name-position:hover{
