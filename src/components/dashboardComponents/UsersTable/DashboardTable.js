@@ -43,9 +43,9 @@ class DashboardTable extends React.Component {
 
     componentDidMount() {
         let options = [{ value: "Tuition", label: "Tuition" }];
-        var allOptions = ["early_decision", "regular_decision", "college_logo", "transcripts", "mid_year", "letter_of_rec_required", "letter_of_rec_total",
-            "people_for_letters", "sat", "sat_essay", "act_essay", "self_report", "subject_tests", "essays", "supplemental_essays", "acceptance_rate",
-            "population", "national_ranking", "early_action", "scholarship_date", "interview", "app_fee", "common_app", "coalition_app", "school_type", "state", "college_campus", "sat_overall", "act_overall", "locale"];
+        var allOptions = ["early_decision", "regular_decision", "transcripts", "mid_year", "letter_of_rec_required", "letter_of_rec_total",
+            "subject_tests", "acceptance_rate",
+            "population", "national_ranking", "early_action", "scholarship_date", "interview", "app_fee", "common_app", "coalition_app", "school_type", "state", "sat_overall", "act_overall", "locale"];
         allOptions.map(header => {
             var option = { value: this.convertToHeader(header), label: this.convertToHeader(header) };
             options.push(option);
@@ -293,10 +293,10 @@ class DashboardTable extends React.Component {
         return (
             <div>
                 <div className="toprow">
-                    <div className="dashboard-header">{"My Colleges"}</div>
+                    <div className="dashboard-header">{""}</div>
                     <div className="edit-button" onClick={() => { this.handleEditClick() }}>
                         <Edit />
-                        {"Edit the Table"}
+                        {"Edit Table"}
                     </div>
                 </div>
 
@@ -354,10 +354,10 @@ class DashboardTable extends React.Component {
         return (
             <div>
                 <div className="toprow">
-                    <div className="dashboard-header">{"My Colleges"}</div>
+                    <div className="dashboard-header">{""}</div>
                     <div className="edit-button" onClick={() => { this.handleFinishClick() }}>
                         <Edit />
-                        {"Finish Editing"}
+                        {"Finish"}
                     </div>
                 </div>
 
@@ -365,7 +365,7 @@ class DashboardTable extends React.Component {
                     <div className="headers">
                         <div className="name-position">College Name</div>
                         {this.state.headers.map(title => {
-                            if (title === "College Name") {
+                            if (title === "College Name" || title === "Status") {
 
                             } else {
                                 return (
