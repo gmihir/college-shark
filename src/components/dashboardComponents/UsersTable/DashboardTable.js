@@ -186,21 +186,12 @@ class DashboardTable extends React.Component {
         let pivot = array[high];
         let i = (low - 1);
         var j;
-        var category;
-        if (column === 'Out-of-State Tuition') {
-            category = 'tuition_oos';
-        } else if (column === 'In-State Tuition') {
-            category = 'tuition_normal';
-        } else if (column === 'RD Deadline') {
-            category = 'regular_decision';
-        } else if (column === 'ED Deadline') {
-            category = 'early_decision';
-        } else if (column === 'State') {
-            category = 'state';
-        } for (let j = low; j <= high - 1; j++) {
+        var category = this.convertHeader(column, array[0]['state']);
+         for (let j = low; j <= high - 1; j++) {
             let bool = true;
             var k;
-            console.log(array[j][category].toString().charCodeAt(k) + ' ' + pivot[category].toString().charCodeAt(k))
+            console.log(array[j][category]);
+            console.log(category);
             if (array[j][category].toString().length < pivot[category].toString().length) {
 
             } else if (array[j][category].toString().length > pivot[category].toString().length) {
