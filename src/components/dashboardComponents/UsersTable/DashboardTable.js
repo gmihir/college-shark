@@ -298,6 +298,10 @@ class DashboardTable extends React.Component {
                                 return (
                                     <div className="name-position">{title}</div>
                                 )
+                            } else if (title === "Status") {
+                                return (
+                                    <div className="other-position">{title}</div>
+                                )    
                             } else {
                                 return (
                                     <div className="other-position" onClick={() => { this.handleSort(title) }}>{title}</div>
