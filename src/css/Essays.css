@@ -257,3 +257,90 @@ h3.required-text{
 .collegelisttext{
     padding-top:calc(0.3vh);
 }
+
+@media screen and (max-width: 767px) {
+    .render-essays {
+        display: grid;
+        grid-template-columns: calc(100%);
+    }   
+
+    .collegelist h2 {
+        font-size: calc(5vw);
+        margin-left: calc(0.5vw);
+    }
+
+    .titleheader{
+        border-bottom: none;
+        height: calc(6vh);
+    }
+
+    .required {
+        margin-top: calc(-2.5vh);
+        margin-left: calc(2vh);
+    }
+
+    .titleheader .required-text {
+        font-size: calc(4vw);
+    }
+
+    .required-text {
+        font-size: calc(10vw);
+        border-bottom: none;
+    }
+
+    .essays-loadout {
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: calc(100%);
+        display: flex;
+        background-color: rgb(243, 243, 243);
+        flex-direction: row;
+        border-bottom-left-radius: calc(1rem);
+        border-bottom-right-radius: calc(1rem);
+        border-top-right-radius: 0;
+        box-shadow: 4px 4px 14px grey;
+        min-height: calc(5vh);
+        text-align: center;
+        align-items: center;   
+    }
+
+    .general-tab {
+        margin-top: calc(-3vh);
+    }
+    
+    .general-tab, .supplemental-tab {
+        width: 90%;
+        font-size: calc(4vw);
+        transition: 0.3s;
+    }
+
+    
+    .supplemental-tab {
+        margin-top: calc(-3vh);
+    }
+    
+    .active-side {
+        margin-top: calc(-3vh);
+        width: 90%;
+        border: none;
+        border-left: none;
+        font-size: calc(4vw);
+        background-color: #313b4c;
+        border-radius: calc(1vh);
+        color: white
+    }
+    
+    .active-side-sup {
+        width: 90%;
+        border: none;
+        border-left: none;
+        font-size: calc(4vw);
+        background-color: #313b4c;
+        border-radius: calc(1vh);
+        color: white;
+        margin-top: calc(-3vh);
+    }
+}

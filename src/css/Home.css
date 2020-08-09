@@ -9,12 +9,13 @@
 .Background-home-page {
   width: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 .image-background {
   position: absolute;
-  z-index: 10;
   height: calc(45rem);
+  z-index: 1;
   left: calc(5vw);
 }
 
@@ -74,10 +75,10 @@
 }
 
 .header-feature {
-  margin-top: calc(2rem);
+  margin-top: calc(0rem);
+  margin-bottom: calc(5vh);
   font-size: calc(2rem);
   width: calc(33.333333%);
-  /* font-family: 'Montserrat', sans-serif; */
   font-family: 'Roboto', sans-serif;
   font-weight:bold;
 }
@@ -164,6 +165,90 @@
 .carousel-caption {
   padding-bottom: calc(22vh) !important;
   z-index:0;
+}
+
+@media screen and (max-width: 767px) {
+  
+.Background-home-page {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.carousel {
+  height: calc(60vh) !important;
+  margin-top: calc(-11.8vh);
+}
+
+.carousel img {
+  padding-bottom: calc(45vh) !important;
+  z-index:0;
+}
+
+.carousel-caption {
+  padding-bottom: calc(45vh) !important;
+  z-index:0;
+}
+
+.image-background {
+  position: relative;
+  height: 0;
+  z-index: 1;
+  margin-left: calc(8vw);
+  margin-right: calc(8vw);
+  left: 0;
+  right: 0;
+  top: calc(-8vh);
+  text-align: center;
+}
+
+.header-feature {
+  font-size: calc(8.5vw);
+  width: auto;
+}
+
+.row {
+  font-size: calc(6vw) !important;
+}
+
+.features .header-h1 {
+  margin-top: calc(1vh) !important;
+
+}
+
+.description-hover p {
+  margin-top: calc(5vh);
+  margin-bottom: calc(5vh);
+}
+
+.contact {
+  margin-top: calc(85vh);
+}
+
+.contact .form-row .col {
+  width: 100%;
+  border: 10px solid white !important;
+}
+
+.contact h1{ 
+  font-size: calc(8vw);
+  margin-top: calc(2vh);
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.searchbar-home {
+  width: calc(100%);
+  margin-top: calc(4vh);
+  text-align: center;
+  overflow: hidden;
+}
+
+.searchbar-container{
+  width: 100%;
+  min-width: calc(90vw);
+  margin-right: calc(55vw);
+}
 
 }
 

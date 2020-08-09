@@ -111,3 +111,55 @@
   height: calc(5.5vh) !important;
   width: calc(5.5vh) !important;
 }
+
+@media screen and (max-width: 767px) {
+
+.individual {
+  width: calc(74vw);  
+}
+
+.logo {
+  position: absolute !important;
+  top: calc(1vh) !important;
+  left: calc(2.5%) !important;
+  height: calc(4.5vh) !important;
+  width: calc(4.5vh) !important;
+}
+
+.collegeName {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: calc(1.3vh);
+  color: black !important;
+  margin-top: calc(2.5vh) !important;
+  position: absolute !important;
+  left: calc(7vh) !important;
+  z-index: 1;
+}
+
+.heart {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  position: absolute !important;
+  right: calc(4vw);
+  top: calc(1.4vh);
+}
+
+.map-container {
+  box-shadow: 4px 4px 10px rgb(102, 101, 101);
+  width: calc(84.5%);
+}
+
+.map-results {
+  position: relative;
+  background-color: rgb(247, 247, 247);
+  margin-top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: calc(100%);
+  transition: 0.3s;
+  height: calc(4vh);
+}
+ 
+}
