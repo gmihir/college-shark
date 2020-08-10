@@ -181,7 +181,7 @@ class Individual extends Component {
                 );
             }
             else {
-                return "Visit Website";
+                return "External Application";
             }
         }
         else {
@@ -319,7 +319,7 @@ class Individual extends Component {
                                     Official Site: <a href={this.generateLink(this.state.college_json["school_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["school_url"])}</a>
                                 </p>
                                 <p>
-                                    Financial Aid: <a href={this.generateLink(this.state.college_json["npc_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["npc_url"])}</a>
+                                    Net Price Calculator: <a href={this.generateLink(this.state.college_json["npc_url"])} target="_blank" rel="noopener noreferrer">{this.generateLink(this.state.college_json["npc_url"])}</a>
                                 </p>
                         </div>
                 );

@@ -56,6 +56,7 @@ class DashboardTable extends React.Component {
     renderIcon = (user) => {
         var essays = this.props.userInfo['colleges'][user.college_name]['essayStatus'];
         let count = 0;
+        console.log(essays);
         for (let j = 0; j < essays.length; j++) {
             if (essays[j] === 1) {
                 count++;
