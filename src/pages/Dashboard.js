@@ -27,7 +27,8 @@ class Dashboard extends React.Component {
       rerender: false,
       selectedColleges: [],
       Loading: true,
-      userInfo: []
+      userInfo: [],
+      supplementalEssays: ""
     };
     this.setSearch = this.setSearch.bind(this);
     this.removeColleges = this.removeColleges.bind(this);
@@ -110,6 +111,9 @@ class Dashboard extends React.Component {
     ]).then(([res1, res2]) => 
     Promise.all([res1.json(), res2.json()])
     ).then(([data1, data2]) => {
+      this.setState({
+        supplementalEssays : data1
+      })
       let collegeList = [];
       data1.map(college => {
         var collegeName = JSON.parse(college);
@@ -158,7 +162,7 @@ class Dashboard extends React.Component {
       }
       return (
         <div className={useStyles.theme}>
-          <DashboardTable headers={this.state.userInfo['information']['tabs']} state={this.state.userInfo['information']['state']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={this.state.users} />
+          <DashboardTable headers={this.state.userInfo['information']['tabs']} state={this.state.userInfo['information']['state']} userInfo={this.state.userInfo} users={this.state.users} removeColleges={this.removeColleges} setColleges={this.selectedCollegeSet} key={this.state.users} supplementalEssays={this.state.supplementalEssays}/>
         </div>
       )
     } else {

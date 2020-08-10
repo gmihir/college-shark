@@ -43,9 +43,9 @@ class DashboardTable extends React.Component {
 
     componentDidMount() {
         let options = [{ value: "Tuition", label: "Tuition" }];
-        var allOptions = ["early_decision", "regular_decision", "transcripts", "mid_year", "letter_of_rec_required", "letter_of_rec_total",
+        var allOptions = ["early_decision", "regular_decision", "transcripts", "mid_year", "letter_of_rec_required", 
             "subject_tests", "acceptance_rate",
-            "population", "national_ranking", "early_action", "scholarship_date", "interview", "app_fee", "common_app", "coalition_app", "school_type", "state", "sat_overall", "act_overall", "locale"];
+            "population", "national_ranking", "early_action", "scholarship_date","common_app", "coalition_app", "school_type", "sat_overall", "act_overall", "locale"];
         allOptions.map(header => {
             var option = { value: this.convertToHeader(header), label: this.convertToHeader(header) };
             options.push(option);
@@ -53,17 +53,44 @@ class DashboardTable extends React.Component {
         this.setState({ options: options });
     }
 
+    calculateNumberOfEssaysRequired(essays) {
+        if (typeof essays === 'string') {
+            var essayArrayInit = essays.split("|");
+            if (essayArrayInit.length > 1) {
+                var required = parseInt(essays, 10);
+                if (!isNaN(required)) {
+                return required;
+            }
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
+
     renderIcon = (user) => {
-        var essays = this.props.userInfo['colleges'][user.college_name]['essayStatus'];
+        var supplementalEssays = this.props.userInfo['colleges'][user.college_name]['essayStatus'];
         let count = 0;
-        console.log(essays);
-        for (let j = 0; j < essays.length; j++) {
-            if (essays[j] === 1) {
+        for (let j = 0; j < supplementalEssays.length; j++) {
+            if (supplementalEssays[j] === 1) {
                 count++;
             }
         }
-        var percentage = count / essays.length;
-        var percentage = 0;
+        if(this.props.userInfo["information"]["generalEssays"])
+        var percentage;
+        if(this.calculateNumberOfEssaysRequired(user.supplemental_essays) === 0) {
+            percentage = 1;
+        }
+        else {
+            percentage = count / this.calculateNumberOfEssaysRequired(user.supplemental_essays);
+        }
+
+
+
+        console.log(percentage);
         var color = this.getColor(percentage);
         var linear = "linear-gradient(to right, " + color + " 0%, " + color + " " + Math.ceil(percentage * 100) + "%, white" + Math.ceil(percentage * 100) + "%, white 100%)";
         let percentageComplete = Math.ceil(percentage * 100) + "%";
@@ -96,13 +123,17 @@ class DashboardTable extends React.Component {
             { pct: 0.5, color: { r: 245, g: 220, b: 0 } },
             { pct: 1.0, color: { r: 0, g: 199, b: 39 } }];
         var j;
-        let i = 0;
+        let i = 1;
+        if(percentage === 1) {
+            i = 2;
+        }
+        else {
         for (let j = 0; j < percentColor.length; j++) {
             if (percentage < percentColor[j].pct) {
                 i = j;
                 break;
             }
-        }
+        }}
         var firstColor = percentColor[i - 1];
         var secondColor = percentColor[i];
         var range = secondColor.pct - firstColor.pct;
@@ -170,7 +201,14 @@ class DashboardTable extends React.Component {
             return 'Early Action';
         } else if (header === 'national_ranking') {
             return 'Ranking';
-        } else {
+        } 
+        else if(header === 'sat_overall') {
+            return "Average SAT";
+        }
+        else if(header === 'act_overall') {
+            return "Average ACT";
+        }
+        else {
             let name = '';
             var splitName = header.split("_");
             for (let i = 0; i < splitName.length; i++) {
@@ -288,7 +326,7 @@ class DashboardTable extends React.Component {
                     <div className="dashboard-header">{""}</div>
                     <div className="edit-button" onClick={() => { this.handleEditClick() }}>
                         <Edit />
-                        {"Edit Table"}
+                        {"Edit"}
                     </div>
                 </div>
 

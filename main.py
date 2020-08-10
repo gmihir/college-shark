@@ -252,7 +252,7 @@ def get_colleges_for_explore(query_lst,tuition_lst,state,headers_explore):
 
 
     query += ";"
-    # print(query)
+    print(query)
     if query_screen(query_lst):
         results = get_query(query)
     else:
