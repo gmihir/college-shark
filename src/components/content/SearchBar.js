@@ -21,6 +21,7 @@ class SearchBar extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.exploreRedirect = this.exploreRedirect.bind(this);
         this.mapView = this.mapView.bind(this);
+        this.handleWidth = this.handleWidth.bind(this);
     }
 
     componentDidMount() {
@@ -181,9 +182,20 @@ class SearchBar extends React.Component {
         });
     }
 
+    handleWidth() {
+        if(window.innerWidth <= 760) {
+            return 'calc(74vw)';
+        } else if(this.props.barwidth) {
+            return this.props.barwidth;
+        } else {
+            return 'calc(35vw)';
+        }
+    }
+
+
     render() {
         const divStyle = {
-            width: this.props.barwidth ? this.props.barwidth : 'calc(35vw)'
+            width: this.handleWidth()
         }
         const searchBar = {
             display: 'flex',
@@ -194,7 +206,7 @@ class SearchBar extends React.Component {
         }
 
         return (
-            <Form className="ml-5" style={searchBar}>
+            <Form className="ml-0" style={searchBar}>
                 <Form.Control type="text" onInput={this.handleChange} placeholder={this.props.nodelayout ? "Find College" : "Search for colleges" } className="mr-0" style={divStyle} 
                     onKeyDown={this.props.isMap ? this.mapView : this.exploreRedirect}
                 />
@@ -206,6 +218,10 @@ class SearchBar extends React.Component {
                             let college = collegeArray[0];
                             if(college.length > 43){
                                 college = college.substring(0, 40) + "...";
+                            }
+
+                            if(college.length > 30 && window.innerWidth <= 760) {
+                                college = college.substring(0, 30) + "...";
                             }
 
                             if(this.props.nodelayout) {

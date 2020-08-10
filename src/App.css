@@ -27,7 +27,7 @@
 
 @media screen and (max-width: 767px) {
     .navbar-search {
-        width: calc(80vw);
-        left: calc(20vw);
+        width: calc(60vw);
+        left: calc(26vw);
     }
 }
