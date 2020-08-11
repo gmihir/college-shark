@@ -6,6 +6,7 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Edit from '@material-ui/icons/Edit';
 import '../../../css/DashboardToolbar.css';
 import Select from 'react-select';
+import { useIsFocusVisible } from '@material-ui/core';
 
 class DashboardTable extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ class DashboardTable extends React.Component {
         let options = [{ value: "Tuition", label: "Tuition" }];
         var allOptions = ["early_decision", "regular_decision", "transcripts", "mid_year", "letter_of_rec_required", 
             "subject_tests", "acceptance_rate",
-            "population", "national_ranking", "early_action", "scholarship_date","common_app", "coalition_app", "school_type", "sat_overall", "act_overall", "locale"];
+            "population", "national_ranking", "early_action", "scholarship_date", "school_type", "sat_overall", "act_overall", "locale"];
         allOptions.map(header => {
             var option = { value: this.convertToHeader(header), label: this.convertToHeader(header) };
             options.push(option);
@@ -79,17 +80,30 @@ class DashboardTable extends React.Component {
                 count++;
             }
         }
-        if(this.props.userInfo["information"]["generalEssays"])
-        var percentage;
-        if(this.calculateNumberOfEssaysRequired(user.supplemental_essays) === 0) {
+
+    
+        var percentage = 0;
+        // if no general required or supplementals, percentage = 1
+        console.log(this.props.userInfo["information"]["generalEssays"]);
+        if(user.common_app === "y" && this.props.userInfo["information"]["generalEssays"][2].Common === true) {
+            percentage += 0.5;
+        }
+        else if(user.coalition_app === "y" && this.props.userInfo["information"]["generalEssays"][1].Coalition === true) {
+            percentage += 0.5;
+        }
+        else if(user.college_name.includes("University of California") && this.props.userInfo["information"]["generalEssays"][0].UC === true) {
             percentage = 1;
         }
-        else {
-            percentage = count / this.calculateNumberOfEssaysRequired(user.supplemental_essays);
+        if(this.calculateNumberOfEssaysRequired(user.supplemental_essays) !== 0) {
+            percentage += count / (2*this.calculateNumberOfEssaysRequired(user.supplemental_essays));
         }
-
-
-
+        else {
+            if(user.common_app === "n" && user.coalition_app === "n" && !user.college_name.includes("University of California")) {
+                console.log("HERE" + user.college_name);
+                percentage = 1;
+            }
+        }
+        
         console.log(percentage);
         var color = this.getColor(percentage);
         var linear = "linear-gradient(to right, " + color + " 0%, " + color + " " + Math.ceil(percentage * 100) + "%, white" + Math.ceil(percentage * 100) + "%, white 100%)";

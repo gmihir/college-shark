@@ -169,7 +169,7 @@ function Home() {
 
                     <Container>
                         <Row>
-                            <Col xs={12} md={4} style={{marginTop: 'calc(-5vh)'}}>
+                        <Col xs={12} md={4}>
                                 <div style={{display: 'flex', justifyContent: 'center'}}>
                                     <h1 className="header-feature">ESSAYS</h1>
                                 </div>
