@@ -44,8 +44,9 @@
 .map-search {
     width: 100%;
     position: absolute;
-    left: calc(-1vw);
+    left: calc(0.5vw);
     top: calc(1vh);
+    
     z-index: 10;
 }
 
