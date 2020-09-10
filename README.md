@@ -1,144 +1,139 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# <center>College Shark</center>
+#### <center>www.college-shark.com</center>
+![Alt Text](/src/gifs/homepage_gif.gif)
+## Table of Contents
 
-## How to run the app locally
+* [Introduction](https://github.com/gmihir/college-shark#Introduction)
+* [Features](https://github.com/gmihir/college-shark#Features)
+* [How It Works](https://github.com/gmihir/college-shark#HowItWorks)
+* [Build Instructions](https://github.com/gmihir/college-shark#BuildInstructions)
+* [Contributors](https://github.com/gmihir/college-shark#Contributors)
 
-Ensure you are in the application-hub directory.
 
-First, run the command: 
 
-  npm install
-  
-Then, install all the following dependencies USING NPM: 
+<a name="Introduction"></a>
+## Introduction
+
+Explore, plan, and track your college application journey. College Shark is the most comprehensive college application tracker and is 100% free for students to use.
+
+Visit at www.college-shark.com
+
+<a name="Features"></a>
+## Features
+
+### Explore
+Take advantage of our highly customizable filters to evaluate characteristics such as acceptance rate, average SAT/ACT scores, tuition, etc. and find the perfect college **for you**. 
+![Alt Text](/src/gifs/main_gif.gif)
+
+### Track
+Add and track all colleges you’re applying to on the ‘My Colleges’ page, where you can choose categories like application progress, deadlines, and tuition to streamline your application process.
+
+![Alt Text](/src/gifs/dashboard_gif.gif)
+
+### Analyze
+Analyze any of the colleges in our database and receive highly detailed information about essay prompts, tuition, average scores, and more to make choosing colleges faster and easier.
+![Alt Text](/src/gifs/individual_gif.gif)
+
+<a name="HowItWorks"></a>
+## How It Works
+
+FuelEfficient is built on a Azure SQL, Firebase, Python Flask, and React stack. 
+
+## Firebase noSQL Database
+
+The Firebase Database is a hierarchical noSQL database hosted on Google’s servers, and for our project, the Pyrebase wrapper class (https://github.com/thisbejim/Pyrebase) was used to assist populating the database. 
+
+The primary purpose of the Firebase Database is to store the live, dynamic user information passed to the Flask backend by the React frontend. User information and authentication is handled here and is securely encrypted, and it stores key categories such as a user’s colleges, essay status, profile information, and more. The API is used to send and receive information from the database, and most of the information is sent in JSON format.
+
+## Azure SQL Database
+The SQL The SQL database is used to hold all information about colleges, and is indexed to optimize read operations. Queries are formed in the individual APIs and are written to maximize performance. This relational database was populated with data acquired by combining existing datasets as well as some web scraping.
+## API 
+Below is a sample of the API’s main routes, which is hosted on a Flask server.
+| Route        | Params         | Description  |
+| ------------- |:-------------:| -----:|
+| /filter      | param_range, is_descending | Queries for colleges matching given filters.  |
+| /individual     | college_name      |   Retrieves all information for a certain college. |
+| /essays| college_name      |    Retrieves essay information for a certain college. |
+| /addcollege| college_name, user_email      |    Adds a user-selected college to the noSQL database. |
+| /removecollege| college_name, user_email|    Removes a user-selected college from the noSQL database. |
+| /userprofile| user_email      |    Retrieves the information of a user. |
+
+
+## Frontend
+
+The frontend was built in React, using various components. The project also used MaterialUI and Bootstrap 4.
+<a name="BuildInstructions"></a>
+## Build Instructions
+
+Ensure Node.js and Python 3 are installed on your computer. Then, run the following commands in the terminal after cloning this repository:
 
 ```
-1. npm install react-router-dom
-2. npm install @material-ui/core
-3. npm install @material-ui/icons
-4. npm install react-bootstrap
-5. npm install @fortawesome/react-fontawesome
-6. npm install @material-ui/styles
-7. npm install react-select
-8. npm install google-maps-react
-9. npm install chart.js
-10. npm install react-chartjs-2
-11. npm install primereact
-12. npm install primeicons
+npm install react-router-dom
+npm install @material-ui/core
+npm install @material-ui/icons
+npm install react-bootstrap
+npm install @fortawesome/react-fontawesome
+npm install @material-ui/styles
+npm install react-select
+npm install google-maps-react
+npm install chart.js
+npm install react-chartjs-2
+npm install primereact
+npm install primeicons
 ```
-Then, run the command in one terminal:
 
+Now that you have all of the dependencies installed, please run the following commands to run the project locally.
+
+#### macOS
 ```
 npm start
 ```
-Once the build completes, follow these steps to run the backend (in another terminal):
+Open another terminal window and run the following commands:
 
-  Make sure you are inside the root directory of the project as well (application-hub)
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install flask python-dotenv pyrebase pypyodbc flask_cors
+source .bash-source
+flask run
+```
 
-  1. If you are on mac, run the following commands: 
-  
-    python3 -m venv venv
-    source venv/bin/activate
-  
-  If you are on windows, run these commands:
-  
-    python -m venv venv (or py -m venv venv)
-    .\venv\Scripts\activate
-    
-  if on git bash (Windows issue), run this command:
-  
-    source ./venv/Scripts/activate
-    
-  2. In the (venv) in the powershell, now run this command:
-  
-    pip install flask python-dotenv pyrebase pypyodbc flask_cors (pyrebase4 if on windows)
-    
-  Then run the bash-source:
-  
-    source .bash-source 
-    
-            or
-            
-    . .\bashsource.ps1
-    
-  3. Run this last command: 
-  
-    flask run
-    
-  if that command does not work, run this command (Windows issue most likely):
-  
-    python -m flask run
-    
-  Now the server should load and localhost:3000 will work with the backend. If there is any error on the install
-  To leave the venv in terminal, simply type 'deactivate' (without the quotes)
-  
-  IMPORTANT NOTES
-  
-  1. If the home page renders in a weird look, refresh the page and see if it fixes it
- 
-    
+#### Windows
+```
+npm start
+```
 
-## Available Scripts
+Open another terminal window and run the following commands:
+```
+python -m venv venv (or py -m venv venv)
+.\venv\Scripts\activate
+```
+If using git bash, now run the following command: 
 
-In the project directory, you can run:
+```
+source ./venv/Scripts/activate
+```
 
-### `yarn start`
+Continue and run these commands:
+```
+. .\bashsource.ps1
+flask run
+```
+Congratulations! The app should now be running on ```https://localhost:3000```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<a name="Contributors"></a>
+## Contributors
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Amitesh Sharma : https://github.com/amiteshksharma
 
-### `yarn test`
+Andrew Kim : https://github.com/Andrew-Kim-47
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ashwin Kumar : https://github.com/ashwinxkumar01
 
-### `yarn build`
+Baha Keskin : https://github.com/keskinmbaha
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Kai Wu : https://github.com/skaiwu
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Mihir Gupta : https://github.com/gmihir
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Nico Vanny : https://github.com/nvanny
