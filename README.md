@@ -50,15 +50,15 @@ Analyze any of the colleges in our database and receive highly detailed informat
 
 FuelEfficient is built on a Azure SQL, Firebase, Python Flask, and React stack. 
 
-## Firebase noSQL Database
+### Firebase noSQL Database
 
 The Firebase Database is a hierarchical noSQL database hosted on Google’s servers, and for our project, the Pyrebase wrapper class (https://github.com/thisbejim/Pyrebase) was used to assist populating the database. 
 
 The primary purpose of the Firebase Database is to store the live, dynamic user information passed to the Flask backend by the React frontend. User information and authentication is handled here and is securely encrypted, and it stores key categories such as a user’s colleges, essay status, profile information, and more. The API is used to send and receive information from the database, and most of the information is sent in JSON format.
 
-## Azure SQL Database
+### Azure SQL Database
 The SQL The SQL database is used to hold all information about colleges, and is indexed to optimize read operations. Queries are formed in the individual APIs and are written to maximize performance. This relational database was populated with data acquired by combining existing datasets as well as some web scraping.
-## API 
+### API 
 Below is a sample of the API’s main routes, which is hosted on a Flask server.
 | Route        | Params         | Description  |
 | ------------- |:-------------:| -----:|
@@ -70,7 +70,7 @@ Below is a sample of the API’s main routes, which is hosted on a Flask server.
 | /userprofile| user_email      |    Retrieves the information of a user. |
 
 
-## Frontend
+### Frontend
 
 The frontend was built in React, using various components. The project also used MaterialUI and Bootstrap 4.
 <a name="BuildInstructions"></a>
