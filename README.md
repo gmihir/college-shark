@@ -1,6 +1,10 @@
-# <center>College Shark</center>
-#### <center>www.college-shark.com</center>
-![Alt Text](/src/gifs/homepage_gif.gif)
+# <h1 align="center">College Shark</h1>
+#### <p align="center">www.college-shark.com
+![Alt Text](/src/gifs/homepage_gif.gif)</p>
+<p align="center">
+<img src=/src/gifs/homepage_gif.gif>
+</p>
+
 ## Table of Contents
 
 * [Introduction](https://github.com/gmihir/college-shark#Introduction)
@@ -9,12 +13,12 @@
 * [Build Instructions](https://github.com/gmihir/college-shark#BuildInstructions)
 * [Contributors](https://github.com/gmihir/college-shark#Contributors)
 
-
+:warning: Note: To see more extensive version control history, please visit https://github.com/ashwinxkumar01/apps-college.
 
 <a name="Introduction"></a>
 ## Introduction
 
-Explore, plan, and track your college application journey. College Shark is the most comprehensive college application tracker and is 100% free for students to use.
+Explore, plan, and track your college application journey. College Shark is the most comprehensive college application tracker available and is 100% free for students to use.
 
 Visit at www.college-shark.com
 
@@ -23,16 +27,23 @@ Visit at www.college-shark.com
 
 ### Explore
 Take advantage of our highly customizable filters to evaluate characteristics such as acceptance rate, average SAT/ACT scores, tuition, etc. and find the perfect college **for you**. 
-![Alt Text](/src/gifs/main_gif.gif)
+
+<p align="center">
+  <img src=/src/gifs/main_gif.gif>
+</p>
 
 ### Track
 Add and track all colleges you’re applying to on the ‘My Colleges’ page, where you can choose categories like application progress, deadlines, and tuition to streamline your application process.
 
-![Alt Text](/src/gifs/dashboard_gif.gif)
+<p align="center">
+  <img src=/src/gifs/dashboard_gif.gif>
+</p>
 
 ### Analyze
 Analyze any of the colleges in our database and receive highly detailed information about essay prompts, tuition, average scores, and more to make choosing colleges faster and easier.
-![Alt Text](/src/gifs/individual_gif.gif)
+<p align="center">
+  <img src=/src/gifs/individual_gif.gif>
+</p>
 
 <a name="HowItWorks"></a>
 ## How It Works
