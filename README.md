@@ -1,6 +1,5 @@
 # <h1 align="center">College Shark</h1>
 #### <p align="center">www.college-shark.com
-![Alt Text](/src/gifs/homepage_gif.gif)</p>
 <p align="center">
 <img src=/src/gifs/homepage_gif.gif>
 </p>
