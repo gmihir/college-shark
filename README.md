@@ -47,7 +47,7 @@ Analyze any of the colleges in our database and receive highly detailed informat
 <a name="HowItWorks"></a>
 ## How It Works
 
-FuelEfficient is built on a Azure SQL, Firebase, Python Flask, and React stack. 
+College Shark is built on a Azure SQL, Firebase, Python Flask, and React stack. 
 
 ### Firebase noSQL Database
 
